@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Agileista</title>
+	<%= stylesheet_link_tag "style" %>
+	<!--[if IE]>
+	<link href="/stylesheets/ie.css" media="screen" rel="Stylesheet" type="text/css" />
+	<![endif]-->
+	<%= javascript_include_tag 'prototype' %>
+	<%= javascript_include_tag 'scriptaculous' %>
+	<script language="Javascript" src="/FusionCharts/FusionCharts.js"></script>
+	
+	<%= auto_discovery_link_tag(:rss, :controller => 'backlog', :action => 'feed') %>
+</head>
+<body>
+	<div id="header">
+	<% if logged_in? && @account -%>
+		<h1><%= link_to @account.name.humanize, :controller => 'backlog' %></h1>
+	    <ul>
+		<% if @current_user.is_a?(Contributor) -%>
+		  <li><%= link_to "Add user story", :controller => 'user_stories', :action => "add" %></li>
+		<% elsif @current_user.is_a?(TeamMember) %>
+		  <li><%= link_to "Add user story", :controller => 'user_stories', :action => "new" %></li>
+		<% end -%>
+	      <!-- <li><%= link_to "Releases", :controller => 'releases' %></li> -->
+	      <li><%= link_to "Themes", :controller => 'themes' %></li>
+		  <li><%= link_to "Backlog", :controller => 'backlog' %></li>
+	      <li><%= link_to "Sprint planning", :controller => 'sprint_planning' %></li>
+<% if @account.sprints.find(:first, :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago]) -%><li><%= link_to "Task board", :controller => 'sprint' %></li><% end -%>
+		  <li style="float:right"><%= link_to "Logout", :controller => '/login', :action => 'logout' if logged_in? %></li>
+	      <li style="float:right"><%= link_to "Settings", :controller => '/account', :action => 'settings' %></li>
+	    </ul>
+	<% else %>
+		<h1>Welcome to Agileista</h1>
+	<% end -%>
+		<div id="flash">
+			<% if flash[:error] -%><span id="flasherror"><%= flash[:error] %></span><% end -%>
+			<% if flash[:notice] -%><span id="flashnotice"><%= flash[:notice] %></span><% end -%>
+		</div>
+	</div>
+	<div id="wrapper">
+		<div id="content">
+			<% if logged_in? && @account -%>
+			<div id="searchbox">
+				<% form_for :tag, :url => {:controller => :backlog, :action => 'search'} do |t| %>
+					<%= text_field_tag 'q' %>
+					<%= submit_tag 'Search' %>
+				<% end %>
+			</div>
+			<% end -%>
+			<%= @content_for_layout %>
+		</div>
+	</div>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-2222612-1";
+urchinTracker();
+</script>
+</body>
+</html>

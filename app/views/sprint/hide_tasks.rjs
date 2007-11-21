@@ -1,0 +1,5 @@
+# for element in @elements
+  for task in @element.user_story.tasks
+    page.toggle "task_#{task.id}"
+  end
+# end

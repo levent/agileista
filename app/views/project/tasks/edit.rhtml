@@ -1,0 +1,9 @@
+<h1>Project: <%= @project.name %></h1>
+<div class="summary_pane">
+<h2>Edit task</h2>
+<%= error_messages_for :task %>
+<% form_for :task, @task, :url => {:action => 'update', :id => @project, :user_story => @user_story, :task_id => @task} do |@t| %>
+	<%= render :partial => 'form' %>
+	<%= submit_tag "Save changes to task" %>
+<% end %>
+</div>

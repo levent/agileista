@@ -1,0 +1,34 @@
+<div id="main">
+
+	<div id="user_story">
+		<h1>#<%= @user_story.position %> <%=h @user_story.definition %></h1>
+		<p><%=h @user_story.description %></p>
+		<h2>Themes:</h2>
+		<% if @user_story.themes.blank? -%>
+			<p>Not assigned to any themes</p>
+		<% else -%>
+		<ul>
+			<% @user_story.themes.each do |t| -%>
+				<li><%=h t.name %></li>
+			<% end -%>
+		</ul>
+		<% end -%>
+		<h2>Tags:</h2>
+		<% if @user_story.tags.blank? -%>
+		<p>No tags</p>
+		<% else -%>
+		<% for tag in @user_story.tags -%><span class="tag"><%=h tag.name %></span> <% end -%>
+		<% end -%>
+		<% if @current_user.is_a?(TeamMember) -%>
+		<p><%= link_to image_tag('icons/page_edit.png', :class => 'icon'), {:controller => 'user_stories', :action => 'edit', :id => @user_story, :from => 'show'}, :title => 'Edit' %> Edit</p>
+		<% end -%>
+	</div>
+</div>
+<div id="sidebar">
+	<% if params[:sprint_id] %>
+		<p><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] %>
+	<% else -%>
+		<p><%= link_to "Back to backlog", :controller => 'backlog' unless params[:from] == 'themes' %></p>
+		<p><%= link_to "Back to themes", :controller => 'themes' if params[:from] == 'themes' %></p>
+	<% end -%>
+</div>

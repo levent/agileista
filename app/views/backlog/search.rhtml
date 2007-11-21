@@ -1,0 +1,18 @@
+<div id="main">
+	<h1><%= "User stories found with " + params[:q] if params[:q] %><%= "User stories tagged with " + params[:tag] if params[:tag] %> - <span class="small"><%= pluralize(@user_stories.length, "user story")%></span></h1>
+	<div id="userstorylist"> 
+		<% for @user_story in @user_stories %>
+			<%= render :partial => 'show_story_card' %>
+		<% end %>
+	</div>
+    <p id="storypoints"><%= show_story_points(@story_points ||= nil) %></p>
+</div>
+<div id="sidebar">
+	<h2>Tags</h2>
+	<%= render(:partial => "shared/tag_cloud", :object => @cloud) %>
+	<h2>Info</h2>
+	<div id="undefined">
+		<h3>Undefined story</h3>
+		<p>This story needs estimation before it can be planned into a sprint</p>
+	</div>
+</div>

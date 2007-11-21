@@ -1,0 +1,56 @@
+<h1>Edit user story</h1>
+<div id="user_story_details">
+	<h2>Details:</h2>
+	<%= error_messages_for :user_story %>
+	<%= start_form_tag :action => 'update2', :id => @user_story, :sprint_id => params[:sprint_id] %>
+	
+	<label for="user_story_definition">Definition:</label><textarea cols="40" id="user_story_definition" name="user_story[definition]" rows="8" class="long thin"><%= @user_story.definition %></textarea>
+	<label for="user_story_description">Description:</label><textarea cols="40" id="user_story_description" name="user_story[description]" rows="20" class="long fat"><%= @user_story.description %></textarea>
+	<label for="user_story_story_points">Story points:</label><input id="user_story_story_points" name="user_story[story_points]" size="30" type="text" value="<%= @user_story.story_points %>" class="small" />
+</div>
+		<h2>Tasks:</h2>
+		<table>
+			<tr>
+				<th>Definition</th>
+				<th>Hours left</th>
+				<th>Developer</th>
+				<th></th>
+			</tr>
+		<% for task in @user_story.tasks %>
+			<tr>
+				<td><%= task.definition %></td>
+				<td><%= show_hours_left(task.hours) %></td>
+				<td><%= show_assignee(task.developer) %></td>
+				<td><%= link_to 'Edit', :action => 'edit_task', :task_id => task, :sprint_id => params[:sprint_id], :id => @user_story %></td>
+			</tr>
+		<% end %>
+		</table>
+		<hr />
+
+		<%= error_messages_for :task %>
+		<h2>Add task:</h2>
+		<label for="task_definition">Definition:</label><input id="task_definition" name="task[][definition]" size="30" type="text" class="long thin" />
+		<label for="task_description">Description:</label><textarea cols="40" id="task_description" name="task[][description]" rows="20" class="long fat"></textarea>
+		<label for="task_hours">Hours:</label><input id="task_hours" name="task[][hours]" size="30" type="text" />
+		<label for="task_developer">Assigned to:</label>
+		<select id="task_developer_id" name="task[][developer_id]"><option value=""></option>
+		<% for p in @account.people %>
+			<option value="<%= p.id %>"><%= p.name %></option>
+		<% end %>
+		</select>
+
+		<h2>Acceptance Criteria</h2>
+		<ul>
+		<% for crit in @user_story.acceptance_criteria %>
+			<li><%= crit.detail %></li>
+		<% end %>
+		</ul>
+		<hr />
+		<%= error_messages_for :acceptance_criterium %>
+		<h2>Add acceptance criterium:</h2>
+			<label for="acceptance_criterium_detail">Detail:</label><input id="acceptance_criterium_detail" name="acceptance_criterium[detail]" size="30" type="text" />
+		<%= submit_tag "Save changes" %>		
+	<% end_form_tag %>
+			
+
+<p><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]  %>

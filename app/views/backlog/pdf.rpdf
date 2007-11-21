@@ -1,0 +1,14 @@
+pdf.select_font "Helvetica"
+pdf.text "This is in alpha testing", :font_size => 42, :justification => :center
+pdf.start_page_numbering(300, 20, 16, nil, nil, 1)
+count = 0
+for us in @user_stories
+  count += 1
+  pdf.text us.definition, :font_size => 22, :justification => :left
+  pdf.text us.description, :font_size => 14, :justification => :left
+  pdf.text "Story points: " + us.story_points.to_s, :font_size => 18, :justification => :right, :spacing => 2
+  if count >= 6
+    pdf.start_new_page(true)
+    count = 0
+  end
+end

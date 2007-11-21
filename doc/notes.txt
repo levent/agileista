@@ -1,0 +1,48 @@
+ass Person
+
+	has_many :accounts, :through => :memberships
+	unique :email
+	
+	# or in membership ????
+	has_many :project_members
+	has_many :projects, :through => :project_members
+  
+end
+
+class Account
+
+	has_many :people, :through => :memberships
+	unique :name
+	belongs_to :account_holder
+	
+	# GET RID OF TIME ZONE
+	
+end
+
+class Membership
+
+	belongs_to :person
+	belongs_to :account
+
+end
+
+class AHMembership < Membership
+
+end
+
+class DevMembership < Membership
+
+end
+
+class ManagerMembership < Membership
+
+end
+
+class Project
+
+	belongs_to :account
+	
+	has_many :user_stories
+	has_many :people :through => :project_members
+
+end

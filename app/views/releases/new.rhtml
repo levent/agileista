@@ -1,0 +1,12 @@
+<div id="main" class="dateselect">
+<h1>Add a release</h1>
+<%= error_messages_for :release %>
+<% form_for :release, @release, :url => {:action => 'create'} do |release| %>
+	<label for="release_name">Name:</label><%= release.text_field :name %>
+	<label for="release_end_date">End date:</label><%= release.date_select :end_date, :order => [:day, :month, :year], :start_month => 12 %>
+	<%= submit_tag "Add release" %>
+<% end %>
+</div>
+<div id="sidebar">
+	<p><%= link_to "Back to releases", :controller => 'releases' %></p>
+</div>

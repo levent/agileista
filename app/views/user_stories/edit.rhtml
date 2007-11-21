@@ -1,0 +1,22 @@
+<div id="main">
+	<h1>Edit user story</h1>
+	<!-- <div id="maincontent"> -->
+	<h2>Details:</h2>
+	<%= error_messages_for :user_story %>
+	<% form_for :user_story, @user_story, :url => {:action => 'update', :id => @user_story, :sprint_id => params[:sprint_id], :from => params[:from]} do |@us| %>
+		<%= render :partial => 'form' %>
+		<%= submit_tag "Save changes to user story" %>
+	<% end %>
+</div>
+<div id="sidebar">
+	<%= render :partial => 'acceptance_crit_holder' %>
+	<hr />
+	<!-- %= render :partial => 'themes_holder' % -->
+	<% if params[:sprint_id] %>
+		<p><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] %>
+	<% else %>
+		<p><%= link_to "Add another user story", :controller => 'user_stories', :action => 'new' if @current_user.is_a?(TeamMember) %>
+		<p><%= link_to "Add another user story", :controller => 'user_stories', :action => 'add' if @current_user.is_a?(Contributor) %>
+		<p><%= link_to "Back to backlog", :controller => 'backlog' %>
+	<% end %>
+</div>

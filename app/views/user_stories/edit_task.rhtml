@@ -1,0 +1,41 @@
+<div id="main">
+	<h1>Edit task:</h1>
+	<div id="leftcontent">
+		<h2>User story details:</h2>
+		<p><span class="detail">Title: </span><%=h @user_story.definition %><br />
+		<span class="detail">Notes: </span><%=h @user_story.description %><br />
+		<span class="detail">Story points: </span><%= show_story_points(@user_story.story_points) %><br />
+		<span class="detail">Hours left: </span><%= @user_story.tasks.sum('hours') %><br />
+		<span class="detail">Tasks: </span><%= @user_story.tasks.count %></p>
+		<h3>Acceptance Criteria:</h3>
+		<ul class="nobullet">
+		<% for crit in @user_story.acceptance_criteria %>
+			<li><%=h crit.detail %></li>
+		<% end %>
+		</ul>
+		<h3>Tasks:</h3>
+		<ul class="nobullet">
+		<% for task in @user_story.tasks -%>
+			<li><%= link_to image_tag('icons/page_white.png', :class => 'icon'), :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to image_tag('icons/page_white_edit.png', :class => 'icon'), :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%=h task.definition %></li>
+		<% end -%>
+		</ul>
+	</div>
+	<div id="rightcontent">
+		<%= error_messages_for :task %>
+		<h2>Edit task:</h2>
+		<% form_for :task, @task, :url => {:action => 'update_task', :id => @user_story.id, :sprint_id => params[:sprint_id], :task_id => @task, :from => params[:from]} do |@task| %>
+			<label for="task_definition">Definition:</label><%= @task.text_field :definition %>
+			<label for="task_description">Description:</label><%= @task.text_area :description %>
+			<label for="task_hours">Hours:</label><%= @task.text_field :hours %>
+			<label for="task_developer">Assigned to:</label><%= @task.select "developer_id", @account.team_members.collect {|p| [ p.name, p.id ] }, { :include_blank => true } %>
+			<%= submit_tag 'Save changes' %>
+		<% end %>
+	</div>
+</div>
+<div id="sidebar">
+	<p><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] unless params[:from] == 'tb' %></p>
+	<p><%= link_to "Back to task board", :controller => 'sprint' if params[:from] == 'tb' %></p>
+	<h2>Info</h2>
+	<p><%= image_tag('icons/page_white.png', :class => 'icon') %> Show task</p>
+	<p><%= image_tag('icons/page_white_edit.png', :class => 'icon') %> Edit task</p>
+</p>

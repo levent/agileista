@@ -1,0 +1,15 @@
+<div id="main">
+<h1>Not to worry...</h1>
+<p>Enter the details below and we'll send you a new password</p>
+<%= start_form_tag :action => 'forgot' %>
+	<fieldset>
+	<label for="account_name">Account name:</label>
+	<%= text_field_tag "account_name" %>
+	<label for="user_email">Your email:</label>
+	<%= text_field_tag "email" %>
+	<%= submit_tag "Send password" %>
+	<%= link_to 'Hey! I remembered it', :controller => 'login', :action => 'index' %>
+	
+	</fieldset>
+<%= end_form_tag %>
+</div>

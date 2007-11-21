@@ -1,0 +1,10 @@
+<h1>Project: <%= @project.name %></h1>
+<div class="summary_pane">
+<h2>Add a user</h2>
+<%= render :partial => 'current_members' %>
+<% form_for :project_member, @project_member, :url => {:action => 'create', :id => @project} do |pm| %>
+	<%= collection_select :project_member, :person_id, @account.people - @project.people, :id, :name %>
+	<%= submit_tag "Add" %>
+<% end %>
+</div>
+<%= link_to "Back to project overview", :controller => '/project/overview', :action => 'show', :id => @project %>

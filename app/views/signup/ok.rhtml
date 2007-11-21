@@ -1,0 +1,10 @@
+<div id="main">
+  <h1>Congratulations you have registered successfully.</h1>
+  <p>You should receive an email shortly with information on accessing your account and getting started</p>
+  <p>If you have any trouble or the email doesn't arrive within half an hour or so send us an email at <%= link_to "support@agileista.com", "mailto:support@agileista.com" %></p>
+  <br />
+  <%= start_form_tag :action => 'validate' %>
+      <%= text_field_tag :id, {}, :size => 60 %>
+      <%= submit_tag 'Validate' %>
+  <%= end_form_tag %>
+</div>

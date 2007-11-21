@@ -1,0 +1,14 @@
+<div id="main">
+	<h1>Invite a new user to your account</h1>
+	<%= error_messages_for :person %>
+	<% form_for :person, @person, :url => {:action => 'create'} do |p| %>
+		<label for="person_name">Name: </label><%= p.text_field :name %>
+		<label for="person_email">Email: </label><%= p.text_field :email %>
+		<label for="team_member">Team member</label><input type="radio" name="type" value="team_member" checked="checked" />
+		<label for="contributor">Contributor</label><input type="radio" name="type" value="contributor" />
+		<%= submit_tag "Send invitation" %>
+	<% end %>
+</div>
+<div id="sidebar">
+	<p><%= link_to "Back to settings", :controller => 'account', :action => 'settings' %></p>
+</div>

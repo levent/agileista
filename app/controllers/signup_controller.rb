@@ -1,0 +1,51 @@
+class SignupController < ApplicationController
+
+  # model :person
+  # model :membership  
+ 
+  def index
+    redirect_to :controller => 'backlog', :account_name => Account.find(session[:account]).name and return false if logged_in?
+    @account = Account.new
+  end
+  
+  def create
+    @user = TeamMember.new(params[:user])
+    @account = Account.new(params[:account])
+    @account.account_holder = @user
+    # @user.account = @account
+    if @account.valid? && @user.valid?
+      # breakpoint
+      @account.save
+      # @user.save
+      # @membership = AccountHolderMembership.new
+      # @membership.person = @user
+      # @membership.account = @account
+      @user.account = @account
+      @user.save
+      # @membership.save
+      # if @user.authenticated?
+      NotificationMailer.deliver_account_activation_info(@user, @account, self) 
+      flash[:notice] = "Account created.. please check your email to validate your account"
+      # else
+        # flash[:notice] = "Account created successfully"
+      # end
+      redirect_to :action => 'ok', :account_name => params[:account_name]
+    else
+      flash[:error] = "Oh oh!"
+      render :action => 'index'
+    end    
+  end
+  
+  def ok
+  end
+  
+  def validate
+    @user = Person.find_by_activation_code(params[:id])
+    redirect_to :action => "index" and return false if @user.nil?
+    if @user.validate_account
+      flash[:notice] = "Your account has been validated<br />Please login below"
+      redirect_to :controller => "login", :action => "index", :account_name => params[:account_name]
+    end
+  end
+  
+end

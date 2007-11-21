@@ -1,0 +1,51 @@
+<div id="main">
+  <h1>Sprint planning:</h1>
+  
+  <div class="equal">
+    <div class="row">
+  
+  <div id="estimated" class="dragdropl">
+    <h2>Estimated user stories:</h2>
+    <% for user_story in @user_stories -%>
+
+      <div id="est_<%= user_story.id %>" class="notecard">
+		<h2>#<%= user_story.position %></h2>
+        <%=h truncate(user_story.definition, 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(user_story.story_points) %></span>
+<%= link_to image_tag('icons/page.png', :class => 'second'), {:controller => 'user_stories', :action => 'show', :id => user_story, :sprint_id => @sprint}, :title => "Show user story" %><%= link_to image_tag('icons/page_edit.png'), {:controller => 'user_stories', :action => 'edit', :id => user_story, :sprint_id => @sprint}, :title => "Edit user story" %>
+      </div>
+    <% end -%>
+  </div>
+  
+  <div id="committed" class="dragdropr">
+    <h2>Sprint: <%= in_place_editor_field :sprint, 'name' %> (click to edit)</h2>
+    <% for element in @sprint.sprint_elements.find(:all, :include => [:user_story]) -%>
+
+     <div id="com_<%= element.user_story.id %>" class="notecard">
+      <h2>#<%= element.user_story.position %></h2>
+      <%=h truncate(element.user_story.definition, 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(element.user_story.story_points) %><br /><%= pluralize element.user_story.tasks.count, 'task', 'tasks' %></span>
+	<%= link_to image_tag('icons/page.png', :class => 'third'), {:controller => 'user_stories', :action => 'show', :id => element.user_story, :sprint_id => @sprint}, :title => "Show user story" %><%= link_to image_tag('icons/page_edit.png', :class => 'second'), {:controller => 'user_stories', :action => 'edit', :id => element.user_story, :sprint_id => @sprint}, :title => "Edit user story" %><%= link_to image_tag('icons/page_white_add.png'), {:controller => 'user_stories', :action => 'new_task', :id => element.user_story, :sprint_id => @sprint}, :title => "Add tasks" %>
+
+     </div>
+    <% end -%>
+  </div>
+  
+  <!--[if IE]>
+    <div class="ieclearer"></div>
+  <![endif]-->
+  
+    </div>
+    </div>
+  
+  
+</div>
+
+
+<div id="sidebar">
+	<p><%= link_to "Back to sprints overview", :controller => 'sprint_planning' %></p>
+	<h2>Info</h2>
+	<p><%= image_tag('icons/page.png', :class => 'icon') %> Show user story</p>
+	<p><%= image_tag('icons/page_edit.png', :class => 'icon') %> Edit user story</p>
+	<p><%= image_tag('icons/page_white_add.png', :class => 'icon') %> Add tasks</p>
+</div>
+<%= sortable_element 'estimated', :tag => 'div', :dropOnEmpty => true, :containment => ['committed', 'estimated'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'user_stories', :action => "plan_sprint", :sprint_id => @sprint.id }, :complete => visual_effect(:highlight, '') %>
+<%= sortable_element 'committed', :tag => 'div', :dropOnEmpty => true, :containment => ['committed', 'estimated'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'user_stories', :action => "plan_sprint", :sprint_id => @sprint.id }, :complete => visual_effect(:highlight, '') %>

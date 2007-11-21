@@ -1,0 +1,61 @@
+<div id="main">
+	<h1>Settings:</h1>
+	<% if @current_user.account_holder? %>
+	<div class="summary_pane">
+	<h2>Account settings:</h2>
+	<%= error_messages_for :account %>
+	<% form_for :account, @account, :url => {:action => 'settings'} do |a| %>
+		<label for="account_iteration_length">Sprint iteration length:</label>
+	        <%= a.select :iteration_length, [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]], :include_blank => true %>
+		<%= submit_tag "Save settings" %>
+	<% end %>
+	</div>
+	<% end %>
+	<div class="summary_pane">
+		<h2>Users:</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>User</th>
+					<th>Edit</th>
+					<th>Delete</th>
+					<th>Status</th>
+					<th>Account holder</th>
+				</tr>
+				<tr>
+					<th class="titlerow">Team Members</th><td colspan="5"></td>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render :partial => "user", :collection => @account.team_members %>
+				<tr>
+					<th colspan="5" class="titlerow">Contributors</th>
+				</tr>
+				<%= render :partial => "user", :collection => @account.contributors %>
+			</tbody>
+		</table>
+	</div>
+	<div class="summary_pane">
+		<%= error_messages_for :user %>
+		<h2>Change password:</h2>
+		<%= start_form_tag :action => 'change_password', :id => session[:user] %>
+		<label for="old_password">Old password</label>
+		<%= password_field_tag 'old_password' %>
+		<label for="new_password">New password</label>
+		<%= password_field_tag 'new_password' %>
+		<label for="new_password_confirmation">Please confirm new password</label>
+		<%= password_field_tag 'new_password_confirmation' %>
+		<%= submit_tag 'Change password' %>
+		<%= end_form_tag %>
+	</div>
+</div>
+<div id="sidebar">
+	<p><%= link_to "Add users", :controller => 'users', :action => 'new' if @current_user.is_a?(TeamMember) %></p>
+	<p><%= link_to "Return to backlog", :controller => 'backlog' %></p>
+	<h2>Info</h2>
+	<p><%= image_tag('icons/user_edit.png', :class => 'icon') %> Edit user</p>
+	<p><%= image_tag('icons/user_delete.png', :class => 'icon') %> Delete user</p>
+	<p><%= image_tag('icons/bullet_key.png', :class => 'icon') %> Account holder</p>
+	<p><%= image_tag('icons/status_online.png', :class => 'icon') %> Active user</p>
+	<p><%= image_tag('icons/status_offline.png', :class => 'icon') %> Inactive user - resend invitation</p>
+</div>

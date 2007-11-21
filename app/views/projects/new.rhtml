@@ -1,0 +1,11 @@
+<h1>New project</h1>
+<div class="summary_pane">
+<%= error_messages_for :project %>
+<% form_for :project, @project, :url => {:action => 'create'} do |p| %>
+	<label for="project_name">Name of project:</label><%= p.text_field :name %>
+
+	<%= submit_tag "Create project" %>
+<% end %>
+
+</div>
+<p><%= link_to "Back to account overview", :controller => '/account' %></p>

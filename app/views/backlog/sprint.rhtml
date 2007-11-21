@@ -1,0 +1,26 @@
+<div id="main">
+	<h1>Sprint backlog</h1>
+	<% if @current_sprint %>
+	<h2>Current Sprint (<%= show_date(@current_sprint.start_at) %> to <%= show_date(@current_sprint.end_at) %>)</h2>
+	<ul id="userstorylist"> 
+	<% for user_story in @current_sprint.user_stories %>
+		<li id="item_<%= user_story.id %>"><%= user_story.position %> <%= user_story.definition %> - <%= show_story_points(user_story.story_points) %></li> 
+	<% end %>
+	</ul>
+	<% unless @upcoming_sprints.blank? %><h2>Upcoming sprints</h2><% end %>
+	<% for sprint in @upcoming_sprints %>
+	<h3><%= sprint.name %> (<%= show_date(sprint.start_at) %> to <%= show_date(sprint.end_at) %>)</h3>
+	<ul id="userstorylist_<%= sprint.id %>" class="nobullet"> 
+	<% for user_story in sprint.user_stories %>
+		<li id="item_<%= user_story.id %>"><%= user_story.position %> <%= user_story.definition %> - <%= show_story_points(user_story.story_points) %></li> 
+	<% end %>
+	</ul>
+	<!-- <%= sortable_element "userstorylist_#{sprint.id}", :url => { :action => "sort_sprint", :sprint_id => sprint }, :complete => visual_effect(:highlight, "userstorylist_#{sprint.id}") %> -->
+	<% end %>
+
+	<!-- <%= sortable_element 'userstorylist', :url => { :action => "sort_sprint", :sprint_id => @current_sprint }, :complete => visual_effect(:highlight, 'userstorylist') %> -->
+	<% end %>
+</div>
+<div id="sidebar">
+	<%= render :partial => 'links' %>
+</div>

@@ -1,0 +1,7 @@
+<tr>
+	<td><%= user.name %></td>
+	<td><%= link_to image_tag('/images/icons/user_edit.png', :class => 'icon'), {:controller => 'users', :action => 'edit', :id => user} if @current_user.account_holder? || user == @current_user %></td>
+	<td><%= link_to image_tag('/images/icons/user_delete.png', :class => 'icon'), {:controller => 'users', :action => 'delete', :id => user}, :method => :post, :confirm => "Are you sure?" unless !@current_user.can_delete_users? || user.account_holder? %></td>
+	<td><% unless user.authenticated? %><%= link_to image_tag('/images/icons/status_offline.png'), {:controller => 'account', :action => 'resend_authentication', :id => user}, :method => :post %><% else %><%= image_tag '/images/icons/status_online.png' %><% end %></td>
+	<td><%= image_tag('/images/icons/bullet_key.png', :class => 'icon') if user.account_holder? %></td>
+</tr>

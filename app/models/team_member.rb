@@ -1,0 +1,3 @@
+class TeamMember < Person
+  
+end

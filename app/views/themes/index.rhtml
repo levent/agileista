@@ -1,0 +1,19 @@
+<div id="main">
+  <h1>Themes</h1>
+  <div id="themeslist">
+    <% @themes.each do |theme| -%>
+      <div title="<%=h theme.description %>"><%= link_to_function h(theme.name), "Effect.toggle('theme_#{theme.id}', 'blind')" %> <%= link_to image_tag('icons/page_edit.png', :class => 'icon' ), :action => 'edit', :id => theme %> <%= show_story_points(theme.story_points) %></div>
+      <div id="theme_<%= theme.id %>">
+        <ul>
+        <% theme.user_stories.each do |us| -%>
+          <li><%= link_to h(us.definition), :controller => 'user_stories', :action => 'show', :id => us, :from => 'themes' %> <span class="star"><%= show_story_points(us.story_points) %></span></li>
+        <% end -%>
+        </ul>
+      </div>
+    <% end -%>
+  </div>
+</div>
+<div id="sidebar">
+  <h2>Links</h2>
+  <p><%= link_to "Add a theme", :action => "new" %></p>
+</div>

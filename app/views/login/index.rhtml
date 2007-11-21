@@ -1,0 +1,18 @@
+<div id="main">
+<h1>Please login below</h1>
+<%= start_form_tag :action => 'authenticate' %>
+	<fieldset>
+	<% unless params[:account_name ] -%>
+		<p>You can now login directly at <span style="color:#990000">"http://agileista.leventali.com/ACCOUNT_NAME/login"</span></p>
+	<% end -%>
+	<label for="account_name">Account name:</label>
+	<%= text_field_tag "account_name", params[:account_name] %>
+	<label for="user_email">Your email:</label>
+	<%= text_field_tag "email", params[:email] %>
+	<label for="user_password">Your password:</label>
+	<%= password_field_tag "password" %>
+	<%= submit_tag "Login" %>
+	<%= link_to 'I forgot my password', :controller => 'login', :action => 'forgot' %>
+	</fieldset>
+<%= end_form_tag %>
+</div>

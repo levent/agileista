@@ -1,0 +1,2 @@
+class Contributor < Person
+end

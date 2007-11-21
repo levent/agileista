@@ -1,0 +1,13 @@
+#268
+* New stylesheet
+* Icons
+* Ability to edit themes
+* Themes have description free text fields as well
+* Ferret has been implemented across user stories and so the search box does not only search on tags
+* The backlog view has been cleaned up
+* Bug on taskboard chart fixed (was caused when sprint spanned more than one month)
+* You may experiment logging in via subdomain (not 100% there yet but worth testing)
+* Started a separate user story show page
+* Tag cloud no longer has impossibly small font sizes
+* User stories lacking estimation are more obvious (need to rename them from Undefined as they are technically defined) 
+* Minor clean up of sprint planning pages

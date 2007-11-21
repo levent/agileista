@@ -1,0 +1,45 @@
+<div id="main">
+	<div id="leftcontent">
+		<h1>Signup here...</h1>
+		<%= error_messages_for :user %>
+		<%= error_messages_for :account %>
+		<%= start_form_tag :action => 'create' %>
+			<fieldset>
+				<legend>1. Your account name</legend>
+				<p>This will be the unique way of identifying your account. How about your company, group or organisation name?</p>
+				<%= text_field :account, :name %><br />
+				<small>For example: Apple, Microsoft (boo) or Google</small>
+			</fieldset>
+			<fieldset>
+				<legend>2. Your administrator account</legend>
+				<p>Once you've got this set up you'll be able to set up as many projects or add as many users as you'd like</p>
+				<label for="user_name">Your name:</label><%= text_field :user, :name %>
+				<label for="user_name">Your email:</label><%= text_field :user, :email %>
+				<label for="user_password">Your password:</label><%= password_field :user, :password %>
+				<label for="user_password_confirmation">...and again:</label><%= password_field :user, :password_confirmation %>
+			</fieldset>
+			<fieldset>
+				<legend>3. That's it</legend>
+				<p>Just click the button and you're done!</p>
+				<%= submit_tag "Create account" %>
+			</fieldset>
+		<%= end_form_tag %>
+	</div>
+	<div id="rightcontent" class="noborder">
+		<h1>...or login below</h1>
+		<%= start_form_tag :controller => 'login', :action => 'authenticate' %>
+			<fieldset>
+				<legend>Just enter your login details</legend>
+			<label for="account_name">Account name:</label>
+			<%= text_field_tag "account_name", params[:account_name] %>
+			<label for="user_email">Your email:</label>
+			<%= text_field_tag "email", params[:email] %>
+			<label for="user_password">Your password:</label>
+			<%= password_field_tag "password" %>
+			<%= submit_tag "Login" %>
+			<%= link_to 'I forgot my password', :controller => 'login', :action => 'forgot' %>
+			</fieldset>
+		<%= end_form_tag %>
+		<p>You can now login directly at <span style="color:#990000">"http://agileista.leventali.com/ACCOUNT_NAME/login"</span></p>
+	</div>
+</div>
