@@ -7,7 +7,7 @@ ENV['GEM_PATH'] = '/home/levental/gems:/usr/lib/ruby/gems/1.8'
 ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '1.2.3'
+RAILS_GEM_VERSION = '1.2.5'
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')

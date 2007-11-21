@@ -13,9 +13,9 @@ set :deploy_to, "/home/levent/apps/#{application}"
 ssh_options[:port] = 30000
 set :sudo, "sudo -p Password:" 
 
-role :app, "agileista.purebreeze.com"
-role :web, "agileista.purebreeze.com"
-role :db,  "agileista.purebreeze.com", :primary => true
+role :app, "dev.purebreeze.com"
+role :web, "dev.purebreeze.com"
+role :db,  "dev.purebreeze.com", :primary => true
 
 namespace :deploy do
   task :restart do
