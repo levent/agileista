@@ -12,6 +12,8 @@ set :deploy_to, "/home/levent/apps/#{application}"
 
 ssh_options[:port] = 30000
 set :sudo, "sudo -p Password:" 
+set :user, "levent"
+default_run_options[:pty] = true
 
 role :app, "dev.purebreeze.com"
 role :web, "dev.purebreeze.com"

@@ -54,7 +54,14 @@ end
 
 # Include your application configuration below
 
+config.action_mailer.raise_delivery_errors = true
+
 ActionMailer::Base.delivery_method = :sendmail
+
+ActionMailer::Base.sendmail_settings = {
+:location       => '/usr/sbin/sendmail',
+:arguments      => '-i -t'
+}
 #ActionMailer::Base.perform_deliveries = true
 #ActionMailer::Base.raise_delivery_errors = true
 #ActionMailer::Base.server_settings = {
@@ -65,4 +72,4 @@ ActionMailer::Base.delivery_method = :sendmail
 #  :authentication => :login 
 #}
 ExceptionNotifier.exception_recipients = %w(levent@leventali.com)
-ExceptionNotifier.sender_address = %("Agileista Exception" <exception@agileista.leventali.com>)
+ExceptionNotifier.sender_address = %("Agileista Exception" <exception@agileista.purebreeze.com>)
