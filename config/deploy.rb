@@ -15,9 +15,9 @@ set :sudo, "sudo -p Password:"
 set :user, "levent"
 default_run_options[:pty] = true
 
-role :app, "dev.purebreeze.com"
-role :web, "dev.purebreeze.com"
-role :db,  "dev.purebreeze.com", :primary => true
+role :app, "agileista.purebreeze.com"
+role :web, "agileista.purebreeze.com"
+role :db,  "agileista.purebreeze.com", :primary => true
 
 namespace :deploy do
   task :restart do
