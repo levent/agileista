@@ -54,4 +54,4 @@ task :setup_symlinks, :roles => :web do
   run "ln -s #{shared_path}/index /home/levent/apps/agileista.com/current/index"
 end
 
-after "deploy", :setup_symlinks
+after "deploy:update_code", :setup_symlinks
