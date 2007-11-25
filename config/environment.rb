@@ -1,4 +1,4 @@
-ENV['GEM_PATH'] = '/home/levental/gems:/usr/lib/ruby/gems/1.8'
+# ENV['GEM_PATH'] = '/home/levental/gems:/usr/lib/ruby/gems/1.8'
 
 # Be sure to restart your web server when you modify this file.
 

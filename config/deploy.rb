@@ -13,7 +13,7 @@ set :deploy_to, "/home/levent/apps/#{application}"
 ssh_options[:port] = 30000
 set :sudo, "sudo -p Password:" 
 set :user, "levent"
-default_run_options[:pty] = true
+# default_run_options[:pty] = true
 
 role :app, "agileista.purebreeze.com"
 role :web, "agileista.purebreeze.com"
@@ -48,3 +48,9 @@ namespace :deploy do
     # run "sudo /etc/init.d/apache2 start"
   end
 end
+
+task :setup_symlinks, :roles => :web do
+  run "ln -nfs #{shared_path}/index #{release_path}/index"
+end
+
+after "deploy", :setup_symlinks
