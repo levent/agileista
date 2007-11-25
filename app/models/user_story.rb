@@ -5,7 +5,8 @@ class UserStory < ActiveRecord::Base
     :tag_string => {:boost => 2},
     :definition => {:boost => 1.5},
     :description => {},
-    :active => {}
+    :active => {},
+    :remote => true
   })
 
   has_many :sprint_elements, :dependent => :delete_all

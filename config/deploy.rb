@@ -50,7 +50,8 @@ namespace :deploy do
 end
 
 task :setup_symlinks, :roles => :web do
-  run "ln -nfs #{shared_path}/index #{release_path}/index"
+  run "rm -rf /home/levent/apps/agileista.com/current/index"
+  run "ln -s #{shared_path}/index /home/levent/apps/agileista.com/current/index"
 end
 
 after "deploy", :setup_symlinks
