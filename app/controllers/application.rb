@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
   include AccountStuff
   include AccountLocation
+  
+  # require_dependency 'user_story'
+  require_dependency 'tag'
+  require_dependency 'tagging'
   # include SslRequirement
 
   protected
