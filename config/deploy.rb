@@ -22,9 +22,9 @@ role :db,  "agileista.purebreeze.com", :primary => true
 namespace :deploy do
   task :restart do
     run "/usr/bin/mongrel_cluster_ctl stop"
-    sleep 3
+    sleep 2
     run "/usr/bin/mongrel_cluster_ctl start"    
-    sleep 3
+    sleep 2
     run "/usr/bin/mongrel_cluster_ctl status"
   end
 end
