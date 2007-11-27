@@ -1,4 +1,4 @@
-<div class="notecard" id="com_<%= element.id %>">
+<div class="notecard" id="com_<%= element.id %>" title="<%=h element.user_story.definition %>">
 <h2>#<%= positions[element.user_story.id].to_s + '.' + element.position.to_s %></h2>
 <%=h element.definition %><br />
 <%= show_assignee(element.developer) %>
