@@ -1,5 +1,5 @@
 set :application, "agileista.com"
-set :repository,  "svn+dented://dev.purebreeze.com/home/levent/repository/agileista.com/trunk"
+set :repository,  "svn+dented://dev.dentedrecords.com/home/levent/repository/agileista.com/trunk"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
@@ -15,9 +15,9 @@ set :sudo, "sudo -p Password:"
 set :user, "levent"
 # default_run_options[:pty] = true
 
-role :app, "agileista.purebreeze.com"
-role :web, "agileista.purebreeze.com"
-role :db,  "agileista.purebreeze.com", :primary => true
+role :app, "app.agileista.com"
+role :web, "app.agileista.com"
+role :db,  "app.agileista.com", :primary => true
 
 namespace :deploy do
   task :restart do
