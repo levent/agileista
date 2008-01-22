@@ -26,7 +26,7 @@ class UserStoriesController < ApplicationController
         @user_story.tags = params[:tags]
         @user_story.themes = params[:themes]
         
-        if params[:commit] == "Add user story to top"
+        if params[:commit] == "Add at start of backlog"
           @user_story.move_to_top
         else
           @user_story.move_to_bottom
