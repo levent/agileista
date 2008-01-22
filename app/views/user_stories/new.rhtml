@@ -3,7 +3,8 @@
 <%= error_messages_for :user_story %>
 <% form_for :user_story, @user_story, :url => {:action => 'create'} do |@us| %>
 	<%= render :partial => 'form' %>
-	<%= submit_tag "Add user story" %>
+	<%= submit_tag "Add user story to top" %>
+	<%= submit_tag "Add user story to bottom" %>
 <% end %>
 </div>
 <div id="sidebar">

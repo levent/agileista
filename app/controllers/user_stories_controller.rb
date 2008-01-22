@@ -25,8 +25,16 @@ class UserStoriesController < ApplicationController
       if @user_story.save
         @user_story.tags = params[:tags]
         @user_story.themes = params[:themes]
+        
+        if params[:commit] == "Add user story to top"
+          @user_story.move_to_top
+        else
+          @user_story.move_to_bottom
+        end
+        
         flash[:notice] = "User story created successfully"
         redirect_to :controller => 'user_stories', :action => 'edit', :id => @user_story
+        
       else
         flash[:error] = "There were errors creating the user story"
         render :action => 'new'
