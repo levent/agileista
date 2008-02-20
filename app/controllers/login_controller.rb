@@ -36,7 +36,7 @@ class LoginController < ApplicationController
       account = Account.find_by_name(params[:account_name])
       account ||= Account.find_by_name(account_subdomain)
       @person = account.people.find(:first, :conditions => ["email = ?", params[:email]]) unless account.nil?
-      if @person.nil?
+      if @person.nil? || account.name == 'jgp'
         flash[:error] = "We couldn't find a matching user"
       else
         @person.generate_password

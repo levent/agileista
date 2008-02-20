@@ -7,15 +7,6 @@ ActiveRecord::Schema.define(:version => 33) do
   create_table "acceptance_criteria", :force => true do |t|
     t.column "detail",        :string
     t.column "user_story_id", :integer
-    t.column "version",       :integer
-  end
-
-  create_table "acceptance_criterium_versions", :force => true do |t|
-    t.column "acceptance_criterium_id", :integer
-    t.column "version",                 :integer
-    t.column "detail",                  :string
-    t.column "user_story_id",           :integer
-    t.column "updated_at",              :datetime
   end
 
   create_table "accounts", :force => true do |t|
@@ -79,20 +70,10 @@ ActiveRecord::Schema.define(:version => 33) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
-  create_table "sprint_element_versions", :force => true do |t|
-    t.column "sprint_element_id", :integer
-    t.column "version",           :integer
-    t.column "sprint_id",         :integer
-    t.column "user_story_id",     :integer
-    t.column "position",          :integer
-    t.column "updated_at",        :datetime
-  end
-
   create_table "sprint_elements", :force => true do |t|
     t.column "sprint_id",     :integer
     t.column "user_story_id", :integer
     t.column "position",      :integer
-    t.column "version",       :integer
   end
 
   create_table "sprints", :force => true do |t|
@@ -109,7 +90,6 @@ ActiveRecord::Schema.define(:version => 33) do
     t.column "tag_id",        :integer,                 :null => false
     t.column "taggable_id",   :integer,                 :null => false
     t.column "taggable_type", :string,  :default => "", :null => false
-    t.column "account_id",    :integer
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_tag_id_and_taggable_id_and_taggable_type", :unique => true
@@ -121,18 +101,6 @@ ActiveRecord::Schema.define(:version => 33) do
 
   add_index "tags", ["name", "account_id"], :name => "index_tags_on_name_and_account_id", :unique => true
 
-  create_table "task_versions", :force => true do |t|
-    t.column "task_id",       :integer
-    t.column "version",       :integer
-    t.column "definition",    :string
-    t.column "description",   :string
-    t.column "hours",         :integer
-    t.column "position",      :integer
-    t.column "developer_id",  :integer
-    t.column "user_story_id", :integer
-    t.column "updated_at",    :datetime
-  end
-
   create_table "tasks", :force => true do |t|
     t.column "definition",    :string
     t.column "description",   :string
@@ -140,7 +108,6 @@ ActiveRecord::Schema.define(:version => 33) do
     t.column "position",      :integer
     t.column "developer_id",  :integer
     t.column "user_story_id", :integer
-    t.column "version",       :integer
   end
 
   create_table "themes", :force => true do |t|
@@ -170,22 +137,6 @@ ActiveRecord::Schema.define(:version => 33) do
     t.column "sprint_id",    :integer
     t.column "account_id",   :integer
     t.column "release_id",   :integer
-    t.column "version",      :integer
-  end
-
-  create_table "user_story_versions", :force => true do |t|
-    t.column "user_story_id", :integer
-    t.column "version",       :integer
-    t.column "definition",    :text
-    t.column "description",   :text
-    t.column "story_points",  :integer
-    t.column "position",      :integer
-    t.column "done",          :integer,  :limit => 2, :default => 0
-    t.column "created_at",    :datetime
-    t.column "updated_at",    :datetime
-    t.column "sprint_id",     :integer
-    t.column "account_id",    :integer
-    t.column "release_id",    :integer
   end
 
 end
