@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def show_story_points_remaining(points)
-    points.nil? ? return "" : return "(#{points} remaining)"
+    points.nil? ? (return "") : (return "(#{points} remaining)")
   end
 
   
