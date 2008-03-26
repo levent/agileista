@@ -2,7 +2,7 @@
   <h1>Themes</h1>
   <div id="themeslist">
     <% @themes.each do |theme| -%>
-      <div title="<%=h theme.description %>"><%= link_to_function h(theme.name), "Effect.toggle('theme_#{theme.id}', 'blind')" %> <%= link_to image_tag('icons/page_edit.png', :class => 'icon' ), :action => 'edit', :id => theme %> <%= show_story_points(theme.story_points) %></div>
+      <div title="<%=h theme.description %>"><%= link_to_function h(theme.name), "Effect.toggle('theme_#{theme.id}', 'blind')" %> <%= link_to image_tag('icons/page_edit.png', :class => 'icon' ), :action => 'edit', :id => theme %> <%= show_story_points(theme.story_points) %> <%= show_story_points_remaining(theme.story_points_left) %></div>
       <div id="theme_<%= theme.id %>">
         <ul>
         <% theme.user_stories.each do |us| -%>

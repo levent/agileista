@@ -14,6 +14,11 @@ class Theme < ActiveRecord::Base
     self.user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     return @story_points
   end
-     
+  
+  def story_points_left
+    @story_points = 0
+    self.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil]).collect{|x| @story_points += x.story_points if x.story_points}
+    return @story_points
+  end
   
 end

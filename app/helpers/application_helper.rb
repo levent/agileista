@@ -8,6 +8,11 @@ module ApplicationHelper
       return "Undefined"
     end
   end
+
+  def show_story_points_remaining(points)
+    points.nil? ? return "" : return "(#{points} remaining)"
+  end
+
   
   def select_date(date = Date.today, options = {})
     select_day(date, options) + select_month(date, options) + select_year(date, options)
