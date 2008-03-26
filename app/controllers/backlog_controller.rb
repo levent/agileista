@@ -1,3 +1,4 @@
+require 'fastercsv'
 class BacklogController < ApplicationController
 
   before_filter :must_be_logged_in
@@ -10,6 +11,29 @@ class BacklogController < ApplicationController
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     @cloud = Tag.cloud(:conditions => ["tags.account_id = ?", @account.id])
+  end
+  
+  def export
+    @user_stories = @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil], :order => 'position')
+    
+    stream_csv do |csv|
+      csv << ["ID",
+        "Definition",
+        "Description",
+        "Story points",
+        "Position",
+        "Created at",
+        "Last modified"]
+      @user_stories.each do |a|
+        csv << [a.id,
+          a.definition,
+          a.description,
+          a.story_points,
+          a.position,
+          a.created_at.strftime('%D %T'),
+          a.updated_at.strftime('%D %T')]
+      end
+    end
   end
   
   def feed
@@ -89,6 +113,27 @@ class BacklogController < ApplicationController
     else
       false
     end
+  end
+
+  def stream_csv
+     filename = "current_backlog_#{Time.now.strftime('%Y%m%d%H%M')}.csv"    
+
+     #this is required if you want this to work with IE        
+     if request.env['HTTP_USER_AGENT'] =~ /msie/i
+       headers['Pragma'] = 'public'
+       headers["Content-type"] = "text/plain" 
+       headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+       headers['Content-Disposition'] = "attachment; filename=\"#{filename}\"" 
+       headers['Expires'] = "0" 
+     else
+       headers["Content-Type"] ||= 'text/csv'
+       headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" 
+     end
+
+    render :text => Proc.new { |response, output|
+      csv = FasterCSV.new(output, :row_sep => "\r\n") 
+      yield csv
+    }
   end
 
 end

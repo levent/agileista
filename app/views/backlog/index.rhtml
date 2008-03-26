@@ -1,9 +1,5 @@
 <div id="main">
 	<h1>Unassigned Backlog - <span class="small"><%= pluralize(@user_stories.length, "user story") %> (<%= show_story_points(@story_points ||= nil) %>)</span></h1>
-	<!-- <p>
-		< %= link_to 'Sort by story points', :action => 'index', :order => 'sp' unless params[:order] % >
-		< %= link_to 'Sort by priority', :action => 'index' if params[:order] % >
-	</p> -->
 	<div id="userstorylist">
 		<% for @user_story in @user_stories %>
 			<%= render :partial => 'show_story_card' %>
@@ -20,4 +16,5 @@
 		<p>This story needs estimation before it can be planned into a sprint</p>
 	</div>
 	<p><%= link_to image_tag("icons/page_white_acrobat.png", :class => 'icon'), { :controller => 'backlog', :action => 'pdf' }, { :alt => "pdf", :title => "pdf" } %> Download pdf of backlog</p>
+	<p><%= link_to "Export backlog as csv", { :controller => 'backlog', :action => 'export' }, { :alt => "export", :title => "export" } %></p>
 </div>
