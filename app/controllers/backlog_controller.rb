@@ -30,8 +30,8 @@ class BacklogController < ApplicationController
           a.description,
           a.story_points,
           a.position,
-          a.created_at.strftime('%D %T'),
-          a.updated_at.strftime('%D %T')]
+          a.created_at.strftime('%d/%m/%y %T'),
+          a.updated_at.strftime('%d/%m/%y %T')]
       end
     end
   end
