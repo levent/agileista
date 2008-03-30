@@ -2,7 +2,7 @@ class UserStoriesController < ApplicationController
 
   before_filter :must_be_logged_in
   before_filter :must_be_team_member, :except => [:add, :create_via_add]
-  before_filter :user_story_must_exist, :only => ['update', 'add_to_sprint', 'remove_from_sprint', 'show', 'create_task', 'edit_task', 'update_task', 'create_acceptance_criterium', :edit, :move_up, :move_down, :delete, :delete_acceptance_criterium, :new_task, :tasks, :done, :unfinished, :show_task]
+  before_filter :user_story_must_exist, :only => ['update', 'add_to_sprint', 'remove_from_sprint', 'show', 'create_task', 'edit_task', 'update_task', 'create_acceptance_criterium', :edit, :move_up, :move_down, :delete, :delete_acceptance_criterium, :new_task, :tasks, :done, :unfinished, :show_task, :destroy_task]
   
   def new
     @user_story = UserStory.new
@@ -147,6 +147,18 @@ class UserStoriesController < ApplicationController
   
   def edit_task
     @task = @user_story.tasks.find(params[:task_id])
+  end
+  
+  def destroy_task
+    if request.post?
+      @task = @user_story.tasks.find(params[:task_id])
+      if @task.destroy
+        flash[:notice] = "Task deleted successfully"
+      end
+    else
+      flash[:error] = "There were errors deleting the task"
+    end
+    redirect_to :controller => 'sprint'
   end
   
   def update_task
