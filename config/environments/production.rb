@@ -1,3 +1,11 @@
+ActionMailer::Base.server_settings = {
+ :address        => "app.agileista.com", 
+ :port           => 25, 
+ :user_name      => "levental", 
+ :password       => "xxxxxxxx", 
+ :authentication => :login 
+}
+
 # Settings specified here will take precedence over those in config/environment.rb
 
 # The production environment is meant for finished, "live" apps.
@@ -15,6 +23,6 @@ config.action_controller.perform_caching             = true
 # config.action_controller.asset_host                  = "http://assets.example.com"
 
 # Disable delivery errors if you bad email addresses should just be ignored
-config.action_mailer.raise_delivery_errors = true
+# config.action_mailer.raise_delivery_errors = false
 
 EMAIL_FROM = "donotreply@agileista.com"
