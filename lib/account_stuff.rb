@@ -1,13 +1,23 @@
 module AccountStuff
   protected
   
+  def current_user
+    begin
+      @current_user ||= (session[:user] && session[:account]) ? Person.find_by_id_and_account_id(session[:user], session[:account]) : nil
+    rescue
+      session[:user] = nil
+      session[:account] = nil
+      @current_user = nil
+    end
+  end
+  
   def do_logout
     session[:user] = nil
     session[:account] = nil
   end
     
   def logged_in?
-    unless Person.find_by_id_and_account_id(session[:user], session[:account]).nil?
+    unless current_user.nil?
       return true
     end
   end

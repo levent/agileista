@@ -21,10 +21,15 @@
 	      <td><%= @sprint.user_stories.sum('story_points') %></td>
 	      <td><%= @sprint.hours_left %></td>
 	      <td>
+	        <% if @current_user.is_a?(Contributor) -%>
+  			  <%= link_to image_tag("icons/page.png", :class => 'icon'), {:controller => 'sprint_planning', :action => 'view', :id => @sprint}, :title => 'View' %>
+
+	        <% else -%>
 			<%= link_to image_tag("icons/application_view_tile.png", :class => 'icon'), {:controller => 'sprint_planning', :action => 'show', :id => @sprint}, :title => 'Plan' unless @sprint.finished? %>
 			<%= link_to image_tag("icons/page.png", :class => 'icon'), {:controller => 'sprint_planning', :action => 'view', :id => @sprint}, :title => 'View' if @sprint.finished? %>
 			<%= link_to image_tag("icons/page_edit.png", :class => 'icon'), {:controller => 'sprint_planning', :action => 'edit', :id => @sprint}, :title => 'Edit' unless @sprint.finished? %>
 			<%= link_to image_tag("icons/error_delete.png", :class => 'icon'), {:controller => 'sprint_planning', :action => 'destroy', :id => @sprint}, :confirm => "This cannot be undone. Are you sure?", :method => :delete, :title => 'Delete' unless @sprint.finished? %>
+			<% end -%>
 		  </td>
 		  <td><%= "Current sprint" if @sprint == @current_sprint %><%= "Next sprint" if @sprint == @upcoming_sprint %></td>
 	    </tr>

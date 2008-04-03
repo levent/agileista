@@ -21,7 +21,7 @@ class AccountController < ApplicationController
   
   def change_password
     if request.post?
-      @user = Person.find_by_id_and_account_id(session[:user], session[:account])
+      @user = current_user
       if params[:old_password] == @user.password
         if @user.update_attributes(:password => params[:new_password], :password_confirmation => params[:new_password_confirmation])
           flash[:notice] = "Password changed successfully"

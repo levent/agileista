@@ -11,10 +11,10 @@
   			<% for element in @sprint.sprint_elements.find(:all, :include => [:user_story], :order => 'sprint_elements.position') %>
 			<tr class="user_story">
 				<td>#<%= element.position %></td>
-				<td><%= truncate(element.user_story.definition, 50) %> <%= link_to image_tag('icons/page.png', :class => 'icon'), {:controller => 'user_stories', :action => 'show', :id => element.user_story, :sprint_id => @sprint}, :title => element.user_story.definition %></td>
+				<td><%= truncate(element.user_story.definition, 50) %> <%= link_to image_tag('icons/page.png', :class => 'icon'), {:controller => 'user_stories', :action => 'show', :id => element.user_story, :sprint_id => @sprint}, :title => element.user_story.definition if @current_user.is_a?(TeamMember) %></td>
 				<td><%= pluralize(element.user_story.tasks.count, "task") %></td>
 				<td><%= show_story_points(element.user_story.story_points) %></td>
-				<td><%= link_to "Remove", {:controller => 'user_stories', :action => 'remove_from_sprint', :id => element.user_story, :sprint_id => @sprint}, :method => :post unless element.user_story.done? %><%= "Complete" if element.user_story.done? %></td>
+				<td><%= link_to_if @current_user.is_a?(TeamMember), "Remove", {:controller => 'user_stories', :action => 'remove_from_sprint', :id => element.user_story, :sprint_id => @sprint}, :method => :post unless element.user_story.done? %><%= "Complete" if element.user_story.done? %></td>
 				<td>User Story</td>
 			</tr>
 			<% for task in element.user_story.tasks %>

@@ -1,7 +1,7 @@
 class SprintPlanningController < ApplicationController
 
   before_filter :must_be_logged_in
-  before_filter :must_be_team_member
+  before_filter :must_be_team_member, :except => [:index, :view]
   before_filter :sprint_must_exist, :only => [:show, :view, :edit, :update, :destroy]
   before_filter :estimated_account_user_stories, :only => [:show]
   

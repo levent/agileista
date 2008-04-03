@@ -14,7 +14,7 @@ class TasksController < ApplicationController
         @task = nil
       end
       unless @task.blank?
-        @task.developer = Person.find_by_id_and_account_id(session[:user], session[:account])
+        @task.developer = current_user
         @task.save
         flash[:notice] = "Task assigned successfully"
       end

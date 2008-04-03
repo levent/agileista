@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def must_be_logged_in
-    @current_user ||= Person.find_by_id_and_account_id(session[:user], session[:account])
-    if @current_user
+    # @current_user ||= Person.find_by_id_and_account_id(session[:user], session[:account])
+    if logged_in?
       @account ||= Account.find(session[:account])
       return true
     else
@@ -59,11 +59,11 @@ class ApplicationController < ActionController::Base
   end
   
   def must_be_team_member
-    Person.find_by_id_and_account_id(session[:user], session[:account]).is_a?(TeamMember) ? true : (redirect_to :controller => 'backlog' and return false)
+    current_user.is_a?(TeamMember) ? true : (redirect_to :controller => 'backlog' and return false)
   end
   
   def must_be_account_holder
-    Person.find_by_id_and_account_id(session[:user], session[:account]).account_holder? ? true : (redirect_to :controller => 'backlog' and return false)
+    current_user.account_holder? ? true : (redirect_to :controller => 'backlog' and return false)
   end
   
   # excludes DONE
