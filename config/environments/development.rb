@@ -1,3 +1,10 @@
+ActionMailer::Base.delivery_method = :sendmail
+
+ActionMailer::Base.sendmail_settings = {
+:location       => '/usr/sbin/sendmail',
+:arguments      => '-i -t'
+}
+
 # Settings specified here will take precedence over those in config/environment.rb
 
 # In the development environment your application's code is reloaded on
