@@ -1,18 +1,3 @@
-# ActionMailer::Base.server_settings = {
-#  :address        => "agile.leventali.com", 
-#  :port           => 25, 
-#  :user_name      => "levental", 
-#  :password       => "xxxxxxxx", 
-#  :authentication => :login 
-# }
-
-ActionMailer::Base.delivery_method = :sendmail
-
-ActionMailer::Base.sendmail_settings = {
-:location       => '/usr/sbin/sendmail',
-:arguments      => '-i -t'
-}
-
 # Settings specified here will take precedence over those in config/environment.rb
 
 # The production environment is meant for finished, "live" apps.
