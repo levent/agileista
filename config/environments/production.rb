@@ -1,5 +1,5 @@
 ActionMailer::Base.server_settings = {
- :address        => "app.agileista.com", 
+ :address        => "74.54.103.92", 
  :port           => 25, 
  :user_name      => "levental", 
  :password       => "xxxxxxxx", 
