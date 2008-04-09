@@ -1,3 +1,4 @@
+require 'user_story'
 class Tag < ActiveRecord::Base
 
   belongs_to :account
