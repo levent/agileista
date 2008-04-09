@@ -80,7 +80,7 @@ class ApplicationController < ActionController::Base
   end
   
   def calculate_todays_burndown
-    @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Time.now)
+    @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Date.today)
     @burndown.hours_left = @current_sprint.hours_left
     @burndown.save
   end
@@ -101,10 +101,15 @@ class ApplicationController < ActionController::Base
         points << [index, y]
         chartdata += "<set label='#{day}' value='#{y}' />"
       else
-        chartdata += "<set label='#{day}' value='' />"
+        chartdata += "<set label='#{day}' value='#{@current_sprint.hours_left}' />"
+        # chartdata += "<set label='#{day}' value='' />"
       end
       index += 1
       day += 1
+    end
+    
+    if y > @current_sprint.hours_left
+
     end
     # points = points[0..7]
     # linear, x = calculate_linear_regression(points)

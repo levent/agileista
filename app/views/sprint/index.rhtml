@@ -1,5 +1,5 @@
 <div id="main">
-	<h1><%= @current_sprint.name %>: <%= show_date(@current_sprint.start_at) %> to <%= show_date(@current_sprint.end_at) %> <span class="small">(<%= pluralize(@current_sprint.hours_left, 'hour') %> left)</span></h1>
+	<h1><%= @current_sprint.name %>:<br /><span class="small"><%= show_date(@current_sprint.start_at) %> to <%= show_date(@current_sprint.end_at) %> (<%= pluralize(@current_sprint.hours_left, 'hour') %> left)</span></h1>
 	<%= @chart %>
 	<h2>User stories:</h2>
     <% count = 0 -%>
