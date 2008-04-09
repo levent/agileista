@@ -92,7 +92,7 @@ class ApplicationController < ActionController::Base
     index = 0
     points = []
     day = 1
-
+    done = false
     for i in @current_sprint.start_at.to_date..@current_sprint.end_at.to_date
       x = @current_sprint.burndowns.find(:first, :conditions => ["created_on = ?", i])
       y = x.hours_left if x
@@ -101,8 +101,9 @@ class ApplicationController < ActionController::Base
         points << [index, y]
         chartdata += "<set label='#{day}' value='#{y}' />"
       else
-        chartdata += "<set label='#{day}' value='#{@current_sprint.hours_left}' />"
-        # chartdata += "<set label='#{day}' value='' />"
+        chartdata += "<set label='#{day}' value='#{@current_sprint.hours_left}' />" unless done
+        chartdata += "<set label='#{day}' value='' />" if done
+        done = true
       end
       index += 1
       day += 1
