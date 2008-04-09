@@ -1,6 +1,6 @@
 <div id="main">
 <h1>Please login below</h1>
-<%= start_form_tag :action => 'authenticate' %>
+<%= form_tag :action => 'authenticate' %>
 	<fieldset>
 	<% unless params[:account_name ] -%>
 		<p>You can now login directly at <span style="color:#990000">"http://app.agileista.com/ACCOUNT_NAME/login"</span></p>
@@ -14,5 +14,5 @@
 	<%= submit_tag "Login" %>
 	<%= link_to 'I forgot my password', :controller => 'login', :action => 'forgot' %>
 	</fieldset>
-<%= end_form_tag %>
+</form>
 </div>

@@ -38,7 +38,7 @@
 	<div class="summary_pane">
 		<%= error_messages_for :user %>
 		<h2>Change password:</h2>
-		<%= start_form_tag :action => 'change_password', :id => session[:user] %>
+		<%= form_tag :action => 'change_password', :id => session[:user] %>
 		<label for="old_password">Old password</label>
 		<%= password_field_tag 'old_password' %>
 		<label for="new_password">New password</label>
@@ -46,7 +46,7 @@
 		<label for="new_password_confirmation">Please confirm new password</label>
 		<%= password_field_tag 'new_password_confirmation' %>
 		<%= submit_tag 'Change password' %>
-		<%= end_form_tag %>
+        </form>
 	</div>
 </div>
 <div id="sidebar">
