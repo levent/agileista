@@ -23,8 +23,8 @@ class UserStoriesController < ApplicationController
       @user_story = UserStory.new(params[:user_story])
       @user_story.account = @account
       if @user_story.save
-        @user_story.tags = params[:tags]
-        @user_story.themes = params[:themes]
+        @user_story.tag_with(params[:tags])
+        @user_story.theme_with(params[:themes])
         
         if params[:commit] == "Add at start of backlog"
           @user_story.move_to_top
@@ -136,7 +136,7 @@ class UserStoriesController < ApplicationController
     if request.xhr? or request.post?
       @acceptance_criterium = @user_story.acceptance_criteria.find(params[:crit_id])
       if @acceptance_criterium.destroy
-        render_partial 'user_stories/acceptance_criteria' if request.xhr?
+        render :partial => 'user_stories/acceptance_criteria' if request.xhr?
       end
     end
   end
@@ -205,8 +205,8 @@ class UserStoriesController < ApplicationController
       @tags = params[:tags]
       @themes = params[:themes] || ""
       if @user_story.update_attributes(params[:user_story])
-        @user_story.tags = @tags
-        @user_story.themes = @themes
+        @user_story.tag_with(@tags)
+        @user_story.theme_with(@themes)
         flash[:notice] = "User story updated successfully"
       else
         flash[:error] = "User story couldn't be updated"
