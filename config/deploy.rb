@@ -22,15 +22,15 @@ role :db,  "app.agileista.com", :primary => true
 
 namespace :deploy do
   task :restart do
-    run "RAILS_ENV=production #{release_path}/script/runner \"load '#{release_path}/script/ferret_stop'\""
-    sleep 2
+    # run "RAILS_ENV=production #{release_path}/script/runner \"load '#{release_path}/script/ferret_stop'\""
+    # sleep 2
     run "/usr/bin/mongrel_cluster_ctl stop"
     sleep 2
     run "/usr/bin/mongrel_cluster_ctl start"    
     sleep 2
     run "/usr/bin/mongrel_cluster_ctl status"
-    sleep 2
-    run "RAILS_ENV=production #{release_path}/script/runner \"load '#{release_path}/script/ferret_start'\""
+    # sleep 2
+    # run "RAILS_ENV=production #{release_path}/script/runner \"load '#{release_path}/script/ferret_start'\""
   end
 end
 
