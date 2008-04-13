@@ -1,5 +1,5 @@
 <div id="main">
-  <h1>Sprint planning:</h1>
+  <h1>Plan <%= @sprint.name %>:<br /><span class="small">(<%= pluralize(@sprint.hours_left, 'planned hour') %> left)</span></h1>
   
   <div class="equal">
     <div class="row">
