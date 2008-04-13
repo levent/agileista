@@ -1,5 +1,5 @@
 <div id="main">
-<h1>Add task:</h1>
+<h1>Add task within <%= @sprint.name %>:<br /><span class="small">(<%= pluralize(@sprint.user_stories.sum('story_points'), 'story point') %> so far - <%= pluralize(@sprint.hours_left, 'planned hour') %> left)</span></h1>
 <div id="leftcontent">
 		<h2>User story details:</h2>
 		<p><span class="detail">Title: </span><%=h @user_story.definition %><br />

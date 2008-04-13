@@ -89,6 +89,7 @@ class UserStoriesController < ApplicationController
 
   def new_task
     @task = Task.new
+    @sprint = @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
   end
   
   def tasks
