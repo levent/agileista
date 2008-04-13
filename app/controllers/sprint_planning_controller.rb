@@ -59,7 +59,7 @@ class SprintPlanningController < ApplicationController
   
   def view
     @current_sprint = @sprint
-    calculate_todays_burndown
+    # calculate_todays_burndown
     create_chart
   end
   

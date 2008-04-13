@@ -106,6 +106,7 @@ class UserStoriesController < ApplicationController
       @task = Task.new(params[:task])
       @task.user_story = @user_story
       if @task.save
+        calculate_dayzero(params[:sprint_id])
         flash[:notice] = "Task created successfully"
         redirect_to :controller => 'user_stories', :action => "new_task", :id => @user_story, :sprint_id => params[:sprint_id]
       else
@@ -259,8 +260,10 @@ class UserStoriesController < ApplicationController
           SprintElement.find(:all, :conditions => ["sprint_id = ? AND user_story_id = ?", @sprint.id, @us.id]).collect{|se| se.destroy}
         end
       end
-      logger.info params.inspect
       render :text => params.inspect
+      # redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]
+      # y "HELLOTHERE"
+      # render :update { |page| page.redirect_to(:controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]) } 
     end
   end
   

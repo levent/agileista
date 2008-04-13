@@ -10,7 +10,7 @@ class SprintController < ApplicationController
     if @current_sprint.blank?
       redirect_to :controller => 'backlog' and flash[:notice] = "There is no active sprint" and return false
     end
-    calculate_todays_burndown
+    calculate_tomorrows_burndown
   
    
      @burndowns = Burndown.find(:all, :conditions => ["sprint_id = ?", @current_sprint.id], :order => :created_on)

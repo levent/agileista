@@ -79,50 +79,48 @@ class ApplicationController < ActionController::Base
     @user_stories = @account.user_stories.find(:all, :conditions => ['done = ? AND story_points IS NOT ?', 0, nil], :order => 'position')
   end
   
+  def calculate_dayzero(sprint_id)
+    @sprint = Sprint.find(sprint_id)
+    return false if @sprint.start_at <= Time.now
+    @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@sprint.id, @sprint.start_at.to_date)
+    @burndown.hours_left = @sprint.hours_left
+    @burndown.save
+  end
+
   def calculate_todays_burndown
     @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Date.today)
     @burndown.hours_left = @current_sprint.hours_left
     @burndown.save
   end
   
+  def calculate_tomorrows_burndown
+    @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Date.tomorrow)
+    @burndown.hours_left = @current_sprint.hours_left
+    @burndown.save
+  end
+  
   def create_chart
- 
-    # calculate_linear_regression(@burndowns.map(&:hours_left))
-    chartdata = "<chart caption='Burndown' xAxisName='Date' yAxisName='Hours left' showValues='1' formatNumberScale='0' showBorder='1'>"
+    chartdata = "<chart caption='Burndown' xAxisName='Day' yAxisName='Hours left' showValues='1' formatNumberScale='0' showBorder='1'>"
     index = 0
-    points = []
-    day = 1
+    day = 0
     done = false
     for i in @current_sprint.start_at.to_date..@current_sprint.end_at.to_date
       x = @current_sprint.burndowns.find(:first, :conditions => ["created_on = ?", i])
       y = x.hours_left if x
       
       if y && (i.to_date <= Date.today)
-        points << [index, y]
-        chartdata += "<set label='#{day}' value='#{y}' />"
+        chartdata += "<set label='#{day}' value='#{y}' toolText='#{y} hours remaining beginning of #{i.to_date}' />"
       else
-        chartdata += "<set label='#{day}' value='#{@current_sprint.hours_left}' />" unless done
+        chartdata += "<set label='#{day}' value='#{@current_sprint.hours_left}' anchorBorderColor='#ff0000' toolText='Current hours left' />" unless done
         chartdata += "<set label='#{day}' value='' />" if done
         done = true
       end
       index += 1
       day += 1
     end
-    
-    if y > @current_sprint.hours_left
-
-    end
-    # points = points[0..7]
-    # linear, x = calculate_linear_regression(points)
-    # chartdata += "<trendLines><line startValue='#{linear[0][1]}' endValue='#{linear.last[1]}' color='FF0000' /></trendLines>"
     chartdata += "</chart>"
     @chart = renderChartHTML("/FusionCharts/Line.swf", "", chartdata, "myFirst", 800, 300, false)
-    # @demo = line
-    
   end
-
-
-
 
   ######### REPORTS
   #
