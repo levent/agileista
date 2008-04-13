@@ -12,7 +12,7 @@ body {
 	background-color: #F6E497;
   	min-width: 900px;	
 }
-h1, h2, h3, .orange {font-family: "Lucida Grande", "Helvetica Neue", Arial, sans-serif; color: #b9121b;}
+h1, h2, h3, .orange {font-family: "Lucida Grande", "Helvetica Neue", Arial, sans-serif; color: #b9121b; font-size:120%;}
 #main h1{padding: 0; margin:0 0 10px 0;}
 #main h2{padding: 0; margin:10px 0 5px 0;}
 input, textarea, select { margin-bottom: 10px; display: block; }
@@ -29,6 +29,7 @@ fieldset {border: 1px solid #ccc; padding: 10px; margin-bottom: 12px;}
 .small {font-size: 0.8em;}
 a {color: #1A6086;}
 img {border: none}
+li {font-size: 90%;}
 
 
 #userstorylist a {text-decoration: none; font-weight: bold;}
