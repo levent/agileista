@@ -17,39 +17,32 @@
 <body>
 	<div id="header">
 	<% if logged_in? && @account -%>
-		<h1><%= link_to @account.name.humanize, :controller => 'backlog' %></h1>
 	    <ul>
+	        <li><%= link_to @account.name.humanize, :controller => 'backlog' %></li>
 		<% if @current_user.is_a?(Contributor) -%>
-		  <li><%= link_to "Add user story", :controller => 'user_stories', :action => "add" %></li>
+		    <li><%= link_to "Add user story", :controller => 'user_stories', :action => "add" %></li>
 		<% elsif @current_user.is_a?(TeamMember) %>
-		  <li><%= link_to "Add user story", :controller => 'user_stories', :action => "new" %></li>
+		    <li><%= link_to "Add user story", :controller => 'user_stories', :action => "new" %></li>
 		<% end -%>
-	      <!-- <li><%= link_to "Releases", :controller => 'releases' %></li> -->
-	      <li><%= link_to "Themes", :controller => 'themes' %></li>
-		  <li><%= link_to "Backlog", :controller => 'backlog' %></li>
-	      <li><%= link_to "Sprint planning", :controller => 'sprint_planning' %></li>
+	        <li><%= link_to "Themes", :controller => 'themes' %></li>
+		    <li><%= link_to "Backlog", :controller => 'backlog' %></li>
+	        <li><%= link_to "Sprint planning", :controller => 'sprint_planning' %></li>
 <% if @account.sprints.find(:first, :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago]) -%><li><%= link_to "Task board", :controller => 'sprint' %></li><% end -%>
-		  <li style="float:right"><%= link_to "Logout", :controller => '/login', :action => 'logout' if logged_in? %></li>
-	      <li style="float:right"><%= link_to "Settings", :controller => '/account', :action => 'settings' %></li>
+            <li><span id="flashs"><%= flash[:notice] %><%= flash[:error] %></span></li>
+			<li id="searchform">
+				<% form_for :tag, :url => {:controller => :backlog, :action => 'search'} do |t| %>
+					<%= text_field_tag 'q' %><%= submit_tag 'Search' %>
+				<% end %>
+			</li>
+		    <li style="float:right"><%= link_to "Logout", :controller => '/login', :action => 'logout' if logged_in? %></li>
+	        <li style="float:right"><%= link_to "Settings", :controller => '/account', :action => 'settings' %></li>
 	    </ul>
 	<% else %>
 		<h1>Welcome to Agileista</h1>
 	<% end -%>
-		<div id="flash">
-			<% if flash[:error] -%><span id="flasherror"><%= flash[:error] %></span><% end -%>
-			<% if flash[:notice] -%><span id="flashnotice"><%= flash[:notice] %></span><% end -%>
-		</div>
 	</div>
 	<div id="wrapper">
 		<div id="content">
-			<% if logged_in? && @account -%>
-			<div id="searchbox">
-				<% form_for :tag, :url => {:controller => :backlog, :action => 'search'} do |t| %>
-					<%= text_field_tag 'q' %>
-					<%= submit_tag 'Search' %>
-				<% end %>
-			</div>
-			<% end -%>
 			<%= @content_for_layout %>
 		</div>
 	</div>

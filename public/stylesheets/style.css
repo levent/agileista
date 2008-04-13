@@ -133,35 +133,36 @@ background:#b9121b;
 font-size:93%;
 line-height:normal;
   position: relative;
+padding-top:4px;
 }
-
-#header h1 {color: #ffffff; margin: 10px; font-size: 280%;}
-#header h1 a {margin: 0; padding:0}
 
 #header ul {
 	margin:0;
-	padding:10px 10px 0;
 	list-style:none;
 }
 #header li {
 	float:left;
-	background-color: #4C1B1B;
-	padding: 3px;
+	padding:0;
 	margin:0;
 	margin-right:2px;
-	-moz-border-radius: 8px 8px 0px 0px;
-	border-radius: 8px 8px 0px 0px;
 }
-
-#header a {
+#header li#searchform {
+	float:right;
+}
+#header li#searchform input {
+	display:inline; margin:2px 2px 0 0;padding-top:0 10px;
+}
+#header a, #header span {
 	display:block;
-	padding:5px 15px 4px;
+	padding:5px 10px 4px;
 	text-decoration: none;
 	color: #FCFAE1;
  }
-#header a:hover {color: white;}
+#header a:hover {color:#4C1B1B;}
 
-
+#header h1 {color: #ffffff; margin:0; padding:8px;font-size:2.8em;}
+#header li h1 a {margin: 0; padding:0}
+#header #flashs {color: yellow;}
 
 /*#account_hdr { height: 30px; border-bottom: 3px solid #268CCD; text-align: right; font-size: 0.8em; font-weight: bold; margin: 0; padding: 0;}*/
 /*#account_hdr p { margin: 0; }*/
@@ -252,25 +253,11 @@ padding-right: 10px;}
 .leftborder {border-left: 1px solid #ccc;}
 #undefined {border: 1px solid #b9121b; width: 124px; height: 90px; margin: 4px; padding: 4px; font-size: 0.8em;}
 #undefined h3 {margin: 0; margin-bottom: 4px; margin-top:2px; background-color: #b9121b; color: #fff;}
-
-
-/*#incomplete {width: 200px;float:left;border-right:1px solid black;}*/
 #incomplete {width: 250px;padding:10px; min-height: 200px;}
 #inprogress {width: 250px;border-left:1px solid #c00; padding:10px; min-height: 200px;}
 #complete {width: 250px;border-left:1px solid #c00; padding:10px; min-height: 200px;}
 .dragdropl {width: 400px;min-height: 200px;padding:10px;}
 .dragdropr {width: 400px;border-left:1px solid #b9121b; min-height: 200px;padding:10px;}
-/*#complete {width: 200px;float:left;border-right:1px solid black;}*/
-
-
-/*** SEARCH ***/
-
-#searchbox {
-	clear:both;	
-	text-align: right;
-	background-color: #4C1B1B;
-	}
-#searchbox input {display: inline;margin: 10px;}
 
 .cloud1 {font-size: 0.8em;}
 .cloud2 {font-size: 1.0em;}
@@ -312,35 +299,6 @@ span.tag {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	}
-	
-	
-/* FLASH */
-
-span#flasherror {
-	color: #fff;
-	background-image: url(/images/icons/cross.png);
-	background-repeat: no-repeat;
-	background-position:1% 50%
-	}
-	
-span#flashnotice {
-	color: #fff;
-	background-image: url(/images/icons/tick.png);
-	background-repeat: no-repeat;
-	background-position:1% 50%
-	}
-	
-#flash{position: absolute; top: 10px; right: 5px}
-
-#flash span {
-	background-color: #4C1B1B;
-	font-size: 120%;
-	-moz-border-radius: 6px;
-	border-radius: 6px;padding:6px;
-	padding-left: 25px;
-	
-}
-
 #release hr {border: 1px solid #4c1b1b; }
 
 .tasksave {display:inline;}
