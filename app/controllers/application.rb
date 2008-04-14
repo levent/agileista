@@ -107,13 +107,15 @@ class ApplicationController < ActionController::Base
     for i in @current_sprint.start_at.to_date..@current_sprint.end_at.to_date
       x = @current_sprint.burndowns.find(:first, :conditions => ["created_on = ?", i])
       y = x.hours_left if x
-      
       if y && (i.to_date <= Date.today)
         chartdata += "<set label='#{day}' value='#{y}' toolText='#{y} hours remaining beginning of #{i.to_date}' />"
       else
-        chartdata += "<set label='#{day}' value='#{@current_sprint.hours_left}' anchorBorderColor='#ff0000' toolText='Current hours left' />" unless done
-        chartdata += "<set label='#{day}' value='' />" if done
-        done = true
+        if done || (i.to_date != Date.tomorrow)
+          chartdata += "<set label='#{day}' value='' />"
+        else
+          chartdata += "<set label='#{day}' value='#{@current_sprint.hours_left}' anchorBorderColor='#ff0000' toolText='Current hours left' />"
+          done = true
+        end
       end
       index += 1
       day += 1
