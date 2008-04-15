@@ -261,7 +261,13 @@ class UserStoriesController < ApplicationController
           SprintElement.find(:all, :conditions => ["sprint_id = ? AND user_story_id = ?", @sprint.id, @us.id]).collect{|se| se.destroy}
         end
       end
-      render :text => params.inspect
+      respond_to do |format|
+        format.html {redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]}
+        format.js {render :update do |page|
+          page.redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]
+        end}
+      end
+      # render :text => params.inspect
       # redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]
       # y "HELLOTHERE"
       # render :update { |page| page.redirect_to(:controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]) } 
