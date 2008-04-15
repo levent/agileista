@@ -267,10 +267,6 @@ class UserStoriesController < ApplicationController
           page.redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]
         end}
       end
-      # render :text => params.inspect
-      # redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]
-      # y "HELLOTHERE"
-      # render :update { |page| page.redirect_to(:controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]) } 
     end
   end
   
@@ -294,7 +290,7 @@ class UserStoriesController < ApplicationController
       @user_story.move_higher
       flash[:notice] = "User story moved up"
     end
-      redirect_to :controller => 'account'
+    redirect_to :controller => 'account'
   end
   
   def move_down
@@ -302,7 +298,7 @@ class UserStoriesController < ApplicationController
       @user_story.move_lower
       flash[:notice] = "User story moved down"
     end
-      redirect_to :controller => 'account'
+    redirect_to :controller => 'account'
   end
   
   def delete
