@@ -96,11 +96,21 @@ ul#userstorylist, .nobullet {list-style: none; margin: 0; padding: 0; font-size:
 ul {list-style: none; padding: 0 10px;}
 .nobullet li {margin-left: 5px; margin-bottom: 6px;}
 
-div.notecard {border: 1px solid #ccc; cursor:move; margin: 4px; padding: 2px; width: 148px; height: 100px; font-size: 0.8em; margin-bottom: 8px; float:left}
+div.notecard {border: 1px solid #ccc; cursor:move; margin: 4px; padding: 2px; width: 148px; min-height: 100px; height:auto; font-size: 0.8em; margin-bottom: 8px; float:left}
+/* for Internet Explorer */
+/*\*/
+* html div.notecard {
+height: 100px;
+}
+/**/
 div.notecard form, div.notecard input {padding: 0; margin: 0;}
-#userstorylist div, .backlogitem {cursor:move; margin: 4px; padding: 4px; width: 124px; height: 90px; font-size: 0.8em; float:left; margin-bottom: 8px; position: relative;border: 1px solid #b9121b;}
-
-
+#userstorylist div, .backlogitem {cursor:move; margin: 4px; padding: 4px; width: 124px; min-height: 90px; font-size: 0.8em; float:left; margin-bottom: 8px; position: relative;border: 1px solid #b9121b;}
+/* for Internet Explorer */
+/*\*/
+* html #userstorylist div {
+height: 90px;
+}
+/**/
 
 #userstorylist span.user_story_points { color:#990000;display:block;margin-bottom: 2px; }
 div.notecard h2, #userstorylist h2 {margin: 0; margin-bottom: 4px; }

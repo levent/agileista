@@ -19,7 +19,7 @@ class Account < ActiveRecord::Base
   
   before_save :make_name_lowercase
   
-  has_many :themes
+  has_many :themes, :order => 'name'
   has_many :releases
   has_many :tags
 
