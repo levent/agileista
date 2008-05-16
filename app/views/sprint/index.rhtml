@@ -8,7 +8,7 @@
 	<% for user_story in @user_stories -%>
       <% count += 1 %>
       <% user_story_positions[user_story.id] = count %>
-	  <li><span class="orange">#<%= count %></span> <%= user_story.definition %> <%= link_to image_tag('icons/page_edit.png', :class => 'icon'), {:controller => 'user_stories', :action => 'edit', :id => user_story.id}, :title => 'Edit' unless @current_user.is_a?(Contributor)%></li>
+	  <li<%= complete?(user_story) %>><span class="orange">#<%= count %></span> <%= user_story.definition %> <%= link_to image_tag('icons/page_edit.png', :class => 'icon'), {:controller => 'user_stories', :action => 'edit', :id => user_story.id}, :title => 'Edit' unless @current_user.is_a?(Contributor)%></li>
 	<% end -%>
     </ul>
     

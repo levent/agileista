@@ -23,10 +23,21 @@ class UserStory < ActiveRecord::Base
   belongs_to :account
   belongs_to :sprint
   belongs_to :release
-  
-  def done?
-    self.done == 1 ? true : false
+
+
+  def complete?
+    if !tasks.blank?
+      tasks.each do |task|
+        return false unless task.complete?
+      end
+      return true
+    else
+      return false
+    end
   end
+  # def done?
+  #   self.done == 1 ? true : false
+  # end
   
   def tag_with(tags)
     self.taggings.destroy_all
