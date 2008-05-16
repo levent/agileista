@@ -16,7 +16,7 @@
 		<h3>Tasks:</h3>
 		<ul class="nobullet">
 		<% for task in @user_story.tasks -%>
-			<li><%= link_to image_tag('icons/page_white.png', :class => 'icon'), :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to image_tag('icons/page_white_edit.png', :class => 'icon'), :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%=h task.definition %></li>
+			<li><%= link_to image_tag('icons/page_white.png', :class => 'icon'), :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to image_tag('icons/page_white_edit.png', :class => 'icon'), :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%=h "#{task.definition} - #{pluralize(task.hours, 'hour')}" %></li>
 		<% end -%>
 		</ul>
 	</div>
