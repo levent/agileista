@@ -1,4 +1,5 @@
-<div id="main">
+<div id="navii"><ul><li><%= link_to "Add users", :controller => 'users', :action => 'new' if @current_user.is_a?(TeamMember) %></li><li><%= link_to "Back to backlog", :controller => 'backlog' %></li></ul><div class="c">&nbsp;</div></div>
+<div id="main" class="wide">
 	<h1>Settings:</h1>
 	<% if @current_user.account_holder? %>
 	<div class="summary_pane">
@@ -48,14 +49,4 @@
 		<%= submit_tag 'Change password' %>
         </form>
 	</div>
-</div>
-<div id="sidebar">
-	<p><%= link_to "Add users", :controller => 'users', :action => 'new' if @current_user.is_a?(TeamMember) %></p>
-	<p><%= link_to "Return to backlog", :controller => 'backlog' %></p>
-	<h2>Info</h2>
-	<p><%= image_tag('icons/user_edit.png', :class => 'icon') %> Edit user</p>
-	<p><%= image_tag('icons/user_delete.png', :class => 'icon') %> Delete user</p>
-	<p><%= image_tag('icons/bullet_key.png', :class => 'icon') %> Account holder</p>
-	<p><%= image_tag('icons/status_online.png', :class => 'icon') %> Active user</p>
-	<p><%= image_tag('icons/status_offline.png', :class => 'icon') %> Inactive user - resend invitation</p>
 </div>

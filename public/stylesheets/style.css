@@ -262,11 +262,14 @@ padding-right: 10px;}
 .fat {height: 220px;}
 .small {}
 .leftborder {border-left: 1px solid #ccc;}
+#exportlinks ul {margin: 4px; padding: 0; padding-top: 20px;}
+/*#exportlinks ul li {padding-bottom: 1px;}*/
 #undefined {border: 1px solid #b9121b; width: 124px; height: 90px; margin: 4px; padding: 4px; font-size: 0.8em;}
-#undefined h3 {margin: 0; margin-bottom: 4px; margin-top:2px; background-color: #b9121b; color: #fff;}
-#incomplete {width: 250px;padding:10px; min-height: 200px;}
-#inprogress {width: 250px;border-left:1px solid #c00; padding:10px; min-height: 200px;}
-#complete {width: 250px;border-left:1px solid #c00; padding:10px; min-height: 200px;}
+#udnoborder h3, #undefined h3 {margin: 0; margin-bottom: 4px; margin-top:2px; background-color: #b9121b; color: #fff;}
+#udnoborder h3 {display:block; width: 15%; font-size: 12px; font-weight: normal;}
+#incomplete {width: 30%;padding:10px; min-height: 200px;}
+#inprogress {width: 30%;border-left:1px solid #c00; padding:10px; min-height: 200px;}
+#complete {width: 30%;border-left:1px solid #c00; padding:10px; min-height: 200px;}
 .dragdropl {width: 400px;min-height: 200px;padding:10px;}
 .dragdropr {width: 400px;border-left:1px solid #b9121b; min-height: 200px;padding:10px;}
 
@@ -334,3 +337,11 @@ th.titlerow {
 .uscomplete {text-decoration:line-through; color: #666;}
 
 #exportlinks{clear:both;}
+#main.wide {width:96%;}
+#navii{
+	font-size:0.8em;padding-left:20px;line-height:2em;background:#222;color:#fff
+}
+#navii a{line-height:2em;color:#fff;text-decoration:none;}
+#navii a:hover{color:#b9121b;}
+#navii ul {display:inline;margin:0;padding:0;}
+#navii ul li {float:left;padding-right:15px;}

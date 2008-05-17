@@ -3,7 +3,7 @@
 <%=h element.definition %><br />
 <%= show_assignee(element.developer) %>
 <% unless @current_user.is_a?(Contributor) -%>
-<p><%= form_tag :action => 'update_hours', :id => element %><%= text_field_tag('task_hours', element.hours, :size => 3, :class => 'tasksave') %> <%= submit_tag 'Save', :class => 'tasksave' %></form></p><%= link_to image_tag('icons/page_white.png', :class => 'second'), :controller => 'user_stories', :action => 'show_task', :id => element.user_story, :task_id => element, :from => 'tb' %><%= link_to image_tag('icons/page_white_edit.png'), :controller => 'user_stories', :action => 'edit_task', :id => element.user_story, :task_id => element, :from => 'tb' %></p>
+<p><%= form_tag :action => 'update_hours', :id => element %><%= text_field_tag('task_hours', element.hours, :size => 3, :class => 'tasksave') %> <%= submit_tag 'Save', :class => 'tasksave' %></form></p><p><%= link_to 'View', :controller => 'user_stories', :action => 'show_task', :id => element.user_story, :task_id => element, :from => 'tb' %> <%= link_to 'Edit', :controller => 'user_stories', :action => 'edit_task', :id => element.user_story, :task_id => element, :from => 'tb' %></p>
 <% end -%>
 </div>
 

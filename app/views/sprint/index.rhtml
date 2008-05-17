@@ -1,4 +1,6 @@
-<div id="main">
+<div id="navii"><%= link_to "Back to backlog", :controller => 'backlog' %></div>
+
+<div id="main" class="wide">
 	<h1><%= @current_sprint.name %>:<br /><span class="small"><%= show_date(@current_sprint.start_at) %> to <%= show_date(@current_sprint.end_at) %> (<%= pluralize(@current_sprint.hours_left, 'hour') %> left)</span></h1>
 	<%= @chart %>
 	<h2>User stories:</h2>
@@ -8,7 +10,7 @@
 	<% for user_story in @user_stories -%>
       <% count += 1 %>
       <% user_story_positions[user_story.id] = count %>
-	  <li<%= complete?(user_story) %>><span class="orange">#<%= count %></span> <%= user_story.definition %> <%= link_to image_tag('icons/page_edit.png', :class => 'icon'), {:controller => 'user_stories', :action => 'edit', :id => user_story.id}, :title => 'Edit' unless @current_user.is_a?(Contributor)%></li>
+	  <li<%= complete?(user_story) %>><span class="orange">#<%= count %></span> <%= user_story.definition %> <%= link_to 'Edit', {:controller => 'user_stories', :action => 'edit', :id => user_story.id}, :title => 'Edit' unless @current_user.is_a?(Contributor)%></li>
 	<% end -%>
     </ul>
     
@@ -33,25 +35,12 @@
 			<%= render :partial => 'show_task_card', :locals => {:element => element, :positions => user_story_positions} %>
 		<% end -%>
 	</div>
-
   <!--[if IE]>
     <div class="ieclearer"></div>
   <![endif]-->
-  
      </div>
     </div>
-  
-</div>
-
-<div id="sidebar">
-	<p><%= link_to "Back to backlog", :controller => 'backlog' %></p>
-  <% unless @current_user.is_a?(Contributor) -%>
-	<h2>Info</h2>
-	<p><%= image_tag('icons/page_white.png', :class => 'icon') %> Show task</p>
-	<p><%= image_tag('icons/page_white_edit.png', :class => 'icon') %> Edit task</p>
-  <% end -%>
-</div>
-
+  </div>
 <%= sortable_element 'incomplete', :tag => 'div', :dropOnEmpty => true, :containment => ['incomplete', 'inprogress', 'complete'], :overlap => 'horizontal', :constraint => false, :url => { :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>
 <%= sortable_element 'complete', :tag => 'div', :dropOnEmpty => true, :containment => ['incomplete', 'inprogress', 'complete'], :overlap => 'horizontal', :constraint => false, :url => { :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>
 <%= sortable_element 'inprogress', :tag => 'div', :dropOnEmpty => true, :containment => ['incomplete', 'inprogress', 'complete'], :overlap => 'horizontal', :constraint => false, :url => { :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>

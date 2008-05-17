@@ -121,7 +121,7 @@ class ApplicationController < ActionController::Base
       day += 1
     end
     chartdata += "</chart>"
-    @chart = renderChartHTML("/FusionCharts/Line.swf", "", chartdata, "myFirst", 800, 250, false)
+    @chart = renderChartHTML("/FusionCharts/Line.swf", "", chartdata, "myFirst", '96%', 250, false)
   end
 
   ######### REPORTS

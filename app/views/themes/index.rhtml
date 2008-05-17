@@ -1,4 +1,5 @@
-<div id="main">
+<div id="navii"><%= link_to "Add a theme", :action => "new" %></div>
+<div id="main" class="wide">
   <h1>Themes</h1>
   <div id="themeslist">
     <% @themes.each do |theme| -%>
@@ -12,8 +13,4 @@
       </div>
     <% end -%>
   </div>
-</div>
-<div id="sidebar">
-  <h2>Links</h2>
-  <p><%= link_to "Add a theme", :action => "new" %></p>
 </div>

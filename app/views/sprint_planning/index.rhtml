@@ -1,4 +1,5 @@
-<div id="main">
+<div id="navii"><ul><li><%= link_to "Add a new sprint", :controller => 'sprint_planning', :action => 'new' %></li><li><%= link_to "Back to backlog", :controller => 'backlog' %></li></ul><div class="c">&nbsp;</div></div>
+<div id="main" class="wide">
 	<h1>Sprint planning:</h1>
 	<table id="sprints">
 	  <thead>
@@ -23,12 +24,11 @@
 	      <td>
 	        <% if @current_user.is_a?(Contributor) -%>
   			  <%= link_to image_tag("icons/page.png", :class => 'icon'), {:controller => 'sprint_planning', :action => 'view', :id => @sprint}, :title => 'View' %>
-
 	        <% else -%>
-			<%= link_to image_tag("icons/application_view_tile.png", :class => 'icon'), {:controller => 'sprint_planning', :action => 'show', :id => @sprint}, :title => 'Plan' unless @sprint.finished? %>
-			<%= link_to image_tag("icons/page.png", :class => 'icon'), {:controller => 'sprint_planning', :action => 'view', :id => @sprint}, :title => 'View' if @sprint.finished? %>
-			<%= link_to image_tag("icons/page_edit.png", :class => 'icon'), {:controller => 'sprint_planning', :action => 'edit', :id => @sprint}, :title => 'Edit' unless @sprint.finished? %>
-			<%= link_to image_tag("icons/error_delete.png", :class => 'icon'), {:controller => 'sprint_planning', :action => 'destroy', :id => @sprint}, :confirm => "This cannot be undone. Are you sure?", :method => :delete, :title => 'Delete' unless @sprint.finished? %>
+    			<%= link_to 'Plan', {:controller => 'sprint_planning', :action => 'show', :id => @sprint}, :title => 'Plan' unless @sprint.finished? %>
+    			<%= link_to 'View', {:controller => 'sprint_planning', :action => 'view', :id => @sprint}, :title => 'View' if @sprint.finished? %>
+    			<%= link_to 'Edit', {:controller => 'sprint_planning', :action => 'edit', :id => @sprint}, :title => 'Edit' unless @sprint.finished? %>
+    			<%= link_to 'Delete', {:controller => 'sprint_planning', :action => 'destroy', :id => @sprint}, :confirm => "This cannot be undone. Are you sure?", :method => :delete, :title => 'Delete' unless @sprint.finished? %>
 			<% end -%>
 		  </td>
 		  <td><%= "Current sprint" if @sprint == @current_sprint %><%= "Next sprint" if @sprint == @upcoming_sprint %></td>
@@ -36,13 +36,4 @@
 	    <% end %>
 	  </tbody>
 	</table>
-</div>
-<div id="sidebar">
-	<p><%= link_to "Add a new sprint", :controller => 'sprint_planning', :action => 'new' %></p>
-	<p><%= link_to "Back to backlog", :controller => 'backlog' %></p>
-	<h2>Info</h2>
-	<p><%= image_tag('icons/application_view_tile.png', :class => 'icon') %> Plan sprint</p>
-	<p><%= image_tag('icons/page_edit.png', :class => 'icon') %> Edit sprint</p>
-	<p><%= image_tag('icons/page.png', :class => 'icon') %> View sprint</p>
-	
 </div>
