@@ -4,17 +4,20 @@
 		<% for @user_story in @user_stories %>
 			<%= render :partial => 'show_story_card' %>
 		<% end %>
+
+	</div>
+	<div id="exportlinks">
+	    <ul>
+	        <li><%= link_to "Export backlog as csv", { :controller => 'backlog', :action => 'export' }, { :alt => "export", :title => "export" } %></li>
+	        <li><%= link_to "Export backlog as pdf", { :controller => 'backlog', :action => 'pdf' }, { :alt => "pdf", :title => "pdf" } %></li>
+	    </ul>
 	</div>
 </div>
 <div id="sidebar">
 	<%= sortable_element 'userstorylist', :tag => 'div', :overlap => 'horizontal', :constraint => false, :url => { :action => "sort_release" }, :complete => visual_effect(:highlight, 'storypoints') unless params[:order] %>
-	<h2>Tags</h2>
-	<%= render(:partial => "shared/tag_cloud", :object => @cloud) %>
 	<h2>Info</h2>
 	<div id="undefined">
 		<h3>Undefined story</h3>
 		<p>This story needs estimation before it can be planned into a sprint</p>
 	</div>
-	<p><%= link_to image_tag("icons/page_white_acrobat.png", :class => 'icon'), { :controller => 'backlog', :action => 'pdf' }, { :alt => "pdf", :title => "pdf" } %> Download pdf of backlog</p>
-	<p><%= link_to "Export backlog as csv", { :controller => 'backlog', :action => 'export' }, { :alt => "export", :title => "export" } %></p>
 </div>
