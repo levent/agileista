@@ -1,5 +1,15 @@
+<div id="navii">
+    <ul>
+	<% if params[:sprint_id] %>
+		<li><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] %></li>
+	<% else -%>
+		<li><%= link_to "Back to backlog", :controller => 'backlog' unless params[:from] == 'themes' %></li>
+		<li><%= link_to "Back to themes", :controller => 'themes' if params[:from] == 'themes' %></li>
+	<% end -%>
+	</ul>
+	<div class="c">&nbsp;</div>
+</div>
 <div id="main">
-
 	<div id="user_story">
 		<h1>#<%= @user_story.position %> <%=h @user_story.definition %></h1>
 		<p><%=h @user_story.description %></p>
@@ -20,15 +30,7 @@
 		<% for tag in @user_story.tags -%><span class="tag"><%=h tag.name %></span> <% end -%>
 		<% end -%>
 		<% if @current_user.is_a?(TeamMember) -%>
-		<p><%= link_to image_tag('icons/page_edit.png', :class => 'icon'), {:controller => 'user_stories', :action => 'edit', :id => @user_story, :from => 'show'}, :title => 'Edit' %> Edit</p>
+		<p><%= link_to 'Edit', {:controller => 'user_stories', :action => 'edit', :id => @user_story, :from => 'show'}, :title => 'Edit' %></p>
 		<% end -%>
 	</div>
-</div>
-<div id="sidebar">
-	<% if params[:sprint_id] %>
-		<p><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] %>
-	<% else -%>
-		<p><%= link_to "Back to backlog", :controller => 'backlog' unless params[:from] == 'themes' %></p>
-		<p><%= link_to "Back to themes", :controller => 'themes' if params[:from] == 'themes' %></p>
-	<% end -%>
 </div>
