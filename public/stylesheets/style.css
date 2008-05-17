@@ -338,9 +338,7 @@ th.titlerow {
 
 #exportlinks{clear:both;}
 #main.wide {width:96%;}
-#navii{
-	font-size:0.8em;padding-left:20px;line-height:2em;background:#222;color:#fff
-}
+#navii{font-size:0.8em;padding-left:20px;line-height:2em;background:#222;color:#fff}
 #navii a{line-height:2em;color:#fff;text-decoration:none;}
 #navii a:hover{color:#b9121b;}
 #navii ul {display:inline;margin:0;padding:0;}
