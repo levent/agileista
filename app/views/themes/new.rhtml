@@ -1,3 +1,4 @@
+<div id="navii"><%= link_to "Back to themes", :controller => 'themes' %></div>
 <div id="main">
 <h1>Add a theme</h1>
 <%= error_messages_for :theme %>
@@ -6,7 +7,4 @@
 	<label for="theme_description">Description:</label><%= theme.text_area :description, :class => "long fat" %>
 	<%= submit_tag "Add theme" %>
 <% end %>
-</div>
-<div id="sidebar">
-	<p><%= link_to "Back to themes", :controller => 'themes' %></p>
 </div>

@@ -152,7 +152,7 @@ class UserStoriesController < ApplicationController
   end
   
   def destroy_task
-    if request.post?
+    if request.post? || request.delete?
       @task = @user_story.tasks.find(params[:task_id])
       if @task.destroy
         flash[:notice] = "Task deleted successfully"

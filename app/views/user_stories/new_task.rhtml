@@ -1,3 +1,13 @@
+<div id="navii">
+    <ul>
+<% if params[:sprint_id] %>
+	<li><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] %></li>
+<% else %>
+	<li><%= link_to "Back to current sprint", :controller => 'sprint' %></li>
+<% end %>
+    </ul>
+    <div class="clear">&nbsp;</div>
+</div>
 <div id="main">
   <h1>Add task within <%= @sprint.name %>:<br /><span class="small">(<%= pluralize(@sprint.user_stories.sum('story_points'), 'story point') %> so far - <%= pluralize(@sprint.hours_left, 'hour') %> planned)</span></h1>
 <div id="leftcontent">
@@ -16,7 +26,7 @@
 		<h3>Tasks:</h3>
 		<ul class="nobullet">
 		<% for task in @user_story.tasks -%>
-			<li><%= link_to image_tag('icons/page_white.png', :class => 'icon'), :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to image_tag('icons/page_white_edit.png', :class => 'icon'), :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%=h "#{task.definition} - #{pluralize(task.hours, 'hour')}" %></li>
+			<li><%= link_to 'View', :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to 'Edit', :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%=h "#{task.definition} - #{pluralize(task.hours, 'hour')}" %></li>
 		<% end -%>
 		</ul>
 	</div>
@@ -31,14 +41,4 @@
 			<%= submit_tag 'Add task' %>
 		<% end %>
 	</div>
-</div>
-<div id="sidebar">
-<% if params[:sprint_id] %>
-	<p><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] %></p>
-<% else %>
-	<p><%= link_to "Back to current sprint", :controller => 'sprint' %></p>
-<% end %>
-	<h2>Info</h2>
-	<p><%= image_tag('icons/page_white.png', :class => 'icon') %> Show task</p>
-	<p><%= image_tag('icons/page_white_edit.png', :class => 'icon') %> Edit task</p>
 </div>

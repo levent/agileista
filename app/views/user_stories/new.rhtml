@@ -1,3 +1,4 @@
+<div id="navii"><%= link_to "Back to backlog", :controller => 'backlog' %></div>
 <div id="main">
 <h1>Add a user story</h1>
 <%= error_messages_for :user_story %>
@@ -6,7 +7,4 @@
 	<%= submit_tag "Add at start of backlog" %>
 	<%= submit_tag "Add at end of backlog" %>
 <% end %>
-</div>
-<div id="sidebar">
-	<p><%= link_to "Back to backlog", :controller => 'backlog' %></p>
 </div>

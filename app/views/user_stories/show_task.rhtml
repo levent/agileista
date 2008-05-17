@@ -1,3 +1,13 @@
+<div id="navii">
+    <ul>
+        <li><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] unless params[:from] && params[:from] == 'tb' %></li>
+        <li><%= link_to "Back to task board", :controller => 'sprint', :action => 'index' if params[:from] && params[:from] == 'tb' %></li>
+<% if @current_user.is_a?(TeamMember) -%>
+        <li><%= link_to "Delete task!!", :controller => 'user_stories', :action => 'destroy_task', :id => @user_story, :task_id => params[:task_id] %></li>
+<% end -%>
+    </ul>
+    <div class="c">&nbsp;</div>
+</div>
 <div id="main">
 	<h1>Show task:</h1>
 	<div id="leftcontent">
@@ -16,7 +26,7 @@
 		<h3>All Tasks:</h3>
 		<ul class="nobullet">
 		<% for task in @user_story.tasks -%>
-			<li><%= link_to image_tag('icons/page_white.png', :class => 'icon'), :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to image_tag('icons/page_white_edit.png', :class => 'icon'), :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%=h task.definition %></li>
+			<li><%= link_to 'View', :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to 'Edit', :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%=h task.definition %></li>
 		<% end -%>
 		</ul>
 	</div>
@@ -29,14 +39,4 @@
 		<h3>Assigned to:</h3>
 		<p><%= show_assignee(@task.developer) %></p>
 	</div>
-</div>
-<div id="sidebar">
-	<p><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] unless params[:from] && params[:from] == 'tb' %></p>
-	<p><%= link_to "Back to task board", :controller => 'sprint', :action => 'index' if params[:from] && params[:from] == 'tb' %></p>
-    <% if @current_user.is_a?(TeamMember) -%>
-    <p>Warning! This action is permanent: <%= button_to "Delete task", :controller => 'user_stories', :action => 'destroy_task', :id => @user_story, :task_id => params[:task_id] %></p>
-    <% end -%>
-	<h2>Info</h2>
-	<p><%= image_tag('icons/page_white.png', :class => 'icon') %> Show task</p>
-	<p><%= image_tag('icons/page_white_edit.png', :class => 'icon') %> Edit task</p>
 </div>
