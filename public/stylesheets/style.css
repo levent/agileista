@@ -270,8 +270,8 @@ padding-right: 10px;}
 #incomplete {width: 30%;padding:10px; min-height: 200px;}
 #inprogress {width: 30%;border-left:1px solid #c00; padding:10px; min-height: 200px;}
 #complete {width: 30%;border-left:1px solid #c00; padding:10px; min-height: 200px;}
-.dragdropl {width: 400px;min-height: 200px;padding:10px;}
-.dragdropr {width: 400px;border-left:1px solid #b9121b; min-height: 200px;padding:10px;}
+.dragdropl {width: 30%;min-height: 200px;padding:10px;}
+.dragdropr {width: 35%;border-left:1px solid #b9121b; min-height: 200px;padding:10px;}
 
 .cloud1 {font-size: 0.8em;}
 .cloud2 {font-size: 1.0em;}
