@@ -32,7 +32,7 @@ img {border: none}
 li {font-size: 90%;}
 
 
-#userstorylist a {text-decoration: none; font-weight: bold;}
+#userstorylist a {text-decoration: none;}
 #wrapper {
 /*	#container {*/
 	  margin: 0 auto;
