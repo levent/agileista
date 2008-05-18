@@ -1,11 +1,12 @@
 <div id="navii">
     <ul>
-        <% if params[:sprint_id] %>
+        <% if params[:sprint_id] -%>
         <li><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] %></li>
     	<% else %>
     	<li><%= link_to "Add another user story", :controller => 'user_stories', :action => 'new' if @current_user.is_a?(TeamMember) %></li>
     	<li><%= link_to "Add another user story", :controller => 'user_stories', :action => 'add' if @current_user.is_a?(Contributor) %></li>
     	<li><%= link_to "Back to backlog", :controller => 'backlog' %></li>
+    	<% end -%>
 	</ul>
 	<div class="c">&nbsp;</div>
 </div>	
@@ -21,5 +22,4 @@
 </div>
 <div id="sidebar">
 	<%= render :partial => 'acceptance_crit_holder' %>
-	<% end %>
 </div>
