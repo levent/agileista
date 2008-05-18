@@ -2,7 +2,7 @@ set :application, "agileista.com"
 # set :repository,  "svn+dented://dev.dentedrecords.com/home/levent/repository/agileista.com/trunk"
 # git
 set :repository, "git@github.com:levent/agileista.git"
-set :scm, "git"
+set :scm, :git
 set :deploy_via, :remote_cache
 
 
@@ -18,7 +18,7 @@ set :deploy_to, "/home/levent/apps/#{application}"
 # set :scm, :subversion
 
 ssh_options[:port] = 30000
-set :sudo, "sudo -p Password:" 
+# set :sudo, "sudo -p Password:" 
 set :user, "levent"
 default_run_options[:pty] = true
 # default_run_options[:pty] = true
