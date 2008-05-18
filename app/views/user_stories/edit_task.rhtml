@@ -3,7 +3,7 @@
         <li><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] unless params[:from] == 'tb' %></li>
         <li><%= link_to "Back to task board", :controller => 'sprint' if params[:from] == 'tb' %></li>
     <% if @current_user.is_a?(TeamMember) -%>
-    <li><%= link_to "Delete task!!", {:controller => 'user_stories', :action => 'destroy_task', :id => @user_story, :task_id => params[:task_id]}, {:method => :delete} %></li>
+    <li><%= link_to "Delete task!", {:controller => 'user_stories', :action => 'destroy_task', :id => @user_story, :task_id => params[:task_id]}, {:method => :delete} %></li>
     <% end -%>
     </ul>
     <div class="c">&nbsp;</div>

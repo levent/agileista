@@ -1,3 +1,4 @@
+<div id="navii"><% if @current_user.is_a?(Contributor) -%><%= link_to "Add a user story", :controller => 'user_stories', :action => "add" %><% elsif @current_user.is_a?(TeamMember) %><%= link_to "Add a user story", :controller => 'user_stories', :action => "new" %><% end -%></div>
 <div id="main" class="wide">
 	<h1>Unassigned Backlog - <span class="small"><%= pluralize(@user_stories.length, "user story") %> (<%= show_story_points(@story_points ||= nil) %>)</span></h1>
 	<div id="userstorylist">

@@ -19,11 +19,6 @@
 	<% if logged_in? && @account -%>
 	    <ul>
 	        <li><%= link_to @account.name.humanize, :controller => 'backlog' %></li>
-		<% if @current_user.is_a?(Contributor) -%>
-		    <li><%= link_to "Add user story", :controller => 'user_stories', :action => "add" %></li>
-		<% elsif @current_user.is_a?(TeamMember) %>
-		    <li><%= link_to "Add user story", :controller => 'user_stories', :action => "new" %></li>
-		<% end -%>
 	        <li><%= link_to "Themes", :controller => 'themes' %></li>
 		    <li><%= link_to "Backlog", :controller => 'backlog' %></li>
 	        <li><%= link_to "Sprint planning", :controller => 'sprint_planning' %></li>
