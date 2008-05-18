@@ -7,7 +7,7 @@
       <div id="theme_<%= theme.id %>">
         <ul>
         <% theme.user_stories.each do |us| -%>
-          <li><%= link_to h(us.definition), :controller => 'user_stories', :action => 'show', :id => us, :from => 'themes' %> <span class="star"><%= show_story_points(us.story_points) %></span></li>
+          <li<%= complete?(us) %>><%= link_to h(us.definition), :controller => 'user_stories', :action => 'show', :id => us, :from => 'themes' %> <span class="star"><%= show_story_points(us.story_points) %></span></li>
         <% end -%>
         </ul>
       </div>

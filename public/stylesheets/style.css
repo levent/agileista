@@ -342,3 +342,5 @@ th.titlerow {
 #navii a:hover{color:#b9121b;}
 #navii ul {display:inline;margin:0;padding:0;}
 #navii ul li {float:left;padding-right:15px;font-size:1em;}
+
+#themeslist ul li.uscomplete, #themeslist ul li.uscomplete a {background-color: #ccc; color: #fff;}
