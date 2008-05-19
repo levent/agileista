@@ -21,7 +21,7 @@ class UserStory < ActiveRecord::Base
   
   has_many :tasks, :order => :position
   belongs_to :account
-  belongs_to :sprint
+  belongs_to :sprint #is this obsolete?
   belongs_to :release
 
 
