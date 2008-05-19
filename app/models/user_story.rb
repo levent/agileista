@@ -21,7 +21,12 @@ class UserStory < ActiveRecord::Base
   
   has_many :tasks, :order => :position
   belongs_to :account
-  belongs_to :sprint #is this obsolete?
+  
+  # This is only used (sprint_id field) to indicate whether a user story is planned or not (that's all it seems)
+  #  Please see action > estimated_account_user_stories
+  belongs_to :sprint
+  
+  
   belongs_to :release
 
 
