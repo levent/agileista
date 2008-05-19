@@ -96,11 +96,11 @@ ul#userstorylist, .nobullet {list-style: none; margin: 0; padding: 0; font-size:
 ul {list-style: none; padding: 0 10px;}
 .nobullet li {margin-left: 5px; margin-bottom: 6px;}
 
-div.notecard {border: 1px solid #ccc; cursor:move; margin: 4px; padding: 2px; width: 148px; min-height: 100px; height:auto; font-size: 0.8em; margin-bottom: 8px; float:left}
+div.notecard {border: 1px solid #ccc; cursor:move; margin: 4px; padding: 2px; width: 148px; min-height: 110px; height:auto; font-size: 0.8em; margin-bottom: 8px; float:left}
 /* for Internet Explorer */
 /*\*/
 * html div.notecard {
-height: 100px;
+height: 110px;
 }
 /**/
 div.notecard form, div.notecard input {padding: 0; margin: 0;}
