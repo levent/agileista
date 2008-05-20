@@ -344,3 +344,4 @@ th.titlerow {
 #navii ul li {float:left;padding-right:15px;font-size:1em;}
 
 #themeslist ul li.uscomplete, #themeslist ul li.uscomplete a {background-color: #ccc; color: #fff;}
+.tasklinks {position:absolute; bottom:2px;right:2px} 
