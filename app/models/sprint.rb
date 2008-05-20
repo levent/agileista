@@ -1,7 +1,7 @@
 class Sprint < ActiveRecord::Base
   
   has_many :sprint_elements, :dependent => :delete_all
-  has_many :user_stories, :through => :sprint_elements, :order => 'done'
+  has_many :user_stories, :through => :sprint_elements, :order => 'done, position'
   has_many :burndowns
   
   belongs_to :account

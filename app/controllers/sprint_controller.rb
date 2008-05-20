@@ -16,7 +16,7 @@ class SprintController < ApplicationController
      @burndowns = Burndown.find(:all, :conditions => ["sprint_id = ?", @current_sprint.id], :order => :created_on)
      # @assigned_user_stories = @account.user_stories - @unassigned_user_stories
      # @elements = @current_sprint.sprint_elements.find(:all, :include => [:user_story])
-     @user_stories = @current_sprint.user_stories.find(:all, :order => :position)
+     @user_stories = @current_sprint.user_stories#.find(:all, :order => :position)
      @incomplete = []
      @inprogress = []
      @complete = []

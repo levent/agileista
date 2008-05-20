@@ -71,6 +71,8 @@ class ApplicationController < ActionController::Base
      @user_stories = @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil])
   end
   
+  # please see notes in user_story method
+  #  this needs to be refactored to exclude sprint_id
   def estimated_account_user_stories
     @user_stories = @account.user_stories.find(:all, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil])
   end

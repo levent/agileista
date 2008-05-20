@@ -1,9 +1,9 @@
 <div class="notecard" id="com_<%= element.id %>" title="<%=h element.user_story.definition %>">
 <h2>#<%= positions[element.user_story.id].to_s + '.' + element.position.to_s %></h2>
 <%=h element.definition %><br />
-<%= show_assignee(element.developer) %>
+<strong><%= show_assignee(element.developer) %></strong>
 <% unless @current_user.is_a?(Contributor) -%>
-<p><%= form_tag :action => 'update_hours', :id => element %><%= text_field_tag('task_hours', element.hours, :size => 3, :class => 'tasksave') %> <%= submit_tag 'Save', :class => 'tasksave' %></form></p><p><%= link_to 'View', :controller => 'user_stories', :action => 'show_task', :id => element.user_story, :task_id => element, :from => 'tb' %> <%= link_to 'Edit', :controller => 'user_stories', :action => 'edit_task', :id => element.user_story, :task_id => element, :from => 'tb' %></p>
+<p><%= form_tag :action => 'update_hours', :id => element %><%= text_field_tag('task_hours', element.hours, :size => 3, :class => 'tasksave') %> <%= submit_tag 'Save', :class => 'tasksave' %></form></p><div class="tasklinks"><%= link_to 'View', :controller => 'user_stories', :action => 'show_task', :id => element.user_story, :task_id => element, :from => 'tb' %> <%= link_to 'Edit', :controller => 'user_stories', :action => 'edit_task', :id => element.user_story, :task_id => element, :from => 'tb' %></div>
 <% end -%>
 </div>
 
