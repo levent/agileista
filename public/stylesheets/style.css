@@ -3,7 +3,6 @@ html {
   padding: 0;
   height: 100%;
 }
-
 body {
 	font-family: verdana, arial, sans-serif;
 	font-size: 80%; 
@@ -18,11 +17,9 @@ h1, h2, h3, .orange {font-family: "Lucida Grande", "Helvetica Neue", Arial, sans
 input, textarea, select { margin-bottom: 10px; display: block; }
 input[type=submit] {padding: 0; font-size: 11px;}
 .sprint_task input {display:inline;}
-
 table {border-collapse:collapse;}
 td, th {text-align: left; margin: 0; padding: 4px; font-size: 0.9em;}
 th {border-bottom: 1px solid #ccc;}
-
 legend { color: #c00; font-weight: bold; }
 label {font-size: 0.8em}
 fieldset {border: 1px solid #ccc; padding: 10px; margin-bottom: 12px;}
@@ -30,8 +27,6 @@ fieldset {border: 1px solid #ccc; padding: 10px; margin-bottom: 12px;}
 a {color: #1A6086;}
 img {border: none}
 li {font-size: 90%;}
-
-
 #userstorylist a {text-decoration: none;}
 #wrapper {
 /*	#container {*/
