@@ -300,3 +300,5 @@ select#user_story_themes {width:220px;}
 ul#usshowtags li {float:left; display:inline; padding-right:4px;}
 /*#user_story {float:left; width: 60%;}*/
 #usshowright {float:left;}
+#settingsleft {float: left; width: 60%;}
+#settingsright {float:left; width: 35%;}

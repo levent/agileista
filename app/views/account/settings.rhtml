@@ -1,18 +1,7 @@
 <div id="navii"><ul><li><%= link_to "Add users", :controller => 'users', :action => 'new' if @current_user.is_a?(TeamMember) %></li><li><%= link_to "Back to backlog", :controller => 'backlog' %></li></ul><div class="c">&nbsp;</div></div>
 <div id="main" class="wide">
 	<h1>Settings:</h1>
-	<% if @current_user.account_holder? %>
-	<div class="summary_pane">
-	<h2>Account settings:</h2>
-	<%= error_messages_for :account %>
-	<% form_for :account, @account, :url => {:action => 'settings'} do |a| %>
-		<label for="account_iteration_length">Sprint iteration length:</label>
-	        <%= a.select :iteration_length, [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]], :include_blank => true %>
-		<%= submit_tag "Save settings" %>
-	<% end %>
-	</div>
-	<% end %>
-	<div class="summary_pane">
+	<div id="settingsleft">
 		<h2>Users:</h2>
 		<table>
 			<thead>
@@ -36,7 +25,18 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="summary_pane">
+	<div id="settingsright">
+    	<% if @current_user.account_holder? %>
+        	<h2>Account settings:</h2>
+        	<%= error_messages_for :account %>
+        	<% form_for :account, @account, :url => {:action => 'settings'} do |a| %>
+        		<label for="account_iteration_length">Sprint iteration length:</label>
+        	        <%= a.select :iteration_length, [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]], :include_blank => true %>
+        		<%= submit_tag "Save settings" %>
+        	<% end %>
+    	    <div class="c">&nbsp;</div>
+    	<% end %>
+    	
 		<%= error_messages_for :user %>
 		<h2>Change password:</h2>
 		<%= form_tag :action => 'change_password', :id => session[:user] %>
@@ -49,4 +49,5 @@
 		<%= submit_tag 'Change password' %>
         </form>
 	</div>
+    <div class="c">&nbsp;</div>
 </div>
