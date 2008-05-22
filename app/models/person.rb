@@ -6,10 +6,6 @@ class Person < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :email
   validates_uniqueness_of :email, :scope => :account_id
-  
-  # has_many :accounts, :through => :memberships
-  # has_many :memberships
-
   belongs_to :account
   has_many :project_members
   has_many :projects, :through => :project_members
@@ -17,7 +13,6 @@ class Person < ActiveRecord::Base
   before_create :generate_activation_code
   
   def validate_account
-    # breakpoint
     self.authenticated = 1
     self.activation_code = nil
     self.save
