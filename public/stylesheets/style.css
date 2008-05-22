@@ -3,7 +3,6 @@ html {
   padding: 0;
   height: 100%;
 }
-
 body {
 	font-family: verdana, arial, sans-serif;
 	font-size: 80%; 
@@ -18,11 +17,9 @@ h1, h2, h3, .orange {font-family: "Lucida Grande", "Helvetica Neue", Arial, sans
 input, textarea, select { margin-bottom: 10px; display: block; }
 input[type=submit] {padding: 0; font-size: 11px;}
 .sprint_task input {display:inline;}
-
 table {border-collapse:collapse;}
 td, th {text-align: left; margin: 0; padding: 4px; font-size: 0.9em;}
 th {border-bottom: 1px solid #ccc;}
-
 legend { color: #c00; font-weight: bold; }
 label {font-size: 0.8em}
 fieldset {border: 1px solid #ccc; padding: 10px; margin-bottom: 12px;}
@@ -30,8 +27,6 @@ fieldset {border: 1px solid #ccc; padding: 10px; margin-bottom: 12px;}
 a {color: #1A6086;}
 img {border: none}
 li {font-size: 90%;}
-
-
 #userstorylist a {text-decoration: none;}
 #wrapper {
 /*	#container {*/
@@ -243,7 +238,6 @@ padding-right: 10px;}
 #complete {width: 30%;border-left:1px solid #c00; padding:10px; min-height: 200px;}
 .dragdropl {width: 30%;min-height: 200px;padding:10px;}
 .dragdropr {width: 35%;border-left:1px solid #b9121b; min-height: 200px;padding:10px;}
-
 .cloud1 {font-size: 0.8em;}
 .cloud2 {font-size: 1.0em;}
 .cloud3 {font-size: 1.2em;}
@@ -253,8 +247,6 @@ padding-right: 10px;}
 .cloud7 {font-size: 2.6em;}
 .cloud8 {font-size: 3.0em;}
 .cloud9 {font-size: 3.4em;}
-
-/* THEME */
 #themeslist ol {margin-left: 0; padding-left:0;}
 #themeslist ul, #releaseslist ul {list-style: none; margin-left: 0; padding-left:0;}
 #themeslist ol li, #themeslist ul li, #releaseslist ul li {

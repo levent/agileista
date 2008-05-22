@@ -1,17 +1,14 @@
 .equal, .row {
 	display:block;
 }
-
 .row {
 	padding:10px;
 }
-
 .row div {
 	display:block;
 	float:left;
 	margin:0;
 }
-
 .ieclearer {
 	float:none;
 	clear:both;
@@ -20,12 +17,10 @@
 	font-size: 2px;
 	line-height:0;
 }
-
 .dragdropl {
   float:left;
   width: 300px;
 }
-
 .dragdropr {
   float:right;
   width: 300px;
