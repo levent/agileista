@@ -84,7 +84,7 @@ img {border: none}
 ul#userstorylist, .nobullet {list-style: none; margin: 0; padding: 0; font-size: 0.8em;}
 ul {list-style: none; padding: 0 10px;}
 .nobullet li {margin-left: 5px; margin-bottom: 6px;}
-div.notecard {border: 1px solid #ccc; cursor:move; margin: 4px; padding: 2px; width: 148px; min-height: 120px; height:auto; font-size: 0.8em; margin-bottom: 8px; float:left}
+div.notecard {border: 1px solid #ccc; cursor:move; margin: 4px; padding: 2px; width: 148px; min-height: 148px; height:auto; font-size: 0.8em; margin-bottom: 8px; float:left}
 /* for Internet Explorer */
 /*\*/
 * html div.notecard {
@@ -92,7 +92,7 @@ height: 120px;
 }
 /**/
 div.notecard form, div.notecard input {padding: 0; margin: 0;}
-#userstorylist div, .backlogitem {cursor:move; margin: 4px; padding: 4px; width: 124px; min-height: 100px; font-size: 0.8em; float:left; margin-bottom: 8px; position: relative;border: 1px solid #b9121b;}
+#userstorylist div, .backlogitem {cursor:move; margin: 4px; padding: 4px; width: 124px; min-height: 124px; font-size: 0.8em; float:left; margin-bottom: 8px; position: relative;border: 1px solid #b9121b;}
 /* for Internet Explorer */
 /*\*/
 * html #userstorylist div {
