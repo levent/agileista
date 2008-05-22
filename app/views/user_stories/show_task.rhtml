@@ -8,35 +8,31 @@
     </ul>
     <div class="c">&nbsp;</div>
 </div>
-<div id="main">
+<div id="main" class="wide">
 	<h1>Show task:</h1>
 	<div id="leftcontent">
-		<h2>User story details:</h2>
-		<p><span class="detail">Title: </span><%=h @user_story.definition %><br />
-		<span class="detail">Notes: </span><%=h @user_story.description %><br />
-		<span class="detail">Story points: </span><%= show_story_points(@user_story.story_points) %><br />
-		<span class="detail">Hours left: </span><%= @user_story.tasks.sum('hours') %><br />
-		<span class="detail">Tasks: </span><%= @user_story.tasks.count %></p>
-		<h3>Acceptance Criteria:</h3>
-		<ul class="nobullet">
-		<% for crit in @user_story.acceptance_criteria %>
-			<li><%=h crit.detail %></li>
-		<% end %>
-		</ul>
-		<h3>All Tasks:</h3>
-		<ul class="nobullet">
-		<% for task in @user_story.tasks -%>
-			<li><%= link_to 'View', :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to 'Edit', :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%=h task.definition %></li>
-		<% end -%>
-		</ul>
+		<h1><%=h @task.definition %></h1>
+		<h2>Description:</h2>
+		<p><%= h@task.description %></p>
+		<h2>Hours left:</h2>
+		<p><%= show_hours_left(@task.hours) %>
+		<h2>Assigned to:</h2>
+		<p><%= show_assignee(@task.developer) %></p>
 	</div>
 	<div id="rightcontent">
-		<h2><%=h @task.definition %></h2>
-		<h3>Description:</h3>
-		<p><%= h@task.description %></p>
-		<h3>Hours left:</h3>
-		<p><%= @task.hours %>
-		<h3>Assigned to:</h3>
-		<p><%= show_assignee(@task.developer) %></p>
+		<h2>User story:</h2>
+		<p><%=h @user_story.definition %></p>
+        <p><%=h @user_story.description %></p>
+        <h2>Story points:</h2>
+        <p><%= show_story_points(@user_story.story_points) %></p>
+		<p><span class="detail">Hours left: </span><%= @user_story.tasks.sum('hours') %><br />
+		<span class="detail">Tasks: </span><%= @user_story.tasks.count %></p>
+        <%= render :partial => 'show_acceptance_criteria' %>
+		<h2>Tasks:</h2>
+		<ul>
+		<% @user_story.tasks.each do |task| -%>
+			<li><%= task.definition %> <%= link_to 'View', :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to 'Edit', :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %></li>
+		<% end -%>
+		</ul>
 	</div>
 </div>

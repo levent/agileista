@@ -1,7 +1,9 @@
-<% unless @user_story.acceptance_criteria.blank? %><h2>Acceptance Criteria</h2><% end %>
+<% unless @user_story.acceptance_criteria.blank? %>
+<h2>Acceptance Criteria:</h2>
 <ul>
 <% for crit in @user_story.acceptance_criteria %>
 	<li><%=h crit.detail %> - <%= link_to_remote 'Delete', :update => 'crit', :url => {:controller => 'user_stories', :action => 'delete_acceptance_criterium', :id => @user_story, :crit_id => crit} %></li>
 <% end %>
 </ul>
 <%= error_messages_for :acceptance_criterium %>
+<% end %>

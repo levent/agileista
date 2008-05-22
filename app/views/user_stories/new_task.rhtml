@@ -8,7 +8,7 @@
     </ul>
     <div class="clear">&nbsp;</div>
 </div>
-<div id="main">
+<div id="main" class="wide">
   <h1>Add task within <%= @sprint.name %>:<br /><span class="small">(<%= pluralize(@sprint.user_stories.sum('story_points'), 'story point') %> so far - <%= pluralize(@sprint.hours_left, 'hour') %> planned)</span></h1>
 <div id="leftcontent">
 		<h2>User story details:</h2>
@@ -17,13 +17,15 @@
 		<span class="detail">Story points: </span><%= show_story_points(@user_story.story_points) %><br />
 		<span class="detail">Hours left: </span><%= @user_story.tasks.sum('hours') %><br />
 		<span class="detail">Tasks: </span><%= @user_story.tasks.count %></p>
-		<h3>Acceptance Criteria:</h3>
+		<% if @user_story.acceptance_criteria -%>
+		<h2>Acceptance Criteria:</h2>
 		<ul class="nobullet">
-		<% for crit in @user_story.acceptance_criteria %>
+		<% @user_story.acceptance_criteria.each do |crit| -%>
 			<li><%=h crit.detail %></li>
-		<% end %>
+		<% end -%>
 		</ul>
-		<h3>Tasks:</h3>
+		<% end -%>
+		<h2>Tasks:</h2>
 		<ul class="nobullet">
 		<% for task in @user_story.tasks -%>
 			<li><%= link_to 'View', :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to 'Edit', :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%=h "#{task.definition} - #{pluralize(task.hours, 'hour')}" %></li>

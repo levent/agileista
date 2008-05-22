@@ -11,7 +11,10 @@ body {
 	background-color: #F6E497;
   	min-width: 900px;	
 }
-h1, h2, h3, .orange {font-family: "Lucida Grande", "Helvetica Neue", Arial, sans-serif; color: #b9121b; font-size:120%;}
+
+h2, #sidebar h2, #usshowright h2, #user_story h2 {font-weight:normal;font-size:1.4em; font-family: verdana, arial, sans-serif; color:#000;}
+h1, .notecard h2, h3, .orange {font-family: "Lucida Grande", "Helvetica Neue", Arial, sans-serif; color: #b9121b; font-size:120%;}
+h1 {font-size: 1.8em;}
 #main h1{padding: 0; margin:0 0 10px 0;}
 #main h2{padding: 0; margin:10px 0 5px 0;}
 input, textarea, select { margin-bottom: 10px; display: block; }
@@ -21,12 +24,11 @@ table {border-collapse:collapse;}
 td, th {text-align: left; margin: 0; padding: 4px; font-size: 0.9em;}
 th {border-bottom: 1px solid #ccc;}
 legend { color: #c00; font-weight: bold; }
-label {font-size: 0.8em}
 fieldset {border: 1px solid #ccc; padding: 10px; margin-bottom: 12px;}
 .small {font-size: 0.8em;}
 a {color: #1A6086;}
 img {border: none}
-li {font-size: 90%;}
+/*li {font-size: 90%;}*/
 #userstorylist a {text-decoration: none;}
 #wrapper {
 /*	#container {*/
@@ -103,7 +105,8 @@ div.notecard h2, #userstorylist h2 {margin: 0; margin-bottom: 4px; }
 #userstorylist img, div.notecard img {position: absolute; bottom: 2px; right: 2px;}
 div.notecard img.second, #userstorylist img.show {position: absolute; bottom: 2px; right: 20px;}
 div.notecard img.third {position: absolute; bottom: 2px; right: 40px;}
-.undefined h2 {background-color: #b9121b; color: #fff;}
+.undefined h2 {font-size: 1em; background-color: #b9121b; color: #fff;}
+.defined h2 {font-size: 1.2em; background-color: #fff; color: #b9121b;}
 
 /*In particular I did an outer ul with display: table (list-style none of course). Nothing special about the li elements in this list. 
 Inside these li elements I have another ul element with display: table-row and the li elements inside this have display: table-cell. 
@@ -215,7 +218,7 @@ padding: 10px;
 .currentsprint {background-color: #b9121b;color: #fff;}
 .currentsprint a, .upcomingsprint a {color:#fff;}
 
-.detail {font-size: 0.8em;color: #c00;font-weight: bold;}
+/*.detail {font-size: 0.8em;color: #c00;font-weight: bold;}*/
 table#sprints, table#current_sprint {width: 94%;}
 #current_sprint tr.user_story { font-weight: bold;}
 #current_sprint tr.task td.title { padding-left:25px;}
@@ -223,7 +226,6 @@ table#sprints, table#current_sprint {width: 94%;}
 .left {float: left; width: 30%;}
 .withborder {border-right: 1px solid #ccc;margin-right: 10px; 
 padding-right: 10px;}
-#user_story_details {}
 .long {width: 80%; }
 .thin {height: 40px;}
 .fat {height: 110px;}
@@ -267,7 +269,7 @@ padding-right: 10px;}
 .star {color: #FFFC00}
 #storypoints {clear:left; text-align:right; font-size: 140%}
 .icon {vertical-align:bottom;}
-#user_story p span { width: 100px;}
+/*#user_story p span { width: 100px;}*/
 span.tag {
 	background-color: #4C1B1B;
 	padding: 2px 4px; color: #fff;
@@ -295,3 +297,6 @@ th.titlerow {border: 0;color: #b9121b;}
 #usaddright {float:left; width: 34%;}
 select#user_story_themes {width:220px;}
 #usaddbuts {margin-top:20px;}
+ul#usshowtags li {float:left; display:inline; padding-right:4px;}
+/*#user_story {float:left; width: 60%;}*/
+#usshowright {float:left;}

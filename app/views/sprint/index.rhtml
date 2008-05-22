@@ -18,19 +18,19 @@
     <div class="row">
     
 	<div id="incomplete">
-		<h2>Incomplete</h2>
+		<h2>Incomplete:</h2>
 		<% for element in @incomplete -%>
 			<%= render :partial => 'show_task_card', :locals => {:element => element, :positions => user_story_positions} %>
 		<% end -%>
 	</div>
 	<div id="inprogress">
-		<h2>In process</h2>
+		<h2>In process:</h2>
 		<% for element in @inprogress -%>
 			<%= render :partial => 'show_task_card', :locals => {:element => element, :positions => user_story_positions} %>
 		<% end -%>
 	</div>
 	<div id="complete">
-		<h2>Complete</h2>
+		<h2>Complete:</h2>
 		<% for element in @complete -%>
 			<%= render :partial => 'show_task_card', :locals => {:element => element, :positions => user_story_positions} %>
 		<% end -%>

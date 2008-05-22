@@ -1,4 +1,10 @@
-<div id="main" class="sprint_planning">
+<div id="navii">
+    <ul>
+	    <li><%= link_to "Back to backlog", :controller => '/' %></li>
+	</ul>
+	<div class="c">&nbsp;</div>
+</div>
+<div id="main" class="wide sprint_planning">
 	<h1>Edit sprint</h1>
 	<%= error_messages_for :sprint %>
 	<% form_for :sprint, @sprint, :url => {:action => 'update', :id => @sprint} do |s| %>
@@ -14,7 +20,4 @@
 		<%= s.text_area :goal %>
 		<%= submit_tag "Save sprint" %>
 	<% end %>
-</div>
-<div id="sidebar">
-	<p><%= link_to "Back to backlog", :controller => '/' %></p>
 </div>

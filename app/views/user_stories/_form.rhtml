@@ -8,6 +8,6 @@
     	<%= options_for_select @account.themes.collect {|t|t.name}, @user_story.themes.collect{|x| x.name } %>
     </select>
     <label for="user_story_story_points">Story points:</label><%= @us.text_field :story_points %>
-    <label for="tags">Tag this user story:</label><%= text_field_tag :tags, @tags %>
+    <label for="tags">Tags:</label><%= text_field_tag :tags, @tags %>
 </div>
 <div class="c">&nbsp;</div>
