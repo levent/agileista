@@ -105,7 +105,7 @@ div.notecard h2, #userstorylist h2 {margin: 0; margin-bottom: 4px; }
 #userstorylist img, div.notecard img {position: absolute; bottom: 2px; right: 2px;}
 div.notecard img.second, #userstorylist img.show {position: absolute; bottom: 2px; right: 20px;}
 div.notecard img.third {position: absolute; bottom: 2px; right: 40px;}
-.undefined h2 {font-size: 1em; background-color: #b9121b; color: #fff;}
+.undefined h2 {font-size: 1.2em; background-color: #b9121b; color: #fff;}
 .defined h2 {font-size: 1.2em; background-color: #fff; color: #b9121b;}
 
 /*In particular I did an outer ul with display: table (list-style none of course). Nothing special about the li elements in this list. 
