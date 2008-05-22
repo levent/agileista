@@ -127,13 +127,13 @@ Be carefull with the sizes (widths) though. If they don’t match up right thing
 
 ***/
 #header {
-float:left;
-width:100%;
-background:#b9121b;
-font-size:93%;
-line-height:normal;
-  position: relative;
-padding-top:4px;
+	float:left;
+	width:100%;
+	background:#b9121b;
+	/*font-size:93%;*/
+	line-height:normal;
+	position: relative;
+	padding-top:4px;
 }
 
 #header ul {
@@ -285,7 +285,7 @@ th.titlerow {border: 0;color: #b9121b;}
 .uscomplete {text-decoration:line-through; color: #666;}
 #exportlinks{clear:both;}
 #main.wide {width:90%;}
-#navii{font-size:0.8em;padding-left:20px;line-height:2em;background:#222;color:#fff;clear:both;}
+#navii{padding-left:20px;line-height:2em;background:#222;color:#fff;clear:both;}
 #navii a{line-height:2em;color:#fff;text-decoration:none;}
 #navii a:hover{color:#b9121b;}
 #navii ul {display:inline;margin:0;padding:0;}
