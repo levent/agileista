@@ -226,7 +226,7 @@ padding-right: 10px;}
 #user_story_details {}
 .long {width: 80%; }
 .thin {height: 40px;}
-.fat {height: 220px;}
+.fat {height: 110px;}
 .small {}
 .leftborder {border-left: 1px solid #ccc;}
 #exportlinks ul {margin: 4px; padding: 0; padding-top: 20px;}
@@ -282,8 +282,8 @@ span.tag {
 th.titlerow {border: 0;color: #b9121b;}
 .uscomplete {text-decoration:line-through; color: #666;}
 #exportlinks{clear:both;}
-#main.wide {width:96%;}
-#navii{font-size:0.8em;padding-left:20px;line-height:2em;background:#222;color:#fff}
+#main.wide {width:90%;}
+#navii{font-size:0.8em;padding-left:20px;line-height:2em;background:#222;color:#fff;clear:both;}
 #navii a{line-height:2em;color:#fff;text-decoration:none;}
 #navii a:hover{color:#b9121b;}
 #navii ul {display:inline;margin:0;padding:0;}
@@ -291,3 +291,7 @@ th.titlerow {border: 0;color: #b9121b;}
 #themeslist ul li.uscomplete, #themeslist ul li.uscomplete a {background-color: #ccc; color: #fff;}
 .tasklinks {position:absolute; bottom:2px;right:2px} 
 #crit ul li {padding-bottom:4px;}
+#usaddleft {float:left; width: 60%;}
+#usaddright {float:left; width: 34%;}
+select#user_story_themes {width:220px;}
+#usaddbuts {margin-top:20px;}

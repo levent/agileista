@@ -33,10 +33,12 @@
 	        <li style="float:right"><%= link_to "Settings", :controller => '/account', :action => 'settings' %></li>
 	        <li style="float:right"><span><%= @current_user.name %></span></li>
 	    </ul>
+
 	<% else %>
 		<h1>Welcome to Agileista</h1>
 	<% end -%>
 	</div>
+	<div class="c"></div>
 	<div id="wrapper">
 		<div id="content">
 			<%= yield %>

@@ -1,10 +1,27 @@
 <div id="navii"><%= link_to "Back to backlog", :controller => 'backlog' %></div>
-<div id="main">
+<div class="c">&nbsp;</div>
+<div id="main" class="wide">
 <h1>Add a user story</h1>
 <%= error_messages_for :user_story %>
 <% form_for :user_story, @user_story, :url => {:action => 'create'} do |@us| %>
-	<%= render :partial => 'form' %>
-	<%= submit_tag "Add at start of backlog" %>
-	<%= submit_tag "Add at end of backlog" %>
+
+    <!-- not DRY -->
+    <div id="usaddleft">
+        <label for="user_story_definition">Title:</label><%= @us.text_area :definition, :rows => 8, :class => "long thin" %>
+        <label for="user_story_description">Notes:</label><%= @us.text_area :description, :class => "long fat" %>
+    </div>
+    <div id="usaddright">
+        <label for="user_story_story_points">Story points:</label><%= @us.text_field :story_points %>
+        <label for="user_story_themes">Themes:</label>
+        <select id="user_story_themes" name="themes[]" multiple="true">
+        	<%= options_for_select @account.themes.collect {|t|t.name}, @user_story.themes.collect{|x| x.name } %>
+        </select>
+        <label for="tags">Tag this user story:</label><%= text_field_tag :tags, @tags %>
+        <div id="usaddbuts">
+    	    <%= submit_tag "Add at start of backlog" %>
+    	    <%= submit_tag "Add at end of backlog" %>
+    	</div>
+    </div>
+    <div class="c">&nbsp;</div>
 <% end %>
 </div>
