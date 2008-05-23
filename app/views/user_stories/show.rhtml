@@ -2,6 +2,8 @@
     <ul>
 	<% if params[:sprint_id] %>
 		<li><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] %></li>
+	<% elsif params[:from] && params[:from] == 'tb' -%>
+		<li><%= link_to "Back to task board", :controller => 'sprint' %></li>
 	<% else -%>
 		<li><%= link_to "Back to backlog", :controller => 'backlog' unless params[:from] == 'themes' %></li>
 		<li><%= link_to "Back to themes", :controller => 'themes' if params[:from] == 'themes' %></li>
