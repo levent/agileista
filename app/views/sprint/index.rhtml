@@ -10,7 +10,7 @@
 	<% for user_story in @user_stories -%>
       <% count += 1 %>
       <% user_story_positions[user_story.id] = count %>
-	  <li<%= complete?(user_story) %>><span class="orange">#<%= count %></span> <%= user_story.definition %> <%= link_to 'Edit', {:controller => 'user_stories', :action => 'edit', :id => user_story.id}, :title => 'Edit' unless @current_user.is_a?(Contributor)%></li>
+	  <li<%= complete?(user_story) %>><span class="orange">#<%= count %></span> <%= user_story.definition %> <%= link_to 'View', {:controller => 'user_stories', :action => 'show', :id => user_story, :sprint_id => @current_sprint} %> <%= link_to 'Edit', {:controller => 'user_stories', :action => 'edit', :id => user_story, :sprint_id => @current_sprint}, :title => 'Edit' unless @current_user.is_a?(Contributor)%></li>
 	<% end -%>
     </ul>
     
