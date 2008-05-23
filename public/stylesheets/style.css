@@ -228,7 +228,7 @@ table#sprints, table#current_sprint {width: 94%;}
 padding-right: 10px;}
 .long {width: 80%; }
 .thin {height: 40px;}
-.fat {height: 110px;}
+.fat {height: 200px;}
 .small {}
 .leftborder {border-left: 1px solid #ccc;}
 #exportlinks ul {margin: 4px; padding: 0; padding-top: 20px;}
