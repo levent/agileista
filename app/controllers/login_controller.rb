@@ -2,27 +2,29 @@ class LoginController < ApplicationController
   # ssl_required :index, :authenticate
   
   def index
+    setup_account_name_for_form
   end
   
   def authenticate
-      account = Account.find_by_name(params[:account_name])
-      account ||= Account.find_by_name(account_subdomain)
-      unless account.nil?
-        person = account.people.find(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", params[:email], params[:password], 1])
-        unless person.nil?
-          flash[:notice] = "You have logged in successfully"
-          session[:user] = person.id
-          session[:account] = account.id
-          redirect_to :controller => 'backlog', :account_name => account.name
-        else
-          flash[:error] = "Sorry we couldn't find anyone by that email and password in the account \"#{account.name}\""
-          render :action => 'index'
-        end
+    account = Account.find_by_name(params[:account])
+    # account ||= Account.find_by_name(params[:account_name])
+    unless account.nil?
+      person = account.people.find(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", params[:email], params[:password], 1])
+      unless person.nil?
+        flash[:notice] = "You have logged in successfully"
+        session[:user] = person.id
+        session[:account] = account.id
+        redirect_to :controller => 'backlog', :account_name => account.name
       else
-        flash[:error] = "Sorry we couldn't find that account"
+        setup_account_name_for_form
+        flash[:error] = "Sorry we couldn't find anyone by that email and password in the account \"#{account.name}\""
         render :action => 'index'
       end
-
+    else
+      flash[:error] = "Sorry we couldn't find that account"
+      setup_account_name_for_form
+      render :action => 'index'
+    end
   end
   
   def logout
@@ -45,6 +47,14 @@ class LoginController < ApplicationController
           redirect_to :action => 'index' and return false
         end
       end
+    end
+  end
+
+  private
+
+  def setup_account_name_for_form
+    if params[:account].blank?
+      params[:account] = params[:account_name]
     end
   end
   

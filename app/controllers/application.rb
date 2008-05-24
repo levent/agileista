@@ -15,7 +15,8 @@ class ApplicationController < ActionController::Base
   def must_be_logged_in
     # @current_user ||= Person.find_by_id_and_account_id(session[:user], session[:account])
     if logged_in?
-      @account ||= Account.find(session[:account])
+      # @account ||= Account.find(session[:account])
+      @account ||= @current_user.account
       return true
     else
       flash[:error] = 'Please log in'
