@@ -6,7 +6,7 @@ class UserStoriesController < ApplicationController
     :edit, :move_up, :move_down, :delete, :delete_acceptance_criterium, :new_task, :tasks, :done, :unfinished, :show_task, :destroy_task, :copy]
   
   def copy
-    if @user_story.copy
+    if request.post? && @user_story.copy
       flash[:notice] = "User story copied and added to backlog"
     else
       flash[:error] = "The user story could not be copied"

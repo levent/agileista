@@ -10,7 +10,7 @@
 	<% for user_story in @user_stories -%>
       <% count += 1 %>
       <% user_story_positions[user_story.id] = count %>
-	  <li<%= complete?(user_story) %>><span class="orange">#<%= count %></span> <%= user_story.definition %> <%= link_to 'View', {:controller => 'user_stories', :action => 'show', :id => user_story, :from => 'tb'} %> <%= link_to 'Edit', {:controller => 'user_stories', :action => 'edit', :id => user_story, :from => 'tb'}, :title => 'Edit' unless @current_user.is_a?(Contributor)%></li>
+	  <li<%= complete?(user_story) %>><span class="orange">#<%= count %></span> <%= user_story.definition %> <%= link_to 'View', {:controller => 'user_stories', :action => 'show', :id => user_story, :from => 'tb'} %> <% if @current_user.is_a?(TeamMember) && !user_story.complete? -%><%= link_to 'Edit', {:controller => 'user_stories', :action => 'edit', :id => user_story, :from => 'tb'}, :title => 'Edit' %> <%= link_to "Copy", {:controller => 'user_stories', :action => 'copy', :id => user_story}, :method => :post, :title => "Copy" %><% end -%></li>
 	<% end -%>
     </ul>
     

@@ -8,10 +8,10 @@ class Task < ActiveRecord::Base
   
   belongs_to :user_story
   belongs_to :developer, :foreign_key => 'developer_id', :class_name => "Person"
-  
-  def open?
-    self.user_story.done? ? false : true
-  end
+  # 
+  # def open?
+  #   self.user_story.done? ? false : true
+  # end
   
   def complete?
     self.hours == 0
