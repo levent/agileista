@@ -81,6 +81,10 @@ class UserStory < ActiveRecord::Base
   
   def copy
     new_us = self.clone
+    # new_us.acceptance_criteria = self.acceptance_criteria
+    self.acceptance_criteria.each do |ac|
+      new_us.acceptance_criteria << AcceptanceCriterium.new(ac.attributes)
+    end
     new_us.definition = new_us.unique_definition
     new_us.sprint_id = nil
     saved = new_us.save
