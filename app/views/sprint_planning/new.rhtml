@@ -9,7 +9,7 @@
 		<% if @account.sprints.blank? %>
 			<%= s.date_select :start_at, :order => [:day, :month, :year], :start_month => 12 %><br />
 		<% else %>
-			<%= select_date 1.day.from_now(@account.sprints.last.end_at), :prefix => 'from' %><br />
+			<%= select_date 1.day.from_now(@account.sprints.first.end_at), :prefix => 'from' %><br />
 		<% end %>
 		<p><label for="sprint_end_at">End in:</label><br />
 		<%= pluralize(@account.iteration_length, "week", "weeks") %></p>
