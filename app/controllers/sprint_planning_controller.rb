@@ -54,6 +54,7 @@ class SprintPlanningController < ApplicationController
   end
   
   def show
+    view
     render :action => 'view' and return false if @sprint.finished?
   end
   

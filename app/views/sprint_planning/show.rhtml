@@ -1,4 +1,4 @@
-<div id="navii"><%= link_to "Back to sprints overview", :controller => 'sprint_planning' %></div>
+<div id="navii"><%= link_to "Back to sprint planning", :controller => 'sprint_planning' %></div>
 <div id="main" class="wide">
   <h1>Plan <%= @sprint.name %>:<br /><span class="small" id="dynamic_numbers">(<%= pluralize(@sprint.user_stories.sum('story_points'), 'story point') %> so far - <%= pluralize(@sprint.hours_left, 'hour') %> planned)</span></h1>
   <img src="/images/ajax-loader.gif" id="ajaxloader" style="display:none;position:absolute;top:10px;right:10px" />
@@ -9,7 +9,7 @@
   <div id="estimated" class="dragdropl">
     <h2>Estimated user stories:</h2>
 	<% count = 0 -%>
-    <% for user_story in @user_stories -%>
+    <% @user_stories.each do |user_story| -%>
 	<% count += 1 -%>
       <div id="est_<%= user_story.id %>" class="notecard">
 		<h2>#<%= count %></h2>
