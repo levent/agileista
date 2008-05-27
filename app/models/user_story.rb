@@ -79,4 +79,25 @@ class UserStory < ActiveRecord::Base
     end
   end
   
+  def copy
+    new_us = self.clone
+    new_us.definition = new_us.unique_definition
+    new_us.sprint_id = nil
+    saved = new_us.save
+    new_us.move_to_top if saved
+    return saved
+  end
+  
+  def unique_definition
+    return if self.valid?
+    try = 2
+    original_definition = self.definition
+    until self.errors.on(:definition).blank? || try > 25
+      self.definition = "#{original_definition} - (#{try.ordinalize} copy)"
+      self.valid?
+      try += 1
+    end
+    self.definition
+  end
+  
 end
