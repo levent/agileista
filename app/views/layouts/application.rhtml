@@ -22,7 +22,7 @@
 	        <li><%= link_to "Themes", :controller => 'themes' %></li>
 		    <li><%= link_to "Backlog", :controller => 'backlog' %></li>
 	        <li><%= link_to "Sprint planning", :controller => 'sprint_planning' %></li>
-<% if @account.sprints.find(:first, :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago]) -%><li><%= link_to "Task board", :controller => 'sprint' %></li><% end -%>
+			<% if @account.sprints.find(:first, :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago]) -%><li><%= link_to "Task board", :controller => 'sprint' %></li><% end -%>
             <li><span id="flashs"><%= flash[:notice] %><%= flash[:error] %></span></li>
 			<li id="searchform">
 				<% form_for :tag, :url => {:controller => :backlog, :action => 'search'} do |t| %>
@@ -35,7 +35,10 @@
 	    </ul>
 
 	<% else %>
-		<h1>Welcome to Agileista</h1>
+		<ul>
+			<li><h1>Welcome to Agileista</h1></li>
+			<li><span id="flashs"><%= flash[:notice] %><%= flash[:error] %></span></li>
+		</ul>
 	<% end -%>
 	</div>
 	<div class="c"></div>
