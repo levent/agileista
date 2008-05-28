@@ -1,7 +1,7 @@
 <% if @user_story.tasks.blank? -%>
-<h2>No Tasks</h2>
+<h3>No Tasks</h3>
 <% else -%>
-<h2>Tasks:</h2>
+<h3>Tasks:</h3>
 <ul>
 <% @user_story.tasks.each do |task| %>
 	<li><%=h task.definition %></li>

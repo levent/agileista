@@ -16,7 +16,7 @@
 </div>
 <div id="main">
 	<div id="user_story">
-		<h1>#<%= @user_story.position %> <%=h @user_story.definition %></h1>
+		<h1><%=h @user_story.definition %></h1>
 		<p><%=h @user_story.description %></p>
 		<h2>Story points:</h2>
 		    <p><%=h show_story_points(@user_story.story_points) %></p>

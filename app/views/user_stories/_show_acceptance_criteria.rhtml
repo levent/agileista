@@ -1,7 +1,7 @@
 <% if @user_story.acceptance_criteria.blank? -%>
-<h2>No Acceptance Criteria</h2>
+<h3>No Acceptance Criteria</h3>
 <% else -%>
-<h2>Acceptance Criteria:</h2>
+<h3>Acceptance Criteria:</h3>
 <ul>
 <% for crit in @user_story.acceptance_criteria %>
 	<li><%=h crit.detail %></li>

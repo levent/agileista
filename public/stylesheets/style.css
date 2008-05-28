@@ -13,10 +13,10 @@ body {
 }
 
 h2, #sidebar h2, #usshowright h2, #user_story h2 {font-weight:normal;font-size:1.4em; font-family: verdana, arial, sans-serif; color:#000;}
-h1, .notecard h2, h3, .orange {font-family: "Lucida Grande", "Helvetica Neue", Arial, sans-serif; color: #b9121b; font-size:120%;}
+#main h2, .notecard h2, h3, .orange {font-family: "Lucida Grande", "Helvetica Neue", Arial, sans-serif; font-size:1.2em;}
 h1 {font-size: 1.8em;}
 #main h1{padding: 0; margin:0 0 10px 0;}
-#main h2{padding: 0; margin:10px 0 5px 0;}
+#main h2{padding: 0; margin:10px 0 5px 0; font-size:1.4em; font-weight:bold;}
 input, textarea, select { margin-bottom: 10px; display: block; }
 input[type=submit] {padding: 0; font-size: 11px;}
 .sprint_task input {display:inline;}
@@ -84,7 +84,7 @@ img {border: none}
 ul#userstorylist, .nobullet {list-style: none; margin: 0; padding: 0; font-size: 0.8em;}
 ul {list-style: none; padding: 0 10px;}
 .nobullet li {margin-left: 5px; margin-bottom: 6px;}
-div.notecard {border: 1px solid #ccc; cursor:move; margin: 4px; padding: 2px; width: 148px; min-height: 148px; height:auto; font-size: 0.8em; margin-bottom: 8px; float:left}
+div.notecard {border: 1px solid #ccc; cursor:move; margin: 4px; padding: 2px; width: 148px; min-height: 148px; height:auto; font-size: 0.8em; margin-bottom: 8px; float:left;}
 /* for Internet Explorer */
 /*\*/
 * html div.notecard {
@@ -101,11 +101,11 @@ height: 90px;
 /**/
 
 #userstorylist span.user_story_points { color:#990000;display:block;margin-bottom: 2px; }
-div.notecard h2, #userstorylist h2 {margin: 0; margin-bottom: 4px; }
+div.notecard h2, #userstorylist h2 {margin: 0; margin-bottom: 4px;}
 #userstorylist img, div.notecard img {position: absolute; bottom: 2px; right: 2px;}
 div.notecard img.second, #userstorylist img.show {position: absolute; bottom: 2px; right: 20px;}
 div.notecard img.third {position: absolute; bottom: 2px; right: 40px;}
-.undefined h2 {font-size: 1.2em; background-color: #b9121b; color: #fff;}
+div.undefined h2 {font-size: 1.2em; background-color: #b9121b; color: #ffffff;}
 .defined h2 {font-size: 1.2em; background-color: #fff; color: #b9121b;}
 
 /*In particular I did an outer ul with display: table (list-style none of course). Nothing special about the li elements in this list. 
