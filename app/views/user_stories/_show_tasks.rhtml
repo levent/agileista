@@ -1,0 +1,10 @@
+<% if @user_story.tasks.blank? -%>
+<h2>No Tasks</h2>
+<% else -%>
+<h2>Tasks:</h2>
+<ul>
+<% @user_story.tasks.each do |task| %>
+	<li><%=h task.definition %></li>
+<% end %>
+</ul>
+<% end %>
