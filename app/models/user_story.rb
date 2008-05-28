@@ -85,6 +85,9 @@ class UserStory < ActiveRecord::Base
     self.acceptance_criteria.each do |ac|
       new_us.acceptance_criteria << AcceptanceCriterium.new(ac.attributes)
     end
+    self.tasks.each do |task|
+      new_us.tasks << Task.new(:hours => task.hours, :definition => task.definition) unless task.complete?
+    end
     new_us.definition = new_us.unique_definition
     new_us.sprint_id = nil
     saved = new_us.save
