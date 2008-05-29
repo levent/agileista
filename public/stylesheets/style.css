@@ -14,6 +14,7 @@ body {
 
 h2, #sidebar h2, #usshowright h2, #user_story h2 {font-weight:normal;font-size:1.4em; font-family: verdana, arial, sans-serif; color:#000;}
 #main h2, .notecard h2, h3, .orange {font-family: "Lucida Grande", "Helvetica Neue", Arial, sans-serif; font-size:1.2em;}
+.orange {color:#b9121b;}
 h1 {font-size: 1.8em;}
 #main h1{padding: 0; margin:0 0 10px 0;}
 #main h2{padding: 0; margin:10px 0 5px 0; font-size:1.4em; font-weight:bold;}
