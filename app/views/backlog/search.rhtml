@@ -1,5 +1,5 @@
 <div id="navii"><% if @current_user.is_a?(Contributor) -%><%= link_to "Add a user story", :controller => 'user_stories', :action => "add" %><% elsif @current_user.is_a?(TeamMember) %><%= link_to "Add a user story", :controller => 'user_stories', :action => "new" %><% end -%></div>
-<div id="main wide">
+<div id="main" class="wide">
 	<h1><%= "User stories found with " + params[:q] if params[:q] %><%= "User stories tagged with " + params[:tag] if params[:tag] %> - <span class="small"><%= pluralize(@user_stories.length, "user story")%></span></h1>
 	<div id="userstorylist">
 		<% @count = 0 -%>
