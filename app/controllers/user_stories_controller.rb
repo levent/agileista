@@ -32,6 +32,7 @@ class UserStoriesController < ApplicationController
       @themes = params[:themes] || ""
       @user_story = UserStory.new(params[:user_story])
       @user_story.account = @account
+      @user_story.person = current_user
       if @user_story.save
         @user_story.tag_with(params[:tags])
         @user_story.theme_with(params[:themes])
@@ -58,6 +59,7 @@ class UserStoriesController < ApplicationController
       @user_story.definition = params[:user_story][:definition]
       @user_story.description = params[:user_story][:description]
       @user_story.account = @account
+      @user_story.person = current_user
       if @user_story.save
         flash[:notice] = "User story created successfully"
         redirect_to :controller => 'backlog'

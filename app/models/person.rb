@@ -10,6 +10,8 @@ class Person < ActiveRecord::Base
   has_many :project_members
   has_many :projects, :through => :project_members
   
+  has_many :user_stories
+  
   before_create :generate_activation_code
   
   def validate_account
