@@ -1,6 +1,5 @@
 class UserStory < ActiveRecord::Base
-  
-  # acts_as_versioned
+
   acts_as_ferret({:fields => { 
     :tag_string => {:boost => 2},
     :definition => {:boost => 1.5},

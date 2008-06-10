@@ -1,10 +1,10 @@
 <% if @user_story.tasks.blank? -%>
 <h3>No Tasks</h3>
 <% else -%>
-<h3>Tasks:</h3>
+<h3>Tasks (<%= show_completeness(@user_story.complete?) %>):</h3>
 <ul>
 <% @user_story.tasks.each do |task| %>
-	<li><%=h task.definition %></li>
+	<li><%=h task.definition %> (<%= show_hours_left(task.hours) %>)</li>
 <% end %>
 </ul>
 <% end %>

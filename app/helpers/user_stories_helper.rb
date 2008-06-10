@@ -5,4 +5,8 @@ module UserStoriesHelper
     user.name
   end
   
+  def show_completeness(bool)
+    bool ? "Complete" : "Incomplete"
+  end
+  
 end
