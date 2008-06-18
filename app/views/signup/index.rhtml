@@ -30,8 +30,8 @@
 		<%= form_tag :controller => 'login', :action => 'authenticate' %>
 			<fieldset>
 				<legend>Just enter your login details</legend>
-			<label for="account_name">Account name:</label>
-			<%= text_field_tag "account_name", params[:account_name] %>
+			<label for="account">Account name:</label>
+			<%= text_field_tag "account", params[:account] %>
 			<label for="user_email">Your email:</label>
 			<%= text_field_tag "email", params[:email] %>
 			<label for="user_password">Your password:</label>
