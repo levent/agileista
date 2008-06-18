@@ -82,4 +82,13 @@ module ApplicationHelper
   def complete?(user_story)
     return ' class="uscomplete"' if user_story.complete?
   end
+  
+  def claimed?(user_story)
+    return ' class="usclaimed"' if user_story.inprogress?
+  end
+  
+  def claimed_or_complete?(user_story)
+    return ' class="uscomplete"' if user_story.complete?
+    return ' class="usclaimed"' if user_story.inprogress?
+  end
 end
