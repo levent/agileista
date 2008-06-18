@@ -284,6 +284,7 @@ span.tag {
 .row div {display:table-cell;}
 th.titlerow {border: 0;color: #b9121b;}
 .uscomplete {text-decoration:line-through; color: #666;}
+.usclaimed {text-decoration:line-through; color: green;}
 #exportlinks{clear:both;}
 #main.wide {width:90%;}
 #navii{padding-left:20px;line-height:2em;background:#222;color:#fff;clear:both;}
