@@ -13,7 +13,7 @@ describe "sprint_planning/show" do
     template.should_receive(:tasked?).with(@us1).and_return(' defined')
     template.should_receive(:tasked?).with(@us2).and_return(' undefined')
     render "sprint_planning/show"
-    response.should have_tag 'div#committed' do
+    response.should have_tag('div#committed') do
       with_tag 'div[class=?]', 'notecard defined', /user story A/
       with_tag 'div[class=?]', 'notecard undefined', /user story B/
     end

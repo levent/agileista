@@ -15,7 +15,7 @@ describe "sprint/index" do
     template.should_receive(:claimed_or_complete?).with(@us1).and_return(' class="leventa"')
     template.should_receive(:claimed_or_complete?).with(@us2).and_return(' class="leventb"')
     render "sprint/index"
-    response.should have_tag 'ul' do
+    response.should have_tag('ul') do
       with_tag 'li>span[class=leventa]', /user story A/
       with_tag 'li>span[class=leventb]', /user story B/
     end
