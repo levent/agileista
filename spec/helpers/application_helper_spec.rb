@@ -16,6 +16,6 @@ describe ApplicationHelper do
   end
   
   describe "#complete_or_claimed?" do
-    
+    it "should return appropriate class"
   end
 end
