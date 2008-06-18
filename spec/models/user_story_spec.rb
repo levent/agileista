@@ -35,4 +35,24 @@ describe UserStory do
       @us.complete?.should be_false
     end
   end
+  
+  describe "#inprogress?" do
+    it "should return false if no tasks" do
+      @us.inprogress?.should be_false
+    end
+    
+    it "should return true if any tasks are inprogress still" do
+      @task_a.stub!(:inprogress?).and_return(true)
+      @task_b.stub!(:inprogress?).and_return(false)
+      @us.stub!(:tasks).and_return([@task_a, @task_b])
+      @us.inprogress?.should be_true
+    end
+    
+    it "should return false if all tasks are complete" do
+      @task_a.stub!(:inprogress?).and_return(false)
+      @task_b.stub!(:inprogress?).and_return(false)
+      @us.stub!(:tasks).and_return([@task_a, @task_b])
+      @us.inprogress?.should be_false
+    end
+  end
 end

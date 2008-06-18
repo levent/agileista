@@ -27,6 +27,16 @@ class UserStory < ActiveRecord::Base
   belongs_to :person
   belongs_to :release
 
+  def inprogress?
+    if !tasks.blank?
+      tasks.each do |task|
+        return true if task.inprogress?
+      end
+      return false
+    else
+      return false
+    end
+  end
 
   def complete?
     if !tasks.blank?
