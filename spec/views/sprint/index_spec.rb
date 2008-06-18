@@ -1,6 +1,5 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-
 describe "sprint/index" do
   before(:each) do
     @us1 = UserStory.new(:definition => 'user story A')
