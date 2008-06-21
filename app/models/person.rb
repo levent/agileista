@@ -6,10 +6,7 @@ class Person < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :email
   validates_uniqueness_of :email, :scope => :account_id
-  belongs_to :account
-  has_many :project_members
-  has_many :projects, :through => :project_members
-  
+  belongs_to :account  
   has_many :user_stories
   
   before_create :generate_activation_code

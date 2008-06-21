@@ -3,7 +3,6 @@ class Account < ActiveRecord::Base
   has_many :team_members, :order => 'name'
   has_many :contributors, :order => 'name'
   
-  has_many :projects
   has_many :sprints, :order => 'start_at DESC'
   has_many :user_stories, :order => :position
   belongs_to :account_holder, :class_name => "Person", :foreign_key => 'account_holder_id'
