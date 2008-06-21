@@ -15,14 +15,16 @@
 	<%= auto_discovery_link_tag(:rss, :controller => 'backlog', :action => 'feed') %>
 </head>
 <body>
-    <% if logged_in? && @other_account_people -%>
+    <% if logged_in? && @other_account_people && @other_account_people.length > 0 -%>
     <div id="accountswitcher">
         <ul>
+            <li><span>Switch account:</span></li>
             <% @other_account_people.collect{|person| person.account.name}.sort.each do |account_name| -%>
 	        <li><%= link_to account_name, {:controller => 'login', :action => 'authenticate', :account => account_name}, :method => 'post' %></li>
 	        <% end -%>
 	    </ul>
     </div>
+	<div class="c"></div>
     <% end -%>
 	<div id="header">
 	<% if logged_in? && @account -%>

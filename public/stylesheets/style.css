@@ -8,7 +8,7 @@ body {
 	font-size: 75%; 
 	margin: 0; 
 	padding: 0; 
-	background-color: #F6E497;
+	background-color: #fff;
   	min-width: 900px;	
 }
 
@@ -46,6 +46,7 @@ img {border: none}
 	position: relative;
 	background: #fff;
 	padding: 10px;
+	border: 1px solid #333;
 }
 
 #maincontent {float: left; width: 500px;}
@@ -134,14 +135,20 @@ Be carefull with the sizes (widths) though. If they don’t match up right thing
 	/*font-size:93%;*/
 	line-height:normal;
 	position: relative;
-	padding-top:4px;
+/*	padding-top:4px;*/
+}
+#accountswitcher {
+	background:#333;
+	width: 100%;
+	float: left;
+	font-size: 0.8em;
 }
 
-#header ul {
+#header ul, #accountswitcher ul {
 	margin:0;
 	list-style:none;
 }
-#header li {
+#header li, #accountswitcher li {
 	float:left;
 	padding:0;
 	margin:0;
@@ -163,7 +170,13 @@ Be carefull with the sizes (widths) though. If they don’t match up right thing
 #header h1 {color: #ffffff; margin:0; padding:8px;font-size:2.8em;}
 #header li h1 a {margin: 0; padding:0}
 #header #flashs {color: yellow;}
-
+#accountswitcher a, #accountswitcher span {
+	display:block;
+	padding:5px 10px 4px;
+	text-decoration: none;
+	color: white;
+}
+#accountswitcher a:hover {text-decoration: underline;}
 /*** 
 
 *summary pane
@@ -287,7 +300,7 @@ th.titlerow {border: 0;color: #b9121b;}
 .usclaimed {text-decoration:line-through; color: green;}
 #exportlinks{clear:both;}
 #main.wide {width:90%;}
-#navii{padding-left:20px;line-height:2em;background:#222;color:#fff;clear:both;}
+#navii{padding-left:20px;line-height:2em;background:#333;color:#fff;clear:both;}
 #navii a{line-height:2em;color:#fff;text-decoration:none;}
 #navii a:hover{color:#b9121b;}
 #navii ul {display:inline;margin:0;padding:0;}
