@@ -1,3 +1,0 @@
-module Project::UserStoriesHelper
-  
-end
