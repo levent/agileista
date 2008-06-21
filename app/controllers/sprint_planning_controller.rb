@@ -9,7 +9,6 @@ class SprintPlanningController < ApplicationController
 
   def index
     redirect_to :controller => '/account', :action => 'settings' and flash[:notice] = "Please specify an iteration length first" and return false if @account.iteration_length.blank?
-    @projects = @account.projects
     @upcoming_sprint = @account.sprints.find(:first, :conditions => ["start_at > ?", Time.now])
     @current_sprint = @account.sprints.find(:first, :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago])
   end

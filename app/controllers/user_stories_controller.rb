@@ -320,20 +320,4 @@ class UserStoriesController < ApplicationController
     end
     redirect_to :controller => 'backlog'
   end
-
-  private
-  
-  def user_story_must_exist
-    begin
-      @user_story = @account.user_stories.find(params[:id])
-    rescue
-      return false
-    end
-    if @user_story && @user_story.class == UserStory
-      return true
-    else
-      redirect_to :controller => '/backlog' and return false
-    end
-  end
-  
 end

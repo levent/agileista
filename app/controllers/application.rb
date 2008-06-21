@@ -24,30 +24,17 @@ class ApplicationController < ActionController::Base
       redirect_to :controller => '/login' and return false
     end
   end
-  
-  def project_must_exist
-    begin
-      @project = Project.find(:first, :conditions => ["id = ? AND account_id = ?", params[:id], @account.id])
-    rescue
-      return false
-    end
-    if @project && @project.class == Project
-      return true
-    else
-      redirect_to :controller => '/projects' and return false
-    end
-  end
-  
+    
   def user_story_must_exist
     begin
-      @user_story = UserStory.find(params[:user_story])
+      @user_story = @account.user_stories.find(params[:id])
     rescue
       return false
     end
     if @user_story && @user_story.class == UserStory
       return true
     else
-      redirect_to :controller => '/projects' and return false
+      redirect_to :controller => '/backlog' and return false
     end
   end
   
