@@ -7,7 +7,6 @@ class LoginController < ApplicationController
   
   def authenticate
     account = Account.find_by_name(params[:account])
-    # account ||= Account.find_by_name(params[:account_name])
     unless account.nil?
       person = account.people.find(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", params[:email], params[:password], 1])
       unless person.nil?
