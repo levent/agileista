@@ -1,13 +1,11 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe LoginController do
-  before(:each) do
-  end
-  
-  describe "#authenticate" do
-    
+  describe "#authenticate" do    
     before(:each) do
       @account = Account.new
+      @person = Person.new(:authenticated => '1', :email => 'leemail')
+      controller.stub!(:current_user).and_return(@person)
     end
     
     it "should redirect if no account found" do
@@ -18,6 +16,7 @@ describe LoginController do
     end
     
     it "should attempt to log user in if account provided" do
+      controller.stub!(:logged_in?).and_return(false)
       Account.should_receive(:find_by_name).with('existent').and_return(@account)
       @account.people.should_receive(:find).with(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", 'l', 'dog', 1]).and_return(nil)
       get :authenticate, :account => 'existent', :email => 'l', :password => 'dog'
@@ -26,8 +25,8 @@ describe LoginController do
     it "should switch accounts if logged_in and member of other account" do
       controller.should_receive(:logged_in?).and_return(true)
       Account.should_receive(:find_by_name).with('existent').and_return(@account)
-      @account.people.should_receive(:find).with(:first, :conditions => ["email = ? AND authenticated = ?", 'l', 1]).and_return(nil)
-      get :authenticate, :account => 'existent', :email => 'l'
+      @account.people.should_receive(:find).with(:first, :conditions => ["email = ? AND authenticated = ?", 'leemail', 1]).and_return(nil)
+      get :authenticate, :account => 'existent'
     end
   end
 end

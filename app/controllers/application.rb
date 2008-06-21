@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
     if logged_in?
       # @account ||= Account.find(session[:account])
       @account ||= @current_user.account
+      @other_account_people = Person.find_all_by_email_and_authenticated(@current_user.email,1) - [@current_user]
       return true
     else
       flash[:error] = 'Please log in'
