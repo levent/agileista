@@ -8,7 +8,11 @@ class LoginController < ApplicationController
   def authenticate
     account = Account.find_by_name(params[:account])
     unless account.nil?
-      person = account.people.find(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", params[:email], params[:password], 1])
+      if logged_in?
+        person = account.people.find(:first, :conditions => ["email = ? AND authenticated = ?", params[:email], 1])
+      else
+        person = account.people.find(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", params[:email], params[:password], 1])
+      end
       unless person.nil?
         flash[:notice] = "You have logged in successfully"
         session[:user] = person.id
