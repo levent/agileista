@@ -57,7 +57,7 @@ img {border: none}
 	margin: 20px 20px 0 20px;
 	padding: 10px;
 	position: relative;
-	
+	border: 1px solid #333;
 }
 #sidebar:after, #cloud:after {
   content: ".";

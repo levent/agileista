@@ -204,15 +204,15 @@ class UserStoriesController < ApplicationController
     @acceptance_criterium = AcceptanceCriterium.new
   end
   
-  def edit2
-    @user_story = @account.user_stories.find(params[:id])
-    @task = Task.new
-    @acceptance_criterium = AcceptanceCriterium.new
-  end
+  # def edit2
+  #   @user_story = @account.user_stories.find(params[:id])
+  #   @task = Task.new
+  #   @acceptance_criterium = AcceptanceCriterium.new
+  # end
   
-  def update2
-    # breakpoint
-  end
+  # def update2
+  #   # breakpoint
+  # end
   
   def update
     if request.post?
