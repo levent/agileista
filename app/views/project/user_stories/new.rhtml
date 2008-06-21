@@ -1,9 +1,0 @@
-<h1>Project: <%= @project.name %></h1>
-<div class="summary_pane">
-<h2>Add a user story</h2>
-<%= error_messages_for :user_story %>
-<% form_for :user_story, @user_story, :url => {:action => 'create', :id => @project} do |@us| %>
-	<%= render :partial => 'form' %>
-	<%= submit_tag "Add user story" %>
-<% end %>
-</div>

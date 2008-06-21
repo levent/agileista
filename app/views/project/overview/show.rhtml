@@ -1,9 +1,0 @@
-<h1>Project: <%= @project.name %></h1>
-<div class="summary_pane">
-<h2>Team members:</h2>
-<%= render :partial => '/project/members/current_members' %>
-<p><%= link_to "Add people to the project", :controller => "/project/members", :action => "add", :id => @project %></p>
-<p><%= link_to "User stories", :controller => '/project/user_stories', :action => 'list', :id => @project %> <span class="small">(<%= @project.user_stories.length %>)</span></p>
-</div>
-<p><%= link_to "Back to account overview", :controller => '/account' %></p>
-

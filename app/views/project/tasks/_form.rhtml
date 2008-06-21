@@ -1,4 +1,0 @@
-<label for="task_definition">Title:</label><%= @t.text_field :definition %>
-<label for="task_description">Notes:</label><%= @t.text_area :description %>
-<label for="task_hours">Hours:</label><%= @t.text_field :hours %>
-<label for="task_developer">Assigned to:</label><%= select("task", "developer_id", @project.team_members.collect {|p| [ p.name, p.id ] }, { :include_blank => true }) %>

@@ -1,7 +1,5 @@
 class Theme < ActiveRecord::Base
-
   belongs_to :account
-  
   validates_presence_of :name
 
   has_many_polymorphs :themables,
@@ -23,5 +21,4 @@ class Theme < ActiveRecord::Base
     end
     return @story_points
   end
-  
 end

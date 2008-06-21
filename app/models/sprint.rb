@@ -5,8 +5,6 @@ class Sprint < ActiveRecord::Base
   has_many :burndowns
   
   belongs_to :account
-  # has_many :user_stories, :order => 'done'
-  
   validates_presence_of :account
   validates_presence_of :start_at, :end_at
   validates_presence_of :name
@@ -35,5 +33,4 @@ class Sprint < ActiveRecord::Base
       self.end_at = self.account.iteration_length.to_i.weeks.from_now(1.day.ago(self.start_at))
     end
   end
-  
 end

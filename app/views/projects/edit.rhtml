@@ -1,8 +1,0 @@
-<h1>Project: <%= @project.name %></h1>
-<%= error_messages_for :project %>
-<% form_for :project, @project, :url => {:action => 'update', :id => @project.id} do |p| %>
-	<label for="project_name">Name of project:</label><%= p.text_field :name %>
-
-	<%= submit_tag "Save project" %>
-<% end %>
-<p><%= link_to "Back to account overview", :controller => '/account' %></p>

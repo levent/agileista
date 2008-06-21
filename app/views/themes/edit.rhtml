@@ -1,4 +1,10 @@
-<div id="main">
+<div id="navii">
+    <ul>
+    	<li><%= link_to "Back to themes", :controller => 'themes' %></li>
+	</ul>
+	<div class="c">&nbsp;</div>
+</div>
+<div id="main" class="wide">
 <h1>Edit theme: <%= @theme.name %></h1>
 <%= error_messages_for :theme %>
 <% form_for :theme, @theme, :url => {:action => 'update', :id => @theme} do |theme| %>
@@ -6,7 +12,4 @@
 	<label for="theme_description">Description:</label><%= theme.text_area :description, :class => "long fat" %>
 	<%= submit_tag "Edit theme" %>
 <% end %>
-</div>
-<div id="sidebar">
-	<p><%= link_to "Back to themes", :controller => 'themes' %></p>
 </div>

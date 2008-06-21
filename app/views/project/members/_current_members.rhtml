@@ -1,9 +1,0 @@
-<% if @project.project_members.length == 0 %>
-	<p><%= "No current members" %></p>
-<% else %>
-<ul>
-<% for project_member in @project.project_members %>
-	<li><%= project_member.person.name %> - <%= link_to project_member.person.email, "mailto:#{project_member.person.email}" %><% unless project_member.person.authenticated? %> - waiting for validation<% end %></li>
-<% end %>
-</ul>
-<% end %>

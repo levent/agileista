@@ -1,7 +1,0 @@
-<td><%= user_story.position %></td>
-<td><%= link_to user_story.definition, :controller => '/project/user_stories', :action => 'edit', :id => @project, :user_story_id => user_story.id %></td>
-<td><%= link_to (user_story.tasks.length.to_s + " tasks"), :controller => '/project/tasks', :action => 'show', :id => @project, :user_story => user_story.id %></td>
-<td><span class="small">(click to view / add)</span></td>
-<td><%= button_to "up", :controller => '/project/user_stories', :action => 'move_up', :id => @project, :user_story => user_story.id unless user_story.first? %></td>
-<td><%= button_to "down", :controller => '/project/user_stories', :action => 'move_down', :id => @project, :user_story => user_story.id unless user_story.last? %></td>
-<td><%= show_story_points(user_story.story_points) %></td>
