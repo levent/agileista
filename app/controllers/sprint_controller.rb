@@ -1,6 +1,6 @@
 class SprintController < AbstractSecurityController
 
-  # before_filter :must_be_logged_in
+  ssl_required :index, :update_hours, :hide_tasks, :move_task
   before_filter :must_be_team_member, :except => [:index]
   # before_filter :sprint_must_exist, :only => [:show]
   
@@ -11,8 +11,6 @@ class SprintController < AbstractSecurityController
       redirect_to :controller => 'backlog' and flash[:notice] = "There is no active sprint" and return false
     end
     calculate_tomorrows_burndown
-  
-   
      @burndowns = Burndown.find(:all, :conditions => ["sprint_id = ?", @current_sprint.id], :order => :created_on)
      # @assigned_user_stories = @account.user_stories - @unassigned_user_stories
      # @elements = @current_sprint.sprint_elements.find(:all, :include => [:user_story])

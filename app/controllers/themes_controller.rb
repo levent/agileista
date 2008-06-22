@@ -1,6 +1,6 @@
 class ThemesController < AbstractSecurityController
 
-  # before_filter :must_be_logged_in
+  ssl_required :index, :new, :create, :edit, :update
   before_filter :must_be_team_member, :except => [:index]
 
   def index

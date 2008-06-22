@@ -1,6 +1,6 @@
 class ReleasesController < AbstractSecurityController
   
-  # before_filter :must_be_logged_in
+  ssl_required :index, :new, :create, :edit, :update, :show, :plan
   before_filter :must_be_team_member, :except => [:index]
   before_filter :unplanned_estimated_user_stories, :only => [:show]
   

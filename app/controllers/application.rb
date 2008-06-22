@@ -15,20 +15,7 @@ class ApplicationController < ActionController::Base
     return false if local_request? || RAILS_ENV == 'test'
     super
   end
-
-  def must_be_logged_in
-    # @current_user ||= Person.find_by_id_and_account_id(session[:user], session[:account])
-    if logged_in?
-      # @account ||= Account.find(session[:account])
-      @account ||= @current_user.account
-      @other_account_people = Person.find_all_by_email_and_authenticated(@current_user.email,1) - [@current_user]
-      return true
-    else
-      flash[:error] = 'Please log in'
-      redirect_to :controller => '/login' and return false
-    end
-  end
-    
+      
   def user_story_must_exist
     begin
       @user_story = @account.user_stories.find(params[:id])

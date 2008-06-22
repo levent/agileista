@@ -12,6 +12,11 @@ class BacklogController < AbstractSecurityController
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     @cloud = Tag.cloud(:conditions => ["tags.account_id = ?", @account.id])
+    respond_to do |format|
+      format.html {render :action => 'index.rhtml'}
+      format.rss {render :action => 'index.rss.rxml', :layout => false}
+      format.atom {render :action => 'index.atom.rxml', :layout => false}
+    end
   end
   
   def export

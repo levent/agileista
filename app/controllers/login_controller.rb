@@ -1,5 +1,6 @@
 class LoginController < ApplicationController
-  # ssl_required :index, :authenticate
+  ssl_required :index, :authenticate, :logout
+  ssl_allowed :forgot
   
   def index
     setup_account_name_for_form

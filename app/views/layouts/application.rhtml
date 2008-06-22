@@ -12,7 +12,7 @@
 	<%= javascript_include_tag 'scriptaculous' %>
 	<script language="Javascript" src="/FusionCharts/FusionCharts.js"></script>
 	
-	<%= auto_discovery_link_tag(:rss, :controller => 'backlog', :action => 'feed') %>
+    <!-- <%= auto_discovery_link_tag(:rss, :controller => 'backlog', :action => 'feed') %> -->
 </head>
 <body>
     <% if logged_in? && @other_account_people && @other_account_people.length > 0 -%>

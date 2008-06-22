@@ -38,6 +38,10 @@ class Person < ActiveRecord::Base
     account_holder?
   end
   
+  def self.basic_authenticate(email, password)
+    self.find_by_email_and_password(email, password)
+  end
+  
   protected
   
   def generate_activation_code

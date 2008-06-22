@@ -1,4 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
+  map.with_options(:path_prefix => ':account_name') do |account|
+    account.resources :backlog, :controller => 'backlog', :collection => {:export => :get, :feed => :get, :pdf => :get, :search => :get, :search_tags => :get, :sprint => :get, :sort_release => :get, :sort_unassigned => :get, :sort_sprint => :get}
+  end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   
   # Sample of regular route:
