@@ -13,17 +13,20 @@ class AbstractSecurityController < ApplicationController
     # @current_user ||= Person.find_by_id_and_account_id(session[:user], session[:account])
     case request.format
     when Mime::XML, Mime::ATOM
-      @account = Account.find_by_name(get_account_name_from_request)
-      if user = authenticate_with_http_basic { |u, p| @account.people.basic_authenticate(u, p) }
-        @current_user = user
+      if logged_in?
+        setup_account_variables
+        return true
       else
-        request_http_basic_authentication
+        @account = Account.find_by_name(get_account_name_from_request)
+        if user = authenticate_with_http_basic { |u, p| @account.people.basic_authenticate(u, p) }
+          @current_user = user
+        else
+          request_http_basic_authentication
+        end
       end
     else
       if logged_in?
-        # @account ||= Account.find(session[:account])
-        @account ||= @current_user.account
-        @other_account_people = Person.find_all_by_email_and_authenticated(@current_user.email,1) - [@current_user]
+        setup_account_variables
         return true
       else
         flash[:error] = 'Please log in'
@@ -34,5 +37,10 @@ class AbstractSecurityController < ApplicationController
   
   def get_account_name_from_request
     params[:account_name]
+  end
+  
+  def setup_account_variables
+    @account ||= @current_user.account
+    @other_account_people = Person.find_all_by_email_and_authenticated(@current_user.email,1) - [@current_user]
   end
 end
