@@ -9,23 +9,12 @@ class SignupController < ApplicationController
     @user = TeamMember.new(params[:user])
     @account = Account.new(params[:account])
     @account.account_holder = @user
-    # @user.account = @account
     if @account.valid? && @user.valid?
-      # breakpoint
       @account.save
-      # @user.save
-      # @membership = AccountHolderMembership.new
-      # @membership.person = @user
-      # @membership.account = @account
       @user.account = @account
       @user.save
-      # @membership.save
-      # if @user.authenticated?
       NotificationMailer.deliver_account_activation_info(@user, @account, self) 
       flash[:notice] = "Account created.. please check your email to validate your account"
-      # else
-        # flash[:notice] = "Account created successfully"
-      # end
       redirect_to :action => 'ok', :account_name => params[:account_name]
     else
       flash[:error] = "Oh oh!"

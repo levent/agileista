@@ -1,6 +1,6 @@
 class UsersController < AbstractSecurityController
 
-  before_filter :must_be_logged_in
+  # before_filter :must_be_logged_in
   before_filter :must_be_account_holder, :except => [:edit, :update]
   before_filter :can_i_edit_them, :only => [:edit, :update]
 
