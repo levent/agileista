@@ -1,5 +1,5 @@
 class LoginController < ApplicationController
-  # ssl_required :index, :authenticate, :logout
+  ssl_required :index, :authenticate, :logout
   # ssl_allowed :forgot
   
   def index
