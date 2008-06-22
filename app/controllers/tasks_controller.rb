@@ -1,6 +1,6 @@
 class TasksController < AbstractSecurityController
   
-  ssl_allowed :create, :claim, :release, :move_up, :move_down
+  # ssl_required :create, :claim, :release, :move_up, :move_down
   before_filter :must_be_team_member
 
   def create

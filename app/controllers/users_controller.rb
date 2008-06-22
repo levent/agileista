@@ -1,6 +1,6 @@
 class UsersController < AbstractSecurityController
 
-  ssl_allowed :new, :create, :delete, :edit, :update
+  # ssl_required :new, :create, :delete, :edit, :update
   before_filter :must_be_account_holder, :except => [:edit, :update]
   before_filter :can_i_edit_them, :only => [:edit, :update]
 
