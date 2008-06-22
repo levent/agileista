@@ -7,6 +7,7 @@ module AccountStuff
     rescue
       session[:user] = nil
       session[:account] = nil
+      session[:timeout] = nil
       @current_user = nil
     end
   end
@@ -14,6 +15,7 @@ module AccountStuff
   def do_logout
     session[:user] = nil
     session[:account] = nil
+    session[:timeout] = nil
   end
     
   def logged_in?

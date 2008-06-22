@@ -4,13 +4,17 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
   include AccountStuff
   include AccountLocation
+  include SslRequirement
   
-  # require_dependency 'user_story'
   require_dependency 'tag'
   require_dependency 'tagging'
-  # include SslRequirement
 
   protected
+  
+  def ssl_required?
+    return false if local_request? || RAILS_ENV == 'test'
+    super
+  end
 
   def must_be_logged_in
     # @current_user ||= Person.find_by_id_and_account_id(session[:user], session[:account])
