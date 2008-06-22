@@ -1,0 +1,3 @@
+class AbstractSecurityController < ApplicationController
+  
+end

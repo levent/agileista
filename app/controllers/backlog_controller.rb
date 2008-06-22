@@ -1,11 +1,10 @@
 require 'fastercsv'
-class BacklogController < ApplicationController
+class BacklogController < AbstractSecurityController
 
-  # ssl_required :index, :export, :feed
+  ssl_required :index, :export, :feed, :pdf, :search, :search_tags, :sprint, :sort_release, :sort_unassigned, :sort_sprint
   before_filter :must_be_logged_in
   before_filter :must_be_team_member, :only => ['sort_release', 'sort_unassigned']
   before_filter :account_user_stories ,:only => ['index', 'sort_release', 'sort_unassigned']
-  
 
   def index
     params[:order] ? order = 'story_points DESC' : order = 'position'
@@ -137,5 +136,4 @@ class BacklogController < ApplicationController
       yield csv
     }
   end
-
 end

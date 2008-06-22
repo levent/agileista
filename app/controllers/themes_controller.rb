@@ -1,4 +1,4 @@
-class ThemesController < ApplicationController
+class ThemesController < AbstractSecurityController
 
   before_filter :must_be_logged_in
   before_filter :must_be_team_member, :except => [:index]

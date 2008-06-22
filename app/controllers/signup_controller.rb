@@ -1,8 +1,5 @@
 class SignupController < ApplicationController
 
-  # model :person
-  # model :membership  
- 
   def index
     redirect_to :controller => 'backlog', :account_name => Account.find(session[:account]).name and return false if logged_in?
     @account = Account.new

@@ -1,5 +1,6 @@
-class AccountController < ApplicationController
+class AccountController < AbstractSecurityController
   
+  ssl_required :index, :settings, :change_password, :sort, :resend_authentication
   before_filter :must_be_logged_in
   before_filter :must_be_team_member, :only => [:sort]
   

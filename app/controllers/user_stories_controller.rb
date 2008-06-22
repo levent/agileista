@@ -1,4 +1,4 @@
-class UserStoriesController < ApplicationController
+class UserStoriesController < AbstractSecurityController
 
   before_filter :must_be_logged_in
   before_filter :must_be_team_member, :except => [:add, :create_via_add]

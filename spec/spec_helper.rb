@@ -44,4 +44,20 @@ Spec::Runner.configure do |config|
   # == Notes
   # 
   # For more information take a look at Spec::Example::Configuration and Spec::Runner
+  def block_should_be_yielded_to
+    observer = mock(:block)
+    observer.should_receive(:to_be_yielded_to)
+    Proc.new do
+      observer.to_be_yielded_to
+    end
+  end
+
+  def block_should_not_be_yielded_to
+    observer = mock(:block)
+    observer.should_not_receive(:yielded)
+    Proc.new do
+      observer.yielded
+    end
+  end 
+  
 end

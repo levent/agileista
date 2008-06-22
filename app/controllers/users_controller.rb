@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < AbstractSecurityController
 
   before_filter :must_be_logged_in
   before_filter :must_be_account_holder, :except => [:edit, :update]
