@@ -1,6 +1,6 @@
 class SprintPlanningController < AbstractSecurityController
 
-  ssl_required :index, :new, :edit, :update, :create, :show, :view, :destroy
+  ssl_allowed :index, :new, :edit, :update, :create, :show, :view, :destroy
   before_filter :must_be_team_member, :except => [:index, :view]
   before_filter :sprint_must_exist, :only => [:show, :view, :edit, :update, :destroy]
   before_filter :estimated_account_user_stories, :only => [:show]

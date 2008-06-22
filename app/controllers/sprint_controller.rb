@@ -1,6 +1,6 @@
 class SprintController < AbstractSecurityController
 
-  ssl_required :index, :update_hours, :hide_tasks, :move_task
+  ssl_allowed :index, :update_hours, :hide_tasks, :move_task
   before_filter :must_be_team_member, :except => [:index]
   # before_filter :sprint_must_exist, :only => [:show]
   

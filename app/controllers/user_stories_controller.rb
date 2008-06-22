@@ -1,6 +1,6 @@
 class UserStoriesController < AbstractSecurityController
 
-  ssl_required :copy, :new, :add, :show, :create, :create_via_add, :done, :unfinished, :new_task, :tasks, :create_task, :create_acceptance_criterium,
+  ssl_allowed :copy, :new, :add, :show, :create, :create_via_add, :done, :unfinished, :new_task, :tasks, :create_task, :create_acceptance_criterium,
     :delete_acceptance_criterium, :show_task, :edit_task, :destroy_task, :update_task, :edit, :update, :add_to_sprint, :plan_sprint, :remove_from_sprint,
     :move_up, :move_down, :delete
   before_filter :must_be_team_member, :except => [:add, :create_via_add]
