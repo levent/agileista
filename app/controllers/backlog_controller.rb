@@ -57,7 +57,7 @@ class BacklogController < AbstractSecurityController
   end
   
   def search
-    index
+    # index
     if request.post? && params[:q]
       @user_stories = @account.user_stories.find_by_contents("active:yes #{params[:q]}", :limit => :all)
       @story_points = 0
