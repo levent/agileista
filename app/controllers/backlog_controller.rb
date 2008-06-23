@@ -2,7 +2,7 @@ require 'fastercsv'
 class BacklogController < AbstractSecurityController
 
   # ssl_required :index, :export, :feed, :pdf, :search, :search_tags, :sprint, :sort_release, :sort_unassigned, :sort_sprint
-  ssl_required :feed, :index
+  ssl_required :feed, :index, :search
   # ssl_allowed :index
   # before_filter :must_be_logged_in
   before_filter :must_be_team_member, :only => ['sort_release', 'sort_unassigned']
@@ -64,7 +64,7 @@ class BacklogController < AbstractSecurityController
       @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     else
       flash[:notice] = "No user stories found"
-      redirect_to :action => 'index'
+      redirect_to :action => 'index' and return false
     end
   end
   
