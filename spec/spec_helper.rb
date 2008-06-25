@@ -62,6 +62,14 @@ Spec::Runner.configure do |config|
     Proc.new do
       observer.yielded
     end
-  end 
+  end
   
+  def stub_login_and_account_setup
+    @person = Person.new
+    @account = Account.new
+    @person.account = @account
+    session[:user] = 1
+    session[:account] = 1
+    Person.stub!(:find_by_id_and_account_id).and_return(@person)
+  end
 end
