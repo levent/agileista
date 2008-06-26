@@ -55,4 +55,33 @@ describe UserStory do
       @us.inprogress?.should be_false
     end
   end
+  
+  describe "#copy" do
+    before(:each) do
+      @us.account = Account.create!(:name => 'account')
+      @us.definition = "definition"
+      @us.save!
+      @us.save!
+    end
+
+    it "should create a new user story" do
+      count = UserStory.count
+      @us.copy
+      UserStory.count.should == count + 1
+    end
+    
+    it "should create a unique definition each time" do
+      @us.copy
+      UserStory.find(:all).last.definition.should == "definition - (2nd copy)"
+      @us.copy
+      UserStory.find(:all).last.definition.should == "definition - (3rd copy)"
+      @us.copy
+      UserStory.find(:all).last.definition.should == "definition - (4th copy)"
+      @us.copy
+      UserStory.find(:all).last.definition.should == "definition - (5th copy)"
+      @us.copy
+      UserStory.find(:all).last.definition.should == "definition - (6th copy)"
+    end
+  end
+  
 end

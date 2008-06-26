@@ -105,7 +105,9 @@ class UserStory < ActiveRecord::Base
     return if self.valid?
     try = 2
     original_definition = self.definition
+    # =~ /( - \((([\d])(th|nd|st|rd)) copy\))/
     until self.errors.on(:definition).blank? || try > 25
+      self.definition.gsub(/( - \((([\d])(th|nd|st|rd)) copy\))/, '')
       self.definition = "#{original_definition} - (#{try.ordinalize} copy)"
       self.valid?
       try += 1
