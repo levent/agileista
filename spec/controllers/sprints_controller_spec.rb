@@ -17,6 +17,17 @@ describe SprintsController do
     end
   end
   
+  describe "#show" do
+    before(:each) do
+      stub_login_and_account_setup
+    end
+    
+    it "should ensure sprint exists" do
+      controller.should_receive(:sprint_must_exist).and_return(true)
+      get :show, :id => 23
+    end
+  end
+  
   describe "route recognition" do
     it "should generate params from GET /agile/sprints correctly" do
       params_from(:get, '/agile/sprints').should == {:controller => 'sprints', :action => 'index', :account_name => 'agile'}
