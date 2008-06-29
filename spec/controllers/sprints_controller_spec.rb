@@ -47,23 +47,24 @@ describe SprintsController do
       end
     
       it "should ensure sprint exists" do
-        controller.should_receive(:sprint_must_exist).and_return(false)
-        controller.stub!(:respond_to)
+        @account.sprints.should_receive(:find).with('23').and_return(nil)
         get :show, :id => 23
       end
     
-      it "should render show_task_board if current sprint" do
+      it "should render show_task_board if current sprint and calc burndown" do
         @sprint = Sprint.new
         @account.sprints.should_receive(:find).with('23').and_return(@sprint)
         @sprint.should_receive(:current?).and_return(true)
+        controller.should_receive(:calculate_tomorrows_burndown).exactly(1).times
         get :show, :id => 23
         response.should render_template("sprints/task_board")
       end
     
-      it "should render show if not current sprint" do
+      it "should render show if not current sprint and NOT calc burndown" do
         @sprint = Sprint.new
         @account.sprints.should_receive(:find).with('23').and_return(@sprint)
         @sprint.should_receive(:current?).and_return(false)
+        controller.should_receive(:calculate_tomorrows_burndown).exactly(0).times
         get :show, :id => 23
         response.should render_template("sprints/show")
       end

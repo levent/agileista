@@ -11,7 +11,7 @@ class SprintController < AbstractSecurityController
       redirect_to :controller => 'backlog' and flash[:notice] = "There is no active sprint" and return false
     end
     calculate_tomorrows_burndown
-     @burndowns = Burndown.find(:all, :conditions => ["sprint_id = ?", @current_sprint.id], :order => :created_on)
+     # @burndowns = Burndown.find(:all, :conditions => ["sprint_id = ?", @current_sprint.id], :order => :created_on)
      # @assigned_user_stories = @account.user_stories - @unassigned_user_stories
      # @elements = @current_sprint.sprint_elements.find(:all, :include => [:user_story])
      @user_stories = @current_sprint.user_stories#.find(:all, :order => :position)
@@ -72,35 +72,35 @@ class SprintController < AbstractSecurityController
 
   private
   
-  def calculate_linear_regression(points)
-    n = points.length
-    ey = 0
-    ex = 0
-    exy = 0
-    ex2 = 0
-    ey2 = 0
-    
-    ex22 = 0
-    ey22 = 0
-    points.each do |x| 
-      ey += x[1]# and
-      ex += x[0]
-      exy += (x[0]*x[1])
-      ex2 += (x[0]*x[0])
-      ey2 += (x[1]*x[1])
-    end
-    ex22 = ex2*ex2
-    ey22 = ey2*ey2
-    
-    m = ((n*exy).to_f-(ex*ey).to_f).to_f/(n*ex2-ex22).to_f
-    b = (ey-m*ex).to_f/n
-    r = (n*exy-ex*ey).to_f/Math.sqrt((n*ex2-ex22)*(n*ey2-ey22))
-
-    linear = []
-    points.each do |point|
-      linear << [point[0], (m*point[1] + b)]
-    end
-    return linear, [linear]
-  end
+  # def calculate_linear_regression(points)
+  #   n = points.length
+  #   ey = 0
+  #   ex = 0
+  #   exy = 0
+  #   ex2 = 0
+  #   ey2 = 0
+  #   
+  #   ex22 = 0
+  #   ey22 = 0
+  #   points.each do |x| 
+  #     ey += x[1]# and
+  #     ex += x[0]
+  #     exy += (x[0]*x[1])
+  #     ex2 += (x[0]*x[0])
+  #     ey2 += (x[1]*x[1])
+  #   end
+  #   ex22 = ex2*ex2
+  #   ey22 = ey2*ey2
+  #   
+  #   m = ((n*exy).to_f-(ex*ey).to_f).to_f/(n*ex2-ex22).to_f
+  #   b = (ey-m*ex).to_f/n
+  #   r = (n*exy-ex*ey).to_f/Math.sqrt((n*ex2-ex22)*(n*ey2-ey22))
+  # 
+  #   linear = []
+  #   points.each do |point|
+  #     linear << [point[0], (m*point[1] + b)]
+  #   end
+  #   return linear, [linear]
+  # end
   
 end
