@@ -16,21 +16,15 @@
     
     	<div id="incomplete">
     		<h2>Incomplete:</h2>
-    		<% @sprint.user_stories.incomplete_tasks.each do |task| -%>
-    			<%= render :partial => 'sprint/show_task_card', :locals => {:element => task, :positions => user_story_positions} %>
-    		<% end -%>
+			<%= render :partial => 'task_card', :collection => @sprint.user_stories.incomplete_tasks, :locals => {:positions => user_story_positions} %>
     	</div>
     	<div id="inprogress">
     		<h2>In process:</h2>
-    		<% @sprint.user_stories.inprogress_tasks.each do |task| -%>
-    			<%= render :partial => 'sprint/show_task_card', :locals => {:element => task, :positions => user_story_positions} %>
-    		<% end -%>
+			<%= render :partial => 'task_card', :collection => @sprint.user_stories.inprogress_tasks, :locals => {:positions => user_story_positions} %>
     	</div>
     	<div id="complete">
     		<h2>Complete:</h2>
-    		<% @sprint.user_stories.complete_tasks.each do |task| -%>
-    			<%= render :partial => 'sprint/show_task_card', :locals => {:element => task, :positions => user_story_positions} %>
-    		<% end -%>
+			<%= render :partial => 'task_card', :collection => @sprint.user_stories.complete_tasks, :locals => {:positions => user_story_positions} %>
     	</div>
         <!--[if IE]>
             <div class="ieclearer"></div>
