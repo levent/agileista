@@ -30,6 +30,32 @@ describe SprintsController do
     end
   end
   
+  describe "#overview" do
+    before(:each) do
+      stub_login_and_account_setup
+    end
+    
+    it "should ensure iteration length specified" do
+      @account.should_receive(:iteration_length).and_return([])
+      get :overview, :id => 23
+      response.should be_redirect
+      response.should redirect_to(:action => 'settings', :controller => 'account')
+    end
+    
+    describe "after before filters" do
+      before(:each) do
+        stub_iteration_length_and_create_chart
+      end
+    
+      it "should ensure sprint exists" do
+        @sprint = Sprint.new(:start_at => 1.months.ago, :end_at => 2.weeks.ago)
+        @account.sprints.should_receive(:find).with('23').and_return(@sprint)
+        get :overview, :id => 23
+        assigns[:sprint].should == @sprint
+      end
+    end
+  end
+  
   describe "#show" do
     before(:each) do
       stub_login_and_account_setup
@@ -96,11 +122,13 @@ describe SprintsController do
     it "should generate params from GET /agile/sprints/7/plan correctly" do
       params_from(:get, '/agile/sprints/7/plan').should == {:controller => 'sprints', :action => 'plan', :account_name => 'agile', :id => '7'}
     end
-    # it "should generate params from POST /session correctly" do
-    #   params_from(:post, '/session').should == {:controller => 'sessions', :action => 'create'}
-    # end
+    
     it "should generate params from DELETE /agile/sprints/7 correctly" do
       params_from(:delete, '/agile/sprints/7').should == {:controller => 'sprints', :action => 'destroy', :account_name => 'agile', :id => '7'}
+    end
+    
+    it "should generate params from GET /agile/sprints/7/overview correctly" do
+      params_from(:get, '/agile/sprints/7/overview').should == {:controller => 'sprints', :action => 'overview', :account_name => 'agile', :id => '7'}
     end
   end
 end

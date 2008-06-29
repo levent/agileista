@@ -1,7 +1,7 @@
 class SprintsController < AbstractSecurityController
 
   before_filter :iteration_length_must_be_specified
-  before_filter :sprint_must_exist, :only => 'show'
+  before_filter :sprint_must_exist, :only => [:show, :overview]
   
   def index
     @sprints = @account.sprints
@@ -18,6 +18,9 @@ class SprintsController < AbstractSecurityController
         format.html
       end
     end
+  end
+  
+  def overview
   end
   
   private 

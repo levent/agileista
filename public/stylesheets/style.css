@@ -317,3 +317,4 @@ ul#usshowtags li {float:left; display:inline; padding-right:4px;}
 #usshowright {float:left;}
 #settingsleft {float: left; width: 60%;}
 #settingsright {float:left; width: 35%;}
+.mininotecard {width: 50px; height: 50px; background-color: green; margin: 4px; float:left;}

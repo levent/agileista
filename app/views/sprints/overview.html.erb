@@ -1,0 +1,22 @@
+<div id="main" class="wide">
+    <h1><%= sprint_header(@sprint) %></h1>
+    <div class="equal">
+        <div class="row">
+        	<div id="incomplete">
+    		<h2>Incomplete:</h2>
+			<%= render :partial => 'mini_task_card', :collection => @sprint.user_stories.incomplete_tasks %>
+    	</div>
+    	<div id="inprogress">
+    		<h2>In process:</h2>
+			<%= render :partial => 'mini_task_card', :collection => @sprint.user_stories.inprogress_tasks %>
+    	</div>
+    	<div id="complete">
+    		<h2>Complete:</h2>
+			<%= render :partial => 'mini_task_card', :collection => @sprint.user_stories.complete_tasks %>
+    	</div>
+        <!--[if IE]>
+            <div class="ieclearer"></div>
+        <![endif]-->
+        </div>
+    </div>
+</div>
