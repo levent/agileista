@@ -9,15 +9,12 @@ class SprintsController < AbstractSecurityController
   
   def show
     @current_sprint = @sprint
-    if @sprint && @sprint.current?
     create_chart
-      calculate_tomorrows_burndown
-      respond_to do |format|
+    respond_to do |format|
+      if @sprint.current?
+        calculate_tomorrows_burndown
         format.html {render :action => 'task_board'}
-      end
-    else
-    create_chart
-      respond_to do |format|
+      else
         format.html
       end
     end

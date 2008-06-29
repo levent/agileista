@@ -48,8 +48,11 @@ describe SprintsController do
       end
     
       it "should ensure sprint exists" do
-        @account.sprints.should_receive(:find).with('23').and_return(nil)
+        @sprint = Sprint.new(:start_at => 1.months.ago, :end_at => 2.weeks.ago)
+        @account.sprints.should_receive(:find).with('23').and_return(@sprint)
         get :show, :id => 23
+        assigns[:sprint].should == @sprint
+        assigns[:current_sprint].should == @sprint
       end
     
       describe "by loading a real sprint" do
