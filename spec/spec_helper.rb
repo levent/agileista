@@ -73,7 +73,8 @@ Spec::Runner.configure do |config|
     Person.stub!(:find_by_id_and_account_id).and_return(@person)
   end
   
-  def stub_iteration_length
+  def stub_iteration_length_and_create_chart
     controller.stub!(:iteration_length_must_be_specified)
+    controller.stub!(:create_chart)    
   end
 end

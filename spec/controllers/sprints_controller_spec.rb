@@ -19,8 +19,9 @@ describe SprintsController do
     
     describe "after before filters" do
       before(:each) do
-        stub_iteration_length
+        stub_iteration_length_and_create_chart
       end
+
       it "should load all the sprints" do
         @account.should_receive(:sprints).and_return(['sprint'])
         get :index
@@ -43,7 +44,7 @@ describe SprintsController do
     
     describe "after before filters" do
       before(:each) do
-        stub_iteration_length
+        stub_iteration_length_and_create_chart
       end
     
       it "should ensure sprint exists" do
@@ -51,24 +52,32 @@ describe SprintsController do
         get :show, :id => 23
       end
     
-      it "should render show_task_board if current sprint and calc burndown" do
-        @sprint = Sprint.new
-        @account.sprints.should_receive(:find).with('23').and_return(@sprint)
-        @sprint.should_receive(:current?).and_return(true)
-        controller.should_receive(:calculate_tomorrows_burndown).exactly(1).times
-        get :show, :id => 23
-        response.should render_template("sprints/task_board")
-      end
-    
-      it "should render show if not current sprint and NOT calc burndown" do
-        @sprint = Sprint.new
-        @account.sprints.should_receive(:find).with('23').and_return(@sprint)
-        @sprint.should_receive(:current?).and_return(false)
-        controller.should_receive(:calculate_tomorrows_burndown).exactly(0).times
-        get :show, :id => 23
-        response.should render_template("sprints/show")
-      end
-    
+      describe "by loading a real sprint" do
+        before(:each) do
+          @sprint = Sprint.new
+          @account.sprints.should_receive(:find).with('23').and_return(@sprint)          
+        end
+        
+        it "should call create_chart" do
+          @sprint.should_receive(:current?).and_return(false)
+          controller.should_receive(:create_chart).exactly(1).times
+          get :show, :id => 23
+        end
+
+        it "should render show_task_board if current sprint and calc burndown" do
+          @sprint.should_receive(:current?).and_return(true)
+          controller.should_receive(:calculate_tomorrows_burndown).exactly(1).times
+          get :show, :id => 23
+          response.should render_template("sprints/task_board")
+        end
+
+        it "should render show if not current sprint and NOT calc burndown" do
+          @sprint.should_receive(:current?).and_return(false)
+          controller.should_receive(:calculate_tomorrows_burndown).exactly(0).times
+          get :show, :id => 23
+          response.should render_template("sprints/show")
+        end
+      end    
     end
   end
   
