@@ -1,0 +1,39 @@
+<div id="navii"><ul><li><%= link_to "Add a sprint", :controller => 'sprint_planning', :action => 'new' %></li></ul><div class="c">&nbsp;</div></div>
+<div id="main" class="wide">
+	<h1>Sprints:</h1>
+	<table id="sprints">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>From</th>
+	      <th>To</th>
+	      <th>Story points</th>
+	      <th>Hours left</th>
+	      <th></th>
+		  <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @sprints.each do |sprint| -%>
+		<tr <%= identify_key_sprint(sprint) %>>
+	      <td><%=h sprint.name %></td>
+	      <td><%= show_date(sprint.start_at) %></td>
+	      <td><%= show_date(sprint.end_at) %></td>
+	      <td><%= sprint.user_stories.sum('story_points') %></td>
+	      <td><%= sprint.hours_left %></td>
+	      <td>
+	        <% if @current_user.is_a?(Contributor) -%>
+  			  <%= link_to image_tag("icons/page.png", :class => 'icon'), {:controller => 'sprint_planning', :action => 'view', :id => sprint}, :title => 'View' %>
+	        <% else -%>
+    			<%= link_to 'Plan', {:controller => 'sprint_planning', :action => 'show', :id => sprint}, :title => 'Plan' unless sprint.finished? %>
+    			<%= link_to 'View', {:controller => 'sprint_planning', :action => 'view', :id => sprint}, :title => 'View' if sprint.finished? %>
+    			<%= link_to 'Edit', {:controller => 'sprint_planning', :action => 'edit', :id => sprint}, :title => 'Edit' unless sprint.finished? %>
+    			<%= link_to 'Delete', {:controller => 'sprint_planning', :action => 'destroy', :id => sprint}, :confirm => "This cannot be undone. Are you sure?", :method => :delete, :title => 'Delete' unless sprint.finished? %>
+			<% end -%>
+		  </td>
+		  <td><%= "Current sprint" if sprint.current? %><%= "Next sprint" if sprint.upcoming? %></td>
+	    </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>

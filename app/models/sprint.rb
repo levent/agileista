@@ -28,6 +28,14 @@ class Sprint < ActiveRecord::Base
     self.end_at < Time.now ? true : false
   end
   
+  def upcoming?
+    self.start_at > Time.now ? true : false
+  end
+  
+  def current?
+    self.start_at < Time.now && self.end_at > 1.days.ago
+  end
+  
   def calculate_end_date
     unless self.end_at
       self.end_at = self.account.iteration_length.to_i.weeks.from_now(1.day.ago(self.start_at))

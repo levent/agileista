@@ -25,7 +25,6 @@ class SprintController < AbstractSecurityController
          @incomplete << task if task.incomplete?
        end
      end
-   
     create_chart
   end
   
@@ -83,13 +82,13 @@ class SprintController < AbstractSecurityController
     
     ex22 = 0
     ey22 = 0
-    points.each {|x| 
+    points.each do |x| 
       ey += x[1]# and
       ex += x[0]
       exy += (x[0]*x[1])
       ex2 += (x[0]*x[0])
       ey2 += (x[1]*x[1])
-    }
+    end
     ex22 = ex2*ex2
     ey22 = ey2*ey2
     
@@ -97,13 +96,8 @@ class SprintController < AbstractSecurityController
     b = (ey-m*ex).to_f/n
     r = (n*exy-ex*ey).to_f/Math.sqrt((n*ex2-ex22)*(n*ey2-ey22))
 
-    # {|x| }
-    # ex = 0
-    # points.each {|x| ex += x}
-
-    # points.each {}
     linear = []
-    for point in points
+    points.each do |point|
       linear << [point[0], (m*point[1] + b)]
     end
     return linear, [linear]
