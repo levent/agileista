@@ -10,10 +10,22 @@ describe SprintsController do
       stub_login_and_account_setup
     end
     
-    it "should load all the sprints" do
-      @account.should_receive(:sprints).and_return(['sprint'])
+    it "should ensure iteration length specified" do
+      @account.should_receive(:iteration_length).and_return([])
       get :index
-      assigns[:sprints].should == ['sprint']
+      response.should be_redirect
+      response.should redirect_to(:action => 'settings', :controller => 'account')
+    end
+    
+    describe "after before filters" do
+      before(:each) do
+        stub_iteration_length
+      end
+      it "should load all the sprints" do
+        @account.should_receive(:sprints).and_return(['sprint'])
+        get :index
+        assigns[:sprints].should == ['sprint']
+      end
     end
   end
   
@@ -22,26 +34,40 @@ describe SprintsController do
       stub_login_and_account_setup
     end
     
-    it "should ensure sprint exists" do
-      controller.should_receive(:sprint_must_exist).and_return(false)
-      controller.stub!(:respond_to)
+    it "should ensure iteration length specified" do
+      @account.should_receive(:iteration_length).and_return([])
       get :show, :id => 23
+      response.should be_redirect
+      response.should redirect_to(:action => 'settings', :controller => 'account')
     end
     
-    it "should render show_task_board if current sprint" do
-      @sprint = Sprint.new
-      @account.sprints.should_receive(:find).with('23').and_return(@sprint)
-      @sprint.should_receive(:current?).and_return(true)
-      get :show, :id => 23
-      response.should render_template("sprints/task_board")
-    end
+    describe "after before filters" do
+      before(:each) do
+        stub_iteration_length
+      end
     
-    it "should render show if not current sprint" do
-      @sprint = Sprint.new
-      @account.sprints.should_receive(:find).with('23').and_return(@sprint)
-      @sprint.should_receive(:current?).and_return(false)
-      get :show, :id => 23
-      response.should render_template("sprints/show")
+      it "should ensure sprint exists" do
+        controller.should_receive(:sprint_must_exist).and_return(false)
+        controller.stub!(:respond_to)
+        get :show, :id => 23
+      end
+    
+      it "should render show_task_board if current sprint" do
+        @sprint = Sprint.new
+        @account.sprints.should_receive(:find).with('23').and_return(@sprint)
+        @sprint.should_receive(:current?).and_return(true)
+        get :show, :id => 23
+        response.should render_template("sprints/task_board")
+      end
+    
+      it "should render show if not current sprint" do
+        @sprint = Sprint.new
+        @account.sprints.should_receive(:find).with('23').and_return(@sprint)
+        @sprint.should_receive(:current?).and_return(false)
+        get :show, :id => 23
+        response.should render_template("sprints/show")
+      end
+    
     end
   end
   
