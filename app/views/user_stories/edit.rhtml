@@ -15,7 +15,7 @@
 <div id="main">
 	<h1>Edit user story</h1>
 	<%= error_messages_for :user_story %>
-	<% form_for :user_story, @user_story, :url => {:action => 'update', :id => @user_story, :sprint_id => params[:sprint_id], :from => params[:from]} do |@us| %>
+	<% form_for :user_story, @user_story, :url => user_story_path(:id => @user_story, :sprint_id => params[:sprint_id], :from => params[:from]), :html => {:method => :put} do |@us| %>
 		<%= render :partial => 'form' %>
 		<%= submit_tag "Save changes to user story" %>
 	<% end %>

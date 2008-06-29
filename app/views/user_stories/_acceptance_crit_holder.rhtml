@@ -8,5 +8,5 @@
 	<%= submit_tag 'Add criterion' %>
 <% end %>
 <% if @current_user.is_a?(TeamMember) %>
-<p style="margin-top:30px">Warning! This action is permanent: <%= button_to "Delete user story", :controller => 'user_stories', :action => 'delete', :id => @user_story %></p>
+<p style="margin-top:30px">Warning! This action is permanent: <%= button_to "Delete user story", user_story_path(:id => @user_story), :method => :delete %></p>
 <% end %>
