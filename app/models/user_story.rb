@@ -46,9 +46,36 @@ class UserStory < ActiveRecord::Base
       return false
     end
   end
-  # def done?
-  #   self.done == 1 ? true : false
-  # end
+  
+  def self.complete_tasks
+    complete_tasks = []
+    find(:all).each do |user_story|
+      user_story.tasks.each do |task|
+        complete_tasks << task if task.complete?
+      end
+    end
+    return complete_tasks
+  end
+  
+  def self.inprogress_tasks
+    inprogress_tasks = []
+    find(:all).each do |user_story|
+      user_story.tasks.each do |task|
+        inprogress_tasks << task if task.inprogress?
+      end
+    end
+    return inprogress_tasks
+  end
+  
+  def self.incomplete_tasks
+    incomplete_tasks = []
+    find(:all).each do |user_story|
+      user_story.tasks.each do |task|
+        incomplete_tasks << task if task.incomplete?
+      end
+    end
+    return incomplete_tasks
+  end
   
   def tag_with(tags)
     self.taggings.destroy_all

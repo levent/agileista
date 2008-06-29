@@ -6,6 +6,7 @@ describe UserStory do
     @us = UserStory.new
     @task_a = Task.new
     @task_b = Task.new
+    @task_c = Task.new
   end
 
   describe "#complete?" do
@@ -84,4 +85,36 @@ describe UserStory do
     end
   end
   
+  describe "self#complete_tasks" do
+    it "should return an array of complete tasks" do
+      @task_a.stub!(:complete?).and_return(true)
+      @task_b.stub!(:complete?).and_return(true)
+      @task_c.stub!(:complete?).and_return(false)
+      @us.should_receive(:tasks).and_return([@task_a, @task_b, @task_c])
+      UserStory.should_receive(:find).with(:all).and_return([@us])
+      UserStory.complete_tasks.should == [@task_a, @task_b]
+    end
+  end
+  
+  describe "self#inprogress_tasks" do
+    it "should return an array of inprogress tasks" do
+      @task_a.stub!(:inprogress?).and_return(true)
+      @task_b.stub!(:inprogress?).and_return(true)
+      @task_c.stub!(:inprogress?).and_return(false)
+      @us.should_receive(:tasks).and_return([@task_a, @task_b, @task_c])
+      UserStory.should_receive(:find).with(:all).and_return([@us])
+      UserStory.inprogress_tasks.should == [@task_a, @task_b]
+    end
+  end
+  
+  describe "self#incomplete_tasks" do
+    it "should return an array of inprogress tasks" do
+      @task_a.stub!(:incomplete?).and_return(true)
+      @task_b.stub!(:incomplete?).and_return(true)
+      @task_c.stub!(:incomplete?).and_return(false)
+      @us.should_receive(:tasks).and_return([@task_a, @task_b, @task_c])
+      UserStory.should_receive(:find).with(:all).and_return([@us])
+      UserStory.incomplete_tasks.should == [@task_a, @task_b]
+    end
+  end
 end
