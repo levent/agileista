@@ -7,7 +7,13 @@ class SprintsController < AbstractSecurityController
   end
   
   def show
-    
+    respond_to do |format|
+      if @sprint.current?
+        format.html {render :action => 'task_board'}
+      else
+        format.html
+      end
+    end
   end
   
 end
