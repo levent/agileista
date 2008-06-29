@@ -25,11 +25,15 @@ describe SprintsController do
     it "should generate params from POST /agile/sprints correctly" do
       params_from(:post, '/agile/sprints').should == {:controller => 'sprints', :action => 'create', :account_name => 'agile'}
     end
+    
+    it "should generate params from GET /agile/sprints/7/plan correctly" do
+      params_from(:get, '/agile/sprints/7/plan').should == {:controller => 'sprints', :action => 'plan', :account_name => 'agile', :id => '7'}
+    end
     # it "should generate params from POST /session correctly" do
     #   params_from(:post, '/session').should == {:controller => 'sessions', :action => 'create'}
     # end
-    # it "should generate params from DELETE /session correctly" do
-    #   params_from(:delete, '/logout').should == {:controller => 'sessions', :action => 'destroy'}
-    # end
+    it "should generate params from DELETE /agile/sprints/7 correctly" do
+      params_from(:delete, '/agile/sprints/7').should == {:controller => 'sprints', :action => 'destroy', :account_name => 'agile', :id => '7'}
+    end
   end
 end
