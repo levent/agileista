@@ -73,6 +73,8 @@ describe UserStory do
     
     it "should create a unique definition each time" do
       @us.copy
+      UserStory.find(:all).last.definition.should == "definition - (1st copy)"
+      @us.copy
       UserStory.find(:all).last.definition.should == "definition - (2nd copy)"
       @us.copy
       UserStory.find(:all).last.definition.should == "definition - (3rd copy)"
@@ -115,6 +117,37 @@ describe UserStory do
       @us.should_receive(:tasks).and_return([@task_a, @task_b, @task_c])
       UserStory.should_receive(:find).with(:all).and_return([@us])
       UserStory.incomplete_tasks.should == [@task_a, @task_b]
+    end
+  end
+  
+  describe "#unique_definition" do
+    it "should add nth copy onto copy of orginal until valid or 25 attempts (which is case in this test)" do
+      @us.stub!(:valid?).and_return(false)
+      @us.errors.stub!(:on).and_return('false')
+      @us.definition = "Some user story for me to test"
+      @us.unique_definition.should == "Some user story for me to test - (24th copy)"
+    end
+    
+    describe "with another user story of same name" do
+      it "should create 1st copy" do
+        @us.definition = "Some user story for me to test"
+        @us.account_id = 100
+        @us.save.should be_true
+        @us2 = @us.clone
+        @us2.valid?.should be_false
+        @us2.unique_definition.should == "Some user story for me to test - (1st copy)"
+      end
+    end
+    
+    describe "with another copy of user story" do
+      it "should create 15th copy" do
+        @us.definition = "Some user story for me to test - (14th copy)"
+        @us.account_id = 100
+        @us.save.should be_true
+        @us2 = @us.clone
+        @us2.valid?.should be_false
+        @us2.unique_definition.should == "Some user story for me to test - (15th copy)"
+      end
     end
   end
 end

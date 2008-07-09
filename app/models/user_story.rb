@@ -134,8 +134,8 @@ class UserStory < ActiveRecord::Base
     original_definition = self.definition
     # =~ /( - \((([\d])(th|nd|st|rd)) copy\))/
     until self.errors.on(:definition).blank? || try > 25
-      self.definition.gsub(/( - \((([\d])(th|nd|st|rd)) copy\))/, '')
-      self.definition = "#{original_definition} - (#{try.ordinalize} copy)"
+      subbed_def = self.definition.gsub(/( - \((([\d]+)(th|nd|st|rd)) copy\))/, '')
+      self.definition = "#{subbed_def} - (#{($3.to_i + 1).ordinalize} copy)"
       self.valid?
       try += 1
     end
