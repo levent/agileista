@@ -30,9 +30,15 @@ class SprintController < AbstractSecurityController
   
   def update_hours
     @task = Task.find(params[:id])
-    @task.hours = params[:task_hours].to_i if @task.developer == Person.find(session[:user])
-    if @task.save
-      flash[:notice] = "Task hours updated successfully"
+    unless @task.developer == current_user
+      flash[:error] = "Only task assignee can update hours"
+    else
+      @task.hours = params[:task_hours].to_i
+      if @task.save
+        flash[:notice] = "Task hours updated successfully"
+      else
+        flash[:error] = "Task could not be updated"
+      end
     end
     redirect_to :back
   end

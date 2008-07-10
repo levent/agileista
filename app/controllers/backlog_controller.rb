@@ -2,8 +2,9 @@ require 'fastercsv'
 class BacklogController < AbstractSecurityController
 
   # ssl_required :index, :export, :feed, :pdf, :search, :search_tags, :sprint, :sort_release, :sort_unassigned, :sort_sprint
-  ssl_required :feed, :index, :search
-  # ssl_allowed :index
+  # ssl_required :feed, :index, :search
+  ssl_required :feed, :search
+  ssl_allowed :index
   # before_filter :must_be_logged_in
   before_filter :must_be_team_member, :only => ['sort_release', 'sort_unassigned']
   before_filter :account_user_stories ,:only => ['index', 'sort_release', 'sort_unassigned']
