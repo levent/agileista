@@ -25,28 +25,33 @@ table {border-collapse:collapse;}
 td, th {text-align: left; margin: 0; padding: 4px; font-size: 0.9em;}
 th {border-bottom: 1px solid #ccc;}
 legend { color: #c00; font-weight: bold; }
-fieldset {border: 1px solid #ccc; padding: 10px; margin-bottom: 12px;}
+fieldset {border: none; padding: 10px; margin-bottom: 12px;}
+#leftcontent fieldset, #rightcontent fieldset {border: 1px solid #ccc; padding: 10px; margin-bottom: 12px;}
 .small {font-size: 0.8em;}
 a {color: #1A6086;}
 img {border: none}
 /*li {font-size: 90%;}*/
 #userstorylist a {text-decoration: none;}
-#wrapper {
-/*	#container {*/
+
+
+/*#wrapper {
 	  margin: 0 auto;
 	  text-align: left;
 	  min-width: 950px;
 	}
     
-#content {max-width: 1500px;}
+#content {max-width: 1500px;}*/
+
+
 #main{
-	margin: 20px 0 0 20px;
+	margin: 0;
 	float: left;
 	width: 68%;
 	position: relative;
 	background: #fff;
-	padding: 10px;
-	border: 1px solid #333;
+	padding: 10px 20px;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 }
 
 #maincontent {float: left; width: 500px;}
@@ -54,10 +59,11 @@ img {border: none}
 	float: right; 
 	width: 20%;
 	background: #fff;
-	margin: 20px 20px 0 20px;
+	margin: 0 0 0 20px;
 	padding: 10px;
 	position: relative;
-	border: 1px solid #333;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
 }
 #sidebar:after, #cloud:after {
   content: ".";
@@ -141,7 +147,7 @@ Be carefull with the sizes (widths) though. If they don’t match up right thing
 	background:#333;
 	width: 100%;
 	float: left;
-	font-size: 0.8em;
+/*	font-size: 0.8em;*/
 }
 
 #header ul, #accountswitcher ul {
@@ -167,7 +173,7 @@ Be carefull with the sizes (widths) though. If they don’t match up right thing
 	color: #FCFAE1;
  }
 #header a:hover {color:#4C1B1B;}
-#header h1 {color: #ffffff; margin:0; padding:8px;font-size:2.8em;}
+#header h1 {color: #ffffff; padding:8px;font-size:2.8em;}
 #header li h1 a {margin: 0; padding:0}
 #header #flashs {color: yellow;}
 #accountswitcher a, #accountswitcher span {
@@ -176,7 +182,7 @@ Be carefull with the sizes (widths) though. If they don’t match up right thing
 	text-decoration: none;
 	color: white;
 }
-#accountswitcher a:hover {text-decoration: underline;}
+/* {text-decoration: underline;}*/
 /*** 
 
 *summary pane
@@ -302,7 +308,7 @@ th.titlerow {border: 0;color: #b9121b;}
 #main.wide {width:90%;}
 #navii{padding-left:20px;line-height:2em;background:#333;color:#fff;clear:both;}
 #navii a{line-height:2em;color:#fff;text-decoration:none;}
-#navii a:hover{color:#b9121b;}
+#navii a:hover, #accountswitcher a:hover{color:#b9121b;}
 #navii ul {display:inline;margin:0;padding:0;}
 #navii ul li {float:left;padding-right:15px;font-size:1em;}
 #themeslist ul li.uscomplete, #themeslist ul li.uscomplete a {background-color: #ccc; color: #fff;}
