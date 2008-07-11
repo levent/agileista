@@ -4,7 +4,7 @@ describe ImpedimentsController do
   it "should be an abstract_security_controller" do
     controller.is_a?(AbstractSecurityController).should be_true
   end
-  
+
   describe "#index" do
     before(:each) do
       stub_login_and_account_setup

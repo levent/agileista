@@ -1,0 +1,24 @@
+<div id="navii"><ul><li><%= link_to "Add an impediment", new_impediment_path %></li></ul><div class="c">&nbsp;</div></div>
+<div id="main" class="wide">
+	<h1>Impediments:</h1>
+	<table id="impediments">
+	  <thead>
+	    <tr>
+	      <th>Description</th>
+	      <th>Reporter</th>
+	      <th>Created</th>
+	      <th>Resolved</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @impediments.each do |impediment| -%>
+		<tr>
+	      	<td><%=h impediment.description %></td>
+			<td><%= impediment.team_member.name %></td>
+			<td><%= time_ago_in_words(impediment.created_at) %></td>
+			<td><%= impediment.resolved_at %></td>
+		</tr>
+		<% end -%>
+	  </tbody>
+	</table>
+</div>
