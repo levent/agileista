@@ -16,4 +16,16 @@ describe ImpedimentsController do
       assigns[:impediments].should == 'impediments'
     end
   end
+  
+  describe "#new" do
+    before(:each) do
+      stub_login_and_account_setup
+    end
+    
+    it "should set up new impediment" do
+      @account.impediments.should_receive(:new).and_return('newimpediment')
+      get :new
+      assigns[:impediment].should == 'newimpediment'
+    end
+  end
 end
