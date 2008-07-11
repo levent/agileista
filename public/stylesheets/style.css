@@ -295,7 +295,7 @@ span.tag {
 .row {display:table-row;}
 .row div {display:table-cell;}
 th.titlerow {border: 0;color: #b9121b;}
-.uscomplete {text-decoration:line-through; color: #666;}
+tr.complete td, .uscomplete {text-decoration:line-through; color: #666;}
 .usclaimed {text-decoration:line-through; color: green;}
 #exportlinks{clear:both;}
 #main.wide {width:90%;}

@@ -26,4 +26,14 @@ describe Impediment do
       @it.should belong_to(:account)
     end
   end
+  
+  describe "resolve" do
+    it "should try and set the resolved_at time and save" do
+      Time.freeze do
+        @it.should_receive(:resolved_at=).with(Time.now)
+        @it.should_receive(:save).and_return('tru')
+        @it.resolve.should == 'tru'
+      end
+    end
+  end
 end
