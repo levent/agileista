@@ -1,3 +1,8 @@
 <div id="main" class="wide">
 	<h1>Add an impediment</h1>
+	<%= error_messages_for :impediment %>
+	<% form_for @impediment do |f| %>
+		<label for="">Description</label><%= f.text_area :description, :rows => 8, :class => "long fat" %>
+		<%= f.submit 'Add' %>
+	<% end %>
 </div>

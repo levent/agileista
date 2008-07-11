@@ -7,4 +7,7 @@ class ImpedimentsController < AbstractSecurityController
   def new
     @impediment = @account.impediments.new
   end
+  
+  def create
+  end
 end
