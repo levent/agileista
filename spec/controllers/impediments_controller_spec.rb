@@ -1,15 +1,15 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ImpedimentsController do
+  before(:each) do
+    stub_login_and_account_setup
+  end
+
   it "should be an abstract_security_controller" do
     controller.is_a?(AbstractSecurityController).should be_true
   end
-
+  
   describe "#index" do
-    before(:each) do
-      stub_login_and_account_setup
-    end
-    
     it "should get all the impediments" do
       @account.should_receive(:impediments).and_return('impediments')
       get :index
@@ -18,10 +18,6 @@ describe ImpedimentsController do
   end
   
   describe "#new" do
-    before(:each) do
-      stub_login_and_account_setup
-    end
-    
     it "should set up new impediment" do
       @account.impediments.should_receive(:new).and_return('newimpediment')
       get :new
@@ -32,7 +28,6 @@ describe ImpedimentsController do
   describe "#create" do
     before(:each) do
       @impediment = Impediment.new
-      stub_login_and_account_setup
     end
     
     it "should try and create an impediment" do
@@ -51,7 +46,7 @@ describe ImpedimentsController do
       @impediment.should_receive(:save).and_return(true)
       post :create, :impediment => {:description => 'punk face'}
       response.should be_redirect
-      response.should redirect_to :action => 'index'
+      response.should redirect_to(:action => 'index')
       flash[:error].should be_nil
       flash[:notice].should_not be_nil
     end
@@ -67,14 +62,57 @@ describe ImpedimentsController do
     end
   end
   
-  # describe "#destroy" do
-  #   before(:each) do
-  #     @impediment = Impediment.new
-  #     stub_login_and_account_setup
-  #   end
-  #   
-  #   it "should destroy an impediment if current user is reporter of it" do
-  #     delete :destroy
-  #   end
-  # end
+  describe "#destroy" do
+    it "should destroy an impediment if current user is reporter of it" do
+      @impediment = Impediment.new(:team_member => @person)
+      @account.impediments.should_receive(:find).with('89').and_return(@impediment)
+      @impediment.should_receive(:destroy).and_return(true)
+      delete :destroy, :id => '89'
+      response.should be_redirect
+      response.should redirect_to(:action => 'index')
+      flash[:error].should be_nil
+      flash[:notice].should_not be_nil
+    end
+    
+    it "should NOT destroy an impediment if reported by someone else" do
+      @impediment = Impediment.new(:team_member => TeamMember.new)
+      @account.impediments.should_receive(:find).with('89').and_return(@impediment)
+      @impediment.should_not_receive(:destroy)
+      delete :destroy, :id => '89'
+      response.should be_redirect
+      response.should redirect_to(:action => 'index')
+      flash[:error].should_not be_nil
+      flash[:notice].should be_nil
+    end
+  end
+  
+  describe "#resolve" do
+    it "should resolve impediment" do
+      @impediment = Impediment.new(:team_member => @person)
+      @account.impediments.should_receive(:find).with('67').and_return(@impediment)
+      @impediment.should_receive(:resolve).and_return(true)
+      post :resolve, :id => '67'
+      response.should be_redirect
+      response.should redirect_to(:action => 'index')
+      flash[:error].should be_nil
+      flash[:notice].should_not be_nil
+    end
+    
+    it "should inform user if resolving impediment failed" do
+      @impediment = Impediment.new(:team_member => @person)
+      @account.impediments.should_receive(:find).with('67').and_return(@impediment)
+      @impediment.should_receive(:resolve).and_return(false)
+      post :resolve, :id => '67'
+      response.should be_redirect
+      response.should redirect_to(:action => 'index')
+      flash[:error].should_not be_nil
+      flash[:notice].should be_nil
+    end
+  end
+  
+  describe "routing" do
+    it "should be set up for resolving impediments" do
+      params_from(:post, "/monkey/impediments/1/resolve").should == {:account_name => 'monkey', :controller => "impediments", :action => 'resolve', :id =>'1'}
+    end
+  end
 end
