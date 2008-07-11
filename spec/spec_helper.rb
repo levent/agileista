@@ -65,7 +65,7 @@ Spec::Runner.configure do |config|
   end
   
   def stub_login_and_account_setup
-    @person = Person.new
+    @person = TeamMember.new
     @account = Account.new
     @person.account = @account
     session[:user] = 1
