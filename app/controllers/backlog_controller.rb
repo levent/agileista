@@ -1,13 +1,13 @@
 require 'fastercsv'
 class BacklogController < AbstractSecurityController
 
-  # ssl_required :index, :export, :feed, :pdf, :search, :search_tags, :sprint, :sort_release, :sort_unassigned, :sort_sprint
+  # ssl_required :index, :export, :feed, :pdf, :search, :search_tags, :sprint, :sort_release
   # ssl_required :feed, :index, :search
   ssl_required :feed, :search
-  ssl_allowed :index
+  ssl_allowed :index, :sort_release
   # before_filter :must_be_logged_in
-  before_filter :must_be_team_member, :only => ['sort_release', 'sort_unassigned']
-  before_filter :account_user_stories ,:only => ['index', 'sort_release', 'sort_unassigned']
+  before_filter :must_be_team_member, :only => ['sort_release']
+  before_filter :account_user_stories ,:only => ['index', 'sort_release']
 
   def index
     params[:order] ? order = 'story_points DESC' : order = 'position'
@@ -83,10 +83,10 @@ class BacklogController < AbstractSecurityController
     end    
   end
 
-  def sprint
-    @current_sprint = @account.sprints.find(:first, :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago])
-    @upcoming_sprints = @account.sprints.find(:all, :conditions => ["start_at > ?", Time.now])
-  end
+  # def sprint
+  #   @current_sprint = @account.sprints.find(:first, :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago])
+  #   @upcoming_sprints = @account.sprints.find(:all, :conditions => ["start_at > ?", Time.now])
+  # end
 
   def sort_release
     @user_stories.each do |story| 
@@ -96,22 +96,22 @@ class BacklogController < AbstractSecurityController
     render :nothing => true 
   end
   
-  def sort_unassigned
-    @user_stories.each do |story| 
-      story.position = params['userstorylist'].index(story.id.to_s) + 1 
-      story.save 
-    end 
-    render :nothing => true 
-  end
+  # def sort_unassigned
+  #   @user_stories.each do |story| 
+  #     story.position = params['userstorylist'].index(story.id.to_s) + 1 
+  #     story.save 
+  #   end 
+  #   render :nothing => true 
+  # end
   
-  def sort_sprint
-    @user_stories = @account.sprints.find(params[:sprint_id]).user_stories
-    @user_stories.each do |story| 
-      story.position = params['userstorylist'].index(story.id.to_s) + 1
-      story.save 
-    end 
-    render :nothing => true
-  end
+  # def sort_sprint
+  #   @user_stories = @account.sprints.find(params[:sprint_id]).user_stories
+  #   @user_stories.each do |story| 
+  #     story.position = params['userstorylist'].index(story.id.to_s) + 1
+  #     story.save 
+  #   end 
+  #   render :nothing => true
+  # end
 
   private 
   

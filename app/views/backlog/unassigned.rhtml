@@ -1,7 +1,0 @@
-<h1>Unassigned Backlog</h1>
-<ul id="userstorylist"> 
-<% for user_story in @user_stories %>
-	<li id="item_<%= user_story.id %>"><%= user_story.definition %> - <%= show_story_points(user_story.story_points) %></li> 
-<% end %>
-</ul>
-<%= sortable_element 'userstorylist', :url => { :action => "sort_unassigned" }, :complete => visual_effect(:highlight, 'userstorylist') %>
