@@ -43,4 +43,18 @@ describe ApplicationHelper do
       @it.claimed_or_complete?(@us).should == " class=\"usclaimed\""
     end
   end
+  
+  describe "#unresolved_impediment_indicator" do
+    it "should return * if there are any" do
+      @account = Account.new
+      @account.impediments.should_receive(:unresolved).and_return(['a'])
+      @it.unresolved_impediment_indicator(@account).should == "<span class=\"small\">*</span>"
+    end
+    
+    it "should return nothing if there aren't any unresolved impediments" do
+      @account = Account.new
+      @account.impediments.should_receive(:unresolved).and_return([])
+      @it.unresolved_impediment_indicator(@account).should == nil
+    end
+  end
 end

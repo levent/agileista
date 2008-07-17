@@ -91,4 +91,8 @@ module ApplicationHelper
     return ' class="uscomplete"' if user_story.complete?
     return ' class="usclaimed"' if user_story.inprogress?
   end
+  
+  def unresolved_impediment_indicator(account)
+    return "<span class=\"yellow\">*</span>" unless account.impediments.unresolved.blank?
+  end
 end
