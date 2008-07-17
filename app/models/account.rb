@@ -15,7 +15,7 @@ class Account < ActiveRecord::Base
   has_many :themes, :order => 'name'
   has_many :releases
   has_many :tags
-
+  
   private
   
   def make_name_lowercase

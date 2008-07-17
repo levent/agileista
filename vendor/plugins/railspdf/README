@@ -1,50 +1,60 @@
-Railspdf
-========
+railspdf
+
+Adds pdf-writer support to Rails
 
 
-To begin rendering PDF's, simply create a view with a .rpdf extension and paste in the code:
+Usage
+-----
 
-[code]
+To begin rendering PDFs, simply create a view with a .rpdf extension and paste in the code:
 
-pdf.select_font "Times-Roman"
+  pdf.select_font "Times-Roman"
+  pdf.text "Hello, World", :font_size => 72, :justification => :center
 
-pdf.text "Hello, World", :font_size => 72, :justification => :center
+If you want the text to be dynamic, simply replace "Hello World" with an instance variable. It works like a charm, although I had to rearrange the code a bit to make it work. (See the sample controller code at the bottom.)
 
-[/code]
+I've not yet tested any of this; I was just too excited once it started working. Note: to get plugins to work properly, you MUST restart the server after installing it.
 
-If you want the text to be dynamic, simply replace "Hello World" with an instance variable. It works like a charm, although I had to rearrange the code a bit to make it work. (Sample Code at the bottom)
-
-I've not yet tested any of this; I was just too excited once it started working. Note: to get plugins to work properly, you _must_ restart the server after installing it.
-
-          o Important** If you are using a layout, you must disable it for the view!!! 
+  **Important** If you are using a layout, you must disable it for the view!!! 
 
 The default filename for the pdf is "Default.pdf" I'll probably change that later to reflect the view name, but for now it works pretty good. To override it, set an instance variable in your controller named "@rails_pdf_name" The rendered pdf will take this filename.
 
-Ok, I think that is all for now. Please let me know if you have any questions.
+Please let me know if you have any questions.
 
-Contoller Code >
 
-class PagesController? < ApplicationController?
+Sample Controller
+-----------------
 
-  def index
-
+  class PagesController < ApplicationController
+    def getpdf
+    	@rails_pdf_name = "Hello.pdf"
+    	@content = "This is dynamic content!!!"
+    end
   end
 
-  def getpdf
-  	@rails_pdf_name = "Hello.pdf"
-  	@content = "This is dynamic content!!!"
-  end
 
-end
+Sample View
+-----------
 
-File: "getpdf.rpdf"
+  pdf.select_font "Times-Roman"
+  pdf.text @content, :font_size => 72, :justification => :center
 
-pdf.select_font "Times-Roman"
 
-pdf.text @content, :font_size => 72, :justification => :center
+Misc
+----
 
-File: "index.rhtml"
+Original RubyForge project (outdated):
+  http://rubyforge.org/projects/railspdfplugin/
 
-Get yo fish and dynamic pdf's!<br /><br />
+GitHub fork:
+  http://github.com/pelargir/railspdf/
 
-<%= link_to( "Get PDF", :controller => "pages", :action => "getpdf" )%> 
+Clone URL:
+  git://github.com/pelargir/railspdf.git
+
+
+Credit
+------
+
+  * Created by Tom Willett
+  * Forked and updated by Matthew Bass <pelargir@gmail.com>

@@ -1,5 +1,3 @@
-# Include hook code here
-require "railspdf"  #  Made lowercase so will work in linux  -- tomw
-#require "ActionView"
+require 'railspdf'
 
-ActionView::Base.register_template_handler 'rpdf', RailsPDF::PDFRender
+ActionView::Template.register_template_handler 'rpdf', RailsPDF::PDFRender

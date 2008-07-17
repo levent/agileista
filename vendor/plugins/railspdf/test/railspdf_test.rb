@@ -1,8 +1,12 @@
-require 'test/unit'
+require File.dirname(__FILE__) + '/test_helper'
 
-class RailspdfTest < Test::Unit::TestCase
-  # Replace this with your real tests.
-  def test_this_plugin
-    flunk
+class SomeController; end
+module SomeHelper; end
+
+class RailsPDF::PDFRenderTest < Test::Unit::TestCase
+  def test_should_not_be_compilable
+    view = stub(:controller => SomeController.new)
+    pdf = RailsPDF::PDFRender.new(view)
+    assert !pdf.compilable?
   end
 end
