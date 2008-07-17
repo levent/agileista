@@ -36,4 +36,13 @@ describe Impediment do
       end
     end
   end
+  
+  describe "named_scope(s)" do
+    describe "unresolved" do
+      it "should correctly generate conditions for unresolved impediments" do
+        Impediment.unresolved.proxy_options.should == {:conditions=>{:resolved_at=>nil}}
+        Account.new.impediments.unresolved.proxy_options.should == {:conditions=>{:resolved_at=>nil}} # This test is a bit ugly and unneccessary?
+      end
+    end
+  end
 end
