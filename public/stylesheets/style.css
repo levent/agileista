@@ -161,16 +161,18 @@ Be carefull with the sizes (widths) though. If they don’t match up right thing
 #header li#searchform input {
 	display:inline; margin:2px 2px 0 0;padding-top:0 10px;
 }
-#header a, #header span {
+#header a {color: #FCFAE1;}
+#header span#currentuser { color: #FCFAE1;}
+#header a, #header span#flashs, #header span#currentuser {
 	display:block;
 	padding:5px 10px 4px;
 	text-decoration: none;
-	color: #FCFAE1;
+/*	color: #FCFAE1;*/
  }
 #header a:hover {color:#4C1B1B;}
 #header h1 {color: #ffffff; padding:8px;font-size:2.8em;}
 #header li h1 a {margin: 0; padding:0}
-#header #flashs {color: yellow;}
+#header #flashs, .yellow {color: yellow;}
 #accountswitcher a, #accountswitcher span {
 	display:block;
 	padding:5px 10px 4px;
@@ -243,7 +245,7 @@ padding-right: 10px;}
 .long {width: 80%; }
 .thin {height: 40px;}
 .fat {height: 200px;}
-.small {}
+/*.small {}*/
 .leftborder {border-left: 1px solid #ccc;}
 #exportlinks ul {margin: 4px; padding: 0; padding-top: 20px;}
 #undefined {border: 1px solid #b9121b; width: 124px; height: 90px; margin: 4px; padding: 4px; font-size: 0.8em;}

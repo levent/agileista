@@ -33,7 +33,7 @@
 	        <li><%= link_to "Themes", :controller => 'themes' %></li>
 		    <li><%= link_to "Backlog", :controller => 'backlog' %></li>
 	        <li><%= link_to "Sprint planning", :controller => 'sprint_planning' %></li>
-	        <li><%= link_to "Impediments", impediments_path %></li>
+	        <li><%= link_to "Impediments#{unresolved_impediment_indicator(@account)}", impediments_path %><%=  %></li>
 			<% if @account.sprints.find(:first, :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago]) -%><li><%= link_to "Task board", :controller => 'sprint' %></li><% end -%>
             <li><span id="flashs"><%= flash[:notice] %><%= flash[:error] %></span></li>
 			<li id="searchform">
@@ -43,13 +43,13 @@
 			</li>
 		    <li style="float:right"><%= link_to "Logout", :controller => '/login', :action => 'logout' if logged_in? %></li>
 	        <li style="float:right"><%= link_to "Settings", :controller => '/account', :action => 'settings' %></li>
-	        <li style="float:right"><span><%= @current_user.name %></span></li>
+	        <li style="float:right"><span id="currentuser"><%= @current_user.name %></span></li>
 	    </ul>
 
 	<% else %>
 		<ul>
 			<li><h1>Welcome to Agileista</h1></li>
-			<li><span id="flashs"><%= flash[:notice] %><%= flash[:error] %></span></li>
+			<li><span id="flashs" class="yellow"><%= flash[:notice] %><%= flash[:error] %></span></li>
 		</ul>
 	<% end -%>
 	</div>
