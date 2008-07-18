@@ -322,3 +322,6 @@ ul#usshowtags li {float:left; display:inline; padding-right:4px;}
 #settingsleft {float: left; width: 60%;}
 #settingsright {float:left; width: 35%;}
 .mininotecard {width: 50px; height: 50px; background-color: green; margin: 4px; float:left;}
+
+/*.cardcreator {color:red}*/
+.cardcreator {display:block;position:absolute;bottom:2px;right:2px; color:#333;}
