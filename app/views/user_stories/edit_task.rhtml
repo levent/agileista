@@ -17,7 +17,7 @@
 		<span class="detail">Story points: </span><%= show_story_points(@user_story.story_points) %><br />
 		<span class="detail">Hours left: </span><%= @user_story.tasks.sum('hours') %><br />
 		<span class="detail">Tasks: </span><%= @user_story.tasks.count %><br />
-    	<span class="detail">Created: </span><%= show_date(@user_story.created_at) %> by <%= show_user(@user_story.person) %></p>
+    	<span class="detail">Created: </span><%= show_date(@user_story.created_at) %> <%= show_stakeholder(@user_story) %></p>
 		<h3>Acceptance Criteria:</h3>
 		<ul class="nobullet">
 		<% @user_story.acceptance_criteria.each do |crit| -%>

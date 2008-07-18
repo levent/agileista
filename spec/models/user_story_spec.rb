@@ -24,6 +24,20 @@ describe UserStory do
       @us.reload
       @us.cannot_be_estimated?.should be_true
     end
+    
+    describe "stakeholder field" do
+      it "should default to blank" do
+        @us.stakeholder.should be_blank
+      end
+      
+      it "should accept a string" do
+        @us.stub!(:valid?).and_return(true)
+        @us.stakeholder = "Mr Leroy Burns the Third of Edinbra"
+        @us.save
+        @us.reload
+        @us.stakeholder.should == "Mr Leroy Burns the Third of Edinbra"
+      end
+    end
   end
 
   describe "#complete?" do

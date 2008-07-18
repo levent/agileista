@@ -19,7 +19,7 @@
 		<%= render :partial => 'form' %>
 		<%= submit_tag "Save changes to user story" %>
 	<% end %>
-    <p>Created on <%= show_date(@user_story.created_at) %> by <%= show_user(@user_story.person) %></p>
+    <p>Created on <%= show_date(@user_story.created_at) %> <%= show_stakeholder(@user_story) %></p>
 </div>
 <div id="sidebar">
 	<%= render :partial => 'acceptance_crit_holder' %>

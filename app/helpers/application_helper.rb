@@ -1,6 +1,16 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   
+  def show_stakeholder(user_story)
+    if !user_story.stakeholder.blank?
+      return "by #{user_story.stakeholder}"
+    elsif user_story.person
+      "by #{user_story.person.name}"
+    else
+      return "by Unknown"
+    end
+  end
+  
   def show_story_points(points)
     unless points.nil?
       return pluralize(points, "story point")
