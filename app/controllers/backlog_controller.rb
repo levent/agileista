@@ -3,8 +3,8 @@ class BacklogController < AbstractSecurityController
 
   # ssl_required :index, :export, :feed, :pdf, :search, :search_tags, :sprint, :sort_release
   # ssl_required :feed, :index, :search
-  ssl_required :feed, :search
-  ssl_allowed :index, :sort_release
+  ssl_required :feed
+  ssl_allowed :index, :sort_release, :search
   # before_filter :must_be_logged_in
   before_filter :must_be_team_member, :only => ['sort_release']
   before_filter :account_user_stories ,:only => ['index', 'sort_release']

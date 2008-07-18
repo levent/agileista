@@ -8,6 +8,10 @@ describe UserStory do
     @task_b = Task.new
     @task_c = Task.new
   end
+  
+  describe "in general" do
+    it "should default to being estimateable"
+  end
 
   describe "#complete?" do
     it "should return false if no tasks" do
