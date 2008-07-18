@@ -23,7 +23,6 @@
 		<h2>User story:</h2>
 		<p><%=h @user_story.definition %></p>
         <p><%=h @user_story.description %></p>
-        <h3>Story points:</h3>
         <p><%= show_story_points(@user_story.story_points) %></p>
 		<p><span class="detail">Hours left: </span><%= @user_story.tasks.sum('hours') %><br />
 		<span class="detail">Tasks: </span><%= @user_story.tasks.count %></p>
@@ -34,5 +33,6 @@
 			<li><%= task.definition %> <%= link_to 'View', :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to 'Edit', :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %></li>
 		<% end -%>
 		</ul>
+		<p><span class="detail">Created on </span><%= show_date(@user_story.created_at) %> by <%= show_user(@user_story.person) %></p>
 	</div>
 </div>
