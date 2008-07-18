@@ -50,7 +50,9 @@ module ApplicationHelper
   end
   
   def undefined?(userstory)
-    if userstory.story_points.blank?
+    if userstory.cannot_be_estimated?
+      return " class=\"toovague\""
+    elsif userstory.story_points.blank?
       return " class=\"undefined\""
     else
       return " class=\"defined\""

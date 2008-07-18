@@ -10,7 +10,20 @@ describe UserStory do
   end
   
   describe "in general" do
-    it "should default to being estimateable"
+    it "should default to being estimateable" do
+      @us.stub!(:valid?).and_return(true)
+      @us.save.should be_true
+      @us.reload
+      @us.cannot_be_estimated?.should be_false
+    end
+    
+    it "should be flaggable as cannot be estimated" do
+      @us.stub!(:valid?).and_return(true)
+      @us.cannot_be_estimated = 1
+      @us.save.should be_true
+      @us.reload
+      @us.cannot_be_estimated?.should be_true
+    end
   end
 
   describe "#complete?" do

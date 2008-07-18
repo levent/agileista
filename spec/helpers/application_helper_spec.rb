@@ -7,6 +7,22 @@ describe ApplicationHelper do
     @it = self
     @us = UserStory.new
   end
+  
+  describe "#undefined?" do
+    it "should return css class if user_story has no story point assigned" do
+      @it.undefined?(@us).should == " class=\"undefined\""
+    end
+    
+    it "should return css class if user_story has story points assigned" do
+      @us.story_points = 8
+      @it.undefined?(@us).should == " class=\"defined\""
+    end
+    
+    it "should return css class if user_story cannot be estimated" do
+      @us.cannot_be_estimated = 1
+      @it.undefined?(@us).should == " class=\"toovague\""
+    end
+  end
 
   describe "#complete?" do
     it "should return class if user_story is complete" do
@@ -48,7 +64,7 @@ describe ApplicationHelper do
     it "should return * if there are any" do
       @account = Account.new
       @account.impediments.should_receive(:unresolved).and_return(['a'])
-      @it.unresolved_impediment_indicator(@account).should == "<span class=\"small\">*</span>"
+      @it.unresolved_impediment_indicator(@account).should == "<span class=\"yellow\">*</span>"
     end
     
     it "should return nothing if there aren't any unresolved impediments" do
