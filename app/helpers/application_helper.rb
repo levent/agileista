@@ -3,11 +3,11 @@ module ApplicationHelper
   
   def show_stakeholder(user_story)
     if !user_story.stakeholder.blank?
-      return "by #{user_story.stakeholder}"
+      return "#{user_story.stakeholder}"
     elsif user_story.person
-      "by #{user_story.person.name}"
+      "#{user_story.person.name}"
     else
-      return "by Unknown"
+      return "Unknown"
     end
   end
   

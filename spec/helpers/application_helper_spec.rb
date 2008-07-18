@@ -77,24 +77,24 @@ describe ApplicationHelper do
   describe "#show_stakeholder" do
     # deals with legacy before created_by
     it "should return by Unknown if no stakeholder or creator" do
-      @it.show_stakeholder(@us).should == "by Unknown"
+      @it.show_stakeholder(@us).should == "Unknown"
     end
     
     it "should return by Creator if no stakeholder" do
       @us.person = Person.new(:name => 'monkey face')
-      @it.show_stakeholder(@us).should == "by monkey face"
+      @it.show_stakeholder(@us).should == "monkey face"
     end
     
     it "should return by stakeholder if provided" do
       # @us.person = Person.new(:name => 'monkey face')
       @us.stakeholder = "fred dude"
-      @it.show_stakeholder(@us).should == "by fred dude"
+      @it.show_stakeholder(@us).should == "fred dude"
     end
 
     it "should return by stakeholder if provided even if creator also there" do
       @us.person = Person.new(:name => 'monkey face')
       @us.stakeholder = "fred dude"
-      @it.show_stakeholder(@us).should == "by fred dude"
+      @it.show_stakeholder(@us).should == "fred dude"
     end
   end
 end

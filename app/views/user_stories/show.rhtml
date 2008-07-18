@@ -41,8 +41,10 @@
 		</ul>
 		<div class="c">&nbsp;</div>
 		<% end -%>
+		<h2>Stakeholder:</h2>
+		<p><%= show_stakeholder(@user_story) %></p>
         <h2>Created:</h2>
-        <p><%= show_date(@user_story.created_at) %> <%= show_stakeholder(@user_story) %></p>
+        <p><%= show_date(@user_story.created_at) %> <%= show_user(@user_story) %></p>
 	</div>
     <div class="c">&nbsp;</div>
 </div>
