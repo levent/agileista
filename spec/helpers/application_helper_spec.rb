@@ -96,5 +96,11 @@ describe ApplicationHelper do
       @us.stakeholder = "fred dude"
       @it.show_stakeholder(@us).should == "fred dude"
     end
+    
+    it "should display blank if unprovided and false passed into 2nd param" do
+      @us.person = Person.new(:name => 'monkey face')
+      # @us.stakeholder = "fred dude"
+      @it.show_stakeholder(@us, false).should == "Unknown"
+    end
   end
 end

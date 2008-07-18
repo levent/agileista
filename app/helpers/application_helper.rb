@@ -1,10 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   
-  def show_stakeholder(user_story)
+  def show_stakeholder(user_story, show_creator = true)
     if !user_story.stakeholder.blank?
       return "#{user_story.stakeholder}"
-    elsif user_story.person
+    elsif user_story.person && show_creator
       "#{user_story.person.name}"
     else
       return "Unknown"
