@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
     account.resources :backlog, :controller => 'backlog', :collection => {:export => :get, :feed => :get, :pdf => :get, :search => :post, :search_tags => :get, :sprint => :get, :sort_release => :get}
     account.resources :sprints, :member => {:plan => :get, :overview => :get}
     account.resources :impediments, :member => {:resolve => :post}
-    account.resources :user_stories, :member => {:copy => :post, :remove_from_sprint => :post, :create_via_add => :post, :create_task => :post} do |user_story|
+    account.resources :user_stories, :member => {:copy => :post, :remove_from_sprint => :post, :create_via_add => :post, :create_task => :post}, :collection => {:add => :get} do |user_story|
       user_story.resources :tasks, :member => {:move_up => :post, :move_down => :post, :release => :post, :claim => :post}
     end
   end
