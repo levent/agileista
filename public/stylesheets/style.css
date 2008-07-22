@@ -114,6 +114,7 @@ div.notecard img.second, #userstorylist img.show {position: absolute; bottom: 2p
 div.notecard img.third {position: absolute; bottom: 2px; right: 40px;}
 div.undefined h2 {font-size: 1.2em; background-color: #b9121b; color: #fff;}
 div.toovague h2 {font-size: 1.2em; background-color: #333; color: #fff;}
+div.nocrit h2 {font-size: 1.2em; background-color: #DF4001; color: #fff;}
 .defined h2 {font-size: 1.2em; background-color: #fff; color: #b9121b;}
 
 
@@ -230,10 +231,7 @@ padding: 10px;
 
 .dateselect label {display: block;}
 
- .upcomingsprint {
-	background-color: #4C1B1B;
-	color: #fff;
-}
+.upcomingsprint {background-color: #4C1B1B;color: #fff;}
 .currentsprint {background-color: #b9121b;color: #fff;}
 .currentsprint a, .upcomingsprint a {color:#fff;}
 
@@ -246,7 +244,7 @@ table#sprints, table#current_sprint {width: 94%;}
 .withborder {border-right: 1px solid #ccc;margin-right: 10px; 
 padding-right: 10px;}
 .long {width: 80%; }
-.thin {height: 40px;}
+.thin {height: 80px;}
 .fat {height: 200px;}
 /*.small {}*/
 .leftborder {border-left: 1px solid #ccc;}
@@ -254,6 +252,7 @@ padding-right: 10px;}
 #undefined {border: 1px solid #b9121b; width: 124px; height: 90px; margin: 4px; padding: 4px; font-size: 0.8em;}
 #udnoborder h3, #undefined h3 {margin: 0; margin-bottom: 4px; margin-top:2px; background-color: #b9121b; color: #fff;}
 #tvnoborder h3 {margin: 0; margin-bottom: 4px; margin-top:2px; background-color: #333; color: #fff; display:block; font-size: 12px; font-weight: normal; padding: 2px;}
+#ncnoborder h3 {margin: 0; margin-bottom: 4px; margin-top:2px; background-color: #DF4001; color: #fff; display:block; font-size: 12px; font-weight: normal; padding: 2px;}
 #udnoborder h3 {display:block; font-size: 12px; font-weight: normal; padding: 2px}
 #incomplete {width: 30%;padding:10px; min-height: 200px;}
 #inprogress {width: 30%;border-left:1px solid #c00; padding:10px; min-height: 200px;}

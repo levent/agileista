@@ -63,7 +63,7 @@ module ApplicationHelper
     if userstory.cannot_be_estimated?
       return " class=\"toovague\""
     elsif userstory.story_points.blank?
-      return " class=\"undefined\""
+      userstory.acceptance_criteria.blank? ? (return " class=\"undefined nocrit\"") : (return " class=\"undefined\"")
     else
       return " class=\"defined\""
     end

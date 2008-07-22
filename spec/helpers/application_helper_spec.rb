@@ -10,6 +10,7 @@ describe ApplicationHelper do
   
   describe "#undefined?" do
     it "should return css class if user_story has no story point assigned" do
+      @us.acceptance_criteria.stub!(:blank?).and_return(false)
       @it.undefined?(@us).should == " class=\"undefined\""
     end
     
@@ -21,6 +22,11 @@ describe ApplicationHelper do
     it "should return css class if user_story cannot be estimated" do
       @us.cannot_be_estimated = 1
       @it.undefined?(@us).should == " class=\"toovague\""
+    end
+    
+    it "should return css class if user_story has no acceptance criteria and has not been estimated" do
+      @us.acceptance_criteria.should be_blank
+      @it.undefined?(@us).should == " class=\"undefined nocrit\""
     end
   end
 
