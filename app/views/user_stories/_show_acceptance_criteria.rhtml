@@ -2,9 +2,9 @@
 <h3>No Acceptance Criteria</h3>
 <% else -%>
 <h3>Acceptance Criteria:</h3>
-<ul>
-<% for crit in @user_story.acceptance_criteria %>
+<ol>
+<% @user_story.acceptance_criteria.each do |crit| %>
 	<li><%=h crit.detail %></li>
 <% end %>
-</ul>
+</ol>
 <% end %>
