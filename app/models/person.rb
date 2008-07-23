@@ -27,7 +27,8 @@ class Person < ActiveRecord::Base
   end
   
   def hash_password
-    self.salt = Digest::SHA1.hexdigest("#{Time.now}--#{PEOPLE_SALT}")
+    return false unless self.password 
+    self.salt = Digest::SHA1.hexdigest("#{Time.now}--#{PEOPLE_SALT}") if self.new_record?
     self.hashed_password = Digest::SHA1.hexdigest("#{Time.now}--#{self.password}")
   end
   
