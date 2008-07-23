@@ -7,7 +7,7 @@ class LoginController < ApplicationController
   end
   
   def authenticate
-    account = Account.find_by_name(params[:account])
+    account = Account.find_by_name(params[:accountname])
     unless account.nil?
       if logged_in?
         person = account.people.find(:first, :conditions => ["email = ? AND authenticated = ?", current_user.email, 1])
@@ -57,8 +57,8 @@ class LoginController < ApplicationController
   private
 
   def setup_account_name_for_form
-    if params[:account].blank?
-      params[:account] = params[:account_name]
+    if params[:accountname].blank?
+      params[:accountname] = params[:account_name]
     end
   end
   
