@@ -26,7 +26,7 @@ class Person < ActiveRecord::Base
     end
   end
   
-  def generate_password
+  def generate_temp_password
     self.password = Digest::SHA1.hexdigest("#{Time.now}---#{self.email}")[0..8]
   end
   

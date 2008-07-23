@@ -16,7 +16,7 @@ class UsersController < AbstractSecurityController
         @person = Contributor.new(params[:person])
       end
       # @user_story.project = @project
-      @person.generate_password
+      @person.generate_temp_password
       @person.account = @account
       if @person.save
         NotificationMailer.deliver_account_invitation(@person, @account, self)
