@@ -21,7 +21,7 @@ describe Person do
       @it.password = "monkeyface"
       Time.freeze do
         Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--somecrazyrandomstring").and_return('salted')
-        Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--monkeyface").and_return('hashed')
+        Digest::SHA1.should_receive(:hexdigest).with("salted--monkeyface").and_return('hashed')
         @it.hash_password
       end
       @it.hashed_password.should == 'hashed'
@@ -30,10 +30,11 @@ describe Person do
     
     it "should not set salt if new record" do
       @it.stub!(:new_record?).and_return(false)
+      @it.salt = "salted"
       @it.password = "monkeyface"
       Time.freeze do
         Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--somecrazyrandomstring").exactly(0).times
-        Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--monkeyface").and_return('hashed')
+        Digest::SHA1.should_receive(:hexdigest).with("salted--monkeyface").and_return('hashed')
         @it.hash_password
       end
       @it.hashed_password.should == 'hashed'
@@ -42,7 +43,7 @@ describe Person do
     it "should not do anything if password not passed" do
       Time.freeze do
         Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--somecrazyrandomstring").exactly(0).times
-        Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--monkeyface").exactly(0).times
+        Digest::SHA1.should_receive(:hexdigest).with("salted--monkeyface").exactly(0).times
         @it.hash_password.should be_false
       end
     end
