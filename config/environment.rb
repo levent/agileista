@@ -75,3 +75,4 @@ ActionMailer::Base.sendmail_settings = {
 #}
 ExceptionNotifier.exception_recipients = %w(levent@leventali.com)
 ExceptionNotifier.sender_address = %("Agileista Exception" <exception@agileista.purebreeze.com>)
+PEOPLE_SALT = 'somecrazyrandomstring'

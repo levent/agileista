@@ -17,4 +17,18 @@ describe Person do
       @it.respond_to?(:salt).should be_true
     end
   end
+  
+  describe "#hash_password" do
+    it "should set hashed_password and salt" do
+      # @it.stub!(:valid?).and_return(true)
+      @it.password = "monkeyface"
+      Time.freeze do
+        Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--somecrazyrandomstring").and_return('salted')
+        Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--monkeyface").and_return('hashed')
+        @it.hash_password
+      end
+      @it.hashed_password.should == 'hashed'
+      @it.salt.should == 'salted'
+    end
+  end
 end
