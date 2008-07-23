@@ -10,6 +10,7 @@ class Person < ActiveRecord::Base
   has_many :user_stories
   
   before_create :generate_activation_code
+  before_save :hash_password
   
   def validate_account
     self.authenticated = 1

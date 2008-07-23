@@ -4,8 +4,6 @@ describe Person do
   
   before(:each) do
     @it = Person.new
-    # @task_a = Task.new
-    # @task_b = Task.new
   end
 
   describe "in general" do
@@ -47,6 +45,18 @@ describe Person do
         Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--monkeyface").exactly(0).times
         @it.hash_password.should be_false
       end
+    end
+    
+    it "should be called on save if valid" do
+      @it.stub!(:valid?).and_return(true)
+      @it.should_receive(:hash_password)
+      @it.save
+    end
+    
+    it "should NOT be called on save if invalid" do
+      @it.stub!(:valid?).and_return(false)
+      @it.should_receive(:hash_password).exactly(0).times
+      @it.save
     end
   end
 end
