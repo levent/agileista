@@ -17,7 +17,7 @@
 <div id="main">
 	<div id="user_story">
 		<h1><%=h @user_story.definition %></h1>
-		<p><%=h @user_story.description %></p>
+		<%= simple_format(@user_story.description) %>
 		<h2>Story points:</h2>
 		    <p><%=h show_story_points(@user_story.story_points) %></p>
 		<h2>Themes:</h2>
