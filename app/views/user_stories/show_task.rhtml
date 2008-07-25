@@ -22,7 +22,7 @@
 	<div id="rightcontent">
 		<h2>User story:</h2>
 		<p><%=h @user_story.definition %></p>
-        <p><%=h @user_story.description %></p>
+        <p><%= simple_format(@user_story.description) %></p>
         <p><%= show_story_points(@user_story.story_points) %></p>
 		<p><span class="detail">Hours left: </span><%= @user_story.tasks.sum('hours') %><br />
 		<span class="detail">Tasks: </span><%= @user_story.tasks.count %></p>

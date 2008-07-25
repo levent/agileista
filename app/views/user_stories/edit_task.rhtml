@@ -12,9 +12,9 @@
 	<h1>Edit task:</h1>
 	<div id="leftcontent">
 		<h2>User story details:</h2>
-		<p><span class="detail">Title: </span><%=h @user_story.definition %><br />
-		<span class="detail">Notes: </span><%=h @user_story.description %><br />
-		<span class="detail">Story points: </span><%= show_story_points(@user_story.story_points) %><br />
+		<p><span class="detail">Title: </span><%=h @user_story.definition %></p>
+		<span class="detail">Notes: </span><%= simple_format(@user_story.description) %>
+		<p><span class="detail">Story points: </span><%= show_story_points(@user_story.story_points) %><br />
 		<span class="detail">Hours left: </span><%= @user_story.tasks.sum('hours') %><br />
 		<span class="detail">Tasks: </span><%= @user_story.tasks.count %><br />
 		<span class="detail">Stakeholder: </span><%= show_stakeholder(@user_story, false) %><br />
