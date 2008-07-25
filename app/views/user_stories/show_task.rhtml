@@ -28,11 +28,11 @@
 		<span class="detail">Tasks: </span><%= @user_story.tasks.count %></p>
         <%= render :partial => 'show_acceptance_criteria' %>
 		<h3>Tasks:</h3>
-		<ul>
+		<ol>
 		<% @user_story.tasks.each do |task| -%>
 			<li><%= task.definition %> <%= link_to 'View', :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to 'Edit', :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %></li>
 		<% end -%>
-		</ul>
+		</ol>
 		<p><span class="detail">Stakeholder: </span><%= show_stakeholder(@user_story, false) %></p>
 		<p><span class="detail">Created on </span><%= show_date(@user_story.created_at) %> <%= show_user(@user_story) %></p>
 	</div>

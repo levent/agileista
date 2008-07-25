@@ -20,17 +20,17 @@
 		<span class="detail">Stakeholder: </span><%= show_stakeholder(@user_story, false) %><br />
     	<span class="detail">Created: </span><%= show_date(@user_story.created_at) %> <%= show_user(@user_story) %></p>
 		<h3>Acceptance Criteria:</h3>
-		<ul class="nobullet">
+		<ol>
 		<% @user_story.acceptance_criteria.each do |crit| -%>
 			<li><%=h crit.detail %></li>
 		<% end -%>
-		</ul>
+		</ol>
 		<h3>Tasks:</h3>
-		<ul class="nobullet">
+		<ol>
 		<% @user_story.tasks.each do |task| -%>
 			<li><%= link_to 'View', :action => 'show_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%= link_to 'Edit', :action => 'edit_task', :id => @user_story, :task_id => task, :from => 'tasks', :sprint_id => @user_story.sprint.id %> <%=h "#{task.definition} - #{pluralize(task.hours, 'hour')}" %></li>
 		<% end -%>
-		</ul>
+		</ol>
 	</div>
 	<div id="rightcontent">
 		<%= error_messages_for :task %>
