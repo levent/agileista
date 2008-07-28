@@ -7,7 +7,7 @@ describe Account do
 
   describe "in general" do
     it "should have many impediments" do
-      @it.should have_many(:impediments)
+      @it.should have_many(:impediments).with(:order => 'resolved_at, created_at DESC')
     end
     
     it "should require unique names" do
