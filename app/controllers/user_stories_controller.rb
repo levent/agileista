@@ -3,7 +3,7 @@ class UserStoriesController < AbstractSecurityController
   # ssl_required :copy, :new, :add, :show, :create, :create_via_add, :done, :unfinished, :new_task, :tasks, :create_task, :create_acceptance_criterium,
     # :delete_acceptance_criterium, :show_task, :edit_task, :destroy_task, :update_task, :edit, :update, :add_to_sprint, :plan_sprint, :remove_from_sprint,
     # :move_up, :move_down, :delete
-  before_filter :must_be_team_member, :except => [:add, :create_via_add]
+  before_filter :must_be_team_member, :except => [:add, :create_via_add, :show]
   before_filter :user_story_must_exist, :only => ['update', 'add_to_sprint', 'remove_from_sprint', 'show', 'create_task', 'edit_task', 'update_task', 'create_acceptance_criterium',
     :edit, :move_up, :move_down, :delete, :destroy, :delete_acceptance_criterium, :new_task, :tasks, :done, :unfinished, :show_task, :destroy_task, :copy]
   
