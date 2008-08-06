@@ -8,9 +8,9 @@ class Account < ActiveRecord::Base
   belongs_to :account_holder, :class_name => "Person", :foreign_key => 'account_holder_id'
   
   validates_presence_of :name, :message => "of account can't be blank"
-  validates_uniqueness_of :name, :message => "of account has already been taken"
+  validates_uniqueness_of :name, :message => "of account has already been taken", :case_sensitive => false
   
-  before_save :make_name_lowercase
+  before_validation :make_name_lowercase
   
   has_many :themes, :order => 'name'
   has_many :releases

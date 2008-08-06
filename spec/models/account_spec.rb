@@ -19,5 +19,13 @@ describe Account do
       @account.valid?.should be_false
       @account.errors.on(:name).should == 'of account has already been taken'
     end
+    
+    it "should require uniqueness names ignoring case" do
+      @it.name = "jgp"
+      @it.save.should be_true
+      @account2 = Account.new(:name => 'JGP')
+      @account2.save.should be_false
+      @account2.errors.on(:name).should == "of account has already been taken"      
+    end
   end
 end
