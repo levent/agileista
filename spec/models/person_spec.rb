@@ -28,12 +28,24 @@ describe Person do
       @it.salt.should == 'salted'
     end
     
-    it "should not set salt if new record" do
+    it "should not set salt unless new record" do
       @it.stub!(:new_record?).and_return(false)
       @it.salt = "salted"
       @it.password = "monkeyface"
       Time.freeze do
         Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--somecrazyrandomstring").exactly(0).times
+        Digest::SHA1.should_receive(:hexdigest).with("salted--monkeyface").and_return('hashed')
+        @it.hash_password
+      end
+      @it.hashed_password.should == 'hashed'
+    end
+    
+    it "should set salt if not new record but no salt" do
+      @it.stub!(:new_record?).and_return(false)
+      # @it.salt = "salted"
+      @it.password = "monkeyface"
+      Time.freeze do
+        Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--somecrazyrandomstring").and_return('salted')
         Digest::SHA1.should_receive(:hexdigest).with("salted--monkeyface").and_return('hashed')
         @it.hash_password
       end

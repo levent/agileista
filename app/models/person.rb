@@ -29,8 +29,8 @@ class Person < ActiveRecord::Base
   
   def hash_password
     return false unless self.password
-    self.salt = Digest::SHA1.hexdigest("#{Time.now}--#{PEOPLE_SALT}") if self.new_record?
-    self.hashed_password = Digest::SHA1.hexdigest("#{self.salt}--#{self.password}")
+    self.salt = Digest::SHA1.hexdigest("#{Time.now}--#{PEOPLE_SALT}") if self.new_record? || self.salt.blank?
+    self.hashed_password ||= Digest::SHA1.hexdigest("#{self.salt}--#{self.password}")
   end
   
   def generate_temp_password
