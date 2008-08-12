@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require 'digest/sha1'
 
 describe Person do
   
@@ -13,6 +14,31 @@ describe Person do
     
     it "should have a salt field" do
       @it.respond_to?(:salt).should be_true
+    end
+    
+    it "must have an account_id" do
+      @it.should require_an(:account_id)
+    end
+  end
+  
+  describe 'encrypt' do
+    it "should encrypt passed in password" do
+      @it.salt = 'saltydog'
+      Digest::SHA1.should_receive(:hexdigest).with("saltydog--monkey").and_return('cool')
+      @it.encrypt('monkey').should == 'cool'
+    end
+  end
+  
+  describe 'check hashed_password works' do
+    it "should log user in" do
+      @it.name = "Name of me"
+      @it.email = "email@example.com"
+      @it.password = "m3t00!"
+      @it.account_id = 103
+      @it.hashed_password.should be_blank
+      @it.save
+      @it.hashed_password.should == Digest::SHA1.hexdigest("#{@it.salt}--m3t00!")
+      # @it.do_authenticate('email@example.com', 'm3t00!')
     end
   end
   

@@ -5,6 +5,7 @@ class Person < ActiveRecord::Base
   validates_length_of :password, :in => 6..16
   validates_presence_of :name
   validates_presence_of :email
+  validates_presence_of :account_id
   validates_uniqueness_of :email, :scope => :account_id
   belongs_to :account  
   has_many :user_stories
@@ -31,6 +32,10 @@ class Person < ActiveRecord::Base
     return false unless self.password
     self.salt = Digest::SHA1.hexdigest("#{Time.now}--#{PEOPLE_SALT}") if self.new_record? || self.salt.blank?
     self.hashed_password ||= Digest::SHA1.hexdigest("#{self.salt}--#{self.password}")
+  end
+  
+  def encrypt(password)
+    Digest::SHA1.hexdigest("#{self.salt}--#{password}")
   end
   
   def generate_temp_password

@@ -28,4 +28,13 @@ describe Account do
       @account2.errors.on(:name).should == "of account has already been taken"      
     end
   end
+  
+  describe '#authenticate' do
+    it "should log people in using their hashed_password" do
+      @person = Person.new(:hashed_password => Digest::SHA1.hexdigest("salt--password"), :salt => 'salt')
+      @it.people.should_receive(:find_by_email_and_authenticated_and_activation_code).with('someone@example.com', 1, nil).exactly(2).times.and_return(@person)
+      @it.authenticate('someone@example.com', 'password').should == @person
+      @it.authenticate('someone@example.com', '!password').should be_nil
+    end
+  end
 end
