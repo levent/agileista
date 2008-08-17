@@ -37,4 +37,14 @@ describe Account do
       @it.authenticate('someone@example.com', '!password').should be_nil
     end
   end
+  
+  
+  
+  describe '#basic_authenticate' do
+    it "should log people in using their hashed_password" do
+      # Person.should_receive.find_by_email('me@example.com').and_return(@it)
+      # @it.should_receive
+      #         # Person.basic_authenticate('me@example.com', 'mypass')
+    end
+  end
 end

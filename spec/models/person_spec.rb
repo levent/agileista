@@ -21,7 +21,7 @@ describe Person do
     end
   end
   
-  describe 'encrypt' do
+  describe '#encrypt' do
     it "should encrypt passed in password" do
       @it.salt = 'saltydog'
       Digest::SHA1.should_receive(:hexdigest).with("saltydog--monkey").and_return('cool')
@@ -29,7 +29,7 @@ describe Person do
     end
   end
   
-  describe 'generate temp password' do
+  describe '#generate_temp_password' do
     it "should set a password and return it" do
       @it.email = 'abc@example.com'
       @it.name = "name"

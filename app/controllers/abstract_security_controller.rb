@@ -18,7 +18,7 @@ class AbstractSecurityController < ApplicationController
         return true
       else
         @account = Account.find_by_name(get_account_name_from_request)
-        if user = authenticate_with_http_basic { |u, p| @account.people.basic_authenticate(u, p) }
+        if user = authenticate_with_http_basic { |u, p| @account.authenticate(u, p) }
           @current_user = user
         else
           request_http_basic_authentication

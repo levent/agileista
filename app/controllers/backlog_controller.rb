@@ -14,7 +14,7 @@ class BacklogController < AbstractSecurityController
     @user_stories = @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil], :order => order)
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
-    @cloud = Tag.cloud(:conditions => ["tags.account_id = ?", @account.id])
+    # @cloud = Tag.cloud(:conditions => ["tags.account_id = ?", @account.id])
     respond_to do |format|
       format.html {render :action => 'index.rhtml'}
       format.rss {render :action => 'index.rss.rxml', :layout => false}
