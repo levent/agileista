@@ -29,6 +29,18 @@ describe Person do
     end
   end
   
+  describe 'generate temp password' do
+    it "should set a password and return it" do
+      @it.email = 'abc@example.com'
+      @it.name = "name"
+      @it.account_id = 99
+      pass = @it.generate_temp_password
+      @it.save.should be_true
+      @it.reload
+      @it.encrypt(pass).should == @it.hashed_password
+    end
+  end
+  
   describe 'check hashed_password works' do
     it "should log user in" do
       @it.name = "Name of me"
@@ -82,7 +94,7 @@ describe Person do
       Time.freeze do
         Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--somecrazyrandomstring").exactly(0).times
         Digest::SHA1.should_receive(:hexdigest).with("salted--monkeyface").exactly(0).times
-        @it.hash_password.should be_false
+        @it.hash_password.should be_nil
       end
     end
     

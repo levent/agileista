@@ -7,13 +7,16 @@ class SignupController < ApplicationController
   end
   
   def create
-    @user = TeamMember.new(params[:user])
+    # @user = TeamMember.new(params[:user])
     @account = Account.new(params[:account])
+    @user = @account.team_members.new(params[:user])
     @account.account_holder = @user
-    if @account.valid? && @user.valid?
-      @account.save
+    # @user.account = @account
+    if @account.valid? && @account.save
+      # @account.save
       @user.account = @account
       @user.save
+      @account.save
       NotificationMailer.deliver_account_activation_info(@user, @account, self) 
       flash[:notice] = "Account created.. please check your email to validate your account"
       redirect_to :action => 'ok', :account_name => params[:account_name]

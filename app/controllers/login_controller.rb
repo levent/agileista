@@ -1,6 +1,5 @@
 class LoginController < ApplicationController
   ssl_required :index, :authenticate, :logout
-  # ssl_allowed :forgot
   
   def index
     setup_account_name_for_form
@@ -12,7 +11,8 @@ class LoginController < ApplicationController
       if logged_in?
         person = account.people.find(:first, :conditions => ["email = ? AND authenticated = ?", current_user.email, 1])
       else
-        person = account.people.find(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", params[:email], params[:password], 1])
+        person = account.authenticate(params[:email], params[:password])
+        # person = account.people.find(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", params[:email], params[:password], 1])
       end
       unless person.nil?
         flash[:notice] = "You have logged in successfully"
@@ -45,8 +45,8 @@ class LoginController < ApplicationController
       if @person.nil?# || (account.name == 'jgp' && !@person.account_holder?)
         flash[:error] = "We couldn't find a matching user"
       else
-        @person.generate_temp_password
-        if @person.save && NotificationMailer.deliver_password_reminder(@person, account, self)
+        pass = @person.generate_temp_password
+        if @person.save && NotificationMailer.deliver_password_reminder(@person, account, self, pass)
           flash[:notice] = "Please check your email for your new password"
           redirect_to :action => 'index' and return false
         end
@@ -61,5 +61,4 @@ class LoginController < ApplicationController
       params[:accountname] = params[:account_name]
     end
   end
-  
 end

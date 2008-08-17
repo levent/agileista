@@ -22,13 +22,15 @@ describe LoginController do
     it "should attempt to log user in if account provided" do
       controller.stub!(:logged_in?).and_return(false)
       Account.should_receive(:find_by_name).with('existent').and_return(@account)
-      @account.people.should_receive(:find).with(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", 'l', 'dog', 1]).and_return(nil)
+      @account.should_receive(:authenticate).with('l', 'dog').and_return(nil)
+      # @account.people.should_receive(:find).with(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", 'l', 'dog', 1]).and_return(nil)
       get :authenticate, :accountname => 'existent', :email => 'l', :password => 'dog'
     end
     
     it "should switch accounts if logged_in and member of other account" do
       controller.should_receive(:logged_in?).and_return(true)
       Account.should_receive(:find_by_name).with('existent').and_return(@account)
+      # @account.should_receive(:authenticate).with('l', 'dog').and_return(nil)
       @account.people.should_receive(:find).with(:first, :conditions => ["email = ? AND authenticated = ?", 'leemail', 1]).and_return(nil)
       get :authenticate, :accountname => 'existent'
     end

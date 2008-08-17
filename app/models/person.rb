@@ -2,7 +2,7 @@ require 'digest/sha1'
 
 class Person < ActiveRecord::Base
   validates_confirmation_of :password
-  validates_length_of :password, :in => 6..16
+  # validates_length_of :password, :in => 6..16
   validates_presence_of :name
   validates_presence_of :email
   validates_presence_of :account_id
@@ -13,11 +13,12 @@ class Person < ActiveRecord::Base
   before_create :generate_activation_code
   before_save :hash_password
   
+  attr_accessor :password
+  
   def validate_account
     self.authenticated = 1
     self.activation_code = nil
-    self.save
-    return true
+    return self.save
   end
   
   def authenticated?
@@ -29,9 +30,9 @@ class Person < ActiveRecord::Base
   end
   
   def hash_password
-    return false unless self.password
+    return nil unless self.password
     self.salt = Digest::SHA1.hexdigest("#{Time.now}--#{PEOPLE_SALT}") if self.new_record? || self.salt.blank?
-    self.hashed_password ||= Digest::SHA1.hexdigest("#{self.salt}--#{self.password}")
+    self.hashed_password = Digest::SHA1.hexdigest("#{self.salt}--#{self.password}") if !self.hashed_password || (self.password == self.password_confirmation)
   end
   
   def encrypt(password)
@@ -39,7 +40,10 @@ class Person < ActiveRecord::Base
   end
   
   def generate_temp_password
-    self.password = Digest::SHA1.hexdigest("#{Time.now}---#{self.email}")[0..8]
+    pass = Digest::SHA1.hexdigest("#{Time.now}---#{self.email}")[0..8]
+    self.password = pass
+    self.password_confirmation = pass
+    return pass
   end
   
   def account_holder?
