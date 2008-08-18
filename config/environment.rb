@@ -43,6 +43,9 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
   
   # See Rails::Configuration for more options
+  # The gems required by this application
+  config.gem "pdf-writer", :lib => "pdf/writer"
+  config.gem "color-tools", :lib => "color"
 end
 
 # Add new inflection rules using the following format 
