@@ -19,6 +19,25 @@ describe Person do
     it "must have an account_id" do
       @it.should require_an(:account_id)
     end
+    
+    it "should require a password of min length 6" do
+      @it.save.should be_false
+      @it.errors.on(:password).should == 'is too short (minimum is 6 characters)'
+    end
+    
+    it "should require a password only if none is set" do
+      @it.password = 'shortpass'
+      @it.password_confirmation = 'shortpass'
+      @it.name = "Monkey man"
+      @it.email = "me@example.com"
+      @it.account_id = 197
+      @it.save
+      @it.reload
+      @it = Person.find(@it.id)
+      @it.password.should be_nil
+      @it.hashed_password.should_not be_nil
+      @it.save.should be_true
+    end
   end
   
   describe '#encrypt' do

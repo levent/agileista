@@ -1,5 +1,6 @@
 class AccountController < AbstractSecurityController
-  ssl_required :change_password
+  ssl_required :change_password, :settings
+  ssl_allowed :sort, :resend_authentication, :index
   before_filter :must_be_team_member, :only => [:sort]
   
   def index
