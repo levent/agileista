@@ -2,7 +2,7 @@ require 'digest/sha1'
 
 class Person < ActiveRecord::Base
   validates_confirmation_of :password
-  # validates_length_of :password, :in => 6..16
+  validates_length_of :password, :in => 6..16, :if => :password_required?
   validates_presence_of :name
   validates_presence_of :email
   validates_presence_of :account_id
@@ -63,5 +63,9 @@ class Person < ActiveRecord::Base
   
   def generate_activation_code
     self.activation_code = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{self.email}--")
+  end
+  
+  def password_required?
+    self.hashed_password && self.salt ? false : true
   end
 end
