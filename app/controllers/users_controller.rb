@@ -1,6 +1,6 @@
 class UsersController < AbstractSecurityController
 
-  # ssl_required :new, :create, :delete, :edit, :update
+  ssl_allowed :new, :create, :delete, :edit, :update
   before_filter :must_be_account_holder, :except => [:edit, :update]
   before_filter :can_i_edit_them, :only => [:edit, :update]
 
@@ -31,13 +31,12 @@ class UsersController < AbstractSecurityController
   def delete
     if request.post?
       @person = @account.people.find(params[:id])
-      redirect_to :controller => 'account', :action => 'settings' and flash[:error] = "You cannot delete the account holder" and return false if @person == @current_user
+      redirect_to :controller => 'account', :action => 'settings' and flash[:error] = "You cannot delete the account holder" and return false if @person == current_user
       if @person.destroy
         flash[:notice] = "User deleted successfully"
       else
         flash[:error] = "User could not be deleted"
       end
-      
     end
     redirect_to :controller => 'account', :action => 'settings'
   end
