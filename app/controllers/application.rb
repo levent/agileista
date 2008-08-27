@@ -1,11 +1,11 @@
 # Filters added to this controller will be run for all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
-  include ExceptionNotifiable
+  # include ExceptionNotifiable
   include AccountStuff
   include AccountLocation
   include SslRequirement
-  # include HoptoadNotifier::Catcher
+  include HoptoadNotifier::Catcher
   
   require_dependency 'tag'
   require_dependency 'tagging'

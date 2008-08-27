@@ -76,6 +76,6 @@ ActionMailer::Base.sendmail_settings = {
 #  :password       => "xxxxxxxx", 
 #  :authentication => :login 
 #}
-ExceptionNotifier.exception_recipients = %w(levent@leventali.com)
-ExceptionNotifier.sender_address = %("Agileista Exception" <exception@agileista.purebreeze.com>)
+# ExceptionNotifier.exception_recipients = %w(levent@leventali.com)
+# ExceptionNotifier.sender_address = %("Agileista Exception" <exception@agileista.purebreeze.com>)
 PEOPLE_SALT = 'somecrazyrandomstring'
