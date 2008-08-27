@@ -5,9 +5,12 @@ class ApplicationController < ActionController::Base
   include AccountStuff
   include AccountLocation
   include SslRequirement
+  # include HoptoadNotifier::Catcher
   
   require_dependency 'tag'
   require_dependency 'tagging'
+  
+  filter_parameter_logging :password
 
   protected
   
