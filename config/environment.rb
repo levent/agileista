@@ -46,6 +46,7 @@ Rails::Initializer.run do |config|
   # The gems required by this application
   config.gem "pdf-writer", :lib => "pdf/writer"
   config.gem "color-tools", :lib => "color"
+  config.gem "fastercsv", :lib => "fastercsv"
 end
 
 # Add new inflection rules using the following format 
