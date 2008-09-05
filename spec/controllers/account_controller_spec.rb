@@ -13,7 +13,7 @@ describe AccountController do
     it "should redirect to settings" do
       get :index
       response.should be_redirect
-      response.should redirect_to :action => 'settings'
+      response.should redirect_to(:action => 'settings')
     end
   end
   
@@ -28,7 +28,7 @@ describe AccountController do
       @account.should_receive(:update_attributes).with({'nothing' => 'important'}).and_return(true)
       post :settings, :account => {:nothing => 'important'}
       response.should be_redirect
-      response.should redirect_to :controller => 'backlog'
+      response.should redirect_to(:controller => 'backlog')
     end
     
     it "should try update account and render settings on fail" do

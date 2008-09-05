@@ -6,8 +6,6 @@ describe SignupController do
   end
   
   describe "create" do
-    it "should NOT ALLOW RESERVED SUBDOMAINS (my favourites plus app. and www. and _.)"
-    
     SubdomainFu.mirrors.each do |mirror|
       it "should not allow account with subdomain #{mirror}" do
         Account.should_receive(:new).exactly(0).times
