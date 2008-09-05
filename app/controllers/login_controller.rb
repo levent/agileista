@@ -2,31 +2,30 @@ class LoginController < ApplicationController
   ssl_required :index, :authenticate, :logout
   
   def index
-    setup_account_name_for_form
   end
   
   def authenticate
-    account = Account.find_by_name(params[:accountname])
+    account = Account.find_by_name(current_subdomain)
     unless account.nil?
       if logged_in?
         person = account.people.find(:first, :conditions => ["email = ? AND authenticated = ?", current_user.email, 1])
       else
-        person = account.authenticate(params[:email], params[:password])
+        person = account.authenticate(params[:email], params[:password]) if request.post?
         # person = account.people.find(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", params[:email], params[:password], 1])
       end
       unless person.nil?
         flash[:notice] = "You have logged in successfully"
         session[:user] = person.id
         session[:account] = account.id
-        redirect_to :controller => 'backlog', :account_name => account.name
+        redirect_to :controller => 'backlog', :subdomain => account.name
       else
-        setup_account_name_for_form
+        # setup_account_name_for_form
         flash[:error] = "Sorry we couldn't find anyone by that email and password in the account \"#{account.name}\""
         render :action => 'index'
       end
     else
       flash[:error] = "Sorry we couldn't find that account"
-      setup_account_name_for_form
+      # setup_account_name_for_form
       render :action => 'index'
     end
   end
@@ -39,8 +38,8 @@ class LoginController < ApplicationController
   
   def forgot
     if request.post?
-      account = Account.find_by_name(params[:account_name])
-      account ||= Account.find_by_name(account_subdomain)
+      account = Account.find_by_name(current_subdomain)
+      # account ||= Account.find_by_name(account_subdomain)
       @person = account.people.find(:first, :conditions => ["email = ?", params[:email]]) unless account.nil?
       if @person.nil?# || (account.name == 'jgp' && !@person.account_holder?)
         flash[:error] = "We couldn't find a matching user"
@@ -51,14 +50,6 @@ class LoginController < ApplicationController
           redirect_to :action => 'index' and return false
         end
       end
-    end
-  end
-
-  private
-
-  def setup_account_name_for_form
-    if params[:accountname].blank?
-      params[:accountname] = params[:account_name]
     end
   end
 end

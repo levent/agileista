@@ -1,12 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
-  map.with_options(:path_prefix => ':account_name') do |account|
-    account.resources :backlog, :controller => 'backlog', :collection => {:export => :get, :feed => :get, :pdf => :get, :search => :post, :search_tags => :get, :sprint => :get, :sort_release => :get}
-    account.resources :sprints, :member => {:plan => :get, :overview => :get}
-    account.resources :impediments, :member => {:resolve => :post}
-    account.resources :user_stories, :member => {:copy => :post, :remove_from_sprint => :post, :create_via_add => :post, :create_task => :post}, :collection => {:add => :get} do |user_story|
+  # map.with_options(:path_prefix => ':account_name') do |account|
+    map.resources :backlog, :controller => 'backlog', :collection => {:export => :get, :feed => :get, :pdf => :get, :search => :post, :search_tags => :get, :sprint => :get, :sort_release => :get}
+    map.resources :sprints, :member => {:plan => :get, :overview => :get}
+    map.resources :impediments, :member => {:resolve => :post}
+    map.resources :user_stories, :member => {:copy => :post, :remove_from_sprint => :post, :create_via_add => :post, :create_task => :post}, :collection => {:add => :get} do |user_story|
       user_story.resources :tasks, :member => {:move_up => :post, :move_down => :post, :release => :post, :claim => :post}
     end
-  end
+  # end
 
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -29,8 +29,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/service.wsdl', :action => 'wsdl'
 
   # Install the default route as the lowest priority.
-  map.connect ':account_name/:controller/:action/:id'
-  map.connect ':account_name', :controller => "backlog"
+  # map.connect ':account_name/:controller/:action/:id'
+  # map.connect ':account_name', :controller => "backlog"
 
   map.connect ':controller/:action/:id'
 end
