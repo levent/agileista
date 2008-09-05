@@ -24,11 +24,17 @@ describe AccountController do
       response.should be_success
     end
 
-    it "should update account and redirect to backlog" do
+    it "should update account and redirect to backlog on success" do
       @account.should_receive(:update_attributes).with({'nothing' => 'important'}).and_return(true)
       post :settings, :account => {:nothing => 'important'}
       response.should be_redirect
       response.should redirect_to :controller => 'backlog'
+    end
+    
+    it "should try update account and render settings on fail" do
+      @account.should_receive(:update_attributes).with({'nothing' => 'important'}).and_return(false)
+      post :settings, :account => {:nothing => 'important'}
+      response.should be_success
     end
   end
   

@@ -80,4 +80,6 @@ ActionMailer::Base.sendmail_settings = {
 PEOPLE_SALT = 'somecrazyrandomstring'
 SubdomainFu.tld_sizes = {:development => 1,
                          :test => 0,
-                         :production => 1} # set all at once (also the defaults)
+                         :production => 1}
+SubdomainFu.mirrors = %w(www site we app blog dev stage) # Defaults to %w(www)
+                         

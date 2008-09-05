@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   # include ExceptionNotifiable
   include AccountStuff
-  include AccountLocation
+  # include AccountLocation
   include SslRequirement
   include HoptoadNotifier::Catcher
   
