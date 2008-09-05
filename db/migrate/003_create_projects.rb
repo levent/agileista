@@ -9,6 +9,6 @@ class CreateProjects < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :projects
+    # drop_table :projects
   end
 end

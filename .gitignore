@@ -3,3 +3,4 @@ log
 db/schema.rb
 .DS_Store
 *.sqlite3
+coverage/*

@@ -7,6 +7,6 @@ class CreateProjectMembers < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :project_members
+    # drop_table :project_members
   end
 end

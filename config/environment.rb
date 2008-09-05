@@ -7,7 +7,7 @@
 ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-# RAILS_GEM_VERSION = '1.2.6'
+RAILS_GEM_VERSION = '2.1.0'
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -46,6 +46,7 @@ Rails::Initializer.run do |config|
   # The gems required by this application
   config.gem "pdf-writer", :lib => "pdf/writer"
   config.gem "color-tools", :lib => "color"
+  config.gem "fastercsv", :lib => "fastercsv"
 end
 
 # Add new inflection rules using the following format 
@@ -58,8 +59,6 @@ end
 # end
 
 # Include your application configuration below
-
-
 
 ActionMailer::Base.delivery_method = :sendmail
 
@@ -79,3 +78,8 @@ ActionMailer::Base.sendmail_settings = {
 # ExceptionNotifier.exception_recipients = %w(levent@leventali.com)
 # ExceptionNotifier.sender_address = %("Agileista Exception" <exception@agileista.purebreeze.com>)
 PEOPLE_SALT = 'somecrazyrandomstring'
+SubdomainFu.tld_sizes = {:development => 1,
+                         :test => 0,
+                         :production => 1}
+SubdomainFu.mirrors = %w(www site we app blog dev stage) # Defaults to %w(www)
+                         

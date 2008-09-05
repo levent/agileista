@@ -112,7 +112,7 @@ describe ImpedimentsController do
   
   describe "routing" do
     it "should be set up for resolving impediments" do
-      params_from(:post, "/monkey/impediments/1/resolve").should == {:account_name => 'monkey', :controller => "impediments", :action => 'resolve', :id =>'1'}
+      params_from(:post, "/impediments/1/resolve").should == {:controller => "impediments", :action => 'resolve', :id =>'1'}
     end
   end
 end
