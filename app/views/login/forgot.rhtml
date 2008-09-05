@@ -3,8 +3,6 @@
 <p>Enter the details below and we'll send you a new password</p>
 <%= form_tag :action => 'forgot' %>
 	<fieldset>
-	<label for="account_name">Account name:</label>
-	<%= text_field_tag "account_name" %>
 	<label for="user_email">Your email:</label>
 	<%= text_field_tag "email" %>
 	<%= submit_tag "Send password" %>

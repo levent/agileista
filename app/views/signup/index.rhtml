@@ -26,20 +26,7 @@
 		</form>
 	</div>
 	<div id="rightcontent" class="noborder">
-		<h1>...or login below</h1>
-		<%= form_tag :controller => 'login', :action => 'authenticate' %>
-			<fieldset>
-				<legend>Just enter your login details</legend>
-			<label for="account">Account name:</label>
-			<%= text_field_tag "accountname", params[:accountname] %>
-			<label for="user_email">Your email:</label>
-			<%= text_field_tag "email", params[:email] %>
-			<label for="user_password">Your password:</label>
-			<%= password_field_tag "password" %>
-			<%= submit_tag "Login" %>
-			<%= link_to 'I forgot my password', :controller => 'login', :action => 'forgot' %>
-			</fieldset>
-		</form>
-		<p>You can now login directly at <span style="color:#990000">"http://app.agileista.com/ACCOUNT_NAME/login"</span></p>
+		<h1>...or login</h1>
+		<p>...at the following url <span style="color:#990000">"http://YOUR_ACCOUNT_NAME.agileista.com/login"</span></p>
 	</div>
 </div>

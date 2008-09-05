@@ -2,7 +2,7 @@ class SignupController < ApplicationController
   ssl_required :index, :ok, :create, :validate
 
   def index
-    redirect_to :controller => 'backlog', :account_name => Account.find(session[:account]).name and return false if logged_in?
+    redirect_to :controller => 'backlog', :subdomain => Account.find(session[:account]).name and return false if logged_in?
     @account = Account.new
   end
   
@@ -19,7 +19,7 @@ class SignupController < ApplicationController
       @account.save
       NotificationMailer.deliver_account_activation_info(@user, @account, self) 
       flash[:notice] = "Account created.. please check your email to validate your account"
-      redirect_to :action => 'ok', :account_name => params[:account_name]
+      redirect_to :action => 'ok', :subdomain => @account.name
     else
       flash[:error] = "Oh oh!"
       render :action => 'index'
@@ -34,7 +34,7 @@ class SignupController < ApplicationController
     redirect_to :action => "index" and return false if @user.nil?
     if @user.validate_account
       flash[:notice] = "Your account has been validated<br />Please login below"
-      redirect_to :controller => "login", :action => "index", :account_name => params[:account_name]
+      redirect_to :controller => "login", :action => "index", :subdomain => current_subdomain
     end
   end
   

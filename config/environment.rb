@@ -80,3 +80,6 @@ ActionMailer::Base.sendmail_settings = {
 # ExceptionNotifier.exception_recipients = %w(levent@leventali.com)
 # ExceptionNotifier.sender_address = %("Agileista Exception" <exception@agileista.purebreeze.com>)
 PEOPLE_SALT = 'somecrazyrandomstring'
+SubdomainFu.tld_sizes = {:development => 1,
+                         :test => 0,
+                         :production => 1} # set all at once (also the defaults)

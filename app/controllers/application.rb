@@ -145,5 +145,4 @@ class ApplicationController < ActionController::Base
     renderChartHTML=renderChartText
   end
   ######
-
 end

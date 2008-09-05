@@ -20,7 +20,7 @@
         <ul>
             <li><span>Other accounts:</span></li>
             <% @other_account_people.collect{|person| person.account.name}.sort.each do |account_name| -%>
-	        <li><%= link_to account_name, {:controller => 'login', :action => 'authenticate', :accountname => account_name}, :method => 'post' %></li>
+	        <li><%= link_to account_name, {:controller => 'login', :action => 'authenticate', :subdomain => account_name}, :method => 'post' %></li>
 	        <% end -%>
 	    </ul>
     </div>
