@@ -1,13 +1,39 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe AccountController do
+  before(:each) do
+    stub_login_and_account_setup
+  end
+  
   it "should be an abstract_security_controller" do
     controller.is_a?(AbstractSecurityController).should be_true
+  end
+
+  describe 'index' do
+    it "should redirect to settings" do
+      get :index
+      response.should be_redirect
+      response.should redirect_to :action => 'settings'
+    end
+  end
+  
+  describe 'settings' do
+    it "should do nothing to account on get" do
+      @account.should_receive(:update_attributes).exactly(0).times
+      get :settings, :account => {:nothing => 'important'}
+      response.should be_success
+    end
+
+    it "should update account and redirect to backlog" do
+      @account.should_receive(:update_attributes).with({'nothing' => 'important'}).and_return(true)
+      post :settings, :account => {:nothing => 'important'}
+      response.should be_redirect
+      response.should redirect_to :controller => 'backlog'
+    end
   end
   
   describe 'change_password' do
     before(:each) do
-      stub_login_and_account_setup
       @person.email = 'monkey@example.com'
     end
     
