@@ -24,7 +24,7 @@ describe LoginController do
       controller.stub!(:logged_in?).and_return(false)
       Account.should_receive(:find_by_name).with('existent').and_return(@account)
       @account.should_receive(:authenticate).with('l', 'dog').and_return(nil)
-      get :authenticate, :email => 'l', :password => 'dog'
+      post :authenticate, :email => 'l', :password => 'dog'
     end
     
     it "should switch accounts if logged_in and member of other account" do

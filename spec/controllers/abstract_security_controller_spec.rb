@@ -7,5 +7,11 @@ describe AbstractSecurityController do
   
   describe "must be logged in" do
     it "should redirect to signup site (app.agileista.com) if no account for subdomain"
+    
+    it "should redirect to login if login fails" do
+      controller.should_receive(:logged_in?).and_return(false)
+      get :must_be_logged_in
+      response.should be_redirect
+    end
   end
 end
