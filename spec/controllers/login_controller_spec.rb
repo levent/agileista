@@ -35,4 +35,22 @@ describe LoginController do
       get :authenticate
     end
   end
+  
+  describe 'index' do
+    it "should redirect to main app for signup if no such subdomain" do
+      controller.stub!(:current_subdomain).and_return('nonexistent')
+      Account.should_receive(:find_by_subdomain).with('nonexistent').and_return(nil)
+      get :index
+      response.should be_redirect
+      response.should redirect_to 'http://app.host/signup'
+    end
+    
+    it "should redirect to signup if on app subdomain" do
+      controller.stub!(:current_subdomain).and_return('app')
+      Account.should_receive(:find_by_subdomain).exactly(0).times
+      get :index
+      response.should be_redirect
+      response.should redirect_to :controller => 'signup'
+    end
+  end
 end

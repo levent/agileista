@@ -4,6 +4,8 @@ class LoginController < ApplicationController
   def index
     if AccountStuff::MASTER_SUBDOMAIN == current_subdomain
       redirect_to :controller => 'signup' and return false
+    elsif Account.find_by_subdomain(current_subdomain).nil?
+      redirect_to :controller => 'signup', :subdomain => AccountStuff::MASTER_SUBDOMAIN and return false
     end
   end
   
