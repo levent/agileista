@@ -20,14 +20,14 @@ describe SprintsController do
       end
     end
     
-    %w(plan edit new update create).each do |action|
+    %w(plan edit new update create destroy).each do |action|
       it "should only allow team members on '#{action}" do
         controller.should_receive(:must_be_team_member).and_return(false)
         get action.to_sym
       end
     end
     
-    %w(show overview edit plan update).each do |action|
+    %w(show overview edit plan update destroy).each do |action|
       it "should set sprint on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
         controller.stub!(:iteration_length_must_be_specified).and_return(true)
@@ -92,6 +92,34 @@ describe SprintsController do
     end
   end
   
+  describe "#destroy" do
+    before(:each) do
+      stub_login_and_account_setup
+      controller.stub!(:iteration_length_must_be_specified).and_return(true)
+      @sprint = Sprint.new
+    end
+    
+    it "should destroy and redirect to sprints with flash on success" do
+      @account.sprints.should_receive(:find).and_return(@sprint)
+      @sprint.should_receive(:destroy).and_return(true)
+      post :destroy
+      response.should be_redirect
+      response.should redirect_to(:action => 'index')
+      flash[:error].should be_nil
+      flash[:notice].should_not be_nil
+    end    
+    
+    it "should destroy and redirect to sprints with flash on fail" do
+      @account.sprints.should_receive(:find).and_return(@sprint)
+      @sprint.should_receive(:destroy).and_return(false)
+      post :destroy
+      response.should be_redirect
+      response.should redirect_to(:action => 'index')
+      flash[:error].should_not be_nil
+      flash[:notice].should be_nil
+    end
+  end
+  
   describe "#create" do
     before(:each) do
       stub_login_and_account_setup
@@ -134,7 +162,7 @@ describe SprintsController do
       @sprint.should_receive(:update_attributes).with('sprinthash').and_return(true)
       post :update, :sprint => 'sprinthash'
       response.should be_redirect
-      response.should redirect_to :action => 'index'
+      response.should redirect_to(:action => 'index')
     end
     
     it "should update sprint and redirect on fail" do

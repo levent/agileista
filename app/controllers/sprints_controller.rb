@@ -1,8 +1,8 @@
 class SprintsController < AbstractSecurityController
 
-  before_filter :must_be_team_member, :only => [:plan, :new, :edit, :update, :create]
+  before_filter :must_be_team_member, :only => [:plan, :new, :edit, :update, :create, :destroy]
   before_filter :iteration_length_must_be_specified
-  before_filter :sprint_must_exist, :only => [:show, :overview, :edit, :plan, :update]
+  before_filter :sprint_must_exist, :only => [:show, :overview, :edit, :plan, :update, :destroy]
   
   def index
     @sprints = @account.sprints
@@ -55,6 +55,15 @@ class SprintsController < AbstractSecurityController
   
   def plan
     render_404 if @sprint && @sprint.finished?
+  end
+  
+  def destroy
+    if @sprint && @sprint.destroy
+      flash[:notice] = "Sprint deleted"
+    else
+      flash[:error] = "Sprint couldn't be deleted"
+    end
+    redirect_to sprints_path
   end
   
   private 
