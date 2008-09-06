@@ -2,6 +2,7 @@ class SignupController < ApplicationController
   ssl_required :index, :ok, :create, :validate
 
   def index
+    # render :text => current_subdomain
     redirect_to :controller => 'backlog', :subdomain => Account.find(session[:account]).name and return false if logged_in?
     @account = Account.new
   end
