@@ -9,6 +9,28 @@ describe UserStory do
     @task_c = Task.new
   end
   
+  describe "named_scopes" do
+    describe "estimated" do
+      it "should get all estimated user stories" do
+        us = UserStory.new(:done => 1, :account_id => 1, :definition => 'something')
+        us.save.should be_true
+        us = UserStory.new(:sprint_id => 1, :account_id => 1, :definition => 'somethings')
+        us.save.should be_true
+        @us = UserStory.new(:story_points => 10, :account_id => 1, :definition => 'something else')
+        @us.save.should be_true
+        us = UserStory.new(:account_id => 1, :definition => 'something other')
+        us.save.should be_true
+        us = UserStory.new(:story_points => 10, :done => 1, :account_id => 1, :definition => 'something other2')
+        us.save.should be_true
+        us = UserStory.new(:story_points => 10, :sprint_id => 1, :account_id => 1, :definition => 'something other3')
+        us.save.should be_true
+        us = UserStory.new(:story_points => 10, :done => 1, :sprint_id => 1, :account_id => 1, :definition => 'something other4')
+        us.save.should be_true
+        UserStory.estimated.should == [@us]
+      end
+    end
+  end
+  
   describe "in general" do
     it "should default to being estimateable" do
       @us.stub!(:valid?).and_return(true)

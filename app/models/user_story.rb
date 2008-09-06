@@ -24,6 +24,9 @@ class UserStory < ActiveRecord::Base
   belongs_to :sprint
   belongs_to :person
   belongs_to :release
+  
+  named_scope :estimated, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil]
+  # @account.user_stories.find(:all, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil])
 
   def inprogress?
     if !tasks.blank?
