@@ -1,0 +1,10 @@
+h1. Agileista
+Agileista is an app for teams that use agile programming practices (hence the nama). If you're part of a team that's SCRUMing, Agileista is right up your street.
+
+h1. Features
+* user stories (they form a backlog)
+* sprint planning
+* burndown charts
+* impediments
+* contributors (to user stories)
+* CSV & PDF exporting
