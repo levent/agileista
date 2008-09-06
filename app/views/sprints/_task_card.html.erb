@@ -3,6 +3,6 @@
 <%=h task_card.definition %><br />
 <strong><%= show_assignee(task_card.developer) %></strong>
 <% unless @current_user.is_a?(Contributor) -%>
-<p><% form_for :task, task_card, :url => user_story_task_path(:user_story_id => task_card.user_story, :id => task_card), :html => {:method => :put} do |f| %><%= text_field_tag('task_hours', task_card.hours, :size => 3, :class => 'tasksave') %> <%= submit_tag 'Save', :class => 'tasksave' %><% end %></p><div class="tasklinks"><%= link_to 'Show', user_story_task_path(:user_story_id => task_card.user_story, :id => task_card) %> <%= link_to 'Edit', edit_user_story_task_path(:user_story_id => task_card.user_story, :id => task_card) %></div>
+<p><% form_for :task, task_card, :url => user_story_task_path(:user_story_id => task_card.user_story, :id => task_card), :html => {:method => :put} do |f| %><%= f.text_field(:hours, :size => 3, :class => 'tasksave') %> <%= submit_tag 'Save', :class => 'tasksave' %><% end %></p><div class="tasklinks"><%= link_to 'Show', user_story_task_path(:user_story_id => task_card.user_story, :id => task_card) %> <%= link_to 'Edit', edit_user_story_task_path(:user_story_id => task_card.user_story, :id => task_card) %></div>
 <% end -%>
 </div>

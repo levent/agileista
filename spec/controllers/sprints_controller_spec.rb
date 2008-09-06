@@ -9,6 +9,7 @@ describe SprintsController do
     before(:each) do
       stub_login_and_account_setup
       controller.stub!(:create_chart)
+      @sprint = Sprint.new
     end
 
     SprintsController.instance_methods(false).each do |action|

@@ -10,6 +10,12 @@ class SprintController < AbstractSecurityController
     if @current_sprint.blank?
       redirect_to :controller => 'backlog' and flash[:notice] = "There is no active sprint" and return false
     end
+    
+    
+    # temporary redirect
+    redirect_to sprint_path(:id => @current_sprint)
+    
+    
     calculate_tomorrows_burndown
      # @burndowns = Burndown.find(:all, :conditions => ["sprint_id = ?", @current_sprint.id], :order => :created_on)
      # @assigned_user_stories = @account.user_stories - @unassigned_user_stories

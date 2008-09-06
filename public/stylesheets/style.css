@@ -29,7 +29,7 @@ fieldset {border: none; padding: 10px; margin-bottom: 12px;}
 .signup fieldset {border: 1px solid #ccc; padding: 10px; margin-bottom: 12px;}
 div.fieldWithErrors {display:inline}
 div.fieldWithErrors input {border: 1px solid red;}
-.small {font-size: 0.8em;}
+.small, .small a {font-size: 0.8em;}
 a {color: #1A6086;}
 img {border: none}
 #userstorylist a {text-decoration: none;}

@@ -32,6 +32,6 @@
         </div>
     </div>
 </div>
-<%= sortable_element 'incomplete', :tag => 'div', :dropOnEmpty => true, :containment => ['incomplete', 'inprogress', 'complete'], :overlap => 'horizontal', :constraint => false, :url => { :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>
-<%= sortable_element 'complete', :tag => 'div', :dropOnEmpty => true, :containment => ['incomplete', 'inprogress', 'complete'], :overlap => 'horizontal', :constraint => false, :url => { :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>
-<%= sortable_element 'inprogress', :tag => 'div', :dropOnEmpty => true, :containment => ['incomplete', 'inprogress', 'complete'], :overlap => 'horizontal', :constraint => false, :url => { :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>
+<%= sortable_element 'incomplete', :tag => 'div', :dropOnEmpty => true, :containment => ['incomplete', 'inprogress', 'complete'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'sprint', :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>
+<%= sortable_element 'complete', :tag => 'div', :dropOnEmpty => true, :containment => ['incomplete', 'inprogress', 'complete'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'sprint', :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>
+<%= sortable_element 'inprogress', :tag => 'div', :dropOnEmpty => true, :containment => ['incomplete', 'inprogress', 'complete'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'sprint', :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>
