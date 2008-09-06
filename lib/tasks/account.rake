@@ -17,5 +17,19 @@ namespace :account do
         end
       end
     end
+    
+    desc "Informs all users on the new url structure"
+    task(:notify => :environment) do
+      Account.all.each do |account|
+        account.people.each do |person|
+          if person.authenticated?
+            p "mailing #{account.name}'s #{person.name}"
+            NotificationMailer.deliver_account_information(person, account)
+            p "done..."
+            puts
+          end
+        end
+      end
+    end
   end
 end

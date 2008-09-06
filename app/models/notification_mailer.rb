@@ -1,6 +1,6 @@
 class NotificationMailer < ActionMailer::Base
-  
   include SubdomainFu::Controller
+  include ActionController::UrlWriter
   
   def account_activation_info(user, account, controller)
     @recipients  = "#{user.email}"
@@ -35,4 +35,13 @@ class NotificationMailer < ActionMailer::Base
     @subject     = "Hey Agileista! Here is your password reminder"
   end
   
+  def account_information(user, account)
+    @recipients       ="#{user.email}"
+    @from             = EMAIL_FROM
+    @sent_on          = Time.now
+    @body[:url]       = url_for :controller => 'login', :subdomain => account.subdomain, :host => 'app.agileista.com'
+    @body[:user]      = user
+    @body[:account]   = account
+    @subject          = "Hey Agileista! Here's some important information on accessing your account"
+  end
 end
