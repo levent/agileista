@@ -11,7 +11,7 @@ class Account < ActiveRecord::Base
   # validates_presence_of :subdomain
   validates_uniqueness_of :name, :case_sensitive => false
   validates_uniqueness_of :subdomain, :case_sensitive => false
-  validates_format_of :subdomain, :with => /^[A-Za-z0-9]+$/, :message => "may only contain numbers and letters"
+  validates_format_of :subdomain, :with => /^[-A-Za-z0-9]+$/, :message => "may only contain numbers and letters"
   
   before_validation :make_fields_lowercase
   
