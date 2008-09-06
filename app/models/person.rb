@@ -5,7 +5,7 @@ class Person < ActiveRecord::Base
   validates_length_of :password, :in => 6..16, :if => :password_required?
   validates_presence_of :name
   validates_presence_of :email
-  validates_presence_of :account_id
+  # validates_presence_of :account_id
   validates_uniqueness_of :email, :scope => :account_id
   belongs_to :account  
   has_many :user_stories

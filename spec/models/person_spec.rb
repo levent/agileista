@@ -16,10 +16,6 @@ describe Person do
       @it.respond_to?(:salt).should be_true
     end
     
-    it "must have an account_id" do
-      @it.should require_an(:account_id)
-    end
-    
     it "should require a password of min length 6" do
       @it.save.should be_false
       @it.errors.on(:password).should == 'is too short (minimum is 6 characters)'

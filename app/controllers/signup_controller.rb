@@ -12,7 +12,7 @@ class SignupController < ApplicationController
     @user = @account.team_members.new(params[:user])
     @account.account_holder = @user
     # @user.account = @account
-    if @account.valid? && @account.save # only save if valid!
+    if @account.valid? && @user.valid? && @account.save # only save if valid!
       # @account.save
       @user.account = @account
       @user.save

@@ -8,10 +8,10 @@ class Account < ActiveRecord::Base
   belongs_to :account_holder, :class_name => "Person", :foreign_key => 'account_holder_id'
   
   validates_presence_of :name
-  validates_presence_of :subdomain
+  # validates_presence_of :subdomain
   validates_uniqueness_of :name, :case_sensitive => false
   validates_uniqueness_of :subdomain, :case_sensitive => false
-  validates_format_of :subdomain, :with => //
+  validates_format_of :subdomain, :with => /^[A-Za-z0-9]+$/, :message => "may only contain numbers and letters"
   
   before_validation :make_name_lowercase
   
@@ -33,9 +33,6 @@ class Account < ActiveRecord::Base
   
   def make_name_lowercase
     self.name.downcase! if self.name
-  end
-  
-  def validate_subdomain
   end
 end
 

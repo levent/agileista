@@ -18,6 +18,7 @@ h1 {font-size: 1.8em;}
 #main h1{padding: 0; margin:0 0 10px 0;}
 #main h2{padding: 0; margin:10px 0 5px 0; font-size:1.4em; font-weight:bold;}
 input, textarea, select { margin-bottom: 10px; display: block; }
+input.nowrap {display:inline;}
 input[type=submit] {padding: 0; font-size: 11px;}
 .sprint_task input {display:inline;}
 table {border-collapse:collapse;}
@@ -25,7 +26,9 @@ td, th {text-align: left; margin: 0; padding: 4px; font-size: 0.9em;}
 th {border-bottom: 1px solid #ccc;}
 legend { color: #c00; font-weight: bold; }
 fieldset {border: none; padding: 10px; margin-bottom: 12px;}
-#leftcontent fieldset, #rightcontent fieldset {border: 1px solid #ccc; padding: 10px; margin-bottom: 12px;}
+.signup fieldset {border: 1px solid #ccc; padding: 10px; margin-bottom: 12px;}
+div.fieldWithErrors {display:inline}
+div.fieldWithErrors input {border: 1px solid red;}
 .small {font-size: 0.8em;}
 a {color: #1A6086;}
 img {border: none}

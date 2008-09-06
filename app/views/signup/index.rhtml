@@ -1,5 +1,5 @@
-<div id="main">
-	<div id="leftcontent">
+<div id="main" class="wide signup">
+	<!-- <div id="leftcontent"> -->
 		<h1>Signup here...</h1>
 		<%= error_messages_for :user %>
 		<%= error_messages_for :account %>
@@ -11,7 +11,12 @@
 				<small>For example: Apple, Microsoft (boo) or Google</small>
 			</fieldset>
 			<fieldset>
-				<legend>2. Your administrator account</legend>
+				<legend>2. Your site address</legend>
+				<p>This is your unique address where you will login<br /><strong>Letters and numbers only with no spaces</strong></p>
+				http://<%= text_field :account, :subdomain, :class => 'nowrap' %>.agileista.com
+			</fieldset>
+			<fieldset>
+				<legend>2. Your administrator</legend>
 				<p>Once you've got this set up you'll be able to set up your project and invite other users</p>
 				<label for="user_name">Your name:</label><%= text_field :user, :name %>
 				<label for="user_name">Your email:</label><%= text_field :user, :email %>
@@ -24,9 +29,9 @@
 				<%= submit_tag "Create account" %>
 			</fieldset>
 		</form>
-	</div>
+	<!-- </div>
 	<div id="rightcontent" class="noborder">
 		<h1>...or login</h1>
 		<p>...at the following url <span style="color:#990000">"http://YOUR_ACCOUNT_NAME.agileista.com/login"</span></p>
-	</div>
+	</div> -->
 </div>

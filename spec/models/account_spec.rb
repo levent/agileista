@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Account do
   before(:each) do
-    @it = Account.new
+    @it = Account.new(:subdomain => 'valid', :name => 'valid')
   end
 
   describe "in general" do
@@ -40,7 +40,7 @@ describe Account do
       @account.errors.on(:subdomain).should == 'has already been taken'
     end
     
-    %w(name subdomain).each do |field|
+    %w(name).each do |field|
       it "should require #{field}" do
         @it.should require_a(field.to_sym)
       end
@@ -56,11 +56,11 @@ describe Account do
       end
     end
     
-    ["monkey balls"].each do |subdomain|
+    ["monkey balls", "c___c", "c_there", "^%"].each do |subdomain|
       it "should not validate subdomain '#{subdomain}'" do
         @it.subdomain = subdomain
         @it.valid?.should be_false
-        p @it.errors.on(:subdomain)
+        @it.errors.on(:subdomain).should == "may only contain numbers and letters"
       end
     end
   end

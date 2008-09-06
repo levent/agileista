@@ -90,7 +90,7 @@ describe UserStory do
   
   describe "#copy" do
     before(:each) do
-      @us.account = Account.create!(:name => 'account')
+      @us.account = Account.create!(:name => 'account', :subdomain => 'subby')
       @us.definition = "definition"
       @us.save!
       @us.save!
