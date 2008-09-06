@@ -4,7 +4,7 @@ set :application, "agileista.com"
 set :repository, "git@github.com:levent/agileista.git"
 set :scm, :git
 set :deploy_via, :remote_cache
-set :branch, "september0508"
+set :branch, "september0608"
 set :scm_verbose, true
 
 # set :deploy_via, :export
