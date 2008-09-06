@@ -20,18 +20,18 @@ describe SprintsController do
       end
     end
     
-    %w(plan edit new).each do |action|
+    %w(plan edit new update create).each do |action|
       it "should only allow team members on '#{action}" do
         controller.should_receive(:must_be_team_member).and_return(false)
         get action.to_sym
       end
     end
     
-    %w(show overview edit plan).each do |action|
+    %w(show overview edit plan update).each do |action|
       it "should set sprint on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
         controller.stub!(:iteration_length_must_be_specified).and_return(true)
-        controller.should_receive(:sprint_must_exist).and_return(false)
+        controller.should_receive(:sprint_must_exist).and_return(@sprint)
         get action.to_sym
       end
     end
@@ -89,6 +89,52 @@ describe SprintsController do
         get :index
         assigns[:sprints].should == ['sprint']
       end
+    end
+  end
+  
+  describe "#create" do
+    before(:each) do
+      stub_login_and_account_setup
+      controller.stub!(:iteration_length_must_be_specified).and_return(true)
+      @sprint = Sprint.new
+    end
+
+    it "should create sprint and redirect on success" do
+      @account.sprints.should_receive(:new).with('sprinthash').and_return(@sprint)
+      @sprint.should_receive(:save).and_return(true)
+      post :create, :sprint => 'sprinthash'
+      response.should be_redirect
+      response.should redirect_to :action => 'index'
+    end
+    
+    it "should create sprint and redirect on fail" do
+      @account.sprints.should_receive(:new).with('sprinthash').and_return(@sprint)
+      @sprint.should_receive(:save).and_return(false)
+      controller.expect_render(:action => 'new')
+      post :create, :sprint => 'sprinthash'
+    end
+  end
+  
+  describe "#update" do
+    before(:each) do
+      stub_login_and_account_setup
+      controller.stub!(:iteration_length_must_be_specified).and_return(true)
+      @sprint = Sprint.new
+    end
+    
+    it "should update sprint and redirect on success" do
+      @account.sprints.should_receive(:find).and_return(@sprint)
+      @sprint.should_receive(:update_attributes).with('sprinthash').and_return(true)
+      post :update, :sprint => 'sprinthash'
+      response.should be_redirect
+      response.should redirect_to :action => 'index'
+    end
+    
+    it "should update sprint and redirect on fail" do
+      @account.sprints.should_receive(:find).and_return(@sprint)
+      @sprint.should_receive(:update_attributes).with('sprinthash').and_return(false)
+      controller.expect_render(:action => 'edit')
+      post :update, :sprint => 'sprinthash'
     end
   end
   

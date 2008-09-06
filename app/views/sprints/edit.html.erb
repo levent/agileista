@@ -1,0 +1,18 @@
+<%= render :partial => 'subnav' %>
+<div id="main" class="wide sprint_planning">
+	<h1>Edit sprint</h1>
+	<%= error_messages_for :sprint %>
+	<% form_for @sprint do |s| %>
+		<label for="sprint_name">Name:</label><br />
+		<%= s.text_field :name %>
+		<label for="sprint_start_at">Start at:</label><br />
+
+			<%= s.date_select :start_at, :order => [:day, :month, :year] %><br />
+
+		<label for="sprint_end_at">End at:</label><br />
+		<%= s.date_select :end_at, :order => [:day, :month, :year] %><br />
+		<label for="sprint_end_at">Sprint goal:</label>
+		<%= s.text_area :goal %>
+		<%= submit_tag "Save sprint" %>
+	<% end %>
+</div>

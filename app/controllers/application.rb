@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
       @sprint = @account.sprints.find(params[:id])
     rescue
       flash[:error] = "No such sprint"
-      redirect_to :controller => 'sprint_planning' and return false
+      redirect_to sprints_path and return false
     end
   end
   

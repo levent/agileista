@@ -1,8 +1,8 @@
 class SprintsController < AbstractSecurityController
 
-  before_filter :must_be_team_member, :only => [:plan, :new, :edit]
+  before_filter :must_be_team_member, :only => [:plan, :new, :edit, :update, :create]
   before_filter :iteration_length_must_be_specified
-  before_filter :sprint_must_exist, :only => [:show, :overview, :edit, :plan]
+  before_filter :sprint_must_exist, :only => [:show, :overview, :edit, :plan, :update]
   
   def index
     @sprints = @account.sprints
@@ -25,10 +25,27 @@ class SprintsController < AbstractSecurityController
     @sprint = @account.sprints.new
   end
   
+  def create
+    @sprint = @account.sprints.new(params[:sprint])
+    if @sprint.save
+      redirect_to sprints_path
+    else
+      render :action => 'new'
+    end
+  end
+  
   def overview
   end
   
   def edit
+  end
+  
+  def update
+    if @sprint && @sprint.update_attributes(params[:sprint])
+      redirect_to sprints_path
+    else
+      render :action => 'edit'
+    end
   end
   
   def plan
