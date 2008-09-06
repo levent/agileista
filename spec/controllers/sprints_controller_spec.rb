@@ -104,7 +104,7 @@ describe SprintsController do
       @sprint.should_receive(:save).and_return(true)
       post :create, :sprint => 'sprinthash'
       response.should be_redirect
-      response.should redirect_to :action => 'index'
+      response.should redirect_to(:action => 'index')
     end
     
     it "should create sprint and redirect on fail" do
@@ -112,6 +112,13 @@ describe SprintsController do
       @sprint.should_receive(:save).and_return(false)
       controller.expect_render(:action => 'new')
       post :create, :sprint => 'sprinthash'
+    end
+    
+    it "should calculate start date if blank" do
+      @sprint.account.should_receive(:iteration_length).and_return(2)
+      @sprint.start_at = nil
+      @account.sprints.stub!(:new).and_return(@sprint)
+      post :create, :from => {:year => '2008', :month => '4', :day => '1'}
     end
   end
   

@@ -27,9 +27,12 @@ class SprintsController < AbstractSecurityController
   
   def create
     @sprint = @account.sprints.new(params[:sprint])
+    set_start_at
     if @sprint.save
+      flash[:notice] = "Sprint saved"
       redirect_to sprints_path
     else
+      flash[:error] = "Sprint couldn't be saved"
       render :action => 'new'
     end
   end
@@ -42,8 +45,10 @@ class SprintsController < AbstractSecurityController
   
   def update
     if @sprint && @sprint.update_attributes(params[:sprint])
+      flash[:notice] = "Sprint saved"
       redirect_to sprints_path
     else
+      flash[:error] = "Sprint couldn't be saved"
       render :action => 'edit'
     end
   end
@@ -63,6 +68,12 @@ class SprintsController < AbstractSecurityController
       flash[:notice] = "Please specify an iteration length first"
       redirect_to :controller => 'account', :action => 'settings'
       return false 
+    end
+  end
+  
+  def set_start_at
+    if @sprint.start_at.blank? && params[:from]
+      @sprint.start_at = Date.new(params[:from][:year].to_i, params[:from][:month].to_i, params[:from][:day].to_i).strftime("%Y-%m-%d %H:%M:%S")
     end
   end
   
