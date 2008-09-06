@@ -20,7 +20,6 @@ namespace :account do
     
     desc "Informs all users on the new url structure"
     task(:notify => :environment) do
-      p ENV['TEST_MODE']
       test_mode = true
       if ENV['TEST_MODE'].nil?
         test_mode = true
