@@ -6,10 +6,10 @@ describe SignupController do
   end
   
   describe "create" do
-    SubdomainFu.mirrors.each do |mirror|
-      it "should not allow account with subdomain #{mirror}" do
+    AccountStuff::RESERVED_SUBDOMAINS.each do |subdomain|
+      it "should not allow account with subdomain #{subdomain}" do
         Account.should_receive(:new).exactly(0).times
-        post :create, :account => {:name => mirror}
+        post :create, :account => {:subdomain => subdomain}
         response.should be_redirect
       end
     end

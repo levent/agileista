@@ -1,4 +1,7 @@
 module AccountStuff
+  AccountStuff::RESERVED_SUBDOMAINS = %w(app www site we blog dev stage)
+  AccountStuff::MASTER_SUBDOMAIN = "app"
+  
   protected
   
   def current_user

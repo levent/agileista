@@ -81,6 +81,5 @@ PEOPLE_SALT = 'somecrazyrandomstring'
 SubdomainFu.tld_sizes = {:development => 1,
                          :test => 0,
                          :production => 1}
-SubdomainFu.mirrors = %w(app www site we blog dev stage) # Defaults to %w(www)
-SubdomainFu.preferred_mirror = "app" # Defaults to %w(www)
-                         
+# SubdomainFu.mirrors = %w(app www site we blog dev stage) # Defaults to %w(www)
+# SubdomainFu.preferred_mirror = "app"

@@ -4,14 +4,14 @@ class SignupController < ApplicationController
   def index
     if logged_in?
       redirect_to :controller => 'backlog', :subdomain => current_subdomain and return false
-    elsif SubdomainFu.preferred_mirror != current_subdomain
+    elsif AccountStuff::MASTER_SUBDOMAIN != current_subdomain
       redirect_to :controller => 'login', :subdomain => current_subdomain and return false
     end
     @account = Account.new
   end
   
   def create
-    redirect_to :controller => 'signup', :action => 'index' and return false if reserved_account_name?(params[:account])
+    redirect_to :controller => 'signup', :action => 'index' and return false if reserved_subdomain?(params[:account])
     @account = Account.new(params[:account])
     @user = @account.team_members.new(params[:user])
     @account.account_holder = @user
@@ -42,9 +42,9 @@ class SignupController < ApplicationController
   
   protected
   
-  def reserved_account_name?(account_params)
-    if account_params[:name] && SubdomainFu.mirrors.include?(account_params[:name])
-      return true # and return false if 
+  def reserved_subdomain?(account_params)
+    if account_params[:subdomain] && AccountStuff::RESERVED_SUBDOMAINS.include?(account_params[:subdomain])
+      return true
     else
       return false
     end
