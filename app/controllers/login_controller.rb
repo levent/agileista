@@ -5,7 +5,7 @@ class LoginController < ApplicationController
   end
   
   def authenticate
-    account = Account.find_by_name(current_subdomain)
+    account = Account.find_by_subdomain(current_subdomain)
     unless account.nil?
       if logged_in?
         person = account.people.find(:first, :conditions => ["email = ? AND authenticated = ?", current_user.email, 1])
@@ -38,7 +38,7 @@ class LoginController < ApplicationController
   
   def forgot
     if request.post?
-      account = Account.find_by_name(current_subdomain)
+      account = Account.find_by_subdomain(current_subdomain)
       # account ||= Account.find_by_name(account_subdomain)
       @person = account.people.find(:first, :conditions => ["email = ?", params[:email]]) unless account.nil?
       if @person.nil?# || (account.name == 'jgp' && !@person.account_holder?)

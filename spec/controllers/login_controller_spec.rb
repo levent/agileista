@@ -14,7 +14,7 @@ describe LoginController do
     
     it "should redirect if no account found" do
       controller.stub!(:current_subdomain).and_return('nonexistent')
-      Account.should_receive(:find_by_name).with('nonexistent').and_return(nil)
+      Account.should_receive(:find_by_subdomain).with('nonexistent').and_return(nil)
       get :authenticate
       response.should render_template('login/index')
     end
@@ -22,7 +22,7 @@ describe LoginController do
     it "should attempt to log user in if account provided" do
       controller.stub!(:current_subdomain).and_return('existent')
       controller.stub!(:logged_in?).and_return(false)
-      Account.should_receive(:find_by_name).with('existent').and_return(@account)
+      Account.should_receive(:find_by_subdomain).with('existent').and_return(@account)
       @account.should_receive(:authenticate).with('l', 'dog').and_return(nil)
       post :authenticate, :email => 'l', :password => 'dog'
     end
@@ -30,7 +30,7 @@ describe LoginController do
     it "should switch accounts if logged_in and member of other account" do
       controller.stub!(:current_subdomain).and_return('existent')
       controller.should_receive(:logged_in?).and_return(true)
-      Account.should_receive(:find_by_name).with('existent').and_return(@account)
+      Account.should_receive(:find_by_subdomain).with('existent').and_return(@account)
       @account.people.should_receive(:find).with(:first, :conditions => ["email = ? AND authenticated = ?", 'leemail', 1]).and_return(nil)
       get :authenticate
     end

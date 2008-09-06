@@ -11,7 +11,7 @@ class AbstractSecurityController < ApplicationController
         setup_account_variables
         return true
       else
-        @account = Account.find_by_name(current_subdomain)
+        @account = Account.find_by_subdomain(current_subdomain)
         if user = authenticate_with_http_basic { |u, p| @account.authenticate(u, p) }
           @current_user = user
         else
