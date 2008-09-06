@@ -18,7 +18,7 @@ class SignupController < ApplicationController
       @account.save
       NotificationMailer.deliver_account_activation_info(@user, @account, self) 
       flash[:notice] = "Account created.. please check your email to validate your account"
-      redirect_to :action => 'ok', :subdomain => @account.name
+      redirect_to :action => 'ok', :subdomain => @account.subdomain
     else
       flash[:error] = "Oh oh!"
       render :action => 'index'

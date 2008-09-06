@@ -17,7 +17,7 @@ class LoginController < ApplicationController
         flash[:notice] = "You have logged in successfully"
         session[:user] = person.id
         session[:account] = account.id
-        redirect_to :controller => 'backlog', :subdomain => account.name
+        redirect_to :controller => 'backlog', :subdomain => account.subdomain
       else
         # setup_account_name_for_form
         flash[:error] = "Sorry we couldn't find anyone by that email and password in the account \"#{account.name}\""

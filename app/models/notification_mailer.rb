@@ -6,7 +6,7 @@ class NotificationMailer < ActionMailer::Base
     @recipients  = "#{user.email}"
     @from        = EMAIL_FROM
     @sent_on     = Time.now
-    @body[:url]  = controller.url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.name
+    @body[:url]  = controller.url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain
     @body[:user] = user
     # @body[:account] = account
     @subject     = "Welcome to Agileista!"
@@ -16,7 +16,7 @@ class NotificationMailer < ActionMailer::Base
     @recipients  = "#{user.email}"
     @from        = EMAIL_FROM
     @sent_on     = Time.now
-    @body[:url]  = controller.url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.name
+    @body[:url]  = controller.url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain
     @body[:user] = user
     @body[:pass] = password
     @body[:sender] = account.account_holder
@@ -28,7 +28,7 @@ class NotificationMailer < ActionMailer::Base
     @recipients  = "#{user.email}"
     @from        = EMAIL_FROM
     @sent_on     = Time.now
-    @body[:url]  = controller.url_for :controller => 'login', :subdomain => account.name
+    @body[:url]  = controller.url_for :controller => 'login', :subdomain => account.subdomain
     @body[:user] = user
     @body[:pass] = password
     @body[:account] = account
