@@ -2,6 +2,9 @@ class LoginController < ApplicationController
   ssl_required :index, :authenticate, :logout
   
   def index
+    if SubdomainFu.preferred_mirror == current_subdomain
+      redirect_to :controller => 'signup' and return false
+    end
   end
   
   def authenticate

@@ -10,7 +10,7 @@
 	<%= link_to 'I forgot my password', :controller => 'login', :action => 'forgot' %>
 	</fieldset>
 </form>
-<% if current_subdomain == 'app' -%>
+<% if current_subdomain == SubdomainFu.preferred_mirror -%>
 	<p>Or to <%= link_to 'create a new account', :controller => 'signup' %></p>
 <% end -%>
 </div>
