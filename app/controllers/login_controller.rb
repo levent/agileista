@@ -6,6 +6,8 @@ class LoginController < ApplicationController
       redirect_to :controller => 'signup' and return false
     elsif Account.find_by_subdomain(current_subdomain).nil?
       redirect_to :controller => 'signup', :subdomain => AccountStuff::MASTER_SUBDOMAIN and return false
+    elsif logged_in?
+      redirect_to :controller => 'backlog' and return false
     end
   end
   

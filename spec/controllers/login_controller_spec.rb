@@ -37,6 +37,14 @@ describe LoginController do
   end
   
   describe 'index' do
+    it "should redirect to backlog if logged in" do
+      controller.stub!(:logged_in?).and_return(true)
+      Account.stub!(:find_by_subdomain).and_return('something')
+      get :index
+      response.should be_redirect
+      response.should redirect_to('http://test.host/backlog')
+    end
+    
     it "should redirect to main app for signup if no such subdomain" do
       controller.stub!(:current_subdomain).and_return('nonexistent')
       Account.should_receive(:find_by_subdomain).with('nonexistent').and_return(nil)
