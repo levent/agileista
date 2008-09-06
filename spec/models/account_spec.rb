@@ -9,6 +9,16 @@ describe Account do
     it "should have many impediments" do
       @it.should have_many(:impediments).with(:order => 'resolved_at, created_at DESC')
     end
+
+    it "should require unique subdomains" do
+      @it.stub!(:valid?).and_return(true)
+      @it.subdomain = "unique"
+      @it.save.should be_true
+      @it.reload
+      @account = Account.new(:subdomain => 'unique')
+      @account.valid?.should be_false
+      @account.errors.on(:subdomain).should == 'has already been taken'
+    end
     
     it "should require unique names" do
       @it.stub!(:valid?).and_return(true)
@@ -17,15 +27,41 @@ describe Account do
       @it.reload
       @account = Account.new(:name => 'unique')
       @account.valid?.should be_false
-      @account.errors.on(:name).should == 'of account has already been taken'
+      @account.errors.on(:name).should == 'has already been taken'
     end
     
-    it "should require uniqueness names ignoring case" do
-      @it.name = "jgp"
+    it "should require unique subdomain" do
+      @it.stub!(:valid?).and_return(true)
+      @it.subdomain = "unique"
       @it.save.should be_true
-      @account2 = Account.new(:name => 'JGP')
-      @account2.save.should be_false
-      @account2.errors.on(:name).should == "of account has already been taken"      
+      @it.reload
+      @account = Account.new(:name => 'something', :subdomain => 'unique')
+      @account.valid?.should be_false
+      @account.errors.on(:subdomain).should == 'has already been taken'
+    end
+    
+    %w(name subdomain).each do |field|
+      it "should require #{field}" do
+        @it.should require_a(field.to_sym)
+      end
+      
+      it "should require uniqueness of #{field} ignoring case" do
+        @it.send("#{field.to_sym}=", "jgp")
+        @it.name = 'blank' unless @it.name
+        @it.subdomain = 'blank' unless @it.subdomain
+        @it.save.should be_true
+        @account2 = Account.new(field.to_sym => 'JGP')
+        @account2.save.should be_false
+        @account2.errors.on(field.to_sym).should == "has already been taken"      
+      end
+    end
+    
+    ["monkey balls"].each do |subdomain|
+      it "should not validate subdomain '#{subdomain}'" do
+        @it.subdomain = subdomain
+        @it.valid?.should be_false
+        p @it.errors.on(:subdomain)
+      end
     end
   end
   

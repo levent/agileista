@@ -7,8 +7,11 @@ class Account < ActiveRecord::Base
   has_many :impediments, :order => 'resolved_at, created_at DESC'
   belongs_to :account_holder, :class_name => "Person", :foreign_key => 'account_holder_id'
   
-  validates_presence_of :name, :message => "of account can't be blank"
-  validates_uniqueness_of :name, :message => "of account has already been taken", :case_sensitive => false
+  validates_presence_of :name
+  validates_presence_of :subdomain
+  validates_uniqueness_of :name, :case_sensitive => false
+  validates_uniqueness_of :subdomain, :case_sensitive => false
+  validates_format_of :subdomain, :with => //
   
   before_validation :make_name_lowercase
   
@@ -29,6 +32,17 @@ class Account < ActiveRecord::Base
   private
   
   def make_name_lowercase
-    self.name.downcase!
+    self.name.downcase! if self.name
+  end
+  
+  def validate_subdomain
   end
 end
+
+#makeValidSubdomain: function(field) {
+  #   field.value = Signup.sanitizeSubdomain(field.value);
+  # },
+  # 
+  # sanitizeSubdomain: function(value) {
+  #   return value.toLowerCase().replace(/^www\./i, "").replace(/[^-a-z0-9]/g, "");
+  # },
