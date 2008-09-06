@@ -1,9 +1,9 @@
 <div id="navii">
     <ul>
-        <% if params[:sprint_id] -%>
-        <li><%= link_to "Back to sprint planning", :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] %></li>
-		<% elsif params[:from] && params[:from] == 'tb' -%>
-		<li><%= link_to "Back to task board", :controller => 'sprint' %></li>
+		<% if params[:sprint_id] && params[:from] %>
+			<li><%= link_to "Back to task board", :controller => 'sprint' %></li>
+		<% elsif params[:sprint_id] %>
+			<li><%= link_to "Back to sprint planning", plan_sprint_path(:id => params[:sprint_id]) %></li>
     	<% else %>
     	<li><%= link_to "Back to backlog", :controller => 'backlog' %></li>
     	<li><%= link_to "Add another user story", :controller => 'user_stories', :action => 'new' if @current_user.is_a?(TeamMember) %></li>

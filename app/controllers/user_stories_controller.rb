@@ -198,21 +198,10 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def edit
-    # @user_story = @account.user_stories.find(params[:id])
     @tags = @user_story.tags.map(&:name).join(' ')
     @task = Task.new
     @acceptance_criterium = AcceptanceCriterium.new
   end
-  
-  # def edit2
-  #   @user_story = @account.user_stories.find(params[:id])
-  #   @task = Task.new
-  #   @acceptance_criterium = AcceptanceCriterium.new
-  # end
-  
-  # def update2
-  #   # breakpoint
-  # end
   
   def update
     @tags = params[:tags]
@@ -227,7 +216,7 @@ class UserStoriesController < AbstractSecurityController
       render :action => 'edit' and return false
     end
     if params[:sprint_id]
-      redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]
+      redirect_to sprint_path(:id => params[:sprint_id])
     elsif params[:from] && params[:from] == 'themes'
       redirect_to :controller => 'themes'
     elsif params[:from] && params[:from] == 'show'
