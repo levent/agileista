@@ -10,7 +10,7 @@ class LoginController < ApplicationController
       if logged_in?
         person = account.people.find(:first, :conditions => ["email = ? AND authenticated = ?", current_user.email, 1])
       else
-        person = account.authenticate(params[:email], params[:password]) if request.post?
+        person = account.authenticate(params[:email], params[:password])
         # person = account.people.find(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", params[:email], params[:password], 1])
       end
       unless person.nil?

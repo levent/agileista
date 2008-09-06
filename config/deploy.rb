@@ -5,7 +5,7 @@ set :repository, "git@github.com:levent/agileista.git"
 set :scm, :git
 set :deploy_via, :remote_cache
 set :branch, "september0508"
-
+set :scm_verbose, true
 
 # set :deploy_via, :export
 # If you aren't deploying to /u/apps/#{application} on the target
