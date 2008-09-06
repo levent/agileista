@@ -32,5 +32,5 @@ production:
   adapter: mysql
   database: agileista_production
   username: agileista
-  password: $ug4rT0f33
+  password: xxxxxxxxx
   socket: /var/run/mysqld/mysqld.sock
