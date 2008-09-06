@@ -13,7 +13,7 @@ class Account < ActiveRecord::Base
   validates_uniqueness_of :subdomain, :case_sensitive => false
   validates_format_of :subdomain, :with => /^[A-Za-z0-9]+$/, :message => "may only contain numbers and letters"
   
-  before_validation :make_name_lowercase
+  before_validation :make_fields_lowercase
   
   has_many :themes, :order => 'name'
   has_many :releases
@@ -31,15 +31,8 @@ class Account < ActiveRecord::Base
   
   private
   
-  def make_name_lowercase
+  def make_fields_lowercase
     self.name.downcase! if self.name
+    self.subdomain.downcase! if self.subdomain
   end
 end
-
-#makeValidSubdomain: function(field) {
-  #   field.value = Signup.sanitizeSubdomain(field.value);
-  # },
-  # 
-  # sanitizeSubdomain: function(value) {
-  #   return value.toLowerCase().replace(/^www\./i, "").replace(/[^-a-z0-9]/g, "");
-  # },
