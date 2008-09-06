@@ -2,16 +2,28 @@ class TasksController < AbstractSecurityController
   
   # ssl_required :create, :claim, :release, :move_up, :move_down
   before_filter :must_be_team_member
-  before_filter :set_user_story, :only => [:show, :edit, :update, :destroy]
+  before_filter :set_user_story, :only => [:show, :edit, :update, :destroy, :new, :create]
   before_filter :set_task, :only => [:show, :edit, :update, :destroy]
 
   def show
   end
-  
-  def edit
+
+  def new
+    @task = @user_story.tasks.new if @user_story
   end
 
   def create
+    @task = @user_story.tasks.new(params[:task]) if @user_story
+    if @task && @task.save
+      flash[:notice] = "Task saved"
+      redirect_to plan_sprint_path(:id => @user_story.sprint_id)
+    else
+      flash[:error] = "Task couldn't be saved"
+      render :action => 'new'
+    end
+  end
+  
+  def edit
   end
   
   def update

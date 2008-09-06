@@ -1,0 +1,30 @@
+<div id="main" class="wide">
+	<h1>New Task:</span></h1>
+	<div id="leftcontent">
+		<%= error_messages_for :task %>
+		<% form_for @task, :url => user_story_tasks_path(:user_story_id => @user_story) do |t| %>
+			<label for="task_definition">Definition:</label><%= t.text_field :definition %>
+			<label for="task_description">Description:</label><%= t.text_area :description %>
+			<label for="task_hours">Hours:</label><%= t.text_field :hours %>
+			<label for="task_developer">Assigned to:</label><%= t.select "developer_id", @account.team_members.collect {|p| [ p.name, p.id ] }, { :include_blank => true } %>
+			<%= submit_tag 'Save changes' %>
+		<% end %>
+	</div>
+	<div id="rightcontent">
+		<h2>User story:</h2>
+		<p><%=h @user_story.definition %></p>
+        <p><%= simple_format(@user_story.description) %></p>
+        <p><%= show_story_points(@user_story.story_points) %></p>
+		<p><span class="detail">Hours left: </span><%= @user_story.tasks.sum('hours') %><br />
+		<span class="detail">Tasks: </span><%= @user_story.tasks.count %></p>
+        <%= render :partial => '/user_stories/show_acceptance_criteria' %>
+		<h3>Tasks:</h3>
+		<ol>
+		<% @user_story.tasks.each do |task| -%>
+			<li><%= task.definition %> <%= link_to 'Show', user_story_task_path(:user_story_id => @user_story, :id => task) %></li>
+		<% end -%>
+		</ol>
+		<p><span class="detail">Stakeholder: </span><%= show_stakeholder(@user_story, false) %></p>
+		<p><span class="detail">Created on </span><%= show_date(@user_story.created_at) %> <%= show_user(@user_story) %></p>
+	</div>
+</div>

@@ -24,7 +24,7 @@ describe TasksController do
     
     # Still some legacy actions
     # TasksController.instance_methods(false).each do |action|
-    %w(show edit update destroy).each do |action|
+    %w(show edit update destroy new create).each do |action|
       it "should set_user_story on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
         controller.should_receive(:set_user_story).and_return(@user_story)
@@ -41,6 +41,31 @@ describe TasksController do
       end
     end
   end
+
+  describe 'create' do
+    before(:each) do
+      stub_login_and_account_setup
+      @user_story = UserStory.new
+      @task = Task.new
+      @user_story.stub!(:id).and_return(1)
+      @user_story.stub!(:sprint_id).and_return(1)
+      @account.user_stories.should_receive(:find).and_return(@user_story)
+    end
+    
+    it "should create task and redirect on success" do
+      @user_story.tasks.should_receive(:new).with('hash').and_return(@task)
+      @task.should_receive(:save).and_return(true)
+      post :create, :task => 'hash'
+      response.should be_redirect
+    end
+    
+    it "should create task and redirect on fail" do
+      @user_story.tasks.should_receive(:new).with('hash').and_return(@task)
+      @task.should_receive(:save).and_return(false)
+      controller.expect_render(:action => 'new')
+      post :create, :task => 'hash'
+    end
+  end
   
   describe 'update' do
     before(:each) do
@@ -53,16 +78,34 @@ describe TasksController do
       @user_story.tasks.should_receive(:find).and_return(@task)
     end
     
-    it "should update sprint and redirect on success" do
+    it "should update task and redirect on success" do
       @task.should_receive(:update_attributes).with('hash').and_return(true)
       put :update, :task => 'hash'
       response.should be_redirect
     end
     
-    it "should update sprint and redirect on fail" do
+    it "should update task and redirect on fail" do
       @task.should_receive(:update_attributes).with('hash').and_return(false)
       controller.expect_render(:action => 'edit')
       put :update, :task => 'hash'
+    end
+  end
+  
+  describe 'new' do
+    before(:each) do
+      stub_login_and_account_setup
+      @user_story = UserStory.new
+      @task = Task.new
+      @user_story.stub!(:id).and_return(1)
+      @task.stub!(:id).and_return(1)
+      @account.user_stories.should_receive(:find).and_return(@user_story)
+      # @user_story.tasks.should_receive(:find).and_return(@task)
+    end
+
+    it "should instantiate object" do
+      @user_story.tasks.should_receive(:new).and_return(@task)
+      get :new
+      assigns(:task).should == @task
     end
   end
 
