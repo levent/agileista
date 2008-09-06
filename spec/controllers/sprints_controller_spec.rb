@@ -5,16 +5,55 @@ describe SprintsController do
     controller.is_a?(AbstractSecurityController).should be_true
   end
   
+  describe "before filters" do
+    before(:each) do
+      stub_login_and_account_setup
+      controller.stub!(:create_chart)
+    end
+
+    SprintsController.instance_methods(false).each do |action|
+      it "should ensure iteration length specified for action #{action}" do
+        @account.should_receive(:iteration_length).and_return([])
+        get action.to_sym
+        response.should be_redirect
+        response.should redirect_to(:action => 'settings', :controller => 'account')
+      end
+    end
+    
+    %w(show overview edit plan).each do |action|
+      it "should set sprint for action #{action}" do
+        controller.stub!(:iteration_length_must_be_specified).and_return(true)
+        controller.should_receive(:sprint_must_exist).and_return(false)
+        get action.to_sym
+      end
+    end
+  end
+  
+  describe "#plan" do
+    before(:each) do
+      stub_login_and_account_setup
+      controller.stub!(:iteration_length_must_be_specified).and_return(true)
+      @sprint = Sprint.new
+    end
+    
+    it "should render 404 if sprint finished" do
+      @account.sprints.stub!(:find).and_return(@sprint)
+      @sprint.should_receive(:finished?).and_return(true)
+      controller.expect_render(:file => "#{RAILS_ROOT}/public/404.html", :status => 404)
+      get :plan
+    end
+    
+    it "shouldn't render 404 if active or future sprint" do
+      @account.sprints.stub!(:find).and_return(@sprint)
+      @sprint.should_receive(:finished?).and_return(false)
+      get :plan
+      response.should be_success
+    end
+  end
+  
   describe "#index" do
     before(:each) do
       stub_login_and_account_setup
-    end
-    
-    it "should ensure iteration length specified" do
-      @account.should_receive(:iteration_length).and_return([])
-      get :index
-      response.should be_redirect
-      response.should redirect_to(:action => 'settings', :controller => 'account')
     end
     
     describe "after before filters" do
@@ -30,42 +69,9 @@ describe SprintsController do
     end
   end
   
-  describe "#overview" do
-    before(:each) do
-      stub_login_and_account_setup
-    end
-    
-    it "should ensure iteration length specified" do
-      @account.should_receive(:iteration_length).and_return([])
-      get :overview, :id => 23
-      response.should be_redirect
-      response.should redirect_to(:action => 'settings', :controller => 'account')
-    end
-    
-    describe "after before filters" do
-      before(:each) do
-        stub_iteration_length_and_create_chart
-      end
-    
-      it "should ensure sprint exists" do
-        @sprint = Sprint.new(:start_at => 1.months.ago, :end_at => 2.weeks.ago)
-        @account.sprints.should_receive(:find).with('23').and_return(@sprint)
-        get :overview, :id => 23
-        assigns[:sprint].should == @sprint
-      end
-    end
-  end
-  
   describe "#show" do
     before(:each) do
       stub_login_and_account_setup
-    end
-    
-    it "should ensure iteration length specified" do
-      @account.should_receive(:iteration_length).and_return([])
-      get :show, :id => 23
-      response.should be_redirect
-      response.should redirect_to(:action => 'settings', :controller => 'account')
     end
     
     describe "after before filters" do

@@ -76,6 +76,6 @@ Spec::Runner.configure do |config|
   
   def stub_iteration_length_and_create_chart
     controller.stub!(:iteration_length_must_be_specified)
-    controller.stub!(:create_chart)    
+    controller.stub!(:create_chart)
   end
 end
