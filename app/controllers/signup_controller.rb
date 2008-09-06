@@ -3,7 +3,7 @@ class SignupController < ApplicationController
 
   def index
     # render :text => current_subdomain
-    redirect_to :controller => 'backlog', :subdomain => Account.find(session[:account]).name and return false if logged_in?
+    redirect_to :controller => 'backlog', :subdomain => current_subdomain and return false if logged_in?
     @account = Account.new
   end
   
