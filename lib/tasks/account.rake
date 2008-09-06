@@ -20,12 +20,24 @@ namespace :account do
     
     desc "Informs all users on the new url structure"
     task(:notify => :environment) do
+      test_mode = ENV['TEST_MODE'] || true
       Account.all.each do |account|
         account.people.each do |person|
           if person.authenticated?
             p "mailing #{account.name}'s #{person.name}"
-            NotificationMailer.deliver_account_information(person, account)
+            if test_mode
+              if %w(lebreeze@gmail.com levent.ali@jgp.co.uk levent@leventali.com).include?(person.email)
+                NotificationMailer.deliver_account_information(person, account)
+                p "sent in test mode"
+              else
+                p "not sent in test mode"
+              end
+            else            
+              NotificationMailer.deliver_account_information(person, account)
+              p "sent in production mode"
+            end
             p "done..."
+            puts
             puts
           end
         end
