@@ -20,12 +20,35 @@ describe SprintsController do
       end
     end
     
+    %w(plan edit new).each do |action|
+      it "should only allow team members on '#{action}" do
+        controller.should_receive(:must_be_team_member).and_return(false)
+        get action.to_sym
+      end
+    end
+    
     %w(show overview edit plan).each do |action|
-      it "should set sprint for action #{action}" do
+      it "should set sprint on '#{action}'" do
+        controller.stub!(:must_be_team_member).and_return(true)
         controller.stub!(:iteration_length_must_be_specified).and_return(true)
         controller.should_receive(:sprint_must_exist).and_return(false)
         get action.to_sym
       end
+    end
+  end
+  
+  describe "#new" do
+    before(:each) do
+      stub_login_and_account_setup
+      controller.stub!(:iteration_length_must_be_specified).and_return(true)
+      controller.stub!(:must_be_team_member).and_return(true)
+      @sprint = Sprint.new
+    end
+    
+    it "should instantiate object" do
+      @account.sprints.should_receive(:new).and_return(@sprint)
+      get :new
+      assigns(:sprint).should == @sprint
     end
   end
   

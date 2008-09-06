@@ -1,0 +1,41 @@
+<div id="navii"><%= link_to "Back to sprint planning", :controller => 'sprint_planning' %></div>
+<div id="main" class="wide">
+  <h1>Plan <%= @sprint.name %>:<br /><span class="small" id="dynamic_numbers">(<%= pluralize(@sprint.user_stories.sum('story_points'), 'story point') %> so far - <%= pluralize(@sprint.hours_left, 'hour') %> planned)</span></h1>
+  <img src="/images/ajax-loader.gif" id="ajaxloader" style="display:none;position:absolute;top:10px;right:10px" />
+  
+  <div class="equal">
+    <div class="row">
+  
+  <div id="estimated" class="dragdropl">
+    <h2>Estimated user stories:</h2>
+	<% count = 0 -%>
+    <% @account.user_stories.estimated.each do |user_story| -%>
+	<% count += 1 -%>
+      <div id="est_<%= user_story.id %>" class="notecard defined">
+		<h2>#<%= count %></h2>
+        <%=h truncate(user_story.definition, 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(user_story.story_points) %></span>
+<%= link_to 'View', {:controller => 'user_stories', :action => 'show', :id => user_story, :sprint_id => @sprint}, :title => "Show user story" %> <%= link_to 'Edit', {:controller => 'user_stories', :action => 'edit', :id => user_story, :sprint_id => @sprint}, :title => "Edit user story" %>
+      </div>
+    <% end -%>
+  </div>
+  
+  <div id="committed" class="dragdropr">
+    <h2>Sprint: <%= in_place_editor_field :sprint, 'name' %> (click to edit)</h2>
+	<% count = 0 -%>
+    <% @sprint.user_stories.each do |us| -%>
+	<% count += 1 -%>
+     <div id="com_<%= us.id %>" class="notecard<%= tasked?(us) %>">
+      <h2>#<%= count %></h2>
+      <%=h truncate(us.definition, 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(us.story_points) %><br /><%= pluralize us.tasks.count, 'task', 'tasks' %></span>
+	<%= link_to 'View', {:controller => 'user_stories', :action => 'show', :id => us, :sprint_id => @sprint}, :title => "Show user story" %> <%= link_to 'Edit', {:controller => 'user_stories', :action => 'edit', :id => us, :sprint_id => @sprint}, :title => "Edit user story" %> <%= link_to 'Add tasks', {:controller => 'user_stories', :action => 'new_task', :id => us, :sprint_id => @sprint}, :title => "Add tasks" %>
+     </div>
+    <% end -%>
+  </div>
+  <!--[if IE]>
+    <div class="ieclearer"></div>
+  <![endif]-->
+    </div>
+    </div>
+</div>
+<%= sortable_element 'estimated', :tag => 'div', :dropOnEmpty => true, :containment => ['committed', 'estimated'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'user_stories', :action => "plan_sprint", :sprint_id => @sprint.id }, :complete => "Element.hide('ajaxloader')", :loading => "Element.show('ajaxloader')" %>
+<%= sortable_element 'committed', :tag => 'div', :dropOnEmpty => true, :containment => ['committed', 'estimated'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'user_stories', :action => "plan_sprint", :sprint_id => @sprint.id } %>

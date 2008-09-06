@@ -254,10 +254,11 @@ class UserStoriesController < AbstractSecurityController
   
   def plan_sprint
     if request.xhr?
-      @sprint = Sprint.find(params[:sprint_id])
+      @sprint = @account.sprints.find(params[:sprint_id])
       if params['committed'] && !params['committed'].blank?
         params['committed'].each do |x|
-          @us = UserStory.find(x)
+          @us = @account.user_stories.find(x)
+          p @us.inspect
           @us.sprint = @sprint
           @us.save
           SprintElement.find_or_create_by_sprint_id_and_user_story_id(params[:sprint_id], @us.id)
@@ -265,16 +266,17 @@ class UserStoriesController < AbstractSecurityController
       end
       if params['estimated'] && !params['estimated'].blank?
         params['estimated'].each do |x|
-          @us = UserStory.find(x)
+          @us = @account.user_stories.find(x)
+          p @us.inspect
           @us.sprint = nil
           @us.save
           SprintElement.find(:all, :conditions => ["sprint_id = ? AND user_story_id = ?", @sprint.id, @us.id]).collect{|se| se.destroy}
         end
       end
       respond_to do |format|
-        format.html {redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]}
+        format.html {redirect_to plan_sprint_path(:id => params[:sprint_id])}
         format.js {render :update do |page|
-          page.redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]
+          page.redirect_to plan_sprint_path(:id => params[:sprint_id])
         end}
       end
     end

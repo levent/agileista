@@ -1,5 +1,6 @@
 class SprintsController < AbstractSecurityController
 
+  before_filter :must_be_team_member, :only => [:plan, :new, :edit]
   before_filter :iteration_length_must_be_specified
   before_filter :sprint_must_exist, :only => [:show, :overview, :edit, :plan]
   
@@ -20,6 +21,10 @@ class SprintsController < AbstractSecurityController
     end
   end
   
+  def new
+    @sprint = @account.sprints.new
+  end
+  
   def overview
   end
   
@@ -27,10 +32,14 @@ class SprintsController < AbstractSecurityController
   end
   
   def plan
-    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 if @sprint && @sprint.finished?
+    render_404 if @sprint && @sprint.finished?
   end
   
   private 
+  
+  def render_404
+    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404
+  end
   
   def iteration_length_must_be_specified
     if @account.iteration_length.blank?

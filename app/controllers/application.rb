@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   include SslRequirement
   include HoptoadNotifier::Catcher
   
+  helper :all
+  
   require_dependency 'tag'
   require_dependency 'tagging'
   
