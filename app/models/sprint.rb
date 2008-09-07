@@ -5,7 +5,7 @@ class Sprint < ActiveRecord::Base
   has_many :burndowns
   
   belongs_to :account
-  validates_presence_of :account
+  validates_presence_of :account_id
   validates_presence_of :start_at, :end_at
   validates_presence_of :name
   
@@ -40,5 +40,13 @@ class Sprint < ActiveRecord::Base
     unless self.end_at
       self.end_at = self.account.iteration_length.to_i.weeks.from_now(1.day.ago(self.start_at))
     end
+  end
+  
+  def destroy
+    self.user_stories.each do |us|
+      us.sprint_id = nil
+      us.save!
+    end
+    super
   end
 end
