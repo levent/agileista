@@ -1,11 +1,11 @@
 class UserStory < ActiveRecord::Base
 
-  acts_as_ferret({:fields => { 
-    :tag_string => {:boost => 2},
-    :definition => {:boost => 1.5},
-    :description => {},
-    :active => {}
-  }, :remote => true})
+  # acts_as_ferret({:fields => { 
+  #   :tag_string => {:boost => 2},
+  #   :definition => {:boost => 1.5},
+  #   :description => {},
+  #   :active => {}
+  # }, :remote => true})
 
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements
