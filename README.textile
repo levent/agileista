@@ -1,6 +1,6 @@
 h1. Agileista
 
-Agileista is an app for teams that use agile programming practices (hence the nama). If you're part of a team that's SCRUMing, Agileista is right up your street.
+Agileista is an app for distributed teams that use agile programming practices (hence the name). If you're part of a team that's SCRUMing, Agileista is right up your street.
 
 h1. Features
 
