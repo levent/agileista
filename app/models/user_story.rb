@@ -1,12 +1,6 @@
 class UserStory < ActiveRecord::Base
   acts_as_xapian :texts => [:tag_string, :definition, :description, :active],
     :terms => [ [ :active, 'A', "active" ], [ :account_id, 'S', "account_id" ] ]
-  # acts_as_ferret({:fields => { 
-  #   :tag_string => {:boost => 2},
-  #   :definition => {:boost => 1.5},
-  #   :description => {},
-  #   :active => {}
-  # }, :remote => true})
 
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements
@@ -27,7 +21,11 @@ class UserStory < ActiveRecord::Base
   belongs_to :release
   
   named_scope :estimated, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil]
-  # @account.user_stories.find(:all, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil])
+  named_scope :unassigned, lambda {|order|
+    order ||= 'position'
+      { :conditions => ['done = ? AND sprint_id IS ?', 0, nil],
+        :order => order}
+    }
 
   def inprogress?
     if !tasks.blank?

@@ -6,8 +6,10 @@ class BacklogController < AbstractSecurityController
   before_filter :account_user_stories ,:only => ['index', 'sort_release']
 
   def index
-    params[:order] ? order = 'story_points DESC' : order = 'position'
-    @user_stories = @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil], :order => order)
+    # seems dangerous given reorder rules
+    # params[:order] ? order = 'story_points DESC' : order = 'position'
+    
+    @user_stories = @account.user_stories.unassigned('position')
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     # @cloud = Tag.cloud(:conditions => ["tags.account_id = ?", @account.id])
@@ -19,7 +21,7 @@ class BacklogController < AbstractSecurityController
   end
   
   def export
-    @user_stories = @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil], :order => 'position')    
+    @user_stories = @account.user_stories.unassigned
     stream_csv do |csv|
       csv << ["ID",
         "Definition",
@@ -41,13 +43,13 @@ class BacklogController < AbstractSecurityController
   end
   
   def feed
-    @user_stories = @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil], :order => 'position')
+    @user_stories = @account.user_stories.unassigned('position')
     render :layout => false
   end
   
   def pdf
     @rails_pdf_name = "Backlog.pdf"
-    @user_stories = @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil], :order => 'position')
+    @user_stories = @account.user_stories.unassigned('position')
     render :layout => false
   end
   
@@ -73,15 +75,6 @@ class BacklogController < AbstractSecurityController
   end
   
   private 
-  
-  def tagged_account_user_stories(tag)
-    t = Tag.find_by_name(tag.to_s)
-    unless t.blank?
-      t.taggables & @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil])
-    else
-      false
-    end
-  end
 
   def stream_csv
      filename = "current_backlog_#{Time.now.strftime('%Y%m%d%H%M')}.csv"    

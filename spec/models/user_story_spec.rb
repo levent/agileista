@@ -12,21 +12,18 @@ describe UserStory do
   describe "named_scopes" do
     describe "estimated" do
       it "should get all estimated user stories" do
-        us = UserStory.new(:done => 1, :account_id => 1, :definition => 'something')
-        us.save.should be_true
-        us = UserStory.new(:sprint_id => 1, :account_id => 1, :definition => 'somethings')
-        us.save.should be_true
-        @us = UserStory.new(:story_points => 10, :account_id => 1, :definition => 'something else')
-        @us.save.should be_true
-        us = UserStory.new(:account_id => 1, :definition => 'something other')
-        us.save.should be_true
-        us = UserStory.new(:story_points => 10, :done => 1, :account_id => 1, :definition => 'something other2')
-        us.save.should be_true
-        us = UserStory.new(:story_points => 10, :sprint_id => 1, :account_id => 1, :definition => 'something other3')
-        us.save.should be_true
-        us = UserStory.new(:story_points => 10, :done => 1, :sprint_id => 1, :account_id => 1, :definition => 'something other4')
-        us.save.should be_true
-        UserStory.estimated.should == [@us]
+        expected_options = { :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil] }
+        assert_equal expected_options, UserStory.estimated.proxy_options
+      end
+    end
+    
+    describe "unassigned" do
+      it "should get all unassigned user stories" do
+        expected_options = { :conditions => ['done = ? AND sprint_id IS ?', 0, nil], :order => 'position' }
+        assert_equal expected_options, UserStory.unassigned('position').proxy_options
+        
+        expected_options = { :conditions => ['done = ? AND sprint_id IS ?', 0, nil], :order => 'story_points' }
+        assert_equal expected_options, UserStory.unassigned('story_points').proxy_options
       end
     end
   end
