@@ -1,11 +1,7 @@
 require 'fastercsv'
 class BacklogController < AbstractSecurityController
-
-  # ssl_required :index, :export, :feed, :pdf, :search, :search_tags, :sprint, :sort_release
-  # ssl_required :feed, :index, :search
   ssl_required :feed
   ssl_allowed :index, :sort_release, :search
-  # before_filter :must_be_logged_in
   before_filter :must_be_team_member, :only => ['sort_release']
   before_filter :account_user_stories ,:only => ['index', 'sort_release']
 
@@ -23,8 +19,7 @@ class BacklogController < AbstractSecurityController
   end
   
   def export
-    @user_stories = @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil], :order => 'position')
-    
+    @user_stories = @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil], :order => 'position')    
     stream_csv do |csv|
       csv << ["ID",
         "Definition",
@@ -52,20 +47,15 @@ class BacklogController < AbstractSecurityController
   
   def pdf
     @rails_pdf_name = "Backlog.pdf"
-    # @content = "This is dynamic content!!!"
     @user_stories = @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil], :order => 'position')
     render :layout => false
   end
   
   def search
-    # index
-    # render :text => params[:q].inspect and return false
     if request.post? && params[:q]
-      params[:q].blank? ? q = "active:yes AND account_id:#{@account.id}" : q = "#{params[:q]} AND active:yes AND account_id:#{@account.id}"
-      # render :text => q and return false
+      raise ArgumentError unless @account.id
+      q = xapian_query(params[:q])
       @user_stories = ActsAsXapian::Search.new([UserStory], "#{q}", :limit => 100).results.collect {|r| r[:model]}
-    # render :text => @user_stories.inspect and return false
-      # @user_stories = @account.user_stories.find_by_contents("active:yes #{params[:q]}", :limit => :all)
       @story_points = 0
       @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     else
@@ -112,5 +102,10 @@ class BacklogController < AbstractSecurityController
       csv = FasterCSV.new(output, :row_sep => "\r\n") 
       yield csv
     }
+  end
+  
+  def xapian_query(q)
+    q.blank? ? sanitised_query = "active:yes AND account_id:#{@account.id}" : sanitised_query = "#{params[:q]} AND active:yes AND account_id:#{@account.id}"
+    return sanitised_query
   end
 end

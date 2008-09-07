@@ -1,8 +1,4 @@
 class UserStoriesController < AbstractSecurityController
-
-  # ssl_required :copy, :new, :add, :show, :create, :create_via_add, :done, :unfinished, :new_task, :tasks, :create_task, :create_acceptance_criterium,
-    # :delete_acceptance_criterium, :show_task, :edit_task, :destroy_task, :update_task, :edit, :update, :add_to_sprint, :plan_sprint, :remove_from_sprint,
-    # :move_up, :move_down, :delete
   before_filter :must_be_team_member, :except => [:add, :create_via_add, :show]
   before_filter :user_story_must_exist, :only => ['update', 'add_to_sprint', 'remove_from_sprint', 'show', 'create_task', 'edit_task', 'update_task', 'create_acceptance_criterium',
     :edit, :move_up, :move_down, :delete, :destroy, :delete_acceptance_criterium, :new_task, :tasks, :done, :unfinished, :show_task, :destroy_task, :copy]
@@ -24,11 +20,9 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def show
-    # @task = Task.new
   end
   
   def create
-
     @tags = params[:tags]
     @themes = params[:themes] || ""
     @user_story = UserStory.new(params[:user_story])
@@ -226,26 +220,6 @@ class UserStoriesController < AbstractSecurityController
     end
     redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]
   end
-  
-  # def move_up
-  #   @user_story.move_higher
-  #   flash[:notice] = "User story moved up"
-  #   redirect_to :controller => 'account'
-  # end
-  # 
-  # def move_down
-  #   @user_story.move_lower
-  #   flash[:notice] = "User story moved down"
-  #   redirect_to :controller => 'account'
-  # end
-  # 
-  # def delete
-  #   if request.post?
-  #     @user_story.destroy
-  #     flash[:notice] = "User story deleted"
-  #   end
-  #   redirect_to :controller => 'backlog'
-  # end
   
   def destroy
     if @user_story.destroy
