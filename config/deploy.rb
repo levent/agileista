@@ -4,7 +4,7 @@ set :application, "agileista.com"
 set :repository, "git@github.com:levent/agileista.git"
 set :scm, :git
 set :deploy_via, :remote_cache
-set :branch, "amsterdam"
+set :branch, "amsterdam_xapian"
 set :scm_verbose, true
 
 # set :deploy_via, :export
@@ -62,8 +62,9 @@ namespace :deploy do
 end
 
 task :setup_symlinks, :roles => :web do
-  run "rm -rf #{release_path}/index"
-  run "ln -nfs #{shared_path}/index #{release_path}/index"
+  # run "rm -rf #{release_path}/index"
+  # run "ln -nfs #{shared_path}/index #{release_path}/index"
+  run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
 end
 
 after "deploy:update_code", :setup_symlinks
