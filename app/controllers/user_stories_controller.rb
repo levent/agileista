@@ -54,7 +54,6 @@ class UserStoriesController < AbstractSecurityController
   end
 
   def create_via_add
-    # if request.post?
     @user_story = UserStory.new
     @user_story.definition = params[:user_story][:definition]
     @user_story.description = params[:user_story][:description]
@@ -67,54 +66,14 @@ class UserStoriesController < AbstractSecurityController
       flash[:error] = "There were errors creating the user story"
       render :action => 'add'
     end
-    # end
   end
-  
-  # def done
-  #   if request.post?
-  #     @user_story.done = 1
-  #     for task in @user_story.tasks
-  #       task.hours = 0
-  #       task.save
-  #     end
-  #     if @user_story.save
-  #       flash[:notice] = 'User story completed'
-  #     else
-  #       flash[:error] = 'User story could not be completed'
-  #     end
-  #     redirect_to :controller => 'sprint' and return false
-  #   end
-  #   
-  # end
-  
-  # def unfinished
-  #   if request.post?
-  #     @user_story.done = 0
-  #     if @user_story.save
-  #       flash[:notice] = 'User story reopened'
-  #     else
-  #       flash[:error] = 'User story could not be reopened'
-  #     end
-  #     redirect_to :controller => 'sprint' and return false
-  #   end
-  # end
 
   def new_task
     @task = Task.new
     @sprint = @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
   end
   
-  # def tasks
-  #   unless params[:task_id]
-  #     @task = Task.new
-  #   else
-  #     @task = Task.find(params[:task_id])
-  #   end
-  #   render :action => 'new_task'
-  # end
-  
   def create_task
-    # if request.post?
     @acceptance_criterium = AcceptanceCriterium.new
     @task = Task.new(params[:task])
     @task.user_story = @user_story
@@ -126,7 +85,6 @@ class UserStoriesController < AbstractSecurityController
       flash[:error] = "There were errors creating the task"
       render :controller => 'user_stories', :action => 'new_task', :id => @user_story, :sprint_id => params[:sprint_id]
     end
-    # end
   end
   
   def create_acceptance_criterium
@@ -225,21 +183,6 @@ class UserStoriesController < AbstractSecurityController
       redirect_to :controller => 'backlog'
     end
   end
-  
-  # def add_to_sprint
-  #   if request.post?
-  #     @sprint = Sprint.find(params[:sprint_id])
-  #     @user_story.sprint = @sprint
-  #     @sprint_element = SprintElement.create(:sprint_id => params[:sprint_id], :user_story => @user_story)
-  #     if @user_story.save
-  #       flash[:notice] = "User story added to sprint"
-  #     else
-  #       flash[:error] = "User story couldn't be added"
-  #       render :action => 'edit'
-  #     end
-  #   end
-  #   redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]
-  # end
   
   def plan_sprint
     if request.xhr?

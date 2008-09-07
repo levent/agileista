@@ -36,7 +36,7 @@
 		<% else -%>
 		<ul id="usshowtags">
 		<% @user_story.tags.collect{|tag| tag.name}.each do |name| -%>
-		    <li><%= link_to name, {:controller => 'backlog', :action => 'search_tags', :tag => name}, :method => :post %></li>
+		    <li><%= link_to name, {:controller => 'backlog', :action => 'search', :q => name}, :method => :post %></li>
 		<% end -%>
 		</ul>
 		<div class="c">&nbsp;</div>

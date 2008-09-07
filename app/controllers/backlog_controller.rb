@@ -61,7 +61,7 @@ class BacklogController < AbstractSecurityController
     # index
     # render :text => params[:q].inspect and return false
     if request.post? && params[:q]
-      params[:q].blank? ? q = "active:yes" : q = "#{params[:q]} AND active:yes"
+      params[:q].blank? ? q = "active:yes AND account_id:#{@account.id}" : q = "#{params[:q]} AND active:yes AND account_id:#{@account.id}"
       # render :text => q and return false
       @user_stories = ActsAsXapian::Search.new([UserStory], "#{q}", :limit => 100).results.collect {|r| r[:model]}
     # render :text => @user_stories.inspect and return false
@@ -74,25 +74,6 @@ class BacklogController < AbstractSecurityController
     end
   end
   
-  def search_tags
-    index
-    if request.post? && tagged_account_user_stories(params[:tag])
-      @user_stories = @account.user_stories.find_by_contents("active:yes tag_string:#{params[:tag]}", :limit => :all)
-      # @user_stories = Tag.find_by_name(params[:tag].to_s).taggables & @account.user_stories.find(:all, :conditions => ["done = ? AND sprint_id IS ?", 0, nil])
-      @story_points = 0
-      @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
-      render :action => 'search'
-    else
-      flash[:notice] = "No user stories found"
-      redirect_to :action => 'index'
-    end    
-  end
-
-  # def sprint
-  #   @current_sprint = @account.sprints.find(:first, :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago])
-  #   @upcoming_sprints = @account.sprints.find(:all, :conditions => ["start_at > ?", Time.now])
-  # end
-
   def sort_release
     @user_stories.each do |story| 
       story.position = params['userstorylist'].index(story.id.to_s) + 1 
@@ -101,23 +82,6 @@ class BacklogController < AbstractSecurityController
     render :nothing => true 
   end
   
-  # def sort_unassigned
-  #   @user_stories.each do |story| 
-  #     story.position = params['userstorylist'].index(story.id.to_s) + 1 
-  #     story.save 
-  #   end 
-  #   render :nothing => true 
-  # end
-  
-  # def sort_sprint
-  #   @user_stories = @account.sprints.find(params[:sprint_id]).user_stories
-  #   @user_stories.each do |story| 
-  #     story.position = params['userstorylist'].index(story.id.to_s) + 1
-  #     story.save 
-  #   end 
-  #   render :nothing => true
-  # end
-
   private 
   
   def tagged_account_user_stories(tag)
@@ -132,7 +96,7 @@ class BacklogController < AbstractSecurityController
   def stream_csv
      filename = "current_backlog_#{Time.now.strftime('%Y%m%d%H%M')}.csv"    
 
-     #this is required if you want this to work with IE        
+     #this is required if you want this to work with IE
      if request.env['HTTP_USER_AGENT'] =~ /msie/i
        headers['Pragma'] = 'public'
        headers["Content-type"] = "text/plain" 
