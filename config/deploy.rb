@@ -65,6 +65,8 @@ task :setup_symlinks, :roles => :web do
   # run "rm -rf #{release_path}/index"
   # run "ln -nfs #{shared_path}/index #{release_path}/index"
   run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
+  run "rm -rf #{release_path}/vendor/plugins/acts_as_xapian/xapiandbs"
+  run "ln -nfs #{shared_path}/xapiandbs #{release_path}/vendor/plugins/acts_as_xapian/xapiandbs"
 end
 
 after "deploy:update_code", :setup_symlinks
