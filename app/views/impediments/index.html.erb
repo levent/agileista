@@ -13,7 +13,7 @@
 	  </thead>
 	  <tbody>
 	    <% @impediments.each do |impediment| -%>
-		<tr<%= complete?(impediment) %>>
+		<tr<%= impediment_complete?(impediment) %>>
 	      	<td><%=h impediment.description %></td>
 			<td><%= impediment.team_member.name %></td>
 			<td><%= time_ago_in_words(impediment.created_at) %> ago</td>
