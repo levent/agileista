@@ -59,8 +59,13 @@ class BacklogController < AbstractSecurityController
   
   def search
     # index
+    # render :text => params[:q].inspect and return false
     if request.post? && params[:q]
-      @user_stories = @account.user_stories.find_by_contents("active:yes #{params[:q]}", :limit => :all)
+      params[:q].blank? ? q = "active:yes" : q = "#{params[:q]} AND active:yes"
+      # render :text => q and return false
+      @user_stories = ActsAsXapian::Search.new([UserStory], "#{q}", :limit => 100).results.collect {|r| r[:model]}
+    # render :text => @user_stories.inspect and return false
+      # @user_stories = @account.user_stories.find_by_contents("active:yes #{params[:q]}", :limit => :all)
       @story_points = 0
       @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     else

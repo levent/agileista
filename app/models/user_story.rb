@@ -1,5 +1,6 @@
 class UserStory < ActiveRecord::Base
-  acts_as_xapian :texts => [:tag_string, :definition, :description, :active]
+  acts_as_xapian :texts => [:tag_string, :definition, :description, :active],
+  :terms => [ [ :active, 'A', "active" ] ]
   # acts_as_ferret({:fields => { 
   #   :tag_string => {:boost => 2},
   #   :definition => {:boost => 1.5},
