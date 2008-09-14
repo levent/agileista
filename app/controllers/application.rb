@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include AccountStuff
   # include AccountLocation
   include SslRequirement
-  include HoptoadNotifier::Catcher
+  # include HoptoadNotifier::Catcher
   
   helper :all
   
