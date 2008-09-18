@@ -3,8 +3,8 @@
   <h1>Themes</h1>
   <div id="themeslist">
     <% @themes.each do |theme| -%>
-      <div title="<%=h theme.description %>"><%= link_to_function h(theme.name), "Effect.toggle('theme_#{theme.id}', 'blind')" %> <%= link_to 'Edit', :action => 'edit', :id => theme %> <%= show_story_points(theme.story_points) %> <%= show_story_points_remaining(theme.story_points_left) %></div>
-      <div id="theme_<%= theme.id %>">
+      <div title="<%=h theme.description %>"><h2><%=h theme.name %> <span class="small"><%= link_to 'Edit', :action => 'edit', :id => theme %> <%= link_to_function 'Show/Hide', "Element.toggle('theme_#{theme.id}')" %></span></h2> <%= show_story_points(theme.story_points) %> <%= show_story_points_remaining(theme.story_points_left) %></div>
+      <div id="theme_<%= theme.id %>" style="display:none">
         <ul>
         <% theme.user_stories.each do |us| -%>
           <li<%= complete?(us) %>><%= link_to h(us.definition), :controller => 'user_stories', :action => 'show', :id => us, :from => 'themes' %> <span class="star"><%= show_story_points(us.story_points) %></span></li>
