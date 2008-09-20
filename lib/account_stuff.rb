@@ -29,6 +29,6 @@ module AccountStuff
   
   # adds ActionView helper methods
   def self.included(base)
-    base.send :helper_method, :logged_in?
+    base.send :helper_method, :logged_in?, :current_user
   end
 end

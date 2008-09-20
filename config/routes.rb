@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
       sprint.resources :user_stories
     end
     map.resources :impediments, :member => {:resolve => :post}
-    map.resources :user_stories, :member => {:copy => :post, :remove_from_sprint => :post, :create_via_add => :post, :create_task => :post}, :collection => {:add => :get} do |user_story|
+    map.resources :user_stories, :member => {:copy => :post, :remove_from_sprint => :post, :create_via_add => :post, :create_task => :post, :untheme => :post}, :collection => {:add => :get} do |user_story|
       user_story.resources :tasks, :member => {:move_up => :post, :move_down => :post, :release => :post, :claim => :post}
     end
     map.resources :themes

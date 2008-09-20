@@ -3,11 +3,11 @@
   <h1>Themes</h1>
   <div id="themeslist">
     <% @themes.each do |theme| -%>
-      <div title="<%=h theme.description %>"><h2><%=h theme.name %> <span class="small"><%= link_to 'Edit', edit_theme_path(:id => theme) %> <%= link_to_function 'Show/Hide', "Element.toggle('theme_#{theme.id}')" %> <%= link_to 'Delete', theme_path(:id => theme), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' %></span></h2> <%= show_story_points(theme.story_points) %> <%= show_story_points_remaining(theme.story_points_left) %></div>
+      <div title="<%=h theme.description %>"><h2><%=h theme.name %> <span class="small"><%= link_to 'Edit', edit_theme_path(:id => theme) %> <%= link_to_function 'Show/Hide', "Element.toggle('theme_#{theme.id}')" %> <%= link_to 'Delete', theme_path(:id => theme), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' if current_user.is_a?(TeamMember) %></span></h2> <%= show_story_points(theme.story_points) %> <%= show_story_points_remaining(theme.story_points_left) %></div>
       <div id="theme_<%= theme.id %>" style="display:none">
         <ul>
         <% theme.user_stories.each do |us| -%>
-          <li<%= complete?(us) %>><%= link_to h(us.definition), :controller => 'user_stories', :action => 'show', :id => us, :from => 'themes' %> <span class="star"><%= show_story_points(us.story_points) %></span></li>
+          <li<%= complete?(us) %>><%= link_to h(us.definition), user_story_path(:id => us, :from => 'themes') %> <span class="star"><%= show_story_points(us.story_points) %></span> <%= link_to 'Remove from theme', untheme_user_story_path(:id => us, :theme_id => theme), :method => :post %> <%= link_to 'Delete', user_story_path(:id => us, :from => 'themes'), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' if current_user.is_a?(TeamMember) %></li>
         <% end -%>
         </ul>
       </div>
