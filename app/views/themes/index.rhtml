@@ -3,7 +3,7 @@
   <h1>Themes</h1>
   <div id="themeslist">
     <% @themes.each do |theme| -%>
-      <div title="<%=h theme.description %>"><h2><%=h theme.name %> <span class="small"><%= link_to 'Edit', :action => 'edit', :id => theme %> <%= link_to_function 'Show/Hide', "Element.toggle('theme_#{theme.id}')" %></span></h2> <%= show_story_points(theme.story_points) %> <%= show_story_points_remaining(theme.story_points_left) %></div>
+      <div title="<%=h theme.description %>"><h2><%=h theme.name %> <span class="small"><%= link_to 'Edit', edit_theme_path(:id => theme) %> <%= link_to_function 'Show/Hide', "Element.toggle('theme_#{theme.id}')" %> <%= link_to 'Delete', theme_path(:id => theme), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' %></span></h2> <%= show_story_points(theme.story_points) %> <%= show_story_points_remaining(theme.story_points_left) %></div>
       <div id="theme_<%= theme.id %>" style="display:none">
         <ul>
         <% theme.user_stories.each do |us| -%>
