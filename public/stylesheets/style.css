@@ -274,12 +274,12 @@ padding-right: 10px;}
 #themeslist ol {margin-left: 0; padding-left:0;}
 #themeslist ul, #releaseslist ul {list-style: none; margin-left: 0; padding-left:0;}
 #themeslist ol li, #themeslist ul li, #releaseslist ul li {
-	background-color: #1485CC;padding: 4px 8px; margin-left: 10px; margin-bottom: 4px;
+	background-color: #1485CC; padding: 2px 4px; margin-left: 10px; margin-bottom: 4px;
 	color: #fff; width: 80%; -moz-border-radius: 6px 6px 6px 6px;
 }
 #themeslist ol li:hover, #themeslist ul li:hover, #releaseslist ul li:hover {background-color: #439dd6}
 #themeslist h2, #releaseslist h2 { }
-#themeslist ol a, #themeslist ul a, #releaseslist ul a { text-decoration: none; color: #fff;}
+#themeslist ol a, #themeslist ul a, #releaseslist ul a { color: #fff;}
 #releaseslist ul li.breakpoint {
 	background-color: #4c1b1b;
 	background-image: url(/images/icons/arrow_up.png);
