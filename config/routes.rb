@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
     map.resources :user_stories, :member => {:copy => :post, :remove_from_sprint => :post, :create_via_add => :post, :create_task => :post}, :collection => {:add => :get} do |user_story|
       user_story.resources :tasks, :member => {:move_up => :post, :move_down => :post, :release => :post, :claim => :post}
     end
+    map.resources :themes
   # end
 
 

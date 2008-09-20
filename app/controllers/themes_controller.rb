@@ -6,12 +6,12 @@ class ThemesController < AbstractSecurityController
   end
   
   def new
-    @theme = Theme.new
+    @theme = @account.themes.new
     @theme.account = @account
   end
   
   def create
-    @theme = Theme.new(params[:theme])
+    @theme = @account.themes.new(params[:theme])
     @theme.account = @account
     if @theme.save
       flash[:notice] = "Theme saved successfully"
@@ -36,6 +36,16 @@ class ThemesController < AbstractSecurityController
       flash[:error] = "There were issues saving the theme"
       render :action => 'edit', :id => params[:id]
     end
+  end
+  
+  def destroy
+    @theme = @account.themes.find(params[:id])
+    if @theme.destroy
+      flash[:notice] = "Theme deleted"
+    else
+      flash[:error] = "Theme couldn't be deleted"
+    end
+    redirect_to themes_path
   end
   
 end
