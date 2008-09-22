@@ -328,3 +328,4 @@ ul#usshowtags li {float:left; display:inline; padding-right:4px;}
 
 /*.cardcreator {color:red}*/
 .cardcreator {display:block;position:absolute;bottom:2px;right:2px; color:#333;}
+a.nounderline {text-decoration:none;}

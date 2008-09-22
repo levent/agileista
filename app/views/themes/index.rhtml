@@ -7,7 +7,7 @@
       <div id="theme_<%= theme.id %>" style="display:none">
         <ul>
         <% theme.user_stories.each do |us| -%>
-          <li<%= complete?(us) %>><%= link_to h(truncate(us.definition, 128)), user_story_path(:id => us, :from => 'themes'), :title => us.definition, :alt => us.definition %> <span class="star"><%= show_story_points(us.story_points) %></span> <%= link_to 'Un-theme', untheme_user_story_path(:id => us, :theme_id => theme), :method => :post %> <%= link_to 'Delete', user_story_path(:id => us, :from => 'themes'), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' if current_user.is_a?(TeamMember) %></li>
+          <li<%= complete?(us) %>><%= link_to h(truncate(us.definition, 128)), user_story_path(:id => us, :from => 'themes'), :title => us.definition, :alt => us.definition, :class => 'nounderline' %> <span class="star"><%= show_story_points(us.story_points) %></span> <%= link_to 'Un-theme', untheme_user_story_path(:id => us, :theme_id => theme), :method => :post %> <%= link_to 'Delete', user_story_path(:id => us, :from => 'themes'), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' if current_user.is_a?(TeamMember) %></li>
         <% end -%>
         </ul>
       </div>
