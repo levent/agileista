@@ -30,7 +30,7 @@ class ImpedimentsController < AbstractSecurityController
       flash[:notice] = 'Impediment created successfully'
       redirect_to :action => 'index'
     else
-      flash[:error] = 'Impedment could not be created'
+      flash[:error] = 'Impediment could not be created'
       render :action => 'new'
     end
   end
@@ -48,7 +48,7 @@ class ImpedimentsController < AbstractSecurityController
   
   def resolve
     @impediment = @account.impediments.find(params[:id])
-    @impediment.resolve ? flash[:notice] = 'Impediment resolved' : flash[:error] = 'Impedment could not be resolved'
+    @impediment.resolve ? flash[:notice] = 'Impediment resolved' : flash[:error] = 'Impediment could not be resolved'
     redirect_to :action => 'index'
   end
 end
