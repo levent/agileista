@@ -37,6 +37,10 @@ describe Impediment do
     end
   end
   
+  describe '#to_s' do
+    it "should show a useful summary"
+  end
+  
   describe "named_scope(s)" do
     describe "unresolved" do
       it "should correctly generate conditions for unresolved impediments" do

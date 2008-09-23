@@ -5,11 +5,18 @@ class ImpedimentsController < AbstractSecurityController
   
   def index
     @impediments = @account.impediments
+    respond_to do |format|
+      format.html
+      format.atom
+    end
   end
   
   def active
     @impediments = @account.impediments.unresolved
-    render :action => 'index'
+    respond_to do |format|
+      format.html {render :action => 'index'}
+      format.atom {render :action => 'index', :format => 'atom'}
+    end
   end
   
   def new

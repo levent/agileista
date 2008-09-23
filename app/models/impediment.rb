@@ -11,4 +11,18 @@ class Impediment < ActiveRecord::Base
     self.resolved_at = Time.now
     self.save
   end
+  
+  def to_s
+    if self.status == "Resolved"
+      "#{self.status} at #{self.resolved_at.strftime('%T %d/%m/%y')}"
+    else
+      "#{self.status} since #{self.created_at.strftime('%T %d/%m/%y')}"
+    end
+  end
+  
+  protected
+  
+  def status
+    self.resolved_at.nil? ? "Active" : "Resolved"
+  end
 end
