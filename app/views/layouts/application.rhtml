@@ -33,7 +33,7 @@
 	        <li><%= link_to "Themes", :controller => 'themes' %></li>
 		    <li><%= link_to "Backlog", :controller => 'backlog' %></li>
 	        <li><%= link_to "Sprints", sprints_path %></li>
-	        <li><%= link_to "Impediments#{unresolved_impediment_indicator(@account)}", impediments_path %><%=  %></li>
+	        <li><%= link_to "Impediments#{unresolved_impediment_indicator(@account)}", active_impediments_path %><%=  %></li>
 			<% if csprint = @account.sprints.find(:first, :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago]) -%><li><%= link_to "Task board", sprint_path(:id => csprint) %></li><% end -%>
             <li><span id="flashs"><%= flash[:notice] %><%= flash[:error] %></span></li>
 			<li id="searchform">

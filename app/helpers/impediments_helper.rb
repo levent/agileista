@@ -10,4 +10,9 @@ module ImpedimentsHelper
       link_to('Resolve', resolve_impediment_path(:id => impediment), :method => :post)
     end
   end
+  
+  def impediment_nav(action)
+    return link_to("All", impediments_path) if action == "active"
+    return link_to("Active", active_impediments_path) if action == "index"
+  end
 end

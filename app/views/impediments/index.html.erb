@@ -1,6 +1,7 @@
 <div id="navii"><ul><li><%= link_to "Add an impediment", new_impediment_path %></li></ul><div class="c">&nbsp;</div></div>
 <div id="main" class="wide">
 	<h1>Impediments:</h1>
+	<ul><li><%= impediment_nav(controller.action_name) %></li></ul>
 	<table id="impediments">
 	  <thead>
 	    <tr>

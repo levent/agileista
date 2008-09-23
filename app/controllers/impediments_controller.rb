@@ -7,6 +7,11 @@ class ImpedimentsController < AbstractSecurityController
     @impediments = @account.impediments
   end
   
+  def active
+    @impediments = @account.impediments.unresolved
+    render :action => 'index'
+  end
+  
   def new
     @impediment = @account.impediments.new
   end

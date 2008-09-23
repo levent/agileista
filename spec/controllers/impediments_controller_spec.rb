@@ -17,6 +17,20 @@ describe ImpedimentsController do
     end
   end
   
+  describe '#active' do
+    it "should get all the active impediments" do
+      @account.impediments.should_receive(:unresolved).and_return('impediments')
+      get :active
+      assigns[:impediments].should == 'impediments'
+    end
+    
+    it "should render index.html.erb" do
+      @account.impediments.stub!(:unresolved).and_return('impediments')
+      get :active
+      response.should render_template('impediments/index')
+    end
+  end
+  
   describe "#new" do
     it "should set up new impediment" do
       @account.impediments.should_receive(:new).and_return('newimpediment')
@@ -113,6 +127,10 @@ describe ImpedimentsController do
   describe "routing" do
     it "should be set up for resolving impediments" do
       params_from(:post, "/impediments/1/resolve").should == {:controller => "impediments", :action => 'resolve', :id =>'1'}
+    end
+    
+    it "should have an active action" do
+      params_from(:get, "/impediments/active").should == {:controller => "impediments", :action => 'active'}
     end
   end
 end
