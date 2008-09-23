@@ -14,15 +14,18 @@ class Impediment < ActiveRecord::Base
   
   def to_s
     if self.status == "Resolved"
-      "#{self.status} at #{self.resolved_at.strftime('%T %d/%m/%y')}"
+      return "#{self.status} at #{self.resolved_at.strftime('%T %d/%m/%y')}"
+    elsif self.status == "Active"
+      return "#{self.status} since #{self.created_at.strftime('%T %d/%m/%y')}"
     else
-      "#{self.status} since #{self.created_at.strftime('%T %d/%m/%y')}"
+      return self.description
     end
   end
   
   protected
   
   def status
+    return "New" if self.new_record?
     self.resolved_at.nil? ? "Active" : "Resolved"
   end
 end

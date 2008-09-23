@@ -38,7 +38,36 @@ describe Impediment do
   end
   
   describe '#to_s' do
-    it "should show a useful summary"
+    describe 'when summary is Active' do
+      it "should show something useful" do
+        Time.freeze do
+          @it.stub!(:status).and_return("Active")
+          @it.stub!(:created_at).and_return(Time.now)
+          @it.to_s.should == "Active since #{Time.now.strftime('%T %d/%m/%y')}"
+        end
+      end
+    end
+    
+    describe 'when summary is Resolved' do
+      it "should show something useful" do
+        Time.freeze do
+          @it.stub!(:status).and_return("Resolved")
+          @it.stub!(:resolved_at).and_return(Time.now)
+          @it.to_s.should == "Resolved at #{Time.now.strftime('%T %d/%m/%y')}"
+        end
+      end
+    end
+    
+    describe 'when item is new' do
+      it "should show description" do
+        @it.to_s.should == @it.description
+      end
+      
+      it "should show description when present" do
+        @it.description = "Awesome"
+        @it.to_s.should == @it.description
+      end
+    end
   end
   
   describe "named_scope(s)" do
