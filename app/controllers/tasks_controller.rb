@@ -28,10 +28,14 @@ class TasksController < AbstractSecurityController
   
   def update
     if @task && @task.update_attributes(params[:task])
-       flash[:notice] = "Sprint saved"
-       redirect_to user_story_task_path(:id => @task, :user_story_id => @user_story)
+       flash[:notice] = "Task saved"
+       if params[:from] == 'tb'
+         redirect_to sprint_path(:id => @account.sprints.current.first)
+       else
+         redirect_to user_story_task_path(:id => @task, :user_story_id => @user_story)
+       end
      else
-       flash[:error] = "Sprint couldn't be saved"
+       flash[:error] = "Task couldn't be saved"
        render :action => 'edit'
      end
   end

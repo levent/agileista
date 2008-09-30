@@ -79,4 +79,14 @@ describe Sprint do
       end
     end
   end
+  
+  describe "named_scope(s)" do
+    describe "current" do
+      it "should correctly generate conditions for current sprint" do
+        Time.freeze do
+          Sprint.current.proxy_options.should == {:conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago]}
+        end
+      end
+    end
+  end
 end

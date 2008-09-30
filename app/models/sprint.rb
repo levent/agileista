@@ -11,6 +11,8 @@ class Sprint < ActiveRecord::Base
   
   before_validation :calculate_end_date
   
+  named_scope :current, lambda { { :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago] } }
+  
   def validate
     errors.add(:start_at, "and end at must be different") if self.start_at >= self.end_at
     # errors.add(:start_at, "cannot overlap with another sprint") if !@account.sprints.blank? && (self.start_at <= @account.sprints.last.end_at)

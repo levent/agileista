@@ -4,6 +4,7 @@ describe TasksController do
   before(:each) do
     request.env["HTTP_REFERER"] = "http://test.host"
   end
+  
   it "should be an abstract_security_controller" do
     controller.is_a?(AbstractSecurityController).should be_true
   end
@@ -82,6 +83,17 @@ describe TasksController do
       @task.should_receive(:update_attributes).with('hash').and_return(true)
       put :update, :task => 'hash'
       response.should be_redirect
+      response.should redirect_to('http://test.host/user_stories/1/tasks/1')
+    end
+    
+    it "should update task and redirect to taskboard on success with parameter" do
+      sprint = Sprint.new
+      sprint.stub!(:id).and_return(123)
+      @account.sprints.should_receive(:current).and_return([sprint])
+      @task.should_receive(:update_attributes).with('hash').and_return(true)
+      put :update, :task => 'hash', :from => 'tb'
+      response.should be_redirect
+      response.should redirect_to('http://test.host/sprints/123')
     end
     
     it "should update task and redirect on fail" do
@@ -138,5 +150,4 @@ describe TasksController do
       params_from(:delete, '/user_stories/8/tasks/7').should == {:controller => 'tasks', :action => 'destroy', :id => '7', :user_story_id => '8'}
     end
   end
-
 end
