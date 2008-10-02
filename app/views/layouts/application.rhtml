@@ -19,8 +19,8 @@
     <div id="accountswitcher">
         <ul>
             <li><span>Other accounts:</span></li>
-            <% @other_account_people.collect{|person| person.account.name}.sort.each do |account_name| -%>
-	        <li><%= link_to account_name, {:controller => 'login', :action => 'authenticate', :subdomain => account_name}, :method => 'post' %></li>
+            <% @other_account_people.collect{|person| person.account.subdomain}.sort.each do |subdomain| -%>
+	        <li><%= link_to subdomain, {:controller => 'login', :action => 'authenticate', :subdomain => subdomain}, :method => 'post' %></li>
 	        <% end -%>
 	    </ul>
     </div>
