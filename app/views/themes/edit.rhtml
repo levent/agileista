@@ -7,7 +7,8 @@
 <div id="main" class="wide">
 <h1>Edit theme: <%= @theme.name %></h1>
 <%= error_messages_for :theme %>
-<% form_for :theme, @theme, :url => {:action => 'update', :id => @theme} do |theme| %>
+<% form_for @theme do |theme| %>
+
 	<label for="theme_name">Name:</label><%= theme.text_field :name %>
 	<label for="theme_description">Description:</label><%= theme.text_area :description, :class => "long fat" %>
 	<%= submit_tag "Edit theme" %>
