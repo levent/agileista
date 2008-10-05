@@ -31,13 +31,14 @@ namespace :deploy do
   task :restart do
     # run "RAILS_ENV=production #{release_path}/script/runner \"load '#{release_path}/script/ferret_stop'\""
     # sleep 2
-    run "/usr/bin/mongrel_cluster_ctl stop"
-    sleep 2
-    run "/usr/bin/mongrel_cluster_ctl start"    
-    sleep 2
-    run "/usr/bin/mongrel_cluster_ctl status"
+    # run "/usr/bin/mongrel_cluster_ctl stop"
+    # sleep 2
+    # run "/usr/bin/mongrel_cluster_ctl start"    
+    # sleep 2
+    # run "/usr/bin/mongrel_cluster_ctl status"
     # sleep 2
     # run "RAILS_ENV=production #{release_path}/script/runner \"load '#{release_path}/script/ferret_start'\""
+    run "touch #{release_path}/tmp/restart.txt"
   end
 end
 
@@ -45,17 +46,19 @@ namespace :deploy do
   task :stop do
     # run "sudo /etc/init.d/apache2 stop"
     # sleep 3
-    run "/usr/bin/mongrel_cluster_ctl stop"
-    sleep 3
-    run "/usr/bin/mongrel_cluster_ctl status"
+    # run "/usr/bin/mongrel_cluster_ctl stop"
+    # sleep 3
+    # run "/usr/bin/mongrel_cluster_ctl status"
+    run "touch #{release_path}/tmp/restart.txt"
   end
 end
 
 namespace :deploy do
   task :start do
-    run "/usr/bin/mongrel_cluster_ctl start"
-    sleep 3
-    run "/usr/bin/mongrel_cluster_ctl status"
+    run "touch #{release_path}/tmp/restart.txt"
+    # run "/usr/bin/mongrel_cluster_ctl start"
+    # sleep 3
+    # run "/usr/bin/mongrel_cluster_ctl status"
     # sleep 3
     # run "sudo /etc/init.d/apache2 start"
   end
