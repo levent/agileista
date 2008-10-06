@@ -19,10 +19,10 @@ describe UserStory do
     
     describe "unassigned" do
       it "should get all unassigned user stories" do
-        expected_options = { :conditions => ['done = ? AND sprint_id IS ?', 0, nil], :order => 'position' }
+        expected_options = { :conditions => ['done = ? AND sprint_id IS ?', 0, nil], :order => 'position', :include => [:acceptance_criteria, :person] }
         assert_equal expected_options, UserStory.unassigned('position').proxy_options
         
-        expected_options = { :conditions => ['done = ? AND sprint_id IS ?', 0, nil], :order => 'story_points' }
+        expected_options = { :conditions => ['done = ? AND sprint_id IS ?', 0, nil], :order => 'story_points', :include => [:acceptance_criteria, :person] }
         assert_equal expected_options, UserStory.unassigned('story_points').proxy_options
       end
     end

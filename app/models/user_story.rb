@@ -24,7 +24,7 @@ class UserStory < ActiveRecord::Base
   named_scope :unassigned, lambda {|order|
     order ||= 'position'
       { :conditions => ['done = ? AND sprint_id IS ?', 0, nil],
-        :order => order}
+        :order => order, :include => [:acceptance_criteria, :person]}
     }
 
   def inprogress?
