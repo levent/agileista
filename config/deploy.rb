@@ -25,6 +25,7 @@ role :db,  "app.agileista.com", :primary => true
 
 namespace :deploy do
   task :restart do
+    restart_sphinx
     run "touch #{release_path}/tmp/restart.txt"
   end
 end
@@ -41,8 +42,26 @@ namespace :deploy do
   end
 end
 
+desc "Stop the sphinx server"
+task :stop_sphinx , :roles => :app do
+  run "cd #{current_path} && rake thinking_sphinx:stop RAILS_ENV=production"
+end
+
+
+desc "Start the sphinx server" 
+task :start_sphinx, :roles => :app do
+  run "cd #{current_path} && rake thinking_sphinx:configure RAILS_ENV=production && rake thinking_sphinx:start RAILS_ENV=production"
+end
+
+desc "Restart the sphinx server"
+task :restart_sphinx, :roles => :app do
+  stop_sphinx
+  start_sphinx
+end
+
 task :setup_symlinks, :roles => :web do
   run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
+  run "ln -nfs #{shared_path}/sphinx #{release_path}/db/sphinx"
   # run "rm -rf #{release_path}/vendor/plugins/acts_as_xapian/xapiandbs"
   # run "ln -nfs #{shared_path}/xapiandbs #{release_path}/vendor/plugins/acts_as_xapian/xapiandbs"
 end
