@@ -8,20 +8,20 @@ describe BacklogController do
   describe "#search" do
     before(:each) do
       stub_login_and_account_setup
-      @results = mock_model(ActsAsXapian::Search)
+      @results = [UserStory.new]
     end
     
     it "should scope to active and current account user stories" do
       @account.stub!(:id).and_return(78)
       @results.stub!(:results).and_return([])
-      ActsAsXapian::Search.should_receive(:new).with([UserStory], "find me carrots AND active:yes AND account_id:78", :limit => 100).and_return(@results)
+      UserStory.should_receive(:search).with("find me carrots", :with => {:account_id => 78}).and_return(@results)
       post :search, :q => 'find me carrots'
     end
     
     it "should raise exception if no account_id" do
       @account.stub!(:id).and_return(nil)
       @results.stub!(:results).and_return([])
-      ActsAsXapian::Search.should_receive(:new).exactly(0).times
+      UserStory.should_receive(:search).exactly(0).times
       lambda {post :search, :q => 'find me carrots'}.should raise_error(ArgumentError)
     end
   end
