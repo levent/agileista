@@ -1,6 +1,6 @@
 class UserStory < ActiveRecord::Base
-  acts_as_xapian :texts => [:tag_string, :definition, :description, :active],
-    :terms => [ [ :active, 'A', "active" ], [ :account_id, 'S', "account_id" ] ]
+  # acts_as_xapian :texts => [:tag_string, :definition, :description, :active],
+  #   :terms => [ [ :active, 'A', "active" ], [ :account_id, 'S', "account_id" ] ]
 
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements
