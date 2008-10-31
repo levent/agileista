@@ -5,4 +5,4 @@ db/schema.rb
 *.sqlite3
 coverage/*
 config/database.yml
-config/*.sphinx.config
+config/*.sphinx.conf
