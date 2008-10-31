@@ -1,6 +1,12 @@
 class UserStory < ActiveRecord::Base
-  # acts_as_xapian :texts => [:tag_string, :definition, :description, :active],
-  #   :terms => [ [ :active, 'A', "active" ], [ :account_id, 'S', "account_id" ] ]
+  define_index do
+    indexes tags.name, :as => :tag_string
+    indexes definition
+    indexes description
+    has account(:id), :as => :account_id
+    where "done = 0 AND sprint_id IS NULL"
+    set_property :delta => true
+  end
 
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements
@@ -101,9 +107,9 @@ class UserStory < ActiveRecord::Base
   
   alias :themes= :theme_with
   
-  def tag_string
-    self.tags.map(&:name).join(' ')
-  end
+  # def tag_string
+  #   self.tags.map(&:name).join(' ')
+  # end
   
   def active
     # :conditions => ["done = ? AND sprint_id IS ?", 0, nil]

@@ -6,13 +6,9 @@ class BacklogController < AbstractSecurityController
   before_filter :account_user_stories ,:only => ['index', 'sort_release']
 
   def index
-    # seems dangerous given reorder rules
-    # params[:order] ? order = 'story_points DESC' : order = 'position'
-    
     @user_stories = @account.user_stories.unassigned('position')
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
-    # @cloud = Tag.cloud(:conditions => ["tags.account_id = ?", @account.id])
     respond_to do |format|
       format.html {render :action => 'index.rhtml'}
       format.rss {render :action => 'index.rss.rxml', :layout => false}
@@ -56,8 +52,7 @@ class BacklogController < AbstractSecurityController
   def search
     if request.post? && params[:q]
       raise ArgumentError unless @account.id
-      q = xapian_query(params[:q])
-      @user_stories = ActsAsXapian::Search.new([UserStory], "#{q}", :limit => 100).results.collect {|r| r[:model]}
+      @user_stories = UserStory.search "#{params[:q]}", {:with => {:account_id => @account.id}}
       @story_points = 0
       @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     else
@@ -95,10 +90,5 @@ class BacklogController < AbstractSecurityController
       csv = FasterCSV.new(output, :row_sep => "\r\n") 
       yield csv
     }
-  end
-  
-  def xapian_query(q)
-    q.blank? ? sanitised_query = "active:yes AND account_id:#{@account.id}" : sanitised_query = "#{params[:q]} AND active:yes AND account_id:#{@account.id}"
-    return sanitised_query
   end
 end
