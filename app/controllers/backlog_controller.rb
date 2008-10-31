@@ -52,7 +52,7 @@ class BacklogController < AbstractSecurityController
   def search
     if request.post? && params[:q]
       raise ArgumentError unless @account.id
-      @user_stories = UserStory.search "#{params[:q]}", {:with => {:account_id => @account.id}}
+      @user_stories = UserStory.search "#{params[:q]}", {:with => {:account_id => @account.id}, :limit => 1000}
       @story_points = 0
       @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     else
