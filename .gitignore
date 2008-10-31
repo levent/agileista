@@ -1,5 +1,6 @@
 log
 db/schema.rb
+db/sphinx/*
 .DS_Store
 *.sqlite3
 coverage/*

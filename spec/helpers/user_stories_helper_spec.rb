@@ -18,4 +18,33 @@ describe UserStoriesHelper do
       @it.show_user(@us).should == "by Some Bo-Di"
     end
   end
+  
+  describe "#user_story_status" do
+    it "should return Cannot be estimated if so" do
+      @us.should_receive(:cannot_be_estimated?).and_return(true)
+      @it.user_story_status(@us).should == "Cannot be estimated"
+    end
+    
+    it "should return Unestimated if so" do
+      @us.should_receive(:cannot_be_estimated?).and_return(false)
+      @us.should_receive(:story_points).and_return(nil)
+      @it.user_story_status(@us).should == "Unestimated"
+    end
+    
+    it "should return OK if so" do
+      @us.should_receive(:cannot_be_estimated?).and_return(false)
+      @us.should_receive(:story_points).and_return(34)
+      @it.user_story_status(@us).should == "OK"
+    end
+  end
 end
+
+# def undefined?(userstory)
+#   if userstory.cannot_be_estimated?
+#     return " class=\"toovague\""
+#   elsif userstory.story_points.blank?
+#     userstory.acceptance_criteria.blank? ? (return " class=\"undefined nocrit\"") : (return " class=\"undefined\"")
+#   else
+#     return " class=\"defined\""
+#   end
+# end

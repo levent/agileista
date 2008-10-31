@@ -1,12 +1,23 @@
 <div id="navii"><% if @current_user.is_a?(Contributor) -%><%= link_to "Add a user story", :controller => 'user_stories', :action => "add" %><% elsif @current_user.is_a?(TeamMember) %><%= link_to "Add a user story", :controller => 'user_stories', :action => "new" %><% end -%></div>
 <div id="main" class="wide">
 	<h1><%= "User stories found for '#{params[:q]}'" if params[:q] %><%= "User stories tagged with '#{params[:tag]}" if params[:tag] %> - <span class="small"><%= pluralize(@user_stories.length, "user story")%></span></h1>
-	<div id="userstorylist">
+	<table>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>State</th>
+				<th>Story</th>
+				<th>Story Points</th>
+				<th>Stakeholder</th>
+			</tr>
+		</thead>
 		<% @count = 0 -%>
-		<% for @user_story in @user_stories %>
+		<tbody>
+		<% @user_stories.each do |us| %>
 			<% @count += 1 -%>
-			<%= render :partial => 'show_story_card' %>
+			<%= render :partial => 'user_story_row', :locals => {:us => us} %>
 		<% end %>
-	</div>
+		</tbody>
+	</table>
     <p id="storypoints"><%= show_story_points(@story_points ||= nil) %></p>
 </div>

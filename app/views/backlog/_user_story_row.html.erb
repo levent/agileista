@@ -1,0 +1,7 @@
+<tr id="item_<%= us.id %>">
+	<td><%= @count %></td>
+	<td>user_story_status</td>
+	<td><%=h truncate(us.definition, 80) %></td>
+	<td><%= show_story_points(us.story_points) %></td>
+	<td><%= show_stakeholder(us) %></td>
+</tr>
