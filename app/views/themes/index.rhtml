@@ -1,7 +1,11 @@
-<div id="navii"><%= link_to "Add a theme", :action => "new" %></div>
+<div id="navii"><%= link_to "Add a theme", new_theme_path %></div>
 <div id="main" class="wide">
   <h1>Themes</h1>
   <div id="themeslist">
+    <% if @themes.blank? -%>
+      <p>You have no themes defined</p>
+      <p><%= link_to "Click here", new_theme_path %> to create a theme</p>
+    <% else -%>
     <% @themes.each do |theme| -%>
       <div title="<%=h theme.description %>"><h2><%=h theme.name %> <span class="small"><%= link_to 'Edit', edit_theme_path(:id => theme) %> <%= link_to_function 'Show/Hide', "Element.toggle('theme_#{theme.id}')" %> <%= link_to 'Delete', theme_path(:id => theme), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' if current_user.is_a?(TeamMember) %></span></h2> <%= show_story_points(theme.story_points) %> <%= show_story_points_remaining(theme.story_points_left) %></div>
       <div id="theme_<%= theme.id %>" style="display:none">
@@ -11,6 +15,7 @@
         <% end -%>
         </ul>
       </div>
+    <% end -%>
     <% end -%>
   </div>
 </div>
