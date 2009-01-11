@@ -8,6 +8,7 @@ require 'spec/active_record_association_matcher'
 require 'spec/active_record_validation_matcher'
 require 'spec/time_spec_helper'
 
+
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
@@ -48,34 +49,5 @@ Spec::Runner.configure do |config|
   #
   # == Notes
   # 
-  # For more information take a look at Spec::Example::Configuration and Spec::Runner
-  def block_should_be_yielded_to
-    observer = mock(:block)
-    observer.should_receive(:to_be_yielded_to)
-    Proc.new do
-      observer.to_be_yielded_to
-    end
-  end
-
-  def block_should_not_be_yielded_to
-    observer = mock(:block)
-    observer.should_not_receive(:yielded)
-    Proc.new do
-      observer.yielded
-    end
-  end
-  
-  def stub_login_and_account_setup
-    @person = TeamMember.new
-    @account = Account.new
-    @person.account = @account
-    session[:user] = 1
-    session[:account] = 1
-    Person.stub!(:find_by_id_and_account_id).and_return(@person)
-  end
-  
-  def stub_iteration_length_and_create_chart
-    controller.stub!(:iteration_length_must_be_specified)
-    controller.stub!(:create_chart)
-  end
+  # For more information take a look at Spec::Runner::Configuration and Spec::Runner
 end
