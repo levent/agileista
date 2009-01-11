@@ -48,6 +48,7 @@ Rails::Initializer.run do |config|
   config.gem "color-tools", :lib => "color"
   config.gem "fastercsv"
   config.gem "json"
+  config.gem "prawn"
 end
 
 # Add new inflection rules using the following format 

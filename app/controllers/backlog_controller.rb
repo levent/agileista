@@ -9,6 +9,7 @@ class BacklogController < AbstractSecurityController
     @user_stories = @account.user_stories.unassigned('position')
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
+    prawnto :filename => 'backlog.pdf', :inline => false
   end
   
   def export
