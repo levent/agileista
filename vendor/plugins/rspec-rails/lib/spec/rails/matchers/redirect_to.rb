@@ -40,7 +40,7 @@ module Spec
 
         def path_hash(url)
           path = url.sub(%r{^\w+://#{@request.host}(?::\d+)?}, "").split("?", 2)[0]
-          ActionController::Routing::Routes.recognize_path path
+          ActionController::Routing::Routes.recognize_path path, { :method => :get }
         end
 
         def query_hash(url)
@@ -74,13 +74,15 @@ module Spec
         end
 
         def description
-          "redirect to #{@actual.inspect}"
+          "redirect to #{@expected.inspect}"
         end
 
         class QueryParameterParser
           def self.parse_query_parameters(query, request)
             if defined?(CGIMethods)
               CGIMethods.parse_query_parameters(query)
+            elsif defined?(ActionController::RequestParser)
+              ActionController::RequestParser.parse_query_parameters(query)
             else
               request.class.parse_query_parameters(query)
             end

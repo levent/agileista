@@ -26,6 +26,8 @@ module Spec
       #     end
       #   end
       class HelperExampleGroup < FunctionalExampleGroup
+        attr_accessor :output_buffer
+        
         class HelperObject < ActionView::Base
           def protect_against_forgery?
             false
@@ -96,7 +98,11 @@ module Spec
         def helper
           self.class.helper
         end
-
+        
+        def orig_assigns
+          helper.assigns
+        end
+        
         # Reverse the load order so that custom helpers which are defined last
         # are also loaded last.
         ActionView::Base.included_modules.reverse.each do |mod|
@@ -113,7 +119,9 @@ module Spec
 
           @flash = ActionController::Flash::FlashHash.new
           session['flash'] = @flash
-
+          
+          @output_buffer = ""
+          @template = helper
           ActionView::Helpers::AssetTagHelper::reset_javascript_include_default
           
           helper.session = session
@@ -148,7 +156,9 @@ module Spec
 
         protected
         def _assigns_hash_proxy
-          @_assigns_hash_proxy ||= AssignsHashProxy.new helper
+          @_assigns_hash_proxy ||= AssignsHashProxy.new self do
+            helper
+          end
         end
 
       end

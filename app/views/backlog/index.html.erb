@@ -1,0 +1,22 @@
+<link rel="alternate" type="application/atom+xml" title="Backlog Feed" href="<%= formatted_backlog_index_url(:format => :atom) %>">
+<div id="navii"><% if @current_user.is_a?(Contributor) -%><%= link_to "Add a user story", :controller => 'user_stories', :action => "add" %><% elsif @current_user.is_a?(TeamMember) %><%= link_to "Add a user story", :controller => 'user_stories', :action => "new" %><% end -%></div>
+<div id="main" class="wide">
+	<h1>Unassigned Backlog - <span class="small"><%= pluralize(@user_stories.length, "user story") %> (<%= show_story_points(@story_points ||= nil) %>)</span></h1>
+	<div id="userstorylist">
+		<% @count = 0 -%>
+		<% for @user_story in @user_stories %>
+			<% @count += 1 -%>
+			<%= render :partial => 'show_story_card' %>
+		<% end %>
+	</div>
+	<div id="exportlinks">
+	    <ul>
+	        <li><%= link_to "Export backlog as csv", export_backlog_path, { :alt => "export", :title => "export" } %></li>
+	        <li><%= link_to "Export backlog as pdf", formatted_backlog_index_path(:format => 'pdf'), { :alt => "pdf", :title => "pdf" } %></li>
+	        <li id="udnoborder"><h3>Stories highlighted in red require estimation</h3></li>
+	        <li id="ncnoborder"><h3>Stories highlighted in orange lack acceptance criteria</h3></li>
+	        <li id="tvnoborder"><h3>Stories highlighted in grey cannot be estimated by the team</h3></li>
+	    </ul>
+	</div>
+</div>
+<%= sortable_element 'userstorylist', :tag => 'div', :overlap => 'horizontal', :constraint => false, :url => { :action => "sort_release" }, :complete => visual_effect(:highlight, 'storypoints') unless params[:order] %>

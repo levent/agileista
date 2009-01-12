@@ -8,6 +8,7 @@ require 'spec/active_record_association_matcher'
 require 'spec/active_record_validation_matcher'
 require 'spec/time_spec_helper'
 
+
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
@@ -48,7 +49,7 @@ Spec::Runner.configure do |config|
   #
   # == Notes
   # 
-  # For more information take a look at Spec::Example::Configuration and Spec::Runner
+  # For more information take a look at Spec::Runner::Configuration and Spec::Runner
   def block_should_be_yielded_to
     observer = mock(:block)
     observer.should_receive(:to_be_yielded_to)

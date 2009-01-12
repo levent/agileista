@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   # map.with_options(:path_prefix => ':account_name') do |account|
-    map.resources :backlog, :controller => 'backlog', :collection => {:export => :get, :feed => :get, :pdf => :get, :search => :post, :search_tags => :get, :sprint => :get, :sort_release => :get}
+    map.resources :backlog, :controller => 'backlog', :collection => {:export => :get, :feed => :get, :search => :post, :search_tags => :get, :sprint => :get, :sort_release => :get}
     map.resources :sprints, :member => {:plan => :get, :overview => :get} do |sprint|
       sprint.resources :user_stories
     end
