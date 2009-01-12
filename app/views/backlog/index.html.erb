@@ -12,7 +12,6 @@
 	<div id="exportlinks">
 	    <ul>
 	        <li><%= link_to "Export backlog as csv", export_backlog_path, { :alt => "export", :title => "export" } %></li>
-	        <li><%= link_to "Export backlog as pdf", formatted_backlog_index_path(:format => 'pdf'), { :alt => "pdf", :title => "pdf" } %></li>
 	        <li id="udnoborder"><h3>Stories highlighted in red require estimation</h3></li>
 	        <li id="ncnoborder"><h3>Stories highlighted in orange lack acceptance criteria</h3></li>
 	        <li id="tvnoborder"><h3>Stories highlighted in grey cannot be estimated by the team</h3></li>
