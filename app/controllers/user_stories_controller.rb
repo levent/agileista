@@ -197,7 +197,12 @@ class UserStoriesController < AbstractSecurityController
           SprintElement.find(:all, :conditions => ["sprint_id = ? AND user_story_id = ?", @sprint.id, @us.id]).collect{|se| se.destroy}
         end
       end
-      redirect_to plan_sprint_path(:id => params[:sprint_id])
+      respond_to do |format|
+        format.html {redirect_to plan_sprint_path(:id => params[:sprint_id])}
+        format.js {render :update do |page|
+          page.redirect_to plan_sprint_path(:id => params[:sprint_id])
+        end}
+      end
     end
   end
   
