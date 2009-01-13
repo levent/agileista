@@ -184,7 +184,6 @@ class UserStoriesController < AbstractSecurityController
       if params['committed'] && !params['committed'].blank?
         params['committed'].each do |x|
           @us = @account.user_stories.find(x)
-          p @us.inspect
           @us.sprint = @sprint
           @us.save
           SprintElement.find_or_create_by_sprint_id_and_user_story_id(params[:sprint_id], @us.id)
@@ -193,7 +192,6 @@ class UserStoriesController < AbstractSecurityController
       if params['estimated'] && !params['estimated'].blank?
         params['estimated'].each do |x|
           @us = @account.user_stories.find(x)
-          p @us.inspect
           @us.sprint = nil
           @us.save
           SprintElement.find(:all, :conditions => ["sprint_id = ? AND user_story_id = ?", @sprint.id, @us.id]).collect{|se| se.destroy}
