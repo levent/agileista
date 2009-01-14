@@ -331,3 +331,5 @@ ul#usshowtags li {float:left; display:inline; padding-right:4px;}
 a.nounderline {text-decoration:none;}
 
 div#pledgie {clear:both;	padding: 10px 20px;}
+
+a.highlight {color:#333; text-decoration:none;}

@@ -6,6 +6,7 @@ class Impediment < ActiveRecord::Base
   belongs_to :account
   
   named_scope :unresolved, :conditions => {:resolved_at => nil}
+  named_scope :resolved, :conditions => "resolved_at IS NOT NULL"
   
   def resolve
     self.resolved_at = Time.now

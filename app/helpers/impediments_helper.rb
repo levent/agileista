@@ -11,9 +11,8 @@ module ImpedimentsHelper
     end
   end
   
-  def impediment_nav(action)
-    return link_to("All", impediments_path) if action == "active"
-    return link_to("Active", active_impediments_path) if action == "index"
+  def current_view(action)
+    params[:action] == action ? "highlight" : nil
   end
   
   def impediment_feed(action)

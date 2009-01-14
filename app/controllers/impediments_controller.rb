@@ -19,6 +19,14 @@ class ImpedimentsController < AbstractSecurityController
     end
   end
   
+  def resolved
+    @impediments = @account.impediments.resolved.paginate :page => params[:page]
+    respond_to do |format|
+      format.html {render :action => 'index'}
+      format.atom {render :action => 'index', :format => 'atom'}
+    end
+  end
+  
   def new
     @impediment = @account.impediments.new
   end
