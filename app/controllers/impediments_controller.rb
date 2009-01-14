@@ -4,7 +4,7 @@ class ImpedimentsController < AbstractSecurityController
   before_filter :must_be_team_member, :only => [:destroy, :create, :resolve]
   
   def index
-    @impediments = @account.impediments
+    @impediments = @account.impediments.paginate :page => params[:page]
     respond_to do |format|
       format.html
       format.atom
@@ -12,7 +12,7 @@ class ImpedimentsController < AbstractSecurityController
   end
   
   def active
-    @impediments = @account.impediments.unresolved
+    @impediments = @account.impediments.unresolved.paginate :page => params[:page]
     respond_to do |format|
       format.html {render :action => 'index'}
       format.atom {render :action => 'index', :format => 'atom'}
@@ -49,6 +49,6 @@ class ImpedimentsController < AbstractSecurityController
   def resolve
     @impediment = @account.impediments.find(params[:id])
     @impediment.resolve ? flash[:notice] = 'Impediment resolved' : flash[:error] = 'Impediment could not be resolved'
-    redirect_to :action => 'index'
+    redirect_to :action => 'index', :page => params[:page]
   end
 end

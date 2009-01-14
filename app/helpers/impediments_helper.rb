@@ -7,7 +7,7 @@ module ImpedimentsHelper
     if impediment.resolved_at
       return "#{time_ago_in_words(impediment.resolved_at)} ago"
     else
-      link_to('Resolve', resolve_impediment_path(:id => impediment), :method => :post)
+      link_to('Resolve', resolve_impediment_path(:id => impediment, :page => params[:page]), :method => :post)
     end
   end
   

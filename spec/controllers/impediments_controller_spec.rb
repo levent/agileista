@@ -11,7 +11,9 @@ describe ImpedimentsController do
   
   describe "#index" do
     it "should get all the impediments" do
-      @account.should_receive(:impediments).and_return('impediments')
+      impediments = Object.new
+      @account.should_receive(:impediments).and_return(impediments)
+      impediments.stub!(:paginate).and_return('impediments')
       get :index
       assigns[:impediments].should == 'impediments'
     end
@@ -19,13 +21,17 @@ describe ImpedimentsController do
   
   describe '#active' do
     it "should get all the active impediments" do
-      @account.impediments.should_receive(:unresolved).and_return('impediments')
+      impediments = Object.new
+      @account.impediments.should_receive(:unresolved).and_return(impediments)
+      impediments.stub!(:paginate).and_return('impediments')
       get :active
       assigns[:impediments].should == 'impediments'
     end
     
     it "should render index.html.erb" do
-      @account.impediments.stub!(:unresolved).and_return('impediments')
+      impediments = Object.new
+      @account.impediments.stub!(:unresolved).and_return(impediments)
+      impediments.stub!(:paginate).and_return('impediments')
       get :active
       response.should render_template('impediments/index')
     end
