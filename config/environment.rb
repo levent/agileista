@@ -49,7 +49,7 @@ Rails::Initializer.run do |config|
   config.gem "fastercsv"
   config.gem "json"
   config.gem "prawn"
-  config.gem "will_paginate"
+  config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
 end
 
 # Add new inflection rules using the following format 
