@@ -16,7 +16,7 @@
 	  <tbody>
 	    <% for @sprint in @account.sprints %>
 		<tr <%= which_sprint(@sprint) %>>
-	      <td><%= in_place_editor_field :sprint, :name %></td>
+	      <td><%= @sprint.name %></td>
 	      <td><%= show_date(@sprint.start_at) %></td>
 	      <td><%= show_date(@sprint.end_at) %></td>
 	      <td><%= @sprint.user_stories.sum('story_points') %></td>

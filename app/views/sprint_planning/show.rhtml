@@ -20,7 +20,7 @@
   </div>
   
   <div id="committed" class="dragdropr">
-    <h2>Sprint: <%= in_place_editor_field :sprint, 'name' %> (click to edit)</h2>
+    <h2>Sprint: <%= @sprint.name %> (click to edit)</h2>
 	<% count = 0 -%>
     <% @sprint.user_stories.each do |us| -%>
 	<% count += 1 -%>

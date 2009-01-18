@@ -4,8 +4,6 @@ class SprintPlanningController < AbstractSecurityController
   before_filter :must_be_team_member, :except => [:index, :view]
   before_filter :sprint_must_exist, :only => [:show, :view, :edit, :update, :destroy]
   before_filter :estimated_account_user_stories, :only => [:show]
-  
-  in_place_edit_for :sprint, :name
 
   def index
     redirect_to :controller => '/account', :action => 'settings' and flash[:notice] = "Please specify an iteration length first" and return false if @account.iteration_length.blank?
