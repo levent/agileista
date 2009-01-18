@@ -2,7 +2,7 @@
 <h2>Acceptance Criteria:</h2>
 <ol>
 <% @user_story.acceptance_criteria.each do |crit| %>
-	<li><%=h crit.detail %> - <%= link_to_remote 'Delete', :update => 'crit', :url => {:controller => 'user_stories', :action => 'delete_acceptance_criterium', :id => @user_story, :crit_id => crit} %></li>
+	<li><%=h crit.detail %> - <%= link_to_remote 'Delete', :update => 'crit', :url => user_story_acceptance_criterium_path(:user_story_id => @user_story, :id => crit), :method => :delete %></li>
 <% end %>
 </ol>
 <%= error_messages_for :acceptance_criterium %>

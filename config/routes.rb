@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
     map.resources :impediments, :member => {:resolve => :post}, :collection => {:active => :get, :resolved => :get}
     map.resources :user_stories, :member => {:copy => :post, :remove_from_sprint => :post, :create_via_add => :post, :create_task => :post, :untheme => :post}, :collection => {:add => :get} do |user_story|
       user_story.resources :tasks, :member => {:move_up => :post, :move_down => :post, :release => :post, :claim => :post}
+      user_story.resources :acceptance_criteria
     end
     map.resources :themes
   # end

@@ -3,7 +3,7 @@
 </div>
 <%= error_messages_for :acceptance_criterium %>
 <h2>Add criterion:</h2>
-<% remote_form_for :acceptance_criterium, @acceptance_criterium, :update => 'crit', :url => {:action => 'create_acceptance_criterium', :id => @user_story.id, :sprint_id => params[:sprint_id]} do |@acceptance_criterium| %>
+<% remote_form_for :acceptance_criterion, @acceptance_criterium, :update => 'crit', :url => user_story_acceptance_criteria_path(:user_story_id => @user_story.id, :sprint_id => params[:sprint_id]) do |@acceptance_criterium| %>
 	<label for="acceptance_criterium_detail">Detail:</label><%= @acceptance_criterium.text_field :detail, :id => 'addcrit' %>
 	<%= submit_tag 'Add criterion' %>
 <% end %>
