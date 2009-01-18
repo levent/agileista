@@ -16,7 +16,7 @@ h2, #sidebar h2, #usshowright h2, #user_story h2 {font-weight:normal;font-size:1
 .orange {color:#b9121b;}
 h1 {font-size: 1.8em;}
 #main h1{padding: 0; margin:0 0 10px 0;}
-#main h2{padding: 0; margin:10px 0 5px 0; font-size:1.4em; font-weight:bold;}
+#main h2{padding: 0; margin-bottom: 5px; font-size:1.4em; font-weight:bold;}
 input, textarea, select { margin-bottom: 10px; display: block; }
 input.nowrap {display:inline;}
 input[type=submit] {padding: 0; font-size: 11px;}
@@ -94,7 +94,7 @@ ul#userstorylist, .nobullet {list-style: none; margin: 0; padding: 0; font-size:
 ul {list-style: none; padding: 0 10px; line-height:1.6em;}
 ol { padding-left: 20px;}
 .nobullet li {margin-left: 5px; margin-bottom: 6px;}
-div.notecard {border: 1px solid #ccc; cursor:move; margin: 4px; padding: 2px; width: 148px; min-height: 148px; height:auto; font-size: 0.8em; margin-bottom: 8px; float:left;}
+div.notecard {border: 1px solid #ccc; cursor:move; margin: 4px; padding: 4px; width: 124px; min-height: 124px; height:auto; font-size: 0.8em; margin-bottom: 8px; float:left;}
 /* for Internet Explorer */
 /*\*/
 * html div.notecard {
