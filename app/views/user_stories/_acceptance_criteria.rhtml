@@ -5,5 +5,5 @@
 	<li><%=h crit.detail %> - <%= link_to_remote 'Delete', :update => 'crit', :url => user_story_acceptance_criterium_path(:user_story_id => @user_story, :id => crit), :method => :delete %></li>
 <% end %>
 </ol>
-<%= error_messages_for :acceptance_criterium %>
+<%= error_messages_for :acceptance_criterion %>
 <% end %>
