@@ -3,6 +3,8 @@ class UserStoriesController < AbstractSecurityController
   before_filter :user_story_must_exist, :only => ['update', 'add_to_sprint', 'remove_from_sprint', 'show', 'create_task', 'edit_task', 'update_task', 'create_acceptance_criterium',
     :edit, :move_up, :move_down, :delete, :destroy, :delete_acceptance_criterium, :new_task, :tasks, :done, :unfinished, :show_task, :destroy_task, :copy, :untheme]
   
+  in_place_edit_for :acceptance_criterium, :detail
+  
   def copy
     if @user_story.copy
       flash[:notice] = "User story copied and added to backlog"

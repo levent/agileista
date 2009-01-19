@@ -12,6 +12,9 @@ class AcceptanceCriteriaController < AbstractSecurityController
   end
   
   def update
+    return false unless @user_story
+    @acceptance_criterion.update_attribute(:detail, params[:value])
+    render :text => @acceptance_criterion.detail
   end
   
   def destroy
