@@ -20,6 +20,7 @@ class SignupController < ApplicationController
       @user.save
       @account.save
       NotificationMailer.deliver_account_activation_info(@user, @account, self)
+      NotificationMailer.deliver_new_account_on_agileista(@account)
       flash[:notice] = "Account created.. please check your email to validate your account"
       redirect_to :action => 'ok', :subdomain => @account.subdomain
     else

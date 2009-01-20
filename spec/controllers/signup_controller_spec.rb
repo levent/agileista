@@ -14,8 +14,18 @@ describe SignupController do
       end
     end
     
-    # it "should email team agileista" do
-    #   post :create, :account => {:subdomain => 'somethingunique'}
-    # end
+    it "should email team agileista" do
+      account = Account.new
+      user = TeamMember.new
+      Account.stub!(:new).and_return(account)
+      account.stub!(:save).and_return(true)
+      account.stub!(:valid?).and_return(true)
+      user.stub!(:save).and_return(true)
+      user.stub!(:valid?).and_return(true)
+      account.team_members.stub!(:new).and_return(user)
+      NotificationMailer.stub!(:deliver_account_activation_info)
+      NotificationMailer.should_receive(:deliver_new_account_on_agileista).with(account)
+      post :create, :account => {:subdomain => 'somethingunique'}
+    end
   end
 end
