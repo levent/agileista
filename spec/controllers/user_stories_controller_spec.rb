@@ -6,11 +6,14 @@ describe UserStoriesController do
   end
   
   describe "#destroy" do
-    it "should get user_story first" do
+    before(:each) do
       stub_login_and_account_setup
       controller.stub!(:must_be_team_member)
-      @account.user_stories.should_receive(:find).with('16')
-      delete :destroy, :id => '16'
+    end
+    
+    it "should get user_story first" do
+      @account.user_stories.should_receive(:find).with('16').and_raise(ActiveRecord::RecordNotFound)
+      lambda {delete :destroy, :id => '16'}.should raise_error(ActiveRecord::RecordNotFound)
     end
   end
   
@@ -18,17 +21,17 @@ describe UserStoriesController do
     before(:each) do
       stub_login_and_account_setup
       controller.stub!(:must_be_team_member)
+      @user_story = UserStory.new
     end
     
     it 'should set user_story' do
-      @account.user_stories.should_receive(:find).with('16')
-      post :untheme, :id => '16'
+      @account.user_stories.should_receive(:find).with('16').and_raise(ActiveRecord::RecordNotFound)
+      lambda {post :untheme, :id => '16'}.should raise_error(ActiveRecord::RecordNotFound)
     end
     
     it 'should untheme the user_story' do
       user_story = UserStory.new
       theming = Theming.new
-      # @account.user_stories.themings.should_receive(:find_by_theme_id).with('56').and_return(theme)
       @account.user_stories.stub!(:find).and_return(user_story)
       user_story.themings.should_receive(:find_by_theme_id).with('56').and_return(theming)
       theming.should_receive(:destroy).and_return(true)
