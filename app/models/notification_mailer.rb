@@ -43,4 +43,16 @@ class NotificationMailer < ActionMailer::Base
     @body[:account]   = account
     @subject          = "Hey Agileista! Here's some important information on accessing your account"
   end
+  
+  # INTERNAL MAILS
+  def new_account_on_agileista(account)
+    if Rails.env == "development"
+      @recipients = "lebreeze@gmail.com"
+    else
+      @recipients = ["lebreeze@gmail.com", "ebstar@gmail.com"]
+    end
+    @subject = "[AGILEISTA ADMIN] There has been a new account registration"
+    @sent_on  = Time.now
+    @body[:account] = account
+  end
 end

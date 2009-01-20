@@ -13,5 +13,9 @@ describe SignupController do
         response.should be_redirect
       end
     end
+    
+    # it "should email team agileista" do
+    #   post :create, :account => {:subdomain => 'somethingunique'}
+    # end
   end
 end
