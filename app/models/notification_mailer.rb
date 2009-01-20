@@ -8,7 +8,6 @@ class NotificationMailer < ActionMailer::Base
     @sent_on     = Time.now
     @body[:url]  = controller.url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain
     @body[:user] = user
-    # @body[:account] = account
     @subject     = "Welcome to Agileista!"
   end
   
