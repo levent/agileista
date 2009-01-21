@@ -49,7 +49,7 @@ class NotificationMailer < ActionMailer::Base
     if Rails.env == "development"
       @recipients = "lebreeze@gmail.com"
     else
-      @recipients = ["lebreeze@gmail.com", "ebstar@gmail.com"]
+      @recipients = AccountStuff::TEAM_AGILEISTA
     end
     @subject = "[AGILEISTA ADMIN] There has been a new account registration"
     @sent_on  = Time.now

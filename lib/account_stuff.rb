@@ -1,6 +1,7 @@
 module AccountStuff
   AccountStuff::RESERVED_SUBDOMAINS = %w(app www site we blog dev stage)
   AccountStuff::MASTER_SUBDOMAIN = "app"
+  AccountStuff::TEAM_AGILEISTA = ["lebreeze@gmail.com", "ebstar@gmail.com"]
   
   protected
   
