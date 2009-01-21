@@ -18,18 +18,18 @@ describe TasksController do
     
     TasksController.instance_methods(false).each do |action|
       it "should only allow team members on '#{action}" do
-        controller.should_receive(:must_be_team_member).and_return(false)
-        get action.to_sym
+        controller.should_receive(:must_be_team_member).and_raise(ActiveRecord::RecordNotFound)
+        lambda {get action.to_sym}.should raise_error(ActiveRecord::RecordNotFound)
       end
     end
     
     # Still some legacy actions
     # TasksController.instance_methods(false).each do |action|
-    %w(show edit update destroy new create).each do |action|
+    %w(show edit update destroy new create create_quick).each do |action|
       it "should set_user_story on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
-        controller.should_receive(:set_user_story).and_return(@user_story)
-        get action.to_sym
+        controller.should_receive(:set_user_story).and_raise(ActiveRecord::RecordNotFound)
+        lambda {get action.to_sym}.should raise_error(ActiveRecord::RecordNotFound)
       end
     end
     
@@ -65,6 +65,26 @@ describe TasksController do
       @task.should_receive(:save).and_return(false)
       controller.expect_render(:action => 'new')
       post :create, :task => 'hash'
+    end
+  end
+  
+  describe 'create_quick' do
+    before(:each) do
+      stub_login_and_account_setup
+      @user_story = UserStory.new
+      @task = Task.new
+      @user_story.stub!(:id).and_return(1)
+      @user_story.stub!(:sprint_id).and_return(1)
+      @user_story.stub!(:definition).and_return("us definition")
+      @user_story.stub!(:description).and_return("us description")
+      @account.user_stories.should_receive(:find).and_return(@user_story)
+    end
+    
+    it "should create task from user story" do
+      @user_story.tasks.should_receive(:new).with(:definition => "us definition", :description => "us description", :hours => 6).and_return(@task)
+      @task.should_receive(:save).and_return(true)
+      post :create_quick, :user_story_id => '98'
+      response.should be_redirect
     end
   end
   
@@ -122,7 +142,7 @@ describe TasksController do
   end
 
   describe "route recognition" do
-    it "should generate params from POST /sprints correctly" do
+    it "should generate params from POST /tasks correctly" do
       params_from(:post, '/user_stories/8/tasks').should == {:controller => 'tasks', :action => 'create', :user_story_id => '8'}
     end
     
@@ -148,6 +168,10 @@ describe TasksController do
     
     it "should generate params from DELETE /tasks/7 correctly" do
       params_from(:delete, '/user_stories/8/tasks/7').should == {:controller => 'tasks', :action => 'destroy', :id => '7', :user_story_id => '8'}
+    end
+    
+    it "should generate params from POST /tasks/create_quick" do
+      params_from(:post, '/user_stories/8/tasks/create_quick').should == {:controller => 'tasks', :action => 'create_quick', :user_story_id => '8'}
     end
   end
 end

@@ -119,6 +119,9 @@ div.undefined h2 {font-size: 1.2em; background-color: #b9121b; color: #fff;}
 div.toovague h2 {font-size: 1.2em; background-color: #333; color: #fff;}
 div.nocrit h2 {font-size: 1.2em; background-color: #DF4001; color: #fff;}
 .defined h2 {font-size: 1.2em; background-color: #fff; color: #b9121b;}
+h2 a {font-size:1em; text-decoration:none;}
+.defined h2 a {color: #b9121b;}
+.undefined h2 a {color: #fff;}
 
 
 /*In particular I did an outer ul with display: table (list-style none of course). Nothing special about the li elements in this list. 

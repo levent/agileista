@@ -35,12 +35,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_user_story
-    begin
-      @user_story = @account.user_stories.find(params[:user_story_id])
-    rescue
-      flash[:error] = "No such user story"
-      redirect_to :controller => 'backlog' and return false
-    end
+    @user_story = @account.user_stories.find(params[:user_story_id])
   end
   
   def set_task

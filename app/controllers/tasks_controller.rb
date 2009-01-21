@@ -2,18 +2,18 @@ class TasksController < AbstractSecurityController
   
   # ssl_required :create, :claim, :release, :move_up, :move_down
   before_filter :must_be_team_member
-  before_filter :set_user_story, :only => [:show, :edit, :update, :destroy, :new, :create]
+  before_filter :set_user_story, :only => [:show, :edit, :update, :destroy, :new, :create, :create_quick]
   before_filter :set_task, :only => [:show, :edit, :update, :destroy]
 
   def show
   end
 
   def new
-    @task = @user_story.tasks.new if @user_story
+    @task = @user_story.tasks.new
   end
 
   def create
-    @task = @user_story.tasks.new(params[:task]) if @user_story
+    @task = @user_story.tasks.new(params[:task])
     if @task && @task.save
       flash[:notice] = "Task saved"
       redirect_to plan_sprint_path(:id => @user_story.sprint_id)
@@ -21,6 +21,16 @@ class TasksController < AbstractSecurityController
       flash[:error] = "Task couldn't be saved"
       render :action => 'new'
     end
+  end
+  
+  def create_quick
+    @task = @user_story.tasks.new(:definition => @user_story.definition, :description => @user_story.description, :hours => 6)
+    if @task.save
+      flash[:notice] = "6hr task created from user story"
+    else
+      flash[:error] = "Task could not be created"
+    end
+    redirect_to plan_sprint_path(:id => @user_story.sprint_id)
   end
   
   def edit

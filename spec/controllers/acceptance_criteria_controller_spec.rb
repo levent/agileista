@@ -18,8 +18,8 @@ describe AcceptanceCriteriaController do
     
     AcceptanceCriteriaController.instance_methods(false).each do |action|
       it "should only allow team members on '#{action}" do
-        controller.should_receive(:must_be_team_member).and_return(false)
-        get action.to_sym
+        controller.should_receive(:must_be_team_member).and_raise(ActiveRecord::RecordNotFound)
+        lambda {get action.to_sym}.should raise_error(ActiveRecord::RecordNotFound)
       end
     end
     
@@ -28,9 +28,9 @@ describe AcceptanceCriteriaController do
     %w(update destroy create).each do |action|
       it "should set_user_story on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
-        controller.should_receive(:set_user_story).and_return(@user_story)
+        controller.should_receive(:set_user_story).and_raise(ActiveRecord::RecordNotFound)
         controller.stub!(:set_acceptance_criterion)
-        get action.to_sym
+        lambda {get action.to_sym}.should raise_error(ActiveRecord::RecordNotFound)
       end
     end
     
@@ -38,8 +38,8 @@ describe AcceptanceCriteriaController do
       it "should set_acceptance_criterion on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
         controller.stub!(:set_user_story)
-        controller.should_receive(:set_acceptance_criterion)
-        get action.to_sym
+        controller.should_receive(:set_acceptance_criterion).and_raise(ActiveRecord::RecordNotFound)
+        lambda {get action.to_sym}.should raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
