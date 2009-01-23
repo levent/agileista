@@ -5,7 +5,7 @@ set :scm, :git
 set :deploy_via, :copy
 set :copy_cache, true
 set :copy_exclude, [".git"]
-set :branch, "0.1.0"
+set :branch, "0.1.1"
 set :scm_verbose, true
 
 # set :deploy_via, :export
