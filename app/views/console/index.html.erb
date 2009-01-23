@@ -15,7 +15,7 @@
 		  <tr>
 		    <td><%= account.name %></td>
 		    <td><%= account.people.count %></td>
-		    <td><%= account.account_holder.name %> <%= account.account_holder.email %></td>
+		    <td><%= show_account_holder(account) %></td>
 		    <td><%= show_date(account.created_at) %></td>
 		    <td><%= account.user_stories.count %></td>
 	    </tr>
