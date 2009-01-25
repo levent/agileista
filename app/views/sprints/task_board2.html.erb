@@ -1,0 +1,28 @@
+<div id="main" class="wide">
+    <h1><%= sprint_header(@sprint) %></h1>
+    <%= @chart %>
+    <% count = 0 -%>
+    <% user_story_positions = {} -%>
+    <div id="thewall">
+      <% @sprint.user_stories.each do |user_story| -%>
+        <% count += 1 %>
+        <% user_story_positions[user_story.id] = count %>
+        <div class="storycards">
+          <%= render :partial => 'user_story', :locals => {:user_story => user_story, :count => count} %>
+        </div>
+        <div class="taskcards" id="incomplete_<%= user_story.id %>">
+          <%= render :partial => 'task_card', :collection => user_story.tasks.incomplete, :locals => {:positions => user_story_positions} %>
+        </div>
+        <div class="taskcards" id="inprogress_<%= user_story.id %>">
+          <%= render :partial => 'task_card', :collection => user_story.tasks.inprogress, :locals => {:positions => user_story_positions} %>
+        </div>
+        <div class="taskcards" id="complete_<%= user_story.id %>">
+          <%= render :partial => 'task_card', :collection => user_story.tasks.complete, :locals => {:positions => user_story_positions} %>
+        </div>
+        <div class="c">&nbsp;</div>
+        <%= sortable_element "incomplete_#{user_story.id}", :tag => 'div', :dropOnEmpty => true, :containment => ["incomplete_#{user_story.id}", "inprogress_#{user_story.id}", "incomplete_#{user_story.id}"], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'sprint', :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>
+        <%= sortable_element "inprogress_#{user_story.id}", :tag => 'div', :dropOnEmpty => true, :containment => ["incomplete_#{user_story.id}", "inprogress_#{user_story.id}", "incomplete_#{user_story.id}"], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'sprint', :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>
+        <%= sortable_element "complete_#{user_story.id}", :tag => 'div', :dropOnEmpty => true, :containment => ["incomplete_#{user_story.id}", "inprogress_#{user_story.id}", "incomplete_#{user_story.id}"], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'sprint', :action => "move_task" }, :complete => visual_effect(:highlight, '') unless @current_user.is_a?(Contributor) %>
+      <% end -%>
+    </div>
+</div>

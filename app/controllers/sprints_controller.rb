@@ -14,7 +14,7 @@ class SprintsController < AbstractSecurityController
     respond_to do |format|
       if @sprint && @sprint.current?
         calculate_tomorrows_burndown
-        format.html {render :action => 'task_board'}
+        format.html {render :action => 'task_board2'}
       else
         format.html
       end

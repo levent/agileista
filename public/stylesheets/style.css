@@ -102,7 +102,7 @@ height: 120px;
 }
 /**/
 div.notecard form, div.notecard input {padding: 0; margin: 0;}
-#userstorylist div, .backlogitem {cursor:move; margin: 4px; padding: 4px; width: 124px; min-height: 124px; font-size: 0.8em; float:left; margin-bottom: 8px; position: relative;border: 1px solid #b9121b;}
+#thewall div.userstory, #userstorylist div, .backlogitem {cursor:move; margin: 4px; padding: 4px; width: 124px; min-height: 124px; font-size: 0.8em; float:left; margin-bottom: 8px; position: relative;border: 1px solid #b9121b;}
 /* for Internet Explorer */
 /*\*/
 * html #userstorylist div {
@@ -110,10 +110,10 @@ height: 90px;
 }
 /**/
 
-#userstorylist span.user_story_points { color:#990000;display:block;margin-bottom: 2px; }
-div.notecard h2, #userstorylist h2 {margin: 0; margin-bottom: 4px;}
-#userstorylist img, div.notecard img {position: absolute; bottom: 2px; right: 2px;}
-div.notecard img.second, #userstorylist img.show {position: absolute; bottom: 2px; right: 20px;}
+#thewall span.user_story_points, #userstorylist span.user_story_points { color:#990000;display:block;margin-bottom: 2px; }
+div.notecard h2, #thewall h2, #userstorylist h2 {margin: 0; margin-bottom: 4px;}
+#thewall img, #userstorylist img, div.notecard img {position: absolute; bottom: 2px; right: 2px;}
+div.notecard img.second, #thewall img.show, #userstorylist img.show {position: absolute; bottom: 2px; right: 20px;}
 div.notecard img.third {position: absolute; bottom: 2px; right: 40px;}
 div.undefined h2 {font-size: 1.2em; background-color: #b9121b; color: #fff;}
 div.toovague h2 {font-size: 1.2em; background-color: #333; color: #fff;}
@@ -260,6 +260,8 @@ padding-right: 10px;}
 #tvnoborder h3 {margin: 0; margin-bottom: 4px; margin-top:2px; background-color: #333; color: #fff; display:block; font-size: 12px; font-weight: normal; padding: 2px;}
 #ncnoborder h3 {margin: 0; margin-bottom: 4px; margin-top:2px; background-color: #DF4001; color: #fff; display:block; font-size: 12px; font-weight: normal; padding: 2px;}
 #udnoborder h3 {display:block; font-size: 12px; font-weight: normal; padding: 2px}
+
+div.taskcards {width: 30%; border-left: 1px solid red; float: left; min-height: 124px;}
 #incomplete {width: 30%;padding:10px; min-height: 200px;}
 #inprogress {width: 30%;border-left:1px solid #c00; padding:10px; min-height: 200px;}
 #complete {width: 30%;border-left:1px solid #c00; padding:10px; min-height: 200px;}
