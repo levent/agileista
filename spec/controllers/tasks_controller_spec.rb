@@ -173,5 +173,9 @@ describe TasksController do
     it "should generate params from POST /tasks/create_quick" do
       params_from(:post, '/user_stories/8/tasks/create_quick').should == {:controller => 'tasks', :action => 'create_quick', :user_story_id => '8'}
     end
+    
+    it "should generate params from POST /tasks/assign correctly" do
+      params_from(:post, '/user_stories/9/tasks/assign').should == {:controller => 'tasks', :action => 'assign', :user_story_id => '9'}
+    end
   end
 end
