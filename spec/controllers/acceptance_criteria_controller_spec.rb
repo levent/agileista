@@ -57,7 +57,7 @@ describe AcceptanceCriteriaController do
     it "should create acceptance criterium and render partial" do
       @user_story.acceptance_criteria.should_receive(:new).with('hash').and_return(@acceptance_criterion)
       @acceptance_criterion.should_receive(:save).and_return(true)
-      controller.expect_render(:partial => 'user_stories/acceptance_criteria')
+      controller.should_receive(:render).with(:partial => 'user_stories/acceptance_criteria')
       post :create, :acceptance_criterion => 'hash'
     end
   end
@@ -80,7 +80,7 @@ describe AcceptanceCriteriaController do
     
     it "should destroy acceptance criterion and render partial" do
       @acceptance_criterion.should_receive(:destroy)
-      controller.expect_render(:partial => 'user_stories/acceptance_criteria')
+      controller.should_receive(:render).with(:partial => 'user_stories/acceptance_criteria')
       delete :destroy, :user_story_id => "23", :id => "17"
     end
   end

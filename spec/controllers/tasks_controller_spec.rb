@@ -63,7 +63,7 @@ describe TasksController do
     it "should create task and redirect on fail" do
       @user_story.tasks.should_receive(:new).with('hash').and_return(@task)
       @task.should_receive(:save).and_return(false)
-      controller.expect_render(:action => 'new')
+      controller.should_receive(:render).with(:action => 'new')
       post :create, :task => 'hash'
     end
   end
@@ -118,7 +118,7 @@ describe TasksController do
     
     it "should update task and redirect on fail" do
       @task.should_receive(:update_attributes).with('hash').and_return(false)
-      controller.expect_render(:action => 'edit')
+      controller.should_receive(:render).with(:action => 'edit')
       put :update, :task => 'hash'
     end
   end
