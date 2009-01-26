@@ -17,7 +17,7 @@ describe SprintController do
     end
     
     it "should not update task if current_user is not responsible for task" do
-      @tasks.should_not_receive(:save)
+      @task.should_not_receive(:save)
       post :update_hours, :id => '198'
       flash[:error].should_not be_nil
     end

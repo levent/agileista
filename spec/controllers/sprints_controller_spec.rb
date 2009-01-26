@@ -63,7 +63,7 @@ describe SprintsController do
     it "should render 404 if sprint finished" do
       @account.sprints.stub!(:find).and_return(@sprint)
       @sprint.should_receive(:finished?).and_return(true)
-      controller.expect_render(:file => "#{RAILS_ROOT}/public/404.html", :status => 404)
+      controller.should_receive(:render).with(:file => "#{RAILS_ROOT}/public/404.html", :status => 404)
       get :plan
     end
     
@@ -126,6 +126,7 @@ describe SprintsController do
       stub_login_and_account_setup
       controller.stub!(:iteration_length_must_be_specified).and_return(true)
       @sprint = Sprint.new
+      @sprint.stub!(:account).and_return(@account)
     end
 
     it "should create sprint and redirect on success" do
@@ -139,7 +140,7 @@ describe SprintsController do
     it "should create sprint and redirect on fail" do
       @account.sprints.should_receive(:new).with('sprinthash').and_return(@sprint)
       @sprint.should_receive(:save).and_return(false)
-      controller.expect_render(:action => 'new')
+      controller.should_receive(:render).with(:action => 'new')
       post :create, :sprint => 'sprinthash'
     end
     
@@ -169,7 +170,7 @@ describe SprintsController do
     it "should update sprint and redirect on fail" do
       @account.sprints.should_receive(:find).and_return(@sprint)
       @sprint.should_receive(:update_attributes).with('sprinthash').and_return(false)
-      controller.expect_render(:action => 'edit')
+      controller.should_receive(:render).with(:action => 'edit')
       post :update, :sprint => 'sprinthash'
     end
   end
