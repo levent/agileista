@@ -25,7 +25,7 @@ describe TasksController do
     
     # Still some legacy actions
     # TasksController.instance_methods(false).each do |action|
-    %w(show edit update destroy new create create_quick).each do |action|
+    %w(show edit update destroy new create create_quick assign).each do |action|
       it "should set_user_story on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
         controller.should_receive(:set_user_story).and_raise(ActiveRecord::RecordNotFound)

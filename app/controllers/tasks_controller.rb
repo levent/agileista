@@ -2,7 +2,7 @@ class TasksController < AbstractSecurityController
   
   # ssl_required :create, :claim, :release, :move_up, :move_down
   before_filter :must_be_team_member
-  before_filter :set_user_story, :only => [:show, :edit, :update, :destroy, :new, :create, :create_quick]
+  before_filter :set_user_story, :only => [:show, :edit, :update, :destroy, :new, :create, :create_quick, :assign]
   before_filter :set_task, :only => [:show, :edit, :update, :destroy]
 
   def show
@@ -31,6 +31,33 @@ class TasksController < AbstractSecurityController
       flash[:error] = "Task could not be created"
     end
     redirect_to plan_sprint_path(:id => @user_story.sprint_id)
+  end
+  
+  def assign
+    if request.xhr?
+      if params["inprogress_#{@user_story.id}"] && !params["inprogress_#{@user_story.id}"].blank?
+        for item in params["inprogress_#{@user_story.id}"]
+          task = Task.find(item)
+          task.developer = current_user unless task.developer
+          task.save
+        end
+      end
+      if params["incomplete_#{@user_story.id}"] && !params["incomplete_#{@user_story.id}"].blank?
+        for item in params["incomplete_#{@user_story.id}"]
+          task = Task.find(item)
+          task.developer = nil
+          task.save
+        end
+      end
+      if params["complete_#{@user_story.id}"] && !params["complete_#{@user_story.id}"].blank?
+        for item in params["complete_#{@user_story.id}"]
+          task = Task.find(item)
+          task.hours = 0
+          task.save
+        end
+      end
+    end
+    render :nothing => true 
   end
   
   def edit
