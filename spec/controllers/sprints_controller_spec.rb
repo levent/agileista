@@ -126,6 +126,7 @@ describe SprintsController do
       stub_login_and_account_setup
       controller.stub!(:iteration_length_must_be_specified).and_return(true)
       @sprint = Sprint.new
+      @sprint.stub!(:account).and_return(@account)
     end
 
     it "should create sprint and redirect on success" do
