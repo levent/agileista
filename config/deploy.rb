@@ -1,8 +1,8 @@
 set :application, "featurecloud.com"
 set :repository, "git@github.com:levent/agileista.git"
 set :scm, :git
-# set :deploy_via, :remote_cache
-set :deploy_via, :copy
+set :deploy_via, :remote_cache
+# set :deploy_via, :copy
 set :copy_cache, true
 set :copy_exclude, [".git"]
 # set :branch, "0.1.1"
