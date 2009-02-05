@@ -17,7 +17,6 @@ set :deploy_to, "/home/levent/apps/#{application}"
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
 # set :scm, :subversion
-
 ssh_options[:port] = 30000
 set :user, "levent"
 default_run_options[:pty] = true
