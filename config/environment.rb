@@ -44,8 +44,8 @@ Rails::Initializer.run do |config|
   
   # See Rails::Configuration for more options
   # The gems required by this application
-  config.gem "pdf-writer", :lib => "pdf/writer"
-  config.gem "color-tools", :lib => "color"
+  # config.gem "pdf-writer", :lib => "pdf/writer"
+  # config.gem "color-tools", :lib => "color"
   config.gem "fastercsv"
   config.gem "json"
   config.gem "prawn"
