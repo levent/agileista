@@ -1,11 +1,11 @@
-set :application, "agileista.com"
+set :application, "featurecloud.com"
 set :repository, "git@github.com:levent/agileista.git"
 set :scm, :git
 # set :deploy_via, :remote_cache
 set :deploy_via, :copy
 set :copy_cache, true
 set :copy_exclude, [".git"]
-set :branch, "0.1.1"
+# set :branch, "0.1.1"
 set :scm_verbose, true
 
 # set :deploy_via, :export
@@ -18,13 +18,22 @@ set :deploy_to, "/home/levent/apps/#{application}"
 # your SCM below:
 # set :scm, :subversion
 
-ssh_options[:port] = 30000
+ssh_options[:port] = 40000
 set :user, "levent"
 default_run_options[:pty] = true
+task :production do
+  # set :application, "agileista.com"
+  # role :app, "app.agileista.com"
+  # role :web, "app.agileista.com"
+  # role :db,  "app.agileista.com", :primary => true
+end
 
-role :app, "app.agileista.com"
-role :web, "app.agileista.com"
-role :db,  "app.agileista.com", :primary => true
+task :staging do
+  set :application, "featurecloud.com"
+  role :app, "featurecloud.com"
+  role :web, "featurecloud.com"
+  role :db,  "featurecloud.com", :primary => true
+end
 
 namespace :deploy do
   task :restart do
