@@ -12,7 +12,7 @@
 			<fieldset>
 				<legend>2. Your site address</legend>
 				<p>This is your unique address where you will login<br /><strong>Letters and numbers only with no spaces</strong></p>
-				http://<%= text_field :account, :subdomain, :class => 'nowrap' %>.agileista.com
+				http://<%= text_field :account, :subdomain, :class => 'nowrap' %>.<%= AccountStuff::DOMAIN %>
 			</fieldset>
 			
 			<%= error_messages_for :user %>

@@ -38,7 +38,7 @@ class NotificationMailer < ActionMailer::Base
     @recipients       ="#{user.email}"
     @from             = EMAIL_FROM
     @sent_on          = Time.now
-    @body[:url]       = url_for :controller => 'login', :subdomain => account.subdomain, :host => 'app.agileista.com'
+    @body[:url]       = url_for :controller => 'login', :subdomain => account.subdomain, :host => AccountStuff::SIGNUP_SITE
     @body[:user]      = user
     @body[:account]   = account
     @subject          = "Hey Agileista! Here's some important information on accessing your account"

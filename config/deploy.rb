@@ -22,6 +22,7 @@ set :user, "levent"
 default_run_options[:pty] = true
 task :production do
   # set :application, "agileista.com"
+  set :rails_env, "production"
   # role :app, "app.agileista.com"
   # role :web, "app.agileista.com"
   # role :db,  "app.agileista.com", :primary => true
@@ -29,6 +30,7 @@ end
 
 task :staging do
   set :application, "featurecloud.com"
+  set :rails_env, "staging"
   role :app, "featurecloud.com"
   role :web, "featurecloud.com"
   role :db,  "featurecloud.com", :primary => true
@@ -55,13 +57,13 @@ end
 
 desc "Stop the sphinx server"
 task :stop_sphinx , :roles => :app do
-  run "cd #{current_path} && rake thinking_sphinx:stop RAILS_ENV=production"
+  run "cd #{current_path} && rake thinking_sphinx:stop RAILS_ENV=#{rails_env}"
 end
 
 
 desc "Start the sphinx server" 
 task :start_sphinx, :roles => :app do
-  run "cd #{current_path} && rake thinking_sphinx:configure RAILS_ENV=production && rake thinking_sphinx:start RAILS_ENV=production"
+  run "cd #{current_path} && rake thinking_sphinx:configure RAILS_ENV=#{rails_env} && rake thinking_sphinx:start RAILS_ENV=#{rails_env}"
 end
 
 desc "Restart the sphinx server"

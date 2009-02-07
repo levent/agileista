@@ -3,7 +3,7 @@
 
 # Uncomment below to force Rails into production mode when 
 # you don't control web/app server and can't set it the proper way
-ENV['RAILS_ENV'] ||= 'production'
+# ENV['RAILS_ENV'] ||= 'production'
 # ENV['GEM_PATH']='/home/levent/.gem/ruby/1.8:/usr/lib/ruby/gems/1.8' if ENV['RAILS_ENV'] == 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
@@ -88,6 +88,7 @@ ActionMailer::Base.sendmail_settings = {
 PEOPLE_SALT = 'somecrazyrandomstring'
 SubdomainFu.tld_sizes = {:development => 1,
                          :test => 0,
+                         :staging => 1,
                          :production => 1}
 # SubdomainFu.mirrors = %w(app www site we blog dev stage) # Defaults to %w(www)
 # SubdomainFu.preferred_mirror = "app"
