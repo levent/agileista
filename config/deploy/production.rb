@@ -1,11 +1,11 @@
-set :application, "featurecloud.com"
+set :application, "agileista.com"
 set :repository, "git@github.com:levent/agileista.git"
 set :scm, :git
 set :deploy_via, :remote_cache
 # set :deploy_via, :copy
 # set :copy_cache, true
 # set :copy_exclude, [".git"]
-# set :branch, "0.1.1"
+set :branch, "0.1.1"
 set :scm_verbose, true
 
 # set :deploy_via, :export
@@ -23,11 +23,11 @@ set :user, "levent"
 set :use_sudo, false
 default_run_options[:pty] = true
 
-set :application, "featurecloud.com"
-set :rails_env, "staging"
-role :app, "featurecloud.com"
-role :web, "featurecloud.com"
-role :db,  "featurecloud.com", :primary => true
+set :application, "agileista.com"
+set :rails_env, "production"
+role :app, "agileista.com"
+role :web, "agileista.com"
+role :db,  "agileista.com", :primary => true
 
 namespace :deploy do
   task :restart do
@@ -68,8 +68,6 @@ end
 task :setup_symlinks, :roles => :web do
   run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
   run "ln -nfs #{shared_path}/sphinx #{release_path}/db/sphinx"
-  # run "rm -rf #{release_path}/vendor/plugins/acts_as_xapian/xapiandbs"
-  # run "ln -nfs #{shared_path}/xapiandbs #{release_path}/vendor/plugins/acts_as_xapian/xapiandbs"
 end
 
 after "deploy:update_code", :setup_symlinks
