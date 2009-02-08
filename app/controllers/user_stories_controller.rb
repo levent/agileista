@@ -1,7 +1,7 @@
 class UserStoriesController < AbstractSecurityController
   before_filter :must_be_team_member, :except => [:add, :create_via_add, :show, :untheme]
-  before_filter :user_story_must_exist, :only => ['update', 'add_to_sprint', 'remove_from_sprint', 'show', 'create_task', 'edit_task', 'update_task', 'create_acceptance_criterium',
-    :edit, :move_up, :move_down, :delete, :destroy, :delete_acceptance_criterium, :new_task, :tasks, :done, :unfinished, :show_task, :destroy_task, :copy, :untheme]
+  before_filter :user_story_must_exist, :only => ['update', 'add_to_sprint', 'remove_from_sprint', 'show', 'create_acceptance_criterium',
+    :edit, :move_up, :move_down, :delete, :destroy, :delete_acceptance_criterium, :done, :unfinished, :copy, :untheme]
   
   in_place_edit_for :acceptance_criterium, :detail
   
@@ -63,25 +63,6 @@ class UserStoriesController < AbstractSecurityController
       render :action => 'add'
     end
   end
-
-  def new_task
-    @task = Task.new
-    @sprint = @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
-  end
-  
-  def create_task
-    @acceptance_criterium = AcceptanceCriterium.new
-    @task = Task.new(params[:task])
-    @task.user_story = @user_story
-    if @task.save
-      calculate_dayzero(params[:sprint_id])
-      flash[:notice] = "Task created successfully"
-      redirect_to :controller => 'user_stories', :action => "new_task", :id => @user_story, :sprint_id => params[:sprint_id]
-    else
-      flash[:error] = "There were errors creating the task"
-      render :controller => 'user_stories', :action => 'new_task', :id => @user_story, :sprint_id => params[:sprint_id]
-    end
-  end
   
   def create_acceptance_criterium
     if request.post? or request.xhr?
@@ -105,48 +86,6 @@ class UserStoriesController < AbstractSecurityController
       @acceptance_criterium = @user_story.acceptance_criteria.find(params[:crit_id])
       if @acceptance_criterium.destroy
         render :partial => 'user_stories/acceptance_criteria' if request.xhr?
-      end
-    end
-  end
-  
-  def show_task
-    @task = @user_story.tasks.find(params[:task_id])
-  end
-  
-  def edit_task
-    @task = @user_story.tasks.find(params[:task_id])
-  end
-  
-  def destroy_task
-    if request.post? || request.delete?
-      @task = @user_story.tasks.find(params[:task_id])
-      if @task.destroy
-        flash[:notice] = "Task deleted successfully"
-      end
-    else
-      flash[:error] = "There were errors deleting the task"
-    end
-    redirect_to :controller => 'sprint'
-  end
-  
-  def update_task
-    if request.post?
-      @task = @user_story.tasks.find(params[:task_id])
-      if @task.update_attributes(params[:task])
-        flash[:notice] = "Task update successfully"
-        # redirect_to :action => "show", :id => @user_story, :sprint_id => params[:sprint_id]
-        if params[:from]  == 'planning'
-          redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id] and return false
-        elsif params[:from] == 'tasks'
-          redirect_to :controller => 'user_stories', :action => 'new_task', :id => @user_story, :sprint_id => params[:sprint_id] and return false
-        elsif params[:from] == 'tb'
-          redirect_to :controller => 'user_stories', :action => 'edit_task', :id => @user_story, :task_id => @task, :from => params[:from] and return false
-        else
-          redirect_to :controller => 'user_stories', :action => 'edit', :id => @user_story, :sprint_id => params[:sprint_id] and return false
-        end
-      else
-        flash[:error] = "There were errors updating the task"
-        render :controller => 'user_stories', :action => 'show', :id => @user_story, :sprint_id => params[:sprint_id]
       end
     end
   end
