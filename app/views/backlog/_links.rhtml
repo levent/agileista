@@ -1,4 +1,0 @@
-<p><%= link_to "Sprint backlog", :action => "sprint" unless @controller.action_name == 'sprint' %></p>
-<p><%= link_to "Unassigned backlog", :action => "index" unless @controller.action_name == 'index' %></p>
-<p><%= link_to "Sprint planning", :controller => "sprint_planning" if @current_user.is_a?(TeamMember) %></p>
-<p><%= link_to "Current sprint", :controller => "sprint" if @current_user.is_a?(TeamMember) %></p>
