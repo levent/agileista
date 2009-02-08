@@ -157,7 +157,7 @@ class UserStoriesController < AbstractSecurityController
       flash[:error] = "User story couldn't be removed"
       render :action => 'edit'
     end
-    redirect_to :controller => 'sprint_planning', :action => 'show', :id => params[:sprint_id]
+    redirect_to sprint_path(:id => params[:sprint_id])
   end
   
   def destroy
