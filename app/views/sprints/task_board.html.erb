@@ -1,6 +1,5 @@
 <div id="main" class="wide">
     <h1><%= sprint_header(@sprint) %></h1>
-    <%= @chart %>
     <% count = 0 -%>
     <% first = true %>
     <% user_story_positions = {} -%>
@@ -32,4 +31,5 @@
         <hr />
       <% end -%>
     </div>
+    <%= @chart %>
 </div>
