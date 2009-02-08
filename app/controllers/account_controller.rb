@@ -35,15 +35,6 @@ class AccountController < AbstractSecurityController
     end
   end
   
-  # def sort
-  #   @user_stories = @account.user_stories
-  #   @user_stories.each do |story| 
-  #     story.position = params['userstorylist'].index(story.id.to_s) + 1 
-  #     story.save 
-  #   end 
-  #   render :nothing => true 
-  # end
-  # 
   def resend_authentication
     if request.post?
       @person = @account.people.find(params[:id])
