@@ -95,7 +95,7 @@ class ApplicationController < ActionController::Base
     index = 0
     day = 0
     done = false
-    for i in @current_sprint.start_at.to_date..@current_sprint.end_at.to_date
+    for i in @current_sprint.start_at.to_date..(@current_sprint.end_at + 1.days).to_date
       x = @current_sprint.burndowns.find(:first, :conditions => ["created_on = ?", i])
       y = x.hours_left if x
       if y && (i.to_date <= Date.today)

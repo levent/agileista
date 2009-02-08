@@ -261,7 +261,7 @@ padding-right: 10px;}
 #ncnoborder h3 {margin: 0; margin-bottom: 4px; margin-top:2px; background-color: #DF4001; color: #fff; display:block; font-size: 12px; font-weight: normal; padding: 2px;}
 #udnoborder h3 {display:block; font-size: 12px; font-weight: normal; padding: 2px}
 
-div.taskcards {width: 28%; border-left: 1px solid red; float: left; min-height: 124px; padding-left:2px;}
+div.taskcards {width: 28%; border-left: 1px solid #ccc; float: left; min-height: 124px; padding-left:2px;}
 div.storycards {float:left; width: 144px;}
 #incomplete {width: 30%;padding:10px; min-height: 200px;}
 #inprogress {width: 30%;border-left:1px solid #c00; padding:10px; min-height: 200px;}
