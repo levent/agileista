@@ -8,7 +8,7 @@ module ActiveRecordValidationMatcher
       @target = target
       @target.send("#{@expected}=", nil)
       @target.valid?
-      @target.errors.on(@expected) == ActiveRecord::Errors.default_error_messages[:blank]
+      @target.errors.on(@expected) == I18n.translate('activerecord.errors.messages')[:blank]
     end
 
     def failure_message
@@ -30,7 +30,7 @@ module ActiveRecordValidationMatcher
       @target = target
       @target.send("#{@expected}=", nil)
       @target.valid?
-      @target.errors.on(@expected) == ActiveRecord::Errors.default_error_messages[:too_short] % @length
+      @target.errors.on(@expected) == I18n.translate('activerecord.errors.messages')[:too_short] % @length
     end
 
     def failure_message
