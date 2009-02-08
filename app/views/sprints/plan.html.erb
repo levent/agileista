@@ -13,7 +13,7 @@
 	<% count += 1 -%>
       <div id="est_<%= user_story.id %>" class="notecard defined">
 		<h2>#<%= count %></h2>
-        <%=h truncate(user_story.definition, 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(user_story.story_points) %></span>
+        <%=h truncate(user_story.definition, :length => 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(user_story.story_points) %></span>
 <%= link_to 'View', {:controller => 'user_stories', :action => 'show', :id => user_story, :sprint_id => @sprint}, :title => "Show user story" %> <%= link_to 'Edit', {:controller => 'user_stories', :action => 'edit', :id => user_story, :sprint_id => @sprint}, :title => "Edit user story" %>
       </div>
     <% end -%>
@@ -26,7 +26,7 @@
 	<% count += 1 -%>
      <div id="com_<%= us.id %>" class="notecard<%= tasked?(us) %>">
       <h2><%= link_to "##{count}", sprint_user_story_path(:id => us, :sprint_id => @sprint), :title => "Show user story" %></h2>
-      <%=h truncate(us.definition, 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(us.story_points) %><br /><%= pluralize us.tasks.count, 'task', 'tasks' %></span>
+      <%=h truncate(us.definition, :length => 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(us.story_points) %><br /><%= pluralize us.tasks.count, 'task', 'tasks' %></span>
 	    <%= link_to 'Add tasks', new_user_story_task_path(:user_story_id => us), :title => "Add tasks" %> <%= link_to 'Auto task', create_quick_user_story_tasks_path(:user_story_id => us), :method => :post, :title => 'Auto task' if us.tasks.blank? %>
      </div>
     <% end -%>

@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
   
   # excludes DONE
   def account_user_stories
-     @user_stories = @account.user_stories.unassigned
+     @user_stories = @account.user_stories.unassigned('position')
   end
   
   # please see notes in user_story method

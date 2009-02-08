@@ -27,10 +27,12 @@ class UserStory < ActiveRecord::Base
   belongs_to :release
   
   named_scope :estimated, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil]
-  named_scope :unassigned, lambda {|order|
-    order ||= 'position'
-      { :conditions => ['done = ? AND sprint_id IS ?', 0, nil],
-        :order => order, :include => [:acceptance_criteria, :person]}
+  named_scope :unassigned, 
+    lambda {|order|
+        { 
+          :conditions => ['done = ? AND sprint_id IS ?', 0, nil],
+          :order => order, :include => [:acceptance_criteria, :person]
+        }
     }
 
   def inprogress?

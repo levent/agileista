@@ -3,17 +3,15 @@ class BacklogController < AbstractSecurityController
   ssl_required :feed
   ssl_allowed :index, :sort_release, :search
   before_filter :must_be_team_member, :only => ['sort_release']
-  before_filter :account_user_stories ,:only => ['index', 'sort_release']
+  before_filter :account_user_stories ,:only => ['index', 'sort_release', 'export', 'feed', 'pdf']
 
   def index
-    @user_stories = @account.user_stories.unassigned('position')
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     prawnto :filename => 'backlog.pdf', :inline => false
   end
   
   def export
-    @user_stories = @account.user_stories.unassigned
     stream_csv do |csv|
       csv << ["ID",
         "Definition",
@@ -35,13 +33,11 @@ class BacklogController < AbstractSecurityController
   end
   
   def feed
-    @user_stories = @account.user_stories.unassigned('position')
     render :layout => false
   end
   
   def pdf
     @rails_pdf_name = "Backlog.pdf"
-    @user_stories = @account.user_stories.unassigned('position')
     render :layout => false
   end
   

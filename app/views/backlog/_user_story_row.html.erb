@@ -1,7 +1,7 @@
 <tr id="item_<%= us.id %>">
 	<td><%= @count %></td>
 	<td><%= user_story_status(us) %></td>
-	<td><%= link_to truncate(us.definition, 80), user_story_path(:id => us) %> <%= link_to 'Edit', edit_user_story_path(:id => us) %></td>
+	<td><%= link_to truncate(us.definition, :length => 80), user_story_path(:id => us) %> <%= link_to 'Edit', edit_user_story_path(:id => us) %></td>
 	<td><%= show_story_points(us.story_points) %></td>
 	<td><%= show_stakeholder(us) %></td>
 </tr>
