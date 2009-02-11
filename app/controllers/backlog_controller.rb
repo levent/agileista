@@ -42,11 +42,9 @@ class BacklogController < AbstractSecurityController
   end
   
   def search
-    if request.post? && params[:q]
+    if params[:q]
       raise ArgumentError unless @account.id
-      @user_stories = UserStory.search "#{params[:q]}", {:with => {:account_id => @account.id}, :limit => 1000}
-      @story_points = 0
-      @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
+      @user_stories = UserStory.search("#{params[:q]}", {:with => {:account_id => @account.id}, :limit => 1000, :per_page => 20, :page => params[:page]})
     else
       flash[:notice] = "No user stories found"
       redirect_to :action => 'index' and return false
