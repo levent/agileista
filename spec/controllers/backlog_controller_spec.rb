@@ -14,8 +14,8 @@ describe BacklogController do
     it "should scope to active and current account user stories" do
       @account.stub!(:id).and_return(78)
       @results.stub!(:results).and_return([])
-      UserStory.should_receive(:search).with("find me carrots", :with => {:account_id => 78}, :limit => 1000).and_return(@results)
-      post :search, :q => 'find me carrots'
+      UserStory.should_receive(:search).with("find me carrots", :with => {:account_id => 78}, :limit => 1000, :page => '13', :per_page => 20).and_return(@results)
+      get :search, :q => 'find me carrots', :page => '13'
     end
     
     it "should raise exception if no account_id" do
