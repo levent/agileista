@@ -50,13 +50,13 @@ end
 
 desc "Stop the sphinx server"
 task :stop_sphinx , :roles => :app do
-  run "cd #{current_path} && rake thinking_sphinx:stop RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && rake ts:stop RAILS_ENV=#{rails_env}"
 end
 
 
 desc "Start the sphinx server" 
 task :start_sphinx, :roles => :app do
-  run "cd #{current_path} && rake thinking_sphinx:configure RAILS_ENV=#{rails_env} && rake thinking_sphinx:start RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && rake ts:config RAILS_ENV=#{rails_env} && rake ts:start RAILS_ENV=#{rails_env}"
 end
 
 desc "Restart the sphinx server"
@@ -68,8 +68,6 @@ end
 task :setup_symlinks, :roles => :web do
   run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
   run "ln -nfs #{shared_path}/sphinx #{release_path}/db/sphinx"
-  # run "rm -rf #{release_path}/vendor/plugins/acts_as_xapian/xapiandbs"
-  # run "ln -nfs #{shared_path}/xapiandbs #{release_path}/vendor/plugins/acts_as_xapian/xapiandbs"
 end
 
 after "deploy:update_code", :setup_symlinks
