@@ -3,6 +3,7 @@ class UserStory < ActiveRecord::Base
     indexes tags.name, :as => :tag_string
     indexes definition
     indexes description
+    indexes [stakeholder, person.name], :as => :responsible
     has account(:id), :as => :account_id
     where "done = 0 AND sprint_id IS NULL"
     set_property :delta => true
@@ -99,22 +100,14 @@ class UserStory < ActiveRecord::Base
   def theme_with(themes)
     self.themings.destroy_all
     return unless themes
-    # new_themes = []
     themes.each do |theme|
       Theme.find_or_create_by_name_and_account_id(theme,self.account_id).themables << self
     end
-    # old_themes = self.themings - new_themes
-    # old_themes.collect{|x| x.destroy}
   end
   
   alias :themes= :theme_with
   
-  # def tag_string
-  #   self.tags.map(&:name).join(' ')
-  # end
-  
   def active
-    # :conditions => ["done = ? AND sprint_id IS ?", 0, nil]
     if self.done == 0 && self.sprint.blank?
       return "yes"
     else
@@ -124,7 +117,6 @@ class UserStory < ActiveRecord::Base
   
   def copy
     new_us = self.clone
-    # new_us.acceptance_criteria = self.acceptance_criteria
     self.acceptance_criteria.each do |ac|
       new_us.acceptance_criteria << AcceptanceCriterium.new(ac.attributes)
     end
