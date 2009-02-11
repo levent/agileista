@@ -1,0 +1,28 @@
+<div id="navii"><%= link_to "Add a theme", new_theme_path %></div>
+<div id="main" class="wide">
+  <h1>Themes</h1>
+  <div id="themewall">
+    <% if @themes.blank? -%>
+      <p>You have no themes defined</p>
+      <p><%= link_to "Click here", new_theme_path %> to create a theme</p>
+    <% else -%>
+    <% @themes.each do |theme| -%>
+      <div title="<%=h theme.description %>" class="themecard"><h2><%=h theme.name %> <span class="small"><%= link_to 'Edit', edit_theme_path(:id => theme) %> <%= link_to 'Delete', theme_path(:id => theme), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' if current_user.is_a?(TeamMember) %></span></h2><%= link_to_function 'Hide stories', "Element.toggle('theme_#{theme.id}')" %>
+        <ul>
+          <li><%= show_story_points(theme.story_points) %></li>
+          <li><%= show_story_points_remaining(theme.story_points_left) %></li>
+        </ul>
+      </div>
+      <div id="theme_<%= theme.id %>">
+        <% count = 0 -%>
+        <% theme.user_stories.each do |us| -%>
+          <% count += 1 %>
+          <%= render :partial => '/sprints/user_story', :locals => {:user_story => us, :count => count} %>
+        <% end -%>
+      </div>
+      <div class="c">&nbsp;</div>
+      <hr />
+    <% end -%>
+    <% end -%>
+  </div>
+</div>
