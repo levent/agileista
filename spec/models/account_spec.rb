@@ -13,7 +13,13 @@ describe Account do
     should validate_uniqueness_of(:subdomain)
   end
   
-  it {should have_many(:impediments)}
+  it {should have_many(:impediments).dependent(:destroy)}
+  it {should have_many(:themes).dependent(:destroy)}
+  it {should have_many(:releases).dependent(:destroy)}
+  it {should have_many(:tags).dependent(:destroy)}
+  it {should have_many(:people).dependent(:destroy)}
+  it {should have_many(:sprints).dependent(:destroy)}
+  it {should have_many(:user_stories).dependent(:destroy)}
 
   describe "in general" do    
     ["monkey balls", "c___c", "c_there", "^%"].each do |subdomain|
