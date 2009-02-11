@@ -56,6 +56,7 @@ Rails::Initializer.run do |config|
   config.gem "prawn"
   config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem 'haml'
+  config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => 'http://gems.github.com'
 end
 
 # Add new inflection rules using the following format 

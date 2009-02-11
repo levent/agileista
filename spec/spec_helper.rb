@@ -4,8 +4,8 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
-require 'spec/active_record_association_matcher'
-require 'spec/active_record_validation_matcher'
+# require 'spec/active_record_association_matcher'
+# require 'spec/active_record_validation_matcher'
 require 'spec/time_spec_helper'
 
 
@@ -16,8 +16,8 @@ Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-  config.include(ActiveRecordAssociationMatcher)
-  config.include(ActiveRecordValidationMatcher)
+  # config.include(ActiveRecordAssociationMatcher)
+  # config.include(ActiveRecordValidationMatcher)
 
   # == Fixtures
   #
