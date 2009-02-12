@@ -3,6 +3,44 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Account do
   it {should validate_presence_of(:name)}
   
+  describe "#velocity" do
+    before(:each) do
+      sprint1 = Sprint.new
+      sprint2 = Sprint.new
+      sprint3 = Sprint.new
+      sprint4 = Sprint.new
+      sprint5 = Sprint.new
+      sprint6 = Sprint.new
+      sprint7 = Sprint.new
+      sprint8 = Sprint.new
+      
+      sprint1.stub!(:velocity).and_return(200000)
+      sprint2.stub!(:velocity).and_return(20000000)
+      sprint3.stub!(:velocity).and_return(2300)
+      sprint4.stub!(:velocity).and_return(23)
+      sprint5.stub!(:velocity).and_return(23)
+      sprint6.stub!(:velocity).and_return(23)
+      sprint7.stub!(:velocity).and_return(23)
+      sprint8.stub!(:velocity).and_return(23)
+      
+      sprint1.stub!(:finished?).and_return(false)
+      sprint2.stub!(:finished?).and_return(false)
+      sprint3.stub!(:finished?).and_return(false)
+      sprint4.stub!(:finished?).and_return(true)
+      sprint5.stub!(:finished?).and_return(true)
+      sprint6.stub!(:finished?).and_return(true)
+      sprint7.stub!(:finished?).and_return(true)
+      sprint8.stub!(:finished?).and_return(true)
+      
+      @account = Account.new
+      @account.stub!(:sprints).and_return([sprint1, sprint2, sprint3, sprint4, sprint5, sprint6, sprint7, sprint8])
+    end
+    
+    it "should tally up all finished sprint' velocities and get the average" do
+      @account.velocity.should == 23
+    end
+  end
+  
   it "should have a unique name" do
     Account.create(:subdomain => 'valid', :name => 'valid')
     should validate_uniqueness_of(:name)

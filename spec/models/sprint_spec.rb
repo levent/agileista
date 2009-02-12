@@ -4,8 +4,35 @@ describe Sprint do
   
   before(:each) do
     @it = Sprint.new
-    # @task_a = Task.new
-    # @task_b = Task.new
+  end
+  
+  describe "#velocity" do
+    before(:each) do
+      us1 = UserStory.new(:story_points => 3)
+      us2 = UserStory.new(:story_points => 12)
+      us3 = UserStory.new(:story_points => 5)
+      us4 = UserStory.new(:story_points => 8)
+      us5 = UserStory.new(:story_points => 13)
+      us6 = UserStory.new(:story_points => nil)
+      us7 = UserStory.new(:story_points => 20)
+      us8 = UserStory.new(:story_points => 40)
+      
+      us1.stub!(:complete?).and_return(true)
+      us2.stub!(:complete?).and_return(true)
+      us3.stub!(:complete?).and_return(false)
+      us4.stub!(:complete?).and_return(true)
+      us5.stub!(:complete?).and_return(true)
+      us6.stub!(:complete?).and_return(false)
+      us7.stub!(:complete?).and_return(true)
+      us8.stub!(:complete?).and_return(false)
+      
+      @sprint = Sprint.new
+      @sprint.stub!(:user_stories).and_return([us1, us2, us3, us4, us5, us6, us7, us8])
+    end
+    
+    it "should return the total story points for all the complete user stories" do
+      @sprint.velocity.should == 56
+    end
   end
 
   describe "#upcoming?" do

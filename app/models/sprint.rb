@@ -18,6 +18,14 @@ class Sprint < ActiveRecord::Base
     # errors.add(:start_at, "cannot overlap with another sprint") if !@account.sprints.blank? && (self.start_at <= @account.sprints.last.end_at)
   end
   
+  def velocity
+    velocity = 0
+    self.user_stories.each do |us|
+      velocity += us.story_points if us.story_points && us.complete?
+    end
+    return velocity
+  end
+  
   def hours_left
     count = 0
     self.user_stories.each do |us|

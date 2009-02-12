@@ -7,7 +7,7 @@
 	      <th>Name</th>
 	      <th>From</th>
 	      <th>To</th>
-	      <th>Story points</th>
+	      <th>Story points (Completed)</th>
 	      <th>Hours left</th>
 	      <th></th>
 		  <th></th>
@@ -19,7 +19,7 @@
 	      <td><%=h sprint.name %></td>
 	      <td><%= show_date(sprint.start_at) %></td>
 	      <td><%= show_date(sprint.end_at) %></td>
-	      <td><%= sprint.user_stories.sum('story_points') %></td>
+	      <td><%= sprint.user_stories.sum('story_points') %> <strong><%= "(#{sprint.velocity})" %></strong></td>
 	      <td><%= sprint.hours_left %></td>
 	      <td>
 	          <%= link_to 'Show', sprint_path(:id => sprint), :title => 'Show' %>
@@ -33,5 +33,11 @@
 	    </tr>
 	    <% end %>
 	  </tbody>
+	  <tfoot>
+      <tr>
+        <th colspan="6"></th>
+        <th>Velocity: <%= @account.velocity %></th>
+      </tr>
+	  </tfoot>
 	</table>
 </div>
