@@ -78,6 +78,8 @@ class TasksController < AbstractSecurityController
   end
   
   def destroy
+    @task.destroy && flash[:notice] = "Task deleted"
+    redirect_to :back
   end
 
   def claim

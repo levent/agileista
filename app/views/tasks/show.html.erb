@@ -1,5 +1,5 @@
 <div id="main" class="wide">
-	<h1>Task: <%=h @task.definition %> <span class="small"><%= link_to 'Edit', edit_user_story_task_path(:user_story_id => @user_story, :id => @task) %></span></h1>
+	<h1>Task: <%=h @task.definition %> <span class="small"><%= link_to 'Edit', edit_user_story_task_path(:user_story_id => @user_story, :id => @task) %> <%= link_to 'Delete', user_story_task_path(:user_story_id => @user_story, :id => @task), :method => :delete, :confirm => "Are you sure?" %></span></h1>
 	<div id="leftcontent">
 		<h2>Description:</h2>
 		<p><%= h@task.description %></p>

@@ -37,8 +37,8 @@ describe TasksController do
       it "should set_task on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
         controller.stub!(:set_user_story).and_return(@user_story)
-        controller.should_receive(:set_task).and_return(@task)
-        get action.to_sym
+        controller.should_receive(:set_task).and_raise("whoa")
+        lambda {get action.to_sym}.should raise_error("whoa")
       end
     end
   end
@@ -65,6 +65,21 @@ describe TasksController do
       @task.should_receive(:save).and_return(false)
       controller.should_receive(:render).with(:action => 'new')
       post :create, :task => 'hash'
+    end
+  end
+  
+  describe 'destroy' do
+    before(:each) do
+      stub_login_and_account_setup
+      @user_story = UserStory.new
+      @task = Task.new
+      @account.user_stories.stub!(:find).and_return(@user_story)
+      @user_story.tasks.stub!(:find).and_return(@task)
+    end
+    
+    it "should destroy task and redirect on success" do
+      @task.should_receive(:destroy).and_return(true)
+      delete :destroy, :id => '79'      
     end
   end
   
