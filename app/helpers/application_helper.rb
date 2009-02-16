@@ -15,9 +15,10 @@ module ApplicationHelper
     end
   end
   
-  def show_story_points(points)
+  def show_story_points(points, options = {:unit => "story point"})
+    unit = options[:unit]
     unless points.nil?
-      return pluralize(points, "story point")
+      return pluralize(points, unit)
     else
       return "Undefined"
     end

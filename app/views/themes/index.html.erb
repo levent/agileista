@@ -7,11 +7,7 @@
       <p><%= link_to "Click here", new_theme_path %> to create a theme</p>
     <% else -%>
     <% @themes.each do |theme| -%>
-      <div title="<%=h theme.description %>" class="themecard"><h2><%=h theme.name %> <span class="small"><%= link_to 'Edit', edit_theme_path(:id => theme) %> <%= link_to 'Delete', theme_path(:id => theme), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' if current_user.is_a?(TeamMember) %></span></h2><%= link_to_function 'Hide stories', "Element.toggle('theme_#{theme.id}')" %>
-        <ul>
-          <li><%= show_story_points(theme.story_points) %></li>
-          <li><%= show_story_points_remaining(theme.story_points_left) %></li>
-        </ul>
+      <div title="<%=h theme.name %>" class="themecard"><h2><%=h theme.name %> <span class="small"><%= link_to 'Edit', edit_theme_path(:id => theme) %> <%= link_to 'Delete', theme_path(:id => theme), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' if current_user.is_a?(TeamMember) %></span></h2><p><%=h truncate(theme.description, :length => 190) %></p><%= link_to_function 'Hide stories', "Element.toggle('theme_#{theme.id}')" %> <%= show_story_points(theme.story_points, :unit => "point") %> <%= show_story_points_remaining(theme.story_points_left) %>
       </div>
       <div id="theme_<%= theme.id %>">
         <% count = 0 -%>
