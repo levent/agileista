@@ -63,7 +63,7 @@ function setupBacklog() {
   });
 }
 
-function setupSprintPlanning(sprint_id) {
+function setupSprintPlanningDefaults(sprint_id) {
   $('.notecard').each(function(card) {
     $(this).draggable({delay: 500});
   });
@@ -78,7 +78,7 @@ function setupSprintPlanning(sprint_id) {
       }, "json");
       return false;
     }
-  })
+  });
   
   $('#committed').droppable({
     accept: 'div.notecard',
@@ -90,31 +90,38 @@ function setupSprintPlanning(sprint_id) {
       }, "json");
       return false;
     }
-  })
+  });
+}
+
+function setupSprintPlanning(sprint_id) {
+  setupSprintPlanningDefaults(sprint_id);
   
-  // $('#estimated').sortable({
-  //   items: 'div',
-  //   revert: true,
-  //   update: function(event, ui) {
-  //     // $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
-  //     //   document.location.href = '/backlog';
-  //     // }, "json");
-  //     // return false;
-  //   }
-  // });
-  // 
-  // $('#committed').sortable({
-  //   items: 'div',
-  //   revert: true,
-  //   update: function(event, ui) {
-  //     // $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
-  //     //   document.location.href = '/backlog';
-  //     // }, "json");
-  //     // return false;
-  //   }
-  // });
-  
-  
+  $('#reorder').click(function(){
+    if($(this).html() == 'Return to planning') {
+      $('#committed').sortable('destroy');
+      setupSprintPlanningDefaults(sprint_id);
+      $(this).html('Change order');
+    } else {
+      $('.notecard').each(function(card) {
+        $(this).draggable('destroy');
+      });
+      $('#committed').droppable('destroy');
+      $('#estimated').droppable('destroy');
+      $(this).html('Return to planning');
+      $('#committed').sortable({
+        items: 'div',
+        revert: true,
+        update: function(event, ui) {
+          $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(4) + '/reorder', {user_stories: $(this).sortable('serialize')}, function(data) {
+            if(data.ok == true) {
+              $('#flashs').html('Sprint reordered');
+            }
+          }, "json");
+          return false;
+        }
+      });
+    }
+  });
 }
 // 
 // <%= sortable_element 'estimated', :tag => 'div', :dropOnEmpty => true, :containment => ['committed', 'estimated'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'user_stories', :action => "plan_sprint", :sprint_id => @sprint.id }, :complete => "Element.hide('ajaxloader')", :loading => "Element.show('ajaxloader')" %>

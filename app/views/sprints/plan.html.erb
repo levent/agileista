@@ -1,5 +1,4 @@
 <%= render :partial => 'subnav' %>
-<div id="test">ddd</div>
 <div id="main" class="wide">
   <h1>Plan <%= @sprint.name %>:<br /><span class="small" id="dynamic_numbers">(<%= pluralize(@sprint.user_stories.sum('story_points'), 'story point') %> so far - <%= pluralize(@sprint.hours_left, 'hour') %> planned)</span></h1>
   <img src="/images/ajax-loader.gif" id="ajaxloader" style="display:none;position:absolute;top:10px;right:10px" />
@@ -21,14 +20,14 @@
   </div>
   
   <div id="committed" class="dragdropr">
-    <h2>Sprint: <%= @sprint.name %> (click to edit)</h2>
-	<% count = 0 -%>
+    <h2>Sprint: <%= @sprint.name %> <span class="small"><%= link_to "Change order", "#", :id => 'reorder' %></span></h2>
+	  <% count = 0 -%>
     <% @sprint.user_stories.each do |us| -%>
-	<% count += 1 -%>
+	    <% count += 1 -%>
      <div id="com_<%= us.id %>" class="notecard<%= tasked?(us) %>">
-      <h2><%= link_to "##{count}", sprint_user_story_path(:id => us, :sprint_id => @sprint), :title => "Show user story" %></h2>
-      <%=h truncate(us.definition, :length => 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(us.story_points) %><br /><%= pluralize us.tasks.count, 'task', 'tasks' %></span>
-	    <%= link_to 'Add tasks', new_user_story_task_path(:user_story_id => us), :title => "Add tasks" %> <%= link_to 'Auto task', create_quick_user_story_tasks_path(:user_story_id => us), :method => :post, :title => 'Auto task' if us.tasks.blank? %>
+       <h2><%= link_to "##{count}", sprint_user_story_path(:id => us, :sprint_id => @sprint), :title => "Show user story" %></h2>
+       <%=h truncate(us.definition, :length => 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(us.story_points) %><br /><%= pluralize us.tasks.count, 'task', 'tasks' %></span>
+	     <%= link_to 'Add tasks', new_user_story_task_path(:user_story_id => us), :title => "Add tasks" %> <%= link_to 'Auto task', create_quick_user_story_tasks_path(:user_story_id => us), :method => :post, :title => 'Auto task' if us.tasks.blank? %>
      </div>
     <% end -%>
   </div>

@@ -1,5 +1,5 @@
 class UserStoriesController < AbstractSecurityController
-  before_filter :must_be_team_member, :except => [:add, :create_via_add, :show, :untheme, :plan, :unplan]
+  before_filter :must_be_team_member, :except => [:add, :create_via_add, :show, :untheme, :plan, :unplan, :reorder]
   before_filter :user_story_must_exist, :only => ['update', 'add_to_sprint', 'remove_from_sprint', 'show', 'create_acceptance_criterium',
     :edit, :move_up, :move_down, :delete, :destroy, :delete_acceptance_criterium, :done, :unfinished, :copy, :untheme, :plan, :unplan]
   
@@ -132,6 +132,18 @@ class UserStoriesController < AbstractSecurityController
     @user_story.sprint = nil
     @user_story.save
     SprintElement.destroy_all("sprint_id = #{sprint.id} AND user_story_id = #{@user_story.id}")
+    render :json => {:ok => true}.to_json
+  end
+  
+  def reorder
+    sprint = @account.sprints.find(params[:sprint_id])
+    split_by = "&com[]="
+    items = params[:user_stories].split(split_by)
+    items[0] = items[0].gsub('com[]=', '')
+    sprint.sprint_elements.each do |se|
+      se.position = items.index(se.user_story_id.to_s) + 1
+      se.save
+    end
     render :json => {:ok => true}.to_json
   end
   
