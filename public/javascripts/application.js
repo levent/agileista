@@ -143,10 +143,11 @@ function setupEditUserStory(user_story_id){
     $('.saveButton').click(function(){
       $.post('/user_stories/' + user_story_id + '/acceptance_criteria/' + revert_id.substr(8), {_method: 'put', value: $(this).parent().siblings(0).val()});
       $(this).parent().parent().after('<span class="ac" id="' + revert_id + '">' + $(this).parent().siblings(0).val() + '</span>').remove();
+      setupEditUserStory(user_story_id);
     });
     $('.cancelButton').click(function(){
       $(this).parent().parent().after('<span class="ac" id="' + revert_id + '">' + revert + '</span>').remove();
-      setupEditUserStory();
+      setupEditUserStory(user_story_id);
     });
   });
 }
