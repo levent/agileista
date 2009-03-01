@@ -123,3 +123,30 @@ function setupSprintPlanning(sprint_id) {
     }
   });
 }
+
+function setupEditUserStory(user_story_id){
+  $('.ac').mouseover(function() {
+    $(this).addClass("editable");
+  });
+  $('.ac').mouseout(function() {
+    $(this).removeClass("editable");
+  });
+
+  $('.ac').click(function(){
+    
+    var textarea = '<div><textarea rows="4" cols="40">'+$(this).html()+'</textarea>';
+    var button	 = '<div><input type="button" value="Save" class="saveButton" /><input type="button" value="Cancel" class="cancelButton" /></div></div>';
+    var revert = $(this).html();
+    var revert_id = $(this).attr('id');
+
+    $(this).after(textarea+button).remove();
+    $('.saveButton').click(function(){
+      $.post('/user_stories/' + user_story_id + '/acceptance_criteria/' + revert_id.substr(8), {_method: 'put', value: $(this).parent().siblings(0).val()});
+      $(this).parent().parent().after('<span class="ac" id="' + revert_id + '">' + $(this).parent().siblings(0).val() + '</span>').remove();
+    });
+    $('.cancelButton').click(function(){
+      $(this).parent().parent().after('<span class="ac" id="' + revert_id + '">' + revert + '</span>').remove();
+      setupEditUserStory();
+    });
+  });
+}

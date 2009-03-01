@@ -8,7 +8,10 @@ class AcceptanceCriteriaController < AbstractSecurityController
     # return false unless @user_story
     @acceptance_criterion = @user_story.acceptance_criteria.new(params[:acceptance_criterion])
     @acceptance_criterion.save
-    render :partial => 'user_stories/acceptance_criteria'
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.json {render :partial => 'user_stories/acceptance_criteria'}
+    end
   end
   
   def update
@@ -20,7 +23,10 @@ class AcceptanceCriteriaController < AbstractSecurityController
   def destroy
     # return false unless @user_story
     @acceptance_criterion.destroy
-    render :partial => 'user_stories/acceptance_criteria'
+    respond_to do |format|
+      format.html {redirect_to :back}
+      format.json {render :partial => 'user_stories/acceptance_criteria'}
+    end
   end
   
   private
