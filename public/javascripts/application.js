@@ -62,3 +62,60 @@ function setupBacklog() {
     }
   });
 }
+
+function setupSprintPlanning(sprint_id) {
+  $('.notecard').each(function(card) {
+    $(this).draggable({delay: 500});
+  });
+  
+  $('#estimated').droppable({
+    accept: 'div.notecard',
+    drop: function(event, ui) {
+      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.draggable.attr('id').substr(4) + '/unplan', {}, function(data) {
+        if(data.ok == true) {
+          document.location.href = '/sprints/' + sprint_id + '/plan';
+        }
+      }, "json");
+      return false;
+    }
+  })
+  
+  $('#committed').droppable({
+    accept: 'div.notecard',
+    drop: function(event, ui) {
+      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.draggable.attr('id').substr(4) + '/plan', {}, function(data) {
+        if(data.ok == true) {
+          document.location.href = '/sprints/' + sprint_id + '/plan';
+        }
+      }, "json");
+      return false;
+    }
+  })
+  
+  // $('#estimated').sortable({
+  //   items: 'div',
+  //   revert: true,
+  //   update: function(event, ui) {
+  //     // $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
+  //     //   document.location.href = '/backlog';
+  //     // }, "json");
+  //     // return false;
+  //   }
+  // });
+  // 
+  // $('#committed').sortable({
+  //   items: 'div',
+  //   revert: true,
+  //   update: function(event, ui) {
+  //     // $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
+  //     //   document.location.href = '/backlog';
+  //     // }, "json");
+  //     // return false;
+  //   }
+  // });
+  
+  
+}
+// 
+// <%= sortable_element 'estimated', :tag => 'div', :dropOnEmpty => true, :containment => ['committed', 'estimated'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'user_stories', :action => "plan_sprint", :sprint_id => @sprint.id }, :complete => "Element.hide('ajaxloader')", :loading => "Element.show('ajaxloader')" %>
+// <%= sortable_element 'committed', :tag => 'div', :dropOnEmpty => true, :containment => ['committed', 'estimated'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'user_stories', :action => "plan_sprint", :sprint_id => @sprint.id } %>

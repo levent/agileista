@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :backlog, :controller => 'backlog', :collection => {:export => :get, :feed => :get, :search => :get, :search_tags => :get, :sprint => :get, :sort => :post}
   map.resources :sprints, :member => {:plan => :get, :overview => :get} do |sprint|
-    sprint.resources :user_stories
+    sprint.resources :user_stories, :member => {:plan => :post, :unplan => :post}
   end
   map.resources :impediments, :member => {:resolve => :post}, :collection => {:active => :get, :resolved => :get}
   map.resources :user_stories, :member => {:copy => :post, :remove_from_sprint => :post, :create_via_add => :post, :create_task => :post, :untheme => :post}, :collection => {:add => :get} do |user_story|

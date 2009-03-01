@@ -1,7 +1,7 @@
 class UserStoriesController < AbstractSecurityController
-  before_filter :must_be_team_member, :except => [:add, :create_via_add, :show, :untheme]
+  before_filter :must_be_team_member, :except => [:add, :create_via_add, :show, :untheme, :plan, :unplan]
   before_filter :user_story_must_exist, :only => ['update', 'add_to_sprint', 'remove_from_sprint', 'show', 'create_acceptance_criterium',
-    :edit, :move_up, :move_down, :delete, :destroy, :delete_acceptance_criterium, :done, :unfinished, :copy, :untheme]
+    :edit, :move_up, :move_down, :delete, :destroy, :delete_acceptance_criterium, :done, :unfinished, :copy, :untheme, :plan, :unplan]
   
   in_place_edit_for :acceptance_criterium, :detail
   
@@ -119,33 +119,49 @@ class UserStoriesController < AbstractSecurityController
     end
   end
   
-  def plan_sprint
-    if request.xhr?
-      @sprint = @account.sprints.find(params[:sprint_id])
-      if params['committed'] && !params['committed'].blank?
-        params['committed'].each do |x|
-          @us = @account.user_stories.find(x)
-          @us.sprint = @sprint
-          @us.save
-          SprintElement.find_or_create_by_sprint_id_and_user_story_id(params[:sprint_id], @us.id)
-        end
-      end
-      if params['estimated'] && !params['estimated'].blank?
-        params['estimated'].each do |x|
-          @us = @account.user_stories.find(x)
-          @us.sprint = nil
-          @us.save
-          SprintElement.find(:all, :conditions => ["sprint_id = ? AND user_story_id = ?", @sprint.id, @us.id]).collect{|se| se.destroy}
-        end
-      end
-      respond_to do |format|
-        format.html {redirect_to plan_sprint_path(:id => params[:sprint_id])}
-        format.js {render :update do |page|
-          page.redirect_to plan_sprint_path(:id => params[:sprint_id])
-        end}
-      end
-    end
+  def plan
+    sprint = @account.sprints.find(params[:sprint_id])
+    @user_story.sprint = sprint
+    @user_story.save
+    SprintElement.find_or_create_by_sprint_id_and_user_story_id(sprint.id, @user_story.id)
+    render :json => {:ok => true}.to_json
   end
+  
+  def unplan
+    sprint = @account.sprints.find(params[:sprint_id])
+    @user_story.sprint = nil
+    @user_story.save
+    SprintElement.destroy_all("sprint_id = #{sprint.id} AND user_story_id = #{@user_story.id}")
+    render :json => {:ok => true}.to_json
+  end
+  
+  # def plan_sprint
+  #   if request.xhr?
+  #     @sprint = @account.sprints.find(params[:sprint_id])
+  #     if params['committed'] && !params['committed'].blank?
+  #       params['committed'].each do |x|
+  #         @us = @account.user_stories.find(x)
+  #         @us.sprint = @sprint
+  #         @us.save
+  #         SprintElement.find_or_create_by_sprint_id_and_user_story_id(params[:sprint_id], @us.id)
+  #       end
+  #     end
+  #     if params['estimated'] && !params['estimated'].blank?
+  #       params['estimated'].each do |x|
+  #         @us = @account.user_stories.find(x)
+  #         @us.sprint = nil
+  #         @us.save
+  #         SprintElement.find(:all, :conditions => ["sprint_id = ? AND user_story_id = ?", @sprint.id, @us.id]).collect{|se| se.destroy}
+  #       end
+  #     end
+  #     respond_to do |format|
+  #       format.html {redirect_to plan_sprint_path(:id => params[:sprint_id])}
+  #       format.js {render :update do |page|
+  #         page.redirect_to plan_sprint_path(:id => params[:sprint_id])
+  #       end}
+  #     end
+  #   end
+  # end
   
   def remove_from_sprint
     @user_story.sprint = nil
