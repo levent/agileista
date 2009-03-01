@@ -10,9 +10,11 @@
         <%= render :partial => 'user_story_container', :locals => {:user_story => user_story, :count => count, :user_story_positions => user_story_positions, :first => first} %>
         <% first = false -%>
         <hr />
+        <% unless current_user.is_a?(Contributor) -%>
         <script type="text/javascript" charset="utf-8">
           setupTaskBoard(<%= user_story.id %>);
         </script>
+        <% end -%>
       <% end -%>
     </div>
     <%= @chart %>

@@ -18,4 +18,8 @@
 	    </ul>
 	</div>
 </div>
-<%= sortable_element 'userstorylist', :tag => 'div', :overlap => 'horizontal', :constraint => false, :url => { :action => "sort_release" }, :complete => visual_effect(:highlight, 'storypoints') unless params[:order] %>
+<% unless current_user.is_a?(Contributor) || params[:order] -%>
+  <script type="text/javascript" charset="utf-8">
+    setupBacklog();
+  </script>
+<% end -%>

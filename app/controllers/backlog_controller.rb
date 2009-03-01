@@ -1,9 +1,9 @@
 require 'fastercsv'
 class BacklogController < AbstractSecurityController
   ssl_required :feed
-  ssl_allowed :index, :sort_release, :search
-  before_filter :must_be_team_member, :only => ['sort_release']
-  before_filter :account_user_stories ,:only => ['index', 'sort_release', 'export', 'feed', 'pdf']
+  ssl_allowed :index, :sort, :search
+  before_filter :must_be_team_member, :only => ['sort']
+  before_filter :account_user_stories ,:only => ['index', 'export', 'feed', 'pdf', 'sort']
 
   def index
     @story_points = 0
@@ -51,12 +51,15 @@ class BacklogController < AbstractSecurityController
     end
   end
   
-  def sort_release
-    @user_stories.each do |story| 
-      story.position = params['userstorylist'].index(story.id.to_s) + 1 
-      story.save 
-    end 
-    render :nothing => true 
+  def sort
+    split_by = "&item[]="
+    items = params[:user_stories].split(split_by)
+    items[0] = items[0].gsub('item[]=', '')
+    @user_stories.each do |us|
+      us.position = items.index(us.id.to_s) + 1
+      us.save
+    end
+    render :json => {:ok => true}.to_json
   end
   
   private 

@@ -25,7 +25,6 @@ function setupTaskBoard(user_story_id) {
         set_flash_or_refresh_task_board(data);
       }, "json");
       return false;
-      alert(user_story_id + 'dropped incomplete');
     }
   });
   
@@ -37,8 +36,7 @@ function setupTaskBoard(user_story_id) {
       }, "json");
 
       return false;
-
-      alert(user_story_id + 'dropped inprogress'); }
+    }
   });
   
   $("#complete_"+user_story_id).droppable({
@@ -48,8 +46,19 @@ function setupTaskBoard(user_story_id) {
         set_flash_or_refresh_task_board(data);
       }, "json");
       return false;
+    }
+  }); 
+}
 
-      alert(user_story_id + 'dropped complete'); }
+function setupBacklog() {
+  $('#userstorylist').sortable({
+    items: 'div',
+    revert: true,
+    update: function(event, ui) {
+      $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
+        document.location.href = '/backlog';
+      }, "json");
+      return false;
+    }
   });
-  
 }
