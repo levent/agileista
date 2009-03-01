@@ -1,0 +1,5 @@
+for jQuery:
+- link_to_remote
+- remote_form_for
+- in_place_editor_field
+- in_place_edit_for
