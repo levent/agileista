@@ -123,6 +123,3 @@ function setupSprintPlanning(sprint_id) {
     }
   });
 }
-// 
-// <%= sortable_element 'estimated', :tag => 'div', :dropOnEmpty => true, :containment => ['committed', 'estimated'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'user_stories', :action => "plan_sprint", :sprint_id => @sprint.id }, :complete => "Element.hide('ajaxloader')", :loading => "Element.show('ajaxloader')" %>
-// <%= sortable_element 'committed', :tag => 'div', :dropOnEmpty => true, :containment => ['committed', 'estimated'], :overlap => 'horizontal', :constraint => false, :url => { :controller => 'user_stories', :action => "plan_sprint", :sprint_id => @sprint.id } %>
