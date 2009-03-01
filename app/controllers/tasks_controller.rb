@@ -34,30 +34,26 @@ class TasksController < AbstractSecurityController
   end
   
   def assign
-    if request.xhr?
-      if params["inprogress_#{@user_story.id}"] && !params["inprogress_#{@user_story.id}"].blank?
-        for item in params["inprogress_#{@user_story.id}"]
-          task = Task.find(item)
-          task.developer = current_user unless task.developer
-          task.save
-        end
+    task = @user_story.tasks.find(:first, :conditions => ["id = ?", params[:task_id]])
+    error = ''
+    if task
+      case params[:onto]
+      when "incomplete"
+        task.developer = nil
+        task.save
+      when "inprogress"
+        task.developer = current_user unless task.developer
+        task.save
+      when "complete"
+        task.hours = 0
+        task.save
+      else
+        error = "Please try again"
       end
-      if params["incomplete_#{@user_story.id}"] && !params["incomplete_#{@user_story.id}"].blank?
-        for item in params["incomplete_#{@user_story.id}"]
-          task = Task.find(item)
-          task.developer = nil
-          task.save
-        end
-      end
-      if params["complete_#{@user_story.id}"] && !params["complete_#{@user_story.id}"].blank?
-        for item in params["complete_#{@user_story.id}"]
-          task = Task.find(item)
-          task.hours = 0
-          task.save
-        end
-      end
+    else
+      error = "You cannot move tasks across user stories"
     end
-    render :nothing => true 
+    render :json => {:error => error, :html_content => params.inspect, :sprint_id => @user_story.sprint_id}.to_json
   end
   
   def edit

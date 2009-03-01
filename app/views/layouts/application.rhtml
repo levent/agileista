@@ -8,11 +8,11 @@
 	<!--[if IE]>
 	<link href="/stylesheets/ie.css" media="screen" rel="Stylesheet" type="text/css" />
 	<![endif]-->
-	<%= javascript_include_tag 'prototype' %>
-	<%= javascript_include_tag 'scriptaculous' %>
+  <%= javascript_include_tag 'jquery-1.2.6.min' %>
+  <%= javascript_include_tag 'jquery-ui-personalized-1.5.3.min' %>
+  <%= javascript_include_tag 'application' %>
+  
 	<script language="Javascript" src="/FusionCharts/FusionCharts.js"></script>
-	
-    <!-- <%= auto_discovery_link_tag(:rss, :controller => 'backlog', :action => 'feed') %> -->
 </head>
 <body>
     <% if logged_in? && @other_account_people && @other_account_people.length > 0 -%>
@@ -58,9 +58,11 @@
 		<div id="content">
 			<%= yield %>
 		</div>
+		<% unless Rails.env == "development" -%>
 		<div id="pledgie">
 			<a href='http://www.pledgie.com/campaigns/1706'><img alt='Click here to lend your support to: Agileista and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/1706.png?skin_name=chrome' border='0' /></a>
 		</div>
+		<% end -%>
 	</div>
 <% unless Rails.env == "development" %>
   <% if Rails.env == "staging" -%>

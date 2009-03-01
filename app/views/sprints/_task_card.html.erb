@@ -1,4 +1,4 @@
-<div class="notecard defined" id="com_<%= task_card.id %>" title="<%=h task_card.user_story.definition %>">
+<div class="notecard defined" id="task_card_<%= task_card.id %>" title="<%=h task_card.user_story.definition %>">
 <h2>#<%= positions[task_card.user_story.id].to_s + '.' + task_card.position.to_s %></h2>
 <%=h truncate(task_card.definition, 48) %><br />
 <strong><%= show_assignee(task_card.developer) %></strong>
