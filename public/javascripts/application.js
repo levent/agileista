@@ -15,7 +15,7 @@ function set_flash_or_refresh_task_board(data) {
 function setupTaskBoard(user_story_id) {
   var us_container = '#user_story_container_' + user_story_id;
   $(us_container).find('div.notecard').each(function(card) {
-    $(this).draggable({delay:500,  grid: [20, 20]});
+    $(this).draggable({delay:400});
   });
 
   $("#incomplete_"+user_story_id).droppable({
