@@ -1,7 +1,7 @@
 class UserStoriesController < AbstractSecurityController
-  before_filter :must_be_team_member, :except => [:add, :create_via_add, :show, :untheme, :plan, :unplan, :reorder]
+  before_filter :must_be_team_member, :except => [:add, :create_via_add, :show, :plan, :unplan, :reorder]
   before_filter :user_story_must_exist, :only => ['update', 'add_to_sprint', 'remove_from_sprint', 'show', 'create_acceptance_criterium',
-    :edit, :move_up, :move_down, :delete, :destroy, :delete_acceptance_criterium, :done, :unfinished, :copy, :untheme, :plan, :unplan]
+    :edit, :move_up, :move_down, :delete, :destroy, :delete_acceptance_criterium, :done, :unfinished, :copy, :plan, :unplan]
   
   def copy
     if @user_story.copy
@@ -192,10 +192,5 @@ class UserStoriesController < AbstractSecurityController
     end
     redirect_to themes_path and return false if params[:from] == 'themes'
     redirect_to :controller => 'backlog' and return false
-  end
-  
-  def untheme
-    theming = @user_story.themings.find_by_theme_id(params[:theme_id])
-    theming.destroy and redirect_to themes_path
   end
 end
