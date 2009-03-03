@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
     user_story.resources :acceptance_criteria
   end
   map.resources :themes
+  map.resources :users
   # end
 
 
