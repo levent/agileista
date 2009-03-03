@@ -26,7 +26,7 @@ class BacklogController < AbstractSecurityController
           a.definition,
           a.description,
           a.story_points,
-          a.acceptance_criteria.map(&:detail).join(" : ").gsub('"', "'"),
+          a.acceptance_criteria.map(&:detail).join(";").gsub('"', "'"),
           a.position,
           a.created_at.strftime('%d/%m/%y %T'),
           a.updated_at.strftime('%d/%m/%y %T')]
