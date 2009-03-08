@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
     user_story.resources :tasks, :member => {:move_up => :post, :move_down => :post, :release => :post, :claim => :post}, :collection => {:create_quick => :post, :assign => :post}
     user_story.resources :acceptance_criteria
   end
-  map.resources :themes
+  map.resources :themes, :collection => {:sort => :post}
   map.resources :users
   # end
 

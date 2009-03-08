@@ -10,9 +10,20 @@ describe ThemesController do
       stub_login_and_account_setup
     end
 
-    it "should load all the account themese" do
-      @account.themes.should_receive(:find).with(:all, {:order=>"themes.name, user_stories.position", :include=>[:user_stories]})
+    it "should load all the account themes" do
+      @account.themes.should_receive(:find).with(:all, {:order=>"themes.position, user_stories.position", :include=>[:user_stories]})
       get :index
+    end
+  end
+  
+  describe '#sort' do
+    before(:each) do
+      stub_login_and_account_setup
+    end
+
+    it "should load all the account themes" do
+      @account.themes.should_receive(:find).with(:all, {:order=>"themes.position, user_stories.position", :include=>[:user_stories]}).and_return([])
+      post :sort
     end
   end
   
@@ -55,6 +66,10 @@ describe ThemesController do
     
     it "should generate params from POST /themes correctly" do
       params_from(:post, '/themes').should == {:controller => 'themes', :action => 'create'}
+    end
+    
+    it "should generate params from POST /themes/sort correctly" do
+      params_from(:post, '/themes/sort').should == {:controller => 'themes', :action => 'sort'}
     end
     
     it "should generate params from PUT /themes/8 correctly" do

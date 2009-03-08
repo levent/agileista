@@ -1,6 +1,7 @@
 class Theme < ActiveRecord::Base
   belongs_to :account
   validates_presence_of :name
+  acts_as_list :scope => :account
 
   has_many_polymorphs :themables,
       :from => [:user_stories],

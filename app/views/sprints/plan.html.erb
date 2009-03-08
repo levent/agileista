@@ -22,6 +22,7 @@
   <div id="committed" class="dragdropr">
     <h2>Sprint: <%= @sprint.name %> <span class="small"><%= link_to "Change order", "#", :id => 'reorder' %></span></h2>
 	  <% count = 0 -%>
+	  <div id="thesprints">
     <% @sprint.user_stories.each do |us| -%>
 	    <% count += 1 -%>
      <div id="com_<%= us.id %>" class="notecard<%= tasked?(us) %>">
@@ -30,6 +31,7 @@
 	     <%= link_to 'Add tasks', new_user_story_task_path(:user_story_id => us), :title => "Add tasks" %> <%= link_to 'Auto task', create_quick_user_story_tasks_path(:user_story_id => us), :method => :post, :title => 'Auto task' if us.tasks.blank? %>
      </div>
     <% end -%>
+    </div>
   </div>
   <!--[if IE]>
     <div class="ieclearer"></div>

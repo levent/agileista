@@ -6,10 +6,14 @@
 
 function set_flash_or_refresh_task_board(data) {
   if(data.error) {
-    $('#flashs').html(data.error)
+    set_flash(data.error);
   } else {
     document.location.href = '/sprints/' + data.sprint_id;
   }
+}
+
+function set_flash(message) {
+  $('#flashs').html(message);
 }
 
 function setupTaskBoard(user_story_id) {
@@ -50,22 +54,9 @@ function setupTaskBoard(user_story_id) {
   }); 
 }
 
-function setupBacklog() {
-  $('#userstorylist').sortable({
-    items: 'div',
-    revert: true,
-    update: function(event, ui) {
-      $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
-        document.location.href = '/backlog';
-      }, "json");
-      return false;
-    }
-  });
-}
-
 function setupSprintPlanningDefaults(sprint_id) {
   $('.notecard').each(function(card) {
-    $(this).draggable({delay: 500});
+    $(this).draggable({delay: 200, revert: false});
   });
   
   $('#estimated').droppable({
@@ -82,6 +73,14 @@ function setupSprintPlanningDefaults(sprint_id) {
   
   $('#committed').droppable({
     accept: 'div.notecard',
+    activate: function(event, ui) {
+      $('#thesprints').css("background-color", "rgb(255, 255, 153)");
+      return false;
+    },
+    deactivate: function(event, ui) {
+      $('#thesprints').css("background-color", "rgb(255, 255, 255)");
+      return false;
+    },
     drop: function(event, ui) {
       $.post('/sprints/' + sprint_id + '/user_stories/' + ui.draggable.attr('id').substr(4) + '/plan', {}, function(data) {
         if(data.ok == true) {
@@ -110,7 +109,7 @@ function setupSprintPlanning(sprint_id) {
       $(this).html('Return to planning');
       $('#committed').sortable({
         items: 'div',
-        revert: true,
+        revert: false,
         update: function(event, ui) {
           $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(4) + '/reorder', {user_stories: $(this).sortable('serialize')}, function(data) {
             if(data.ok == true) {
@@ -149,5 +148,32 @@ function setupEditUserStory(user_story_id){
       $(this).parent().parent().after('<span class="ac" id="' + revert_id + '">' + revert + '</span>').remove();
       setupEditUserStory(user_story_id);
     });
+  });
+}
+
+function setupBacklog() {
+  $('#userstorylist').sortable({
+    items: 'div',
+    revert: false,
+    update: function(event, ui) {
+      $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
+        document.location.href = '/backlog';
+      }, "json");
+      return false;
+    }
+  });
+}
+
+function setupThemes(){
+  $('#themewall').sortable({
+    items: 'div.atheme',
+    revert: false,
+    handle: '.handle',
+    update: function(event, ui) {
+      $.post('/themes/sort', {theme_id: ui.item.attr('id').substr(6), themes: $(this).sortable('serialize')}, function(data) {
+        return false;
+      }, "json");
+      return false;
+    }
   });
 }
