@@ -4,13 +4,13 @@
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>Agileista</title>
-	<%= stylesheet_link_tag "main" %>
+	<%= stylesheet_link_tag "main", :cache => true %>
 	<!--[if IE]>
 	<link href="/stylesheets/ie.css" media="screen" rel="Stylesheet" type="text/css" />
 	<![endif]-->
-  <%= javascript_include_tag 'jquery-1.2.6.min' %>
-  <%= javascript_include_tag 'jquery-ui-personalized-1.5.3.min' %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag 'jquery-1.2.6.min', :cache => true %>
+  <%= javascript_include_tag 'jquery-ui-personalized-1.5.3.min', :cache => true %>
+  <%= javascript_include_tag 'application', :cache => true %>
   
 	<script language="Javascript" src="/FusionCharts/FusionCharts.js"></script>
 </head>
