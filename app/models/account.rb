@@ -19,6 +19,7 @@ class Account < ActiveRecord::Base
   before_validation :make_fields_lowercase
   
   def velocity
+    return 0 unless self.sprints.any?
     finished_sprints = 0
     velocity = 0
     self.sprints.each do |sprint|
