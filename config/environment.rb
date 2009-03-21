@@ -29,7 +29,7 @@ Rails::Initializer.run do |config|
   # (create the session table with 'rake db:sessions:create')
   # config.action_controller.session_store = :active_record_store
   config.action_controller.session = {
-    :session_key => '_fcloud_session',
+    :key => '_fcloud_session',
     :secret      => '59844b97b720614714aaf24ef81aaf07b60413db594b389adff0ac7a3de3647220d6d42e6b07ca41349e1dd58d262af93e26b73733102d6bdd126ab45c299baa'
   }
 
