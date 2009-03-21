@@ -5,7 +5,7 @@ set :deploy_via, :remote_cache
 # set :deploy_via, :copy
 # set :copy_cache, true
 # set :copy_exclude, [".git"]
-set :branch, "0.1.1"
+set :branch, "0.2.0"
 set :scm_verbose, true
 
 # set :deploy_via, :export
@@ -50,19 +50,24 @@ end
 
 desc "Stop the sphinx server"
 task :stop_sphinx , :roles => :app do
-  run "cd #{current_path} && rake thinking_sphinx:stop RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && rake ts:stop RAILS_ENV=#{rails_env}"
 end
 
 
 desc "Start the sphinx server" 
 task :start_sphinx, :roles => :app do
-  run "cd #{current_path} && rake thinking_sphinx:configure RAILS_ENV=#{rails_env} && rake thinking_sphinx:start RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && rake ts:config RAILS_ENV=#{rails_env} && rake ts:start RAILS_ENV=#{rails_env}"
 end
 
 desc "Restart the sphinx server"
 task :restart_sphinx, :roles => :app do
   stop_sphinx
   start_sphinx
+end
+
+desc "Reindex search index"
+task :reindex_sphinx, :roles => :app do
+  run "cd #{current_path} && rake ts:index RAILS_ENV=#{rails_env}"
 end
 
 task :setup_symlinks, :roles => :web do
