@@ -16,7 +16,7 @@ module ImpedimentsHelper
   end
   
   def impediment_feed(action)
-    return auto_discovery_link_tag(:atom, formatted_active_impediments_path(:format => :atom)) if action == "active"
-    return auto_discovery_link_tag(:atom, formatted_impediments_path(:format => :atom)) if action == "index"
+    return auto_discovery_link_tag(:atom, active_impediments_path(:format => :atom)) if action == "active"
+    return auto_discovery_link_tag(:atom, impediments_path(:format => :atom)) if action == "index"
   end
 end

@@ -15,11 +15,11 @@ describe ImpedimentsHelper do
   
   describe '#impediment_feed' do
     it "should return auto link to active if action is active" do
-      @it.impediment_feed('index').should == auto_discovery_link_tag(:atom, formatted_impediments_path(:format => :atom))
+      @it.impediment_feed('index').should == auto_discovery_link_tag(:atom, impediments_path(:format => :atom))
     end
     
     it "should return auto link to index if action is index" do
-      @it.impediment_feed('active').should == auto_discovery_link_tag(:atom, formatted_active_impediments_path(:format => :atom))
+      @it.impediment_feed('active').should == auto_discovery_link_tag(:atom, active_impediments_path(:format => :atom))
     end
   end
 end
