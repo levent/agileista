@@ -57,8 +57,8 @@ Rails::Initializer.run do |config|
   config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem 'haml'
   config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => 'http://gems.github.com'
-  config.gem 'rspec', :version => '1.2.0'
-  config.gem 'rspec-rails', :version => '1.2.0'
+  config.gem "rspec", :lib => false, :version => ">= 1.2.0" 
+  config.gem "rspec-rails", :lib => false, :version => ">= 1.2.0"
 end
 
 # Add new inflection rules using the following format 

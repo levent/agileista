@@ -2,7 +2,7 @@
 # from the project root directory.
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
-require 'spec'
+require 'spec/autorun'
 require 'spec/rails'
 # require 'spec/active_record_association_matcher'
 # require 'spec/active_record_validation_matcher'
