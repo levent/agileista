@@ -29,7 +29,11 @@
 	<div id="header">
 	<% if logged_in? && @account -%>
 	    <ul>
+	      <% unless Rails.env == "production" -%>
+        <li><%= link_to "#{@account.name.humanize} *TEST*", :controller => 'backlog' %></li>
+	      <% else -%>
         <li><%= link_to @account.name.humanize, :controller => 'backlog' %></li>
+	      <% end -%>
         <li><%= link_to "Themes", :controller => 'themes' %></li>
         <li><%= link_to "Backlog", :controller => 'backlog' %></li>
         <li><%= link_to "Sprints", sprints_path %></li>
