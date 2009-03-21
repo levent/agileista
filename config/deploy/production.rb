@@ -17,17 +17,17 @@ set :deploy_to, "/home/levent/apps/#{application}"
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
 # set :scm, :subversion
-ssh_options[:port] = 40000
-set :port, 40000
+ssh_options[:port] = 30000
+set :port, 30000
 set :user, "levent"
 set :use_sudo, false
 default_run_options[:pty] = true
 
 set :application, "agileista.com"
 set :rails_env, "production"
-role :app, "agileista.com"
-role :web, "agileista.com"
-role :db,  "agileista.com", :primary => true
+role :app, "app.agileista.com"
+role :web, "app.agileista.com"
+role :db,  "app.agileista.com", :primary => true
 
 namespace :deploy do
   task :restart do
