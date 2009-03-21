@@ -30,9 +30,7 @@ module AccountStuff
   end
     
   def logged_in?
-    unless current_user.nil?
-      return true
-    end
+    current_user.nil? ? false : true
   end
   
   # adds ActionView helper methods
