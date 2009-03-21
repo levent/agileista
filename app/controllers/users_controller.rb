@@ -45,7 +45,7 @@ class UsersController < AbstractSecurityController
   end
   
   def update
-    unless (@person == @current_user) || (@person.account_holder?)
+    unless (@person == current_user) || (@person.account_holder?)
       if params[:type] == "team_member"
         @person.type = "TeamMember"
       else
@@ -66,7 +66,7 @@ class UsersController < AbstractSecurityController
   
   def can_i_edit_them
     @person = @account.people.find(params[:id])
-    redirect_to :controller => 'account', :action => 'settings' unless (@person == @current_user) || @current_user.account_holder?
+    redirect_to :controller => 'account', :action => 'settings' unless (@person == current_user) || current_user.account_holder?
   end
 
 end

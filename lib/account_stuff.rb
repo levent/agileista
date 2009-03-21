@@ -14,12 +14,12 @@ module AccountStuff
   
   def current_user
     begin
-      @current_user ||= (session[:user] && session[:account]) ? Person.find_by_id_and_account_id(session[:user], session[:account]) : nil
+      current_user = (session[:user] && session[:account]) ? Person.find_by_id_and_account_id(session[:user], session[:account]) : nil
     rescue
       session[:user] = nil
       session[:account] = nil
       session[:timeout] = nil
-      @current_user = nil
+      current_user = nil
     end
   end
   

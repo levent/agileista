@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   # include HoptoadNotifier::Catcher
   
   helper :all
+  # protect_from_forgery
   
   require_dependency 'tag'
   require_dependency 'tagging'

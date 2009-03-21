@@ -8,7 +8,7 @@
 		<li><%= link_to "Back to backlog", :controller => 'backlog' unless params[:from] == 'themes' %></li>
 		<li><%= link_to "Back to themes", :controller => 'themes' if params[:from] == 'themes' %></li>
 	<% end -%>
-	<% if @current_user.is_a?(TeamMember) -%>
+	<% if current_user.is_a?(TeamMember) -%>
 	    <li><%= link_to 'Edit', edit_user_story_path(:id => @user_story), :title => 'Edit' %></li>
 	<% end -%>
 	</ul>

@@ -13,10 +13,10 @@
 		<tr class="user_story">
 			<% count += 1 -%>
 			<td>#<%= count %></td>
-			<td><%= truncate(element.user_story.definition, 50) %> <%= link_to "Show", sprint_user_story_path(:id => element.user_story, :sprint_id => @sprint), :title => element.user_story.definition if @current_user.is_a?(TeamMember) %> <%= link_to "Copy", {:controller => 'user_stories', :action => 'copy', :id => element.user_story}, :method => :post, :title => "Copy" if @current_user.is_a?(TeamMember) && !element.user_story.complete? %></td>
+			<td><%= truncate(element.user_story.definition, 50) %> <%= link_to "Show", sprint_user_story_path(:id => element.user_story, :sprint_id => @sprint), :title => element.user_story.definition if current_user.is_a?(TeamMember) %> <%= link_to "Copy", {:controller => 'user_stories', :action => 'copy', :id => element.user_story}, :method => :post, :title => "Copy" if current_user.is_a?(TeamMember) && !element.user_story.complete? %></td>
 			<td><%= pluralize(element.user_story.tasks.count, "task") %></td>
 			<td><%= show_story_points(element.user_story.story_points) %></td>
-			<td><%= link_to_if @current_user.is_a?(TeamMember), "Remove", {:controller => 'user_stories', :action => 'remove_from_sprint', :id => element.user_story, :sprint_id => @sprint}, :method => :post unless element.user_story.complete? %><%= "Complete" if element.user_story.complete? %></td>
+			<td><%= link_to_if current_user.is_a?(TeamMember), "Remove", {:controller => 'user_stories', :action => 'remove_from_sprint', :id => element.user_story, :sprint_id => @sprint}, :method => :post unless element.user_story.complete? %><%= "Complete" if element.user_story.complete? %></td>
 			<td>User Story</td>
 		</tr>
 		<% element.user_story.tasks.each do |task| %>

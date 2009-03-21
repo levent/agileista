@@ -12,7 +12,6 @@ class LoginController < ApplicationController
   end
   
   def authenticate
-    raise params.inspect
     account = Account.find_by_subdomain(current_subdomain)
     unless account.nil?
       if logged_in?

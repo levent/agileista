@@ -23,7 +23,7 @@
 	      <td><%= sprint.hours_left %></td>
 	      <td>
 	          <%= link_to 'Show', sprint_path(:id => sprint), :title => 'Show' %>
-	          <% if @current_user.is_a?(TeamMember) -%>
+	          <% if current_user.is_a?(TeamMember) -%>
     			<%= link_to 'Plan', plan_sprint_path(:id => sprint), :title => 'Plan' unless sprint.finished? %>
     			<%= link_to 'Edit', edit_sprint_path(:id => sprint), :title => 'Edit' unless sprint.finished? %>
     			<%= link_to 'Delete', sprint_path(:id => sprint), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' unless sprint.finished? %>
