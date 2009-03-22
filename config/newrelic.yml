@@ -135,4 +135,4 @@ production:
 staging:
   <<: *default_settings
   enabled: true
-  app_name: Application (Staging)
+  app_name: Agileista (Staging)
