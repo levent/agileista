@@ -6,8 +6,6 @@ module ApplicationHelper
   end
   
   def account_switcher_selected(here, there)
-    logger.info "here #{here}"
-    logger.info "there #{there}"
     here == there ? "selected=\"selected\"" : ""
   end
   
