@@ -15,17 +15,6 @@
 	<script language="Javascript" src="/FusionCharts/FusionCharts.js"></script>
 </head>
 <body>
-    <% if logged_in? && @other_account_people && @other_account_people.length > 0 -%>
-    <div id="accountswitcher">
-        <ul>
-            <li><span>Other accounts:</span></li>
-            <% @other_account_people.collect{|person| person.account.subdomain}.sort.each do |subdomain| -%>
-	        <li><%= link_to subdomain, {:controller => 'login', :action => 'authenticate', :subdomain => subdomain}, :method => 'post' %></li>
-	        <% end -%>
-	    </ul>
-    </div>
-	<div class="c"></div>
-    <% end -%>
 	<div id="header">
 	<% if logged_in? && @account -%>
 	    <ul>

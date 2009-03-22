@@ -24,6 +24,13 @@
 				<%= render :partial => "user", :collection => @account.contributors %>
 			</tbody>
 		</table>
+		
+		<h2>Accounts</h2>
+		<ul>
+		  <% @other_accounts.collect{|person| person.account.subdomain}.sort.each do |subdomain| %>
+		  <li><%= link_to "#{subdomain}", backlog_index_path(:subdomain => subdomain) %></li>
+		  <% end %>
+		</ul>
 	</div>
 	<div id="settingsright">
     	<% if current_user.account_holder? %>
@@ -49,5 +56,5 @@
 		<%= submit_tag 'Change password' %>
         </form>
 	</div>
-    <div class="c">&nbsp;</div>
+  <div class="c">&nbsp;</div>
 </div>

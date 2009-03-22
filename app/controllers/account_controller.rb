@@ -8,6 +8,7 @@ class AccountController < AbstractSecurityController
   end
   
   def settings
+    @other_accounts = Person.find_all_by_email_and_authenticated(current_user.email,1) - [current_user]
     if request.post?
       if @account.update_attributes(params[:account])
         flash[:notice] = "Settings saved"
