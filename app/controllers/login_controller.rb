@@ -13,13 +13,16 @@ class LoginController < ApplicationController
   
   def authenticate
     account = Account.find_by_subdomain(current_subdomain)
+    p "ACCOUNT - #{account.inspect}"
     unless account.nil?
       if logged_in?
+        p "LOGGED IN"
         person = account.people.find(:first, :conditions => ["email = ? AND authenticated = ?", current_user.email, 1])
       else
         person = account.authenticate(params[:email], params[:password])
         # person = account.people.find(:first, :conditions => ["email = ? AND password = ? AND authenticated = ?", params[:email], params[:password], 1])
       end
+        p "#{person.inspect}"
       unless person.nil?
         flash[:notice] = "You have logged in successfully"
         session[:user] = person.id
