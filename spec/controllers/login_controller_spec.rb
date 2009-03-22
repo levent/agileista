@@ -15,7 +15,7 @@ describe LoginController do
     it "should redirect if no account found" do
       controller.stub!(:current_subdomain).and_return('nonexistent')
       Account.should_receive(:find_by_subdomain).with('nonexistent').and_return(nil)
-      get :authenticate
+      post :authenticate
       response.should render_template('login/index')
     end
     
@@ -32,7 +32,7 @@ describe LoginController do
       controller.should_receive(:logged_in?).and_return(true)
       Account.should_receive(:find_by_subdomain).with('existent').and_return(@account)
       @account.people.should_receive(:find).with(:first, :conditions => ["email = ? AND authenticated = ?", 'leemail', 1]).and_return(nil)
-      get :authenticate
+      post :authenticate
     end
   end
   

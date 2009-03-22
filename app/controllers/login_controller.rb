@@ -12,27 +12,29 @@ class LoginController < ApplicationController
   end
   
   def authenticate
-    account = Account.find_by_subdomain(current_subdomain)
-    unless account.nil?
-      if logged_in?
-        person = account.people.find(:first, :conditions => ["email = ? AND authenticated = ?", current_user.email, 1])
+    if request.post?
+      account = Account.find_by_subdomain(current_subdomain)
+      unless account.nil?
+        if logged_in?
+          person = account.people.find(:first, :conditions => ["email = ? AND authenticated = ?", current_user.email, 1])
+        else
+          person = account.authenticate(params[:email], params[:password])
+        end
+        unless person.nil?
+          flash[:notice] = "You have logged in successfully"
+          session[:user] = person.id
+          session[:account] = account.id
+          redirect_to :controller => 'backlog', :subdomain => account.subdomain
+        else
+          # setup_account_name_for_form
+          flash[:error] = "Sorry we couldn't find anyone by that email and password in the account \"#{account.name}\""
+          render :action => 'index'
+        end
       else
-        person = account.authenticate(params[:email], params[:password])
-      end
-      unless person.nil?
-        flash[:notice] = "You have logged in successfully"
-        session[:user] = person.id
-        session[:account] = account.id
-        redirect_to :controller => 'backlog', :subdomain => account.subdomain
-      else
+        flash[:error] = "Sorry we couldn't find that account"
         # setup_account_name_for_form
-        flash[:error] = "Sorry we couldn't find anyone by that email and password in the account \"#{account.name}\""
         render :action => 'index'
       end
-    else
-      flash[:error] = "Sorry we couldn't find that account"
-      # setup_account_name_for_form
-      render :action => 'index'
     end
   end
   
