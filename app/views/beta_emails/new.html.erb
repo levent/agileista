@@ -6,18 +6,19 @@
   <div id="info">
     <h2>For Agile teams</h2>
 
-    <p>Sign up now for the Beta launch of FeatureCloud - the online tool for Agile teams.</p>
-
     <p>From sprint planning to release burndowns and taskboards, FeatureCloud provides a simple set of online tools to manage and visualise your Agile project from anywhere for anyone to see.</p>
 
-    <p>Perfect for distributed teams, great for co-located teams. In fact anyone wanting to store historical data or track and visualise current project progress. We've got some great features that we've not seen in any other Agile tool. <em><%= link_to "READ MORE", "#", :id => "readmore" %></em></p>
+    <p>Perfect for distributed teams, great for co-located teams. In fact anyone wanting to store historical data or track and visualise current project progress. We've got some great features that we've not seen in any other Agile tool.</p>
+    <p class="rightalign"><em><%= link_to "READ MORE", "#", :id => "readmore" %></em></p>
     
     <span id="moreinfo">
       <p>FeatureCloud helps you to capture and manage your Agile user stories online, literally in the cloud.</p>
 
       <p>We're excited to see what you think and we're committed to User Driven Development so you can be sure that if we've missed a critical feature that you all want - we'll build it. If you knew us as Agileista then you know what we mean :)</p>
 
-      <p>Sign up now for the Beta release and receive a discount on the official launch price. (Don't worry though, there will always be a free plan) <em><%= link_to "HIDE", "#", :id => "hidereadmore" %></em></p>
+      <p>Sign up now for the Beta release and receive a discount on the official launch price. (Don't worry though, there will always be a free plan)</p>
+      
+      <p class="rightalign"><em><%= link_to "HIDE", "#", :id => "hidereadmore" %></em></p>
     </span>
   </div>
   <div id="infobottom">
@@ -25,7 +26,7 @@
   </div>
 
   <div id="signup">
-    <h3>Register</h3>
+    <p><strong>Sign up</strong> for the Beta launch of FeatureCloud<br />The online tool for Agile teams</p>
     <% form_for :beta_email do |beta| %>
       <label>Email:</label>
       <%= beta.text_field :email, :id => "textinput" %>
