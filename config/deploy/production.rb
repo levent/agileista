@@ -25,7 +25,6 @@ default_run_options[:pty] = true
 
 set :application, "agileista.com"
 set :rails_env, "production"
-set :keep_releases, 10
 role :app, "app.agileista.com"
 role :web, "app.agileista.com"
 role :db,  "app.agileista.com", :primary => true
@@ -77,3 +76,4 @@ task :setup_symlinks, :roles => :web do
 end
 
 after "deploy:update_code", :setup_symlinks
+after "deploy", "deploy:cleanup"

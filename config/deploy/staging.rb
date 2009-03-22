@@ -25,7 +25,6 @@ default_run_options[:pty] = true
 
 set :application, "featurecloud.com"
 set :rails_env, "staging"
-set :keep_releases, 5
 role :app, "featurecloud.com"
 role :web, "featurecloud.com"
 role :db,  "featurecloud.com", :primary => true
@@ -77,3 +76,4 @@ task :setup_symlinks, :roles => :web do
 end
 
 after "deploy:update_code", :setup_symlinks
+after "deploy", "deploy:cleanup"
