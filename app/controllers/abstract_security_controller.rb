@@ -18,7 +18,6 @@ class AbstractSecurityController < ApplicationController
         end
       end
     else
-      logger.info "LOGGED IN? #{logged_in?}"
       if logged_in?
         setup_account_variables
         return true
