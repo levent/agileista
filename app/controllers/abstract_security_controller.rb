@@ -29,7 +29,7 @@ class AbstractSecurityController < ApplicationController
   end
 
   def setup_account_variables
-    @account ||= current_user.account
+    @account = current_user.account
     @other_accounts = Person.find_all_by_email_and_authenticated(current_user.email,1)
   end
 end
