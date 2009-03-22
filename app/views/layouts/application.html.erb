@@ -11,6 +11,7 @@
   <%= javascript_include_tag 'jquery-1.2.6.min', :cache => "jquery" %>
   <%= javascript_include_tag 'jquery-ui-personalized-1.5.3.min', :cache => "jquery-ui" %>
   <%= javascript_include_tag 'application', :cache => "app" %>
+  <%= javascript_include_tag 'account-switcher', :cache => "switcher" %>
   
 	<script language="Javascript" src="/FusionCharts/FusionCharts.js"></script>
 </head>
@@ -18,13 +19,9 @@
 	<div id="header">
 	<% if logged_in? && @account -%>
 	    <ul>
-	      <% unless Rails.env == "production" -%>
-        <li><%= link_to "#{@account.name.humanize} *TEST*", :controller => 'backlog' %></li>
-	      <% else -%>
-        <li><%= link_to @account.name.humanize, :controller => 'backlog' %></li>
-	      <% end -%>
-        <li><%= link_to "Themes", :controller => 'themes' %></li>
+	      <%= render :partial => 'shared/account_switcher', :locals => {:other_accounts => @other_accounts, :account => @account} %>
         <li><%= link_to "Backlog", :controller => 'backlog' %></li>
+        <li><%= link_to "Themes", :controller => 'themes' %></li>
         <li><%= link_to "Sprints", sprints_path %></li>
         <li><%= link_to "Impediments#{unresolved_impediment_indicator(@account)}", active_impediments_path %><%=  %></li>
         <% if csprint = @account.sprints.current.first -%><li><%= link_to "Task board", sprint_path(:id => csprint) %></li><% end -%>

@@ -1,0 +1,13 @@
+<% test = (Rails.env == "production") ? false : true %>
+
+<% if other_accounts && other_accounts.length > 0 -%>
+<% here = url_for(:subdomain => current_subdomain, :only_path => false) %>
+<li>
+  <select id="accountswitcher">
+    <% other_accounts.collect{|person| person.account.subdomain}.sort.each do |subdomain| -%>
+    <% there = url_for(:subdomain => subdomain, :only_path => false) %>
+    <option value="<%= there %>" <%= account_switcher_selected(here, there) %>><%= test ? "#{subdomain} *TEST*" : subdomain %></option>
+    <% end -%>
+  </select>
+</li>
+<% end -%>

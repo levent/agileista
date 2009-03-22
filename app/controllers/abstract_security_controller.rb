@@ -30,6 +30,6 @@ class AbstractSecurityController < ApplicationController
 
   def setup_account_variables
     @account ||= current_user.account
-    # @other_account_people = Person.find_all_by_email_and_authenticated(current_user.email,1) - [current_user]
+    @other_accounts = Person.find_all_by_email_and_authenticated(current_user.email,1)
   end
 end

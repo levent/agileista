@@ -5,6 +5,12 @@ module ApplicationHelper
     request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/]
   end
   
+  def account_switcher_selected(here, there)
+    logger.info "here #{here}"
+    logger.info "there #{there}"
+    here == there ? "selected=\"selected\"" : ""
+  end
+  
   def show_stakeholder(user_story, show_creator = true)
     if !user_story.stakeholder.blank?
       return "#{user_story.stakeholder}"
