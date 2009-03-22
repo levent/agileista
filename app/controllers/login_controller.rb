@@ -14,6 +14,7 @@ class LoginController < ApplicationController
   def authenticate
     account = Account.find_by_subdomain(current_subdomain)
     logger.info "ACCOUNT - #{account.inspect}"
+    logger.info "session user #{session[:user]}  -- account #{session[:account]}"
     unless account.nil?
       if logged_in?
         logger.info "LOGGED IN"
