@@ -11,6 +11,10 @@ config.cache_classes = true
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
 ActionController::Base.session_options[:session_domain] = 'agileista.com'
+config.action_controller.session = {
+  :key => '_agileista_session',
+  :secret      => '7220d6d42e6b07ca41349e1dd58d262af93e26b73733102d6bdd126ab45c299baa59844b97b720614714aaf24ef81aaf07b60413db594b389adff0ac7a3de364'
+}
 
 # Enable serving of images, stylesheets, and javascripts from an asset server
 # config.action_controller.asset_host                  = "http://assets.example.com"

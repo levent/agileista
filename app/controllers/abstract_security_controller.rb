@@ -18,6 +18,7 @@ class AbstractSecurityController < ApplicationController
         end
       end
     else
+      logger.info "LOGGED IN? #{logged_in?}"
       if logged_in?
         setup_account_variables
         return true
@@ -30,6 +31,6 @@ class AbstractSecurityController < ApplicationController
 
   def setup_account_variables
     @account = current_user.account
-    @other_accounts = Person.find_all_by_email_and_authenticated(current_user.email,1)
+    @other_accounts = Person.find_all_by_email_and_authenticated(current_user.email, 1)
   end
 end

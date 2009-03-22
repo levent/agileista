@@ -4,6 +4,10 @@
 # Code is not reloaded between requests
 config.cache_classes = true
 
+config.action_controller.session = {
+  :key => '_fcloud_session',
+  :secret      => '59844b97b720614714aaf24ef81aaf07b60413db594b389adff0ac7a3de3647220d6d42e6b07ca41349e1dd58d262af93e26b73733102d6bdd126ab45c299baa'
+}
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new
 
