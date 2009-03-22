@@ -1,11 +1,22 @@
 class BetaEmailsController < ApplicationController
   
   def index
-    new
-    render :action => 'new'
+    if logged_in?
+      redirect_to :controller => 'backlog', :subdomain => current_subdomain and return false
+    elsif AccountStuff::MASTER_SUBDOMAIN != current_subdomain
+      redirect_to :controller => 'login', :subdomain => current_subdomain and return false
+    else
+      new
+      render :action => 'new'
+    end
   end
   
   def new
+    if logged_in?
+      redirect_to :controller => 'backlog', :subdomain => current_subdomain and return false
+    elsif AccountStuff::MASTER_SUBDOMAIN != current_subdomain
+      redirect_to :controller => 'login', :subdomain => current_subdomain and return false
+    end
   end
   
   def create

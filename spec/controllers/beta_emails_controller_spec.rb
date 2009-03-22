@@ -1,6 +1,10 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe BetaEmailsController do
+  before(:each) do
+    controller.stub!(:current_subdomain).and_return('app')
+  end
+  
   it "should not be an abstract_security_controller" do
     controller.is_a?(AbstractSecurityController).should be_false
   end
