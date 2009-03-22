@@ -1,0 +1,2 @@
+module BetaEmailsHelper
+end

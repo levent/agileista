@@ -7,6 +7,7 @@ class SignupController < ApplicationController
     elsif AccountStuff::MASTER_SUBDOMAIN != current_subdomain
       redirect_to :controller => 'login', :subdomain => current_subdomain and return false
     end
+    redirect_to beta_path(:subdomain => AccountStuff::MASTER_SUBDOMAIN, :host => "featurecloud.com")
     @account = Account.new
   end
   
