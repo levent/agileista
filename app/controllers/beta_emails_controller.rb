@@ -21,7 +21,13 @@ class BetaEmailsController < ApplicationController
   
   def create
     @beta_email = BetaEmail.new(params[:beta_email])
-    @beta_email.save
-    redirect_to new_beta_email_path
+    respond_to do |format|
+      if @beta_email.save
+        format.json {render :json => {:success => "t"}.to_json}
+      else
+        format.json {render :json => {:success => "f", :errors => @beta_email.errors.full_messages}.to_json}
+      end
+      format.html {redirect_to new_beta_email_path}
+    end
   end
 end

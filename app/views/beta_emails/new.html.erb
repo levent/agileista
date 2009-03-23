@@ -45,4 +45,17 @@
 		$("#readmore").show();
 		return false;
 	});
+	
+	$("#signupbutton").click(function() {
+    var params = $(this).parent('form').serialize();
+	  $.post("/beta_emails", params, function(data) {
+	    if(data.success == "t"){
+	      $('#signup').find('p').html("<p><strong>Thanks!</strong><br /><strong>Sign up</strong> for the Beta launch of FeatureCloud</p>");
+	    }else{
+	      $('#signup').find('p').html("<p><strong>Please try again</strong><br /><strong>Sign up</strong> for the Beta launch of FeatureCloud</p>");
+	    }
+	    return false;
+	  }, "json");
+	  return false;
+	});
 </script>
