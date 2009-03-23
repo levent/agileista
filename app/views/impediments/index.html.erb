@@ -17,7 +17,7 @@
 	    <% @impediments.each do |impediment| -%>
 		<tr<%= impediment_complete?(impediment) %>>
 	      	<td><%=h impediment.description %></td>
-			<td><%= impediment.team_member.name %></td>
+			<td><%= impediment.team_member ? impediment.team_member.name : "User has been removed" %></td>
 			<td><%= time_ago_in_words(impediment.created_at) %> ago</td>
 			<td><%= show_resolved_at(impediment) %></td>
 			<td><%= link_to_if (impediment.team_member == current_user && impediment.resolved_at == nil), 'Delete', impediment_path(:id => impediment), :method => :delete %></td>

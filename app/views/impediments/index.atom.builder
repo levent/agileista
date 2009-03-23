@@ -6,7 +6,7 @@ atom_feed do |feed|
       entry.title(impediment.description)
       entry.content(impediment.to_s, :type => 'html')
       entry.author do |author|
-        author.name(impediment.team_member.name)
+        impediment.team_member ? author.name(impediment.team_member.name) : author.name("Nobody")
       end
     end
   end
