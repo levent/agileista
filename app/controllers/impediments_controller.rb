@@ -1,7 +1,7 @@
 class ImpedimentsController < AbstractSecurityController
   
   ssl_allowed :index, :new, :create, :destroy, :resolve
-  before_filter :must_be_team_member, :only => [:destroy, :create, :resolve]
+  before_filter :must_be_team_member, :only => [:new, :destroy, :create, :resolve]
   
   def index
     @impediments = @account.impediments.paginate :page => params[:page]
