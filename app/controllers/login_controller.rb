@@ -3,13 +3,10 @@ class LoginController < ApplicationController
   
   def index
     if AccountStuff::MASTER_SUBDOMAIN == current_subdomain
-      logger.info("login if")
       redirect_to root_path and return false
     elsif Account.find_by_subdomain(current_subdomain).nil?
-      logger.info("login elsif 1")
       redirect_to root_path(:subdomain => AccountStuff::MASTER_SUBDOMAIN) and return false
     elsif logged_in?
-      logger.info("login elsif 2")
       redirect_to :controller => 'backlog' and return false
     end
   end

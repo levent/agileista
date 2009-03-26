@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   protected
   
   def ssl_required?
-    return false if local_request? || Rails.env == 'test' || Rails.env == 'staging'
+    return false if local_request? || Rails.env == 'test'
     super
   end
       
