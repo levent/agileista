@@ -95,5 +95,5 @@ SubdomainFu.tld_sizes = {:development => 1,
                          :test => 0,
                          :staging => 1,
                          :production => 1}
-# SubdomainFu.mirrors = %w(app www site we blog dev stage) # Defaults to %w(www)
+SubdomainFu.mirrors = %w(app) if Rails.env == "staging"
 # SubdomainFu.preferred_mirror = "app"
