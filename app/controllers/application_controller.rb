@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   protected
   
   def ssl_required?
-    return false if local_request? || Rails.env == 'test'
+    return false if local_request? || Rails.env == 'test' || Rails.env == 'staging'
     super
   end
       
@@ -151,5 +151,4 @@ class ApplicationController < ActionController::Base
     renderChartText=renderChartText+'<!-- END Code Block for Chart ' + chartId +' -->'
     renderChartHTML=renderChartText
   end
-  ######
 end
