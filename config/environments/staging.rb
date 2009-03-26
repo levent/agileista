@@ -24,3 +24,4 @@ ActionController::Base.session_options[:session_domain] = 'featurecloud.com'
 # config.action_mailer.raise_delivery_errors = false
 
 EMAIL_FROM = "donotreply@featurecloud.com"
+SubdomainFu.mirrors = %w(app)
