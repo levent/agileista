@@ -50,7 +50,7 @@ describe LoginController do
       Account.should_receive(:find_by_subdomain).with('nonexistent').and_return(nil)
       get :index
       response.should be_redirect
-      response.should redirect_to('http://app.host/signup')
+      response.should redirect_to('http://app.host/')
     end
     
     it "should redirect to signup if on app subdomain" do
@@ -58,7 +58,7 @@ describe LoginController do
       Account.should_receive(:find_by_subdomain).exactly(0).times
       get :index
       response.should be_redirect
-      response.should redirect_to(:controller => 'signup')
+      response.should redirect_to('http://test.host/')
     end
   end
 end
