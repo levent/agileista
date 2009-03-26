@@ -5,6 +5,7 @@ class BetaEmailsController < ApplicationController
       logger.info("beta if 1")
       redirect_to :controller => 'backlog', :subdomain => current_subdomain and return false
     elsif AccountStuff::MASTER_SUBDOMAIN != current_subdomain
+      logger.info "#{AccountStuff::MASTER_SUBDOMAIN != current_subdomain} #{AccountStuff::MASTER_SUBDOMAIN} != #{current_subdomain}"
       logger.info("beta elsif 1")
       redirect_to :controller => 'login', :subdomain => current_subdomain and return false
     else
