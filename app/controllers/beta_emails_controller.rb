@@ -2,10 +2,13 @@ class BetaEmailsController < ApplicationController
   
   def index
     if logged_in?
+      logger.info("beta if 1")
       redirect_to :controller => 'backlog', :subdomain => current_subdomain and return false
     elsif AccountStuff::MASTER_SUBDOMAIN != current_subdomain
+      logger.info("beta elsif 1")
       redirect_to :controller => 'login', :subdomain => current_subdomain and return false
     else
+      logger.info("beta else 1")
       new
       render :action => 'new'
     end
