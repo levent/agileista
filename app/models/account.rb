@@ -28,6 +28,7 @@ class Account < ActiveRecord::Base
         finished_sprints += 1
       end
     end
+    return 0 if (finished_sprints == 0)
     return (velocity / finished_sprints)
   end
   
