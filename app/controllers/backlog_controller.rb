@@ -8,31 +8,13 @@ class BacklogController < AbstractSecurityController
   def index
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
-    render :action => 'get_started' if @account.user_stories.blank?
-    prawnto :filename => 'backlog.pdf', :inline => false
-  end
-  
-  def export
-    stream_csv do |csv|
-      csv << ["ID",
-        "Definition",
-        "Description",
-        "Story points",
-        "Acceptance Criteria",
-        "Position",
-        "Created at",
-        "Last modified"]
-      @user_stories.each do |a|
-        csv << [a.id,
-          a.definition,
-          a.description,
-          a.story_points,
-          a.acceptance_criteria.map(&:detail).join(";").gsub('"', "'"),
-          a.position,
-          a.created_at.strftime('%d/%m/%y %T'),
-          a.updated_at.strftime('%d/%m/%y %T')]
+    respond_to do |format|
+      format.html {render :action => 'get_started' if @account.user_stories.blank?}
+      format.csv do
+        render_csv("current_backlog_#{Time.now.strftime('%Y%m%d%H%M')}")
       end
     end
+    prawnto :filename => 'backlog.pdf', :inline => false
   end
   
   def feed
@@ -65,26 +47,23 @@ class BacklogController < AbstractSecurityController
     render :json => {:ok => true}.to_json
   end
   
-  private 
+  private
+  
+  def render_csv(filename = nil)
+    filename ||= params[:action]
+    filename += '.csv'
 
-  def stream_csv
-     filename = "current_backlog_#{Time.now.strftime('%Y%m%d%H%M')}.csv"    
+    if request.env['HTTP_USER_AGENT'] =~ /msie/i
+      headers['Pragma'] = 'public'
+      headers["Content-type"] = "text/plain" 
+      headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+      headers['Content-Disposition'] = "attachment; filename=\"#{filename}\"" 
+      headers['Expires'] = "0" 
+    else
+      headers["Content-Type"] ||= 'text/csv'
+      headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" 
+    end
 
-     #this is required if you want this to work with IE
-     if request.env['HTTP_USER_AGENT'] =~ /msie/i
-       headers['Pragma'] = 'public'
-       headers["Content-type"] = "text/plain" 
-       headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-       headers['Content-Disposition'] = "attachment; filename=\"#{filename}\"" 
-       headers['Expires'] = "0" 
-     else
-       headers["Content-Type"] ||= 'text/csv'
-       headers["Content-Disposition"] = "attachment; filename=\"#{filename}\"" 
-     end
-
-    render :text => Proc.new { |response, output|
-      csv = FasterCSV.new(output, :row_sep => "\r\n") 
-      yield csv
-    }
+    render :layout => false
   end
 end
