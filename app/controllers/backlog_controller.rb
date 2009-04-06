@@ -8,7 +8,7 @@ class BacklogController < AbstractSecurityController
   def index
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
-    render :action => 'get_started' if @user_stories.blank?
+    render :action => 'get_started' if @account.user_stories.blank?
     prawnto :filename => 'backlog.pdf', :inline => false
   end
   
