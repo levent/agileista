@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :beta_emails
 
-  map.resources :backlog, :controller => 'backlog', :collection => {:export => :get, :feed => :get, :search => :get, :search_tags => :get, :sprint => :get, :sort => :post}
+  map.resources :backlog, :controller => 'backlog', :collection => {:feed => :get, :search => :get, :search_tags => :get, :sprint => :get, :sort => :post}
   map.resources :sprints, :member => {:plan => :get, :overview => :get} do |sprint|
     sprint.resources :user_stories, :member => {:plan => :post, :unplan => :post, :reorder => :post}
   end
