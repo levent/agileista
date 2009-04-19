@@ -16,7 +16,7 @@ class TasksController < AbstractSecurityController
     @task = @user_story.tasks.new(params[:task])
     if @task && @task.save
       flash[:notice] = "Task saved"
-      redirect_to plan_sprint_path(:id => @user_story.sprint_id)
+      redirect_to new_user_story_task_path(:user_story_id => @user_story)
     else
       flash[:error] = "Task couldn't be saved"
       render :action => 'new'
