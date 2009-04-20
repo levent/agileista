@@ -6,7 +6,9 @@ describe Account do
   describe "#velocity" do
     describe "no iterations complete" do
       it "should be zero" do
-        Account.new.velocity.should == 0
+        account = Account.new(:name => 'a', :subdomain => 'abcdef')
+        account.calculated_velocity.should == 0
+        account.velocity.should == 0
       end
     end
 
@@ -39,11 +41,12 @@ describe Account do
         sprint7.stub!(:finished?).and_return(true)
         sprint8.stub!(:finished?).and_return(true)
       
-        @account = Account.new
+        @account = Account.new(:name => 'a', :subdomain => 'abcdef')
         @account.stub!(:sprints).and_return([sprint1, sprint2, sprint3, sprint4, sprint5, sprint6, sprint7, sprint8])
       end
     
       it "should tally up all finished sprint' velocities and get the average" do
+        @account.calculated_velocity.should == 23
         @account.velocity.should == 23
       end
     end

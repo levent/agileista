@@ -10,7 +10,7 @@ class Task < ActiveRecord::Base
   named_scope :incomplete, :conditions => "developer_id IS NULL && hours > 0"
   named_scope :inprogress, :conditions => "(developer_id IS NOT NULL AND hours > 0) OR (developer_id IS NOT NULL AND hours IS NULL)"
   named_scope :complete, :conditions => "hours = 0"
-
+  
   def complete?
     self.hours == 0
   end

@@ -26,11 +26,15 @@ describe Sprint do
       us7.stub!(:complete?).and_return(true)
       us8.stub!(:complete?).and_return(false)
       
-      @sprint = Sprint.new
+      @sprint = Sprint.new(:name => "sprint a")
       @sprint.stub!(:user_stories).and_return([us1, us2, us3, us4, us5, us6, us7, us8])
+      @sprint.start_at = 3.months.ago
+      @sprint.end_at = 2.months.ago
+      @sprint.stub!(:account_id).and_return(19)
     end
     
     it "should return the total story points for all the complete user stories" do
+      @sprint.calculated_velocity.should == 56
       @sprint.velocity.should == 56
     end
   end
