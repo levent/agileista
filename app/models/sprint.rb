@@ -18,6 +18,13 @@ class Sprint < ActiveRecord::Base
     # errors.add(:start_at, "cannot overlap with another sprint") if !@account.sprints.blank? && (self.start_at <= @account.sprints.last.end_at)
   end
 
+  def calculate_day_zero
+    return false if self.start_at <= Time.now
+    @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(self.id, self.start_at.to_date)
+    @burndown.hours_left = self.hours_left
+    @burndown.save
+  end
+
   def calculated_velocity
     return nil unless self.finished?
     self.velocity || calculate_velocity

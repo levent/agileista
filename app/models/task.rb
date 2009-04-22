@@ -11,6 +11,13 @@ class Task < ActiveRecord::Base
   named_scope :inprogress, :conditions => "(developer_id IS NOT NULL AND hours > 0) OR (developer_id IS NOT NULL AND hours IS NULL)"
   named_scope :complete, :conditions => "hours = 0"
   
+  after_save :calculate_burndown
+  after_destroy :calculate_burndown
+  
+  def calculate_burndown
+    self.user_story.sprint.calculate_day_zero if self.user_story && self.user_story.sprint
+  end
+  
   def complete?
     self.hours == 0
   end

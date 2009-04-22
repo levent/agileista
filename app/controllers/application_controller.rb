@@ -70,14 +70,6 @@ class ApplicationController < ActionController::Base
   def unplanned_estimated_user_stories
     @user_stories = @account.user_stories.find(:all, :conditions => ['done = ? AND story_points IS NOT ?', 0, nil], :order => 'position')
   end
-  
-  def calculate_dayzero(sprint_id)
-    @sprint = Sprint.find(sprint_id)
-    return false if @sprint.start_at <= Time.now
-    @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@sprint.id, @sprint.start_at.to_date)
-    @burndown.hours_left = @sprint.hours_left
-    @burndown.save
-  end
 
   def calculate_todays_burndown
     @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Date.today)
