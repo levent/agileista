@@ -12,7 +12,8 @@ class UserStory < ActiveRecord::Base
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements
   has_many :acceptance_criteria
-  accepts_nested_attributes_for :acceptance_criteria, :allow_destroy => true
+  accepts_nested_attributes_for :acceptance_criteria, :allow_destroy => true, :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
+  
   acts_as_list :scope => :account
   
   validates_presence_of :definition

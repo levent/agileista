@@ -14,6 +14,7 @@ class UserStoriesController < AbstractSecurityController
   
   def new
     @user_story = UserStory.new
+    @user_story.acceptance_criteria.build
   end
   
   def add
@@ -43,6 +44,7 @@ class UserStoriesController < AbstractSecurityController
       
     else
       flash[:error] = "There were errors creating the user story"
+      @user_story.acceptance_criteria.build
       render :action => 'new'
     end
   end
@@ -91,7 +93,7 @@ class UserStoriesController < AbstractSecurityController
   def edit
     @tags = @user_story.tags.map(&:name).join(' ')
     @task = Task.new
-    @acceptance_criterium = AcceptanceCriterium.new
+    @user_story.acceptance_criteria.build
   end
   
   def update
@@ -103,7 +105,7 @@ class UserStoriesController < AbstractSecurityController
       flash[:notice] = "User story updated successfully"
     else
       flash[:error] = "User story couldn't be updated"
-      @acceptance_criterium = AcceptanceCriterium.new
+      @user_story.acceptance_criteria.build
       render :action => 'edit' and return false
     end
     if params[:sprint_id]

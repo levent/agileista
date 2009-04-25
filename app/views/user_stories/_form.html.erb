@@ -1,9 +1,19 @@
 <div id="usaddleft">
+    <h2>Definition:</h2>
     <label for="user_story_definition">Title: (As a...)</label><%= us.text_area :definition, :class => "long thin" %>
     <label for="user_story_description">Notes:</label><%= us.text_area :description, :class => "long fat" %>
-
+    <% if @controller.action_name == 'edit' || @controller.action_name == 'update'  %>
+      <p>Created on <%= show_date(@user_story.created_at) %> <%= show_user(@user_story) %></p>
+      <%= submit_tag "Save changes to user story" %>
+    <% else %>
+      <div id="usaddbuts">
+        <%= submit_tag "Add at start of backlog" %>
+        <%= submit_tag "Add at end of backlog" %>
+      </div>
+    <% end %>
 </div>
 <div id="usaddright">
+    <h2>Properties:</h2>
     <label for="user_story_themes">Themes:</label>
     <select id="user_story_themes" name="themes[]" multiple="true">
     	<%= options_for_select account.themes.collect {|t|t.name}, user_story.themes.collect{|x| x.name } %>
@@ -12,5 +22,20 @@
     <label for="user_story_cannot_be_estimated">Cannot be estimated:</label><%= us.check_box :cannot_be_estimated %>
     <label for="tags">Tags:</label><%= text_field_tag :tags, tags %>
 	<label for="user_story_stakeholder">Stakeholder:</label><%= us.text_field :stakeholder %>
+</div>
+<div id="usaddcrit">
+  <h2>Acceptance Criteria:</h2>
+  <% us.fields_for :acceptance_criteria do |crit_form| %>
+    <div class="left">
+      <%= crit_form.label :detail, "Detail:" %>
+      <%= crit_form.text_area :detail, :rows => 4 %>
+    </div>
+    <div class="right">
+      <% unless crit_form.object.new_record? %>
+        <%= crit_form.check_box '_delete' %>
+        <%= crit_form.label '_delete', 'Remove' %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 <div class="c">&nbsp;</div>

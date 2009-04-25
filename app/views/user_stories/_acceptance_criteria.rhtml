@@ -1,9 +1,0 @@
-<% unless @user_story.acceptance_criteria.blank? %>
-<h2>Acceptance Criteria:</h2>
-<ol>
-<% @user_story.acceptance_criteria.each do |@crit| %>
-	<li><span id="edit_ac_<%= @crit.id %>" class="ac"><%= @crit.detail %></span> - <%= link_to 'Delete', user_story_acceptance_criterium_path(:user_story_id => @user_story, :id => @crit), :method => :delete, :id => "delete_ac_#{@crit.id}" %></li>
-<% end %>
-</ol>
-<%= error_messages_for :acceptance_criterion %>
-<% end %>

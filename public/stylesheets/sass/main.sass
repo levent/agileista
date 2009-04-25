@@ -629,12 +629,6 @@ ol
     th
       :border none
 
-
-.left
-  :float left
-  :width 30%
-
-
 .withborder
   :border-right 1px solid #ccc
   :margin-right 10px
@@ -958,14 +952,40 @@ tr.complete td, .uscomplete
 
 #usaddleft
   :float left
-  :width 60%
+  :width 50%
 
 
 #usaddright
   :float left
-  :width 34%
+  :width 20%
 
+#usaddcrit
 
+  :float left
+  :width 18%
+
+  input
+    
+    &[type=checkbox]
+      :display inline
+      
+  hr
+    :border 1px solid #ccc
+    :width 100%
+    
+  .left
+    :float left
+    :width 65%
+    :min-height 100px
+    
+    textarea
+      :width 98%
+
+  .right
+    :float left
+    :width 25%
+    :min-height 100px
+    
 #usaddbuts
   :margin-top 20px
 
