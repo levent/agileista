@@ -64,32 +64,6 @@ class UserStoriesController < AbstractSecurityController
     end
   end
   
-  # def create_acceptance_criterium
-  #   if request.post? or request.xhr?
-  #     @task = Task.new
-  #     @acceptance_criterium = AcceptanceCriterium.new(params[:acceptance_criterium])
-  #     @acceptance_criterium.user_story = @user_story
-  #     if @acceptance_criterium.save
-  #       flash[:notice] = "Criterium created successfully"
-  #       redirect_to :action => "edit", :id => @user_story, :sprint_id => params[:sprint_id] unless request.xhr?
-  #       render :partial => 'acceptance_criteria' if request.xhr?
-  #     else
-  #       flash[:error] = "There were errors adding criteria"
-  #       render :controller => 'user_stories', :action => 'edit', :id => @user_story, :sprint_id => params[:sprint_id] unless request.xhr?
-  #       render :partial => 'acceptance_criteria' if request.xhr?
-  #     end
-  #   end
-  # end
-  
-  # def delete_acceptance_criterium
-  #   if request.xhr? or request.post?
-  #     @acceptance_criterium = @user_story.acceptance_criteria.find(params[:crit_id])
-  #     if @acceptance_criterium.destroy
-  #       render :partial => 'user_stories/acceptance_criteria' if request.xhr?
-  #     end
-  #   end
-  # end
-  
   def edit
     @tags = @user_story.tags.map(&:name).join(' ')
     @task = Task.new
