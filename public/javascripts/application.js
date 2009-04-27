@@ -62,7 +62,7 @@ function setupSprintPlanningDefaults(sprint_id) {
   $('#estimated').droppable({
     accept: 'div.notecard',
     drop: function(event, ui) {
-      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.draggable.attr('id').substr(4) + '/unplan', {}, function(data) {
+      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.draggable.attr('id').substr(4) + '/unplan', {format: 'json'}, function(data) {
         if(data.ok == true) {
           document.location.href = '/sprints/' + sprint_id + '/plan';
         }
@@ -82,7 +82,7 @@ function setupSprintPlanningDefaults(sprint_id) {
       return false;
     },
     drop: function(event, ui) {
-      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.draggable.attr('id').substr(4) + '/plan', {}, function(data) {
+      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.draggable.attr('id').substr(4) + '/plan', {format: 'json'}, function(data) {
         if(data.ok == true) {
           document.location.href = '/sprints/' + sprint_id + '/plan';
         }
@@ -94,8 +94,9 @@ function setupSprintPlanningDefaults(sprint_id) {
 
 function setupSprintPlanning(sprint_id) {
   setupSprintPlanningDefaults(sprint_id);
-  
-  $('#reorder').click(function(){
+
+  $('#reorder').livequery('click', function() {
+  // $('#reorder').click(function(){
     if($(this).html() == 'Return to planning') {
       $('#committed').sortable('destroy');
       setupSprintPlanningDefaults(sprint_id);
