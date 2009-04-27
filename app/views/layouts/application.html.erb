@@ -83,17 +83,13 @@
 var uservoiceJsHost = ("https:" == document.location.protocol) ? "https://uservoice.com" : "http://cdn.uservoice.com";
 document.write(unescape("%3Cscript src='" + uservoiceJsHost + "/javascripts/widgets/tab.js' type='text/javascript'%3E%3C/script%3E"))
 </script>
-<script type="text/javascript">
-UserVoice.Tab.show({ 
-  key: 'featurecloud',
-  host: 'featurecloud.uservoice.com', 
-  forum: 'general', 
-  alignment: 'left', /* 'left', 'right' */
-  background_color:'#417378', 
-  text_color: 'white', /* 'white', 'black' */
-  hover_color: '#06C',
-  lang: 'en' /* 'en', 'de', 'nl', 'es', 'fr' */
-})
+<style type='text/css'>@import url('http://s3.amazonaws.com/getsatisfaction.com/feedback/feedback.css');</style>
+<script src='http://s3.amazonaws.com/getsatisfaction.com/feedback/feedback.js' type='text/javascript'></script>
+<script type="text/javascript" charset="utf-8">
+  var tab_options = {}
+  tab_options.placement = "left";  // left, right, bottom, hidden
+  tab_options.color = "#417378"; // hex (#FF0000) or color (red)
+  GSFN.feedback('http://getsatisfaction.com/agileista/feedback/topics/new?display=overlay&style=idea', tab_options);
 </script>
 </body>
 </html>
