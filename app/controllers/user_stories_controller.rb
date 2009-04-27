@@ -40,7 +40,7 @@ class UserStoriesController < AbstractSecurityController
       end
       
       flash[:notice] = "User story created successfully"
-      redirect_to :controller => 'user_stories', :action => 'edit', :id => @user_story
+      redirect_to backlog_index_path
       
     else
       flash[:error] = "There were errors creating the user story"
