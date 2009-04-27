@@ -22,5 +22,6 @@ ActionController::Base.session_options[:session_domain] = 'featurecloud.com'
 
 # Disable delivery errors if you bad email addresses should just be ignored
 # config.action_mailer.raise_delivery_errors = false
+config.middleware.use "Rack::Bug"
 
 EMAIL_FROM = "donotreply@featurecloud.com"
