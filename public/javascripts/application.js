@@ -123,34 +123,6 @@ function setupSprintPlanning(sprint_id) {
   });
 }
 
-function setupEditUserStory(user_story_id){
-  $('.ac').mouseover(function() {
-    $(this).addClass("editable");
-  });
-  $('.ac').mouseout(function() {
-    $(this).removeClass("editable");
-  });
-
-  $('.ac').click(function(){
-    
-    var textarea = '<div><textarea rows="4" cols="40">'+$(this).html()+'</textarea>';
-    var button	 = '<div><input type="button" value="Save" class="saveButton" /><input type="button" value="Cancel" class="cancelButton" /></div></div>';
-    var revert = $(this).html();
-    var revert_id = $(this).attr('id');
-
-    $(this).after(textarea+button).remove();
-    $('.saveButton').click(function(){
-      $.post('/user_stories/' + user_story_id + '/acceptance_criteria/' + revert_id.substr(8), {_method: 'put', value: $(this).parent().siblings(0).val()});
-      $(this).parent().parent().after('<span class="ac" id="' + revert_id + '">' + $(this).parent().siblings(0).val() + '</span>').remove();
-      setupEditUserStory(user_story_id);
-    });
-    $('.cancelButton').click(function(){
-      $(this).parent().parent().after('<span class="ac" id="' + revert_id + '">' + revert + '</span>').remove();
-      setupEditUserStory(user_story_id);
-    });
-  });
-}
-
 function setupBacklog() {
   $('#userstorylist').sortable({
     items: 'div',
@@ -176,4 +148,14 @@ function setupThemes(){
       return false;
     }
   });
+}
+
+function setupAcceptanceCriteria(){
+  $('.add_nested_item').livequery('click', function(e) {
+    var form_wrapper = "#" + ($(this).attr('href').replace(/.*#/, ''));
+    var how_many = $(form_wrapper).children().filter('.newcritform').size();
+    $(form_wrapper).append(
+       '<div class="newcritform"><div class="left"><label for="user_story_acceptance_criteria_attributes_' + how_many + '_detail">Detail:</label><textarea cols="40" id="user_story_acceptance_criteria_attributes_' + how_many + '_detail" name="user_story[acceptance_criteria_attributes][' + how_many + '][detail]" rows="4"></textarea></div><div class="right"></div></div>'
+      );
+  });	
 }

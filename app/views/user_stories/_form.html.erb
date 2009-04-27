@@ -25,17 +25,26 @@
 </div>
 <div id="usaddcrit">
   <h2>Acceptance Criteria:</h2>
-  <% us.fields_for :acceptance_criteria do |crit_form| %>
-    <div class="left">
-      <%= crit_form.label :detail, "Detail:" %>
-      <%= crit_form.text_area :detail, :rows => 4 %>
+  <div id="newcritformwrapper">
+    <% us.fields_for :acceptance_criteria do |crit_form| %>
+    <div class="newcritform">
+      <div class="left">
+        <%= crit_form.label :detail, "Detail:" %>
+        <%= crit_form.text_area :detail, :rows => 4 %>
+      </div>
+      <div class="right">
+        <% unless crit_form.object.new_record? %>
+          <%= crit_form.check_box '_delete' %>
+          <%= crit_form.label '_delete', 'Remove' %>
+        <% end %>
+      </div>
     </div>
-    <div class="right">
-      <% unless crit_form.object.new_record? %>
-        <%= crit_form.check_box '_delete' %>
-        <%= crit_form.label '_delete', 'Remove' %>
-      <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
+  <div class="c">&nbsp;</div>
+  <%= link_to 'Add more', '#newcritformwrapper', :class => "add_nested_item", :rel => "acceptance_criteria" %>
 </div>
 <div class="c">&nbsp;</div>
+<script type="text/javascript" charset="utf-8">
+  setupAcceptanceCriteria();
+</script>
