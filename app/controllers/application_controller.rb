@@ -1,14 +1,8 @@
-# Filters added to this controller will be run for all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
-  # include ExceptionNotifiable
   include AccountStuff
-  # include AccountLocation
   include SslRequirement
-  # include HoptoadNotifier::Catcher
   
   helper :all
-  # protect_from_forgery
   
   require_dependency 'tag'
   require_dependency 'tagging'
@@ -59,22 +53,6 @@ class ApplicationController < ActionController::Base
   # excludes DONE
   def account_user_stories
      @user_stories = @account.user_stories.unassigned('position')
-  end
-  
-  # please see notes in user_story method
-  #  this needs to be refactored to exclude sprint_id
-  def estimated_account_user_stories
-    @user_stories = @account.user_stories.estimated
-  end
-  
-  def unplanned_estimated_user_stories
-    @user_stories = @account.user_stories.find(:all, :conditions => ['done = ? AND story_points IS NOT ?', 0, nil], :order => 'position')
-  end
-
-  def calculate_todays_burndown
-    @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Date.today)
-    @burndown.hours_left = @current_sprint.hours_left
-    @burndown.save
   end
   
   def calculate_tomorrows_burndown

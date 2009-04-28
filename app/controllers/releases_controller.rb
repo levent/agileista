@@ -2,11 +2,9 @@ class ReleasesController < AbstractSecurityController
   
   # ssl_required :index, :new, :create, :edit, :update, :show, :plan
   before_filter :must_be_team_member, :except => [:index]
-  before_filter :unplanned_estimated_user_stories, :only => [:show]
   
   def index
     @releases = @account.releases.find(:all, :order => 'releases.name, user_stories.position', :include => [:user_stories])
-    # @account_user_stories = @account.user_stories.find(:all, :conditions => ['done = ? AND story_points IS NOT ?', 0, nil], :order => 'position')
     @velocity = params[:velocity] || 50
   end
   
