@@ -18,31 +18,31 @@ class Account < ActiveRecord::Base
   
   before_validation :make_fields_lowercase
   
-  def calculated_velocity
-    self.velocity || calculate_velocity
-  end
-
-  def calculate_velocity
-    unless self.sprints.any?
-      self.velocity = 0
-    else
-      finished_sprints = 0
-      tally = 0
-      self.sprints.each do |sprint|
-        if sprint.finished?
-          tally += sprint.calculated_velocity
-          finished_sprints += 1
-        end
-      end
-      if finished_sprints == 0
-        self.velocity = 0
-      else
-        self.velocity = (tally / finished_sprints)
-      end
-    end
-    save!
-    self.velocity
-  end
+  # def calculated_velocity
+  #   self.velocity || calculate_velocity
+  # end
+  # 
+  # def calculate_velocity
+  #   unless self.sprints.any?
+  #     self.velocity = 0
+  #   else
+  #     finished_sprints = 0
+  #     tally = 0
+  #     self.sprints.each do |sprint|
+  #       if sprint.finished?
+  #         tally += sprint.calculated_velocity
+  #         finished_sprints += 1
+  #       end
+  #     end
+  #     if finished_sprints == 0
+  #       self.velocity = 0
+  #     else
+  #       self.velocity = (tally / finished_sprints)
+  #     end
+  #   end
+  #   save!
+  #   self.velocity
+  # end
   
   def authenticate(email, password)
     person = self.people.find_by_email_and_authenticated_and_activation_code(email, 1, nil)

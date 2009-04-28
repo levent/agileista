@@ -2,6 +2,7 @@ class Release < ActiveRecord::Base
   
   belongs_to :account
   validates_presence_of :name
+  validates_presence_of :account_id
   
   has_many :user_stories, :order => "position"
   

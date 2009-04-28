@@ -11,13 +11,11 @@ class ReleasesController < AbstractSecurityController
   end
   
   def new
-    @release = Release.new
-    @release.account = @account
+    @release = @account.releases.new
   end
   
   def create
-    @release = Release.new(params[:release])
-    @release.account = @account
+    @release = @account.releases.new(params[:release])
     if @release.save
       flash[:notice] = "Release saved successfully"
       redirect_to :action => 'index'
@@ -33,7 +31,6 @@ class ReleasesController < AbstractSecurityController
   
   def update
     @release = @account.releases.find(params[:id])
-    @release.account = @account
     if @release.update_attributes(params[:release])
       flash[:notice] = "Release saved successfully"
       redirect_to :action => 'index'
@@ -45,25 +42,5 @@ class ReleasesController < AbstractSecurityController
   
   def show
     @release = @account.releases.find(params[:id])
-    if params[:velocity]
-      @velocity = params[:velocity].to_i
-      @sprints_left = (@release.end_date - Time.now) / 2.weeks
-      @possible = @sprints_left * @velocity
-    end
-    # @account_user_stories = @account.user_stories.find(:all, :conditions => ['done = ? AND story_points IS NOT ?', 0, nil], :order => 'position')
   end
-
-  def plan
-    @release = @account.releases.find(params[:id])
-    for us in @release.user_stories
-      us.release = nil unless params[:user_stories].include?(us.id.to_s)
-      us.save
-    end
-    for us in UserStory.find(:all, :conditions => ["id IN (?)", params[:user_stories]])
-      us.release = @release
-      us.save
-    end
-    redirect_to :action => 'index'
-  end
-  
 end
