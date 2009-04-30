@@ -4,14 +4,15 @@
 			<li><%= link_to "Back to task board", :controller => 'sprint' %></li>
 		<% elsif params[:sprint_id] %>
 			<li><%= link_to "Back to sprint planning", plan_sprint_path(:id => params[:sprint_id]) %></li>
-    	<% else %>
+    <% else %>
     	<li><%= link_to "Back to backlog", :controller => 'backlog' %></li>
     	<li><%= link_to "Add another user story", :controller => 'user_stories', :action => 'new' if current_user.is_a?(TeamMember) %></li>
     	<li><%= link_to "Add another user story", :controller => 'user_stories', :action => 'add' if current_user.is_a?(Contributor) %></li>
-    	<% end -%>
+    <% end -%>
+      <li><%= link_to "Delete user story", user_story_path(:id => @user_story), :method => :delete, :confirm => "Are you sure?", :class => "userstorydelete" unless @user_story.new_record? %></li>
 	</ul>
 	<div class="c">&nbsp;</div>
-</div>	
+</div>
 <div id="main" class="wide">
 	<h1>Edit user story</h1>
 	<%= error_messages_for :user_story %>
