@@ -1,4 +1,4 @@
-<div id="navii"><ul><li><%= link_to "Return to sprint planning", plan_sprint_path(:id => @user_story.sprint_id) %></li></ul><div class="c">&nbsp;</div></div>
+<div id="navii"><ul><li><%= link_to "Return to sprint planning", plan_sprint_path(:id => @user_story.sprint_id) if @user_story.sprint_id %></li></ul><div class="c">&nbsp;</div></div>
 <div id="main" class="wide">
 	<h1>New Task:</span></h1>
 	<div id="leftcontent">
