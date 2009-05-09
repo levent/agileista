@@ -60,6 +60,8 @@ Rails::Initializer.run do |config|
   config.gem "rspec", :lib => false, :version => ">= 1.2.4"
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2.4"
   config.gem "aslakhellesoy-cucumber", :lib => 'cucumber', :source => 'http://gems.github.com'
+  # config.gem "brynary-webrat", :lib => 'webrat', :source => 'http://gems.github.com'
+  config.gem "webrat"
   config.gem "newrelic_rpm"
 end
 
