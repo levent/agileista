@@ -59,6 +59,7 @@ Rails::Initializer.run do |config|
   config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => 'http://gems.github.com'
   config.gem "rspec", :lib => false, :version => ">= 1.2.4"
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2.4"
+  config.gem "aslakhellesoy-cucumber", :lib => 'cucumber', :source => 'http://gems.github.com'
   config.gem "newrelic_rpm"
 end
 
