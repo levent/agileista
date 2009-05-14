@@ -208,7 +208,7 @@ document.rackBugBookmarklet = function() {
     var password = prompt("Rack::Bug password:", "")
     document.createCookie('rack_bug_password', document.SHA1('rack_bug:'+password));
     document.createCookie('rack_bug_enabled', "1");
-    alert('Rack::Bug Enabled');
+    alert('Rack::Bug Enabled for password "' + password + '"');
   }
 }
 
