@@ -1,4 +1,5 @@
 class AbstractSecurityController < ApplicationController
+  cache_sweeper :sprint_audit_sweeper
   before_filter :must_be_logged_in
   
   private

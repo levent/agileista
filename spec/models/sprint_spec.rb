@@ -6,6 +6,8 @@ describe Sprint do
     @it = Sprint.new
   end
   
+  it {should have_many(:sprint_changes)}
+  
   describe "#velocity" do
     before(:each) do
       us1 = UserStory.new(:story_points => 3)
