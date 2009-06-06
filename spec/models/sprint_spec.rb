@@ -4,6 +4,11 @@ describe Sprint do
   
   before(:each) do
     @it = Sprint.new
+    
+    # stub out sweepers
+    sweeper = mock_model(SprintAuditSweeper)
+    sweeper.stub!(:update)
+    SprintElement.instance_variable_set(:@observer_peers, [sweeper])
   end
   
   it {should have_many(:sprint_changes)}
