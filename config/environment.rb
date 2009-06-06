@@ -55,12 +55,7 @@ Rails::Initializer.run do |config|
   config.gem "prawn"
   config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem 'haml'
-  config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => 'http://gems.github.com'
-  config.gem "rspec", :lib => false, :version => ">= 1.2.4"
-  config.gem "rspec-rails", :lib => false, :version => ">= 1.2.4"
-  config.gem "aslakhellesoy-cucumber", :lib => 'cucumber', :source => 'http://gems.github.com'
-  # config.gem "brynary-webrat", :lib => 'webrat', :source => 'http://gems.github.com'
-  config.gem "webrat"
+
   config.gem "newrelic_rpm"
 end
 
