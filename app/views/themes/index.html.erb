@@ -14,7 +14,7 @@
         <% count = 0 -%>
         <% theme.user_stories.each do |us| -%>
           <% count += 1 %>
-          <%= render :partial => '/sprints/user_story', :locals => {:user_story => us, :count => count} %>
+          <%= render :partial => 'sprints/user_story', :locals => {:user_story => us, :count => count, :sprint => us.sprint, :from => 'themes'} %>
         <% end -%>
       </div>
       <div class="c">&nbsp;</div>

@@ -2,6 +2,7 @@ class UserStoriesController < AbstractSecurityController
   before_filter :must_be_team_member, :except => [:add, :create_via_add, :show, :plan, :unplan, :reorder]
   before_filter :user_story_must_exist, :only => ['update', 'remove_from_sprint', 'show',
     :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
+  before_filter :set_sprint, :only => [:show, :edit]
   
   def copy
     if @user_story.copy
@@ -140,5 +141,11 @@ class UserStoriesController < AbstractSecurityController
     end
     redirect_to themes_path and return false if params[:from] == 'themes'
     redirect_to :controller => 'backlog' and return false
+  end
+  
+  protected
+  
+  def set_sprint
+    @sprint = @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
   end
 end

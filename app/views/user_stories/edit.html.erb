@@ -1,20 +1,20 @@
 <div id="navii">
     <ul>
-		<% if params[:sprint_id] && params[:from] %>
-			<li><%= link_to "Back to task board", :controller => 'sprint' %></li>
-		<% elsif params[:sprint_id] %>
-			<li><%= link_to "Back to sprint planning", plan_sprint_path(:id => params[:sprint_id]) %></li>
+    	<% if params[:from] %>
+    			<li>
+    			  <%= link_to "Back to task board", sprint_path(params[:sprint_id]) if params[:from] == 'tb' %>
+    			  <%= link_to "Back to themes", themes_path if params[:from] == 'themes' %>
+    			  <%= link_to "Back to sprint planning", plan_sprint_path(:id => params[:sprint_id]) if params[:from] == 'plan' %>
+    			</li>
     <% else %>
     	<li><%= link_to "Back to backlog", :controller => 'backlog' %></li>
-    	<li><%= link_to "Add another user story", :controller => 'user_stories', :action => 'new' if current_user.is_a?(TeamMember) %></li>
-    	<li><%= link_to "Add another user story", :controller => 'user_stories', :action => 'add' if current_user.is_a?(Contributor) %></li>
     <% end -%>
       <li><%= link_to "Delete user story", user_story_path(:id => @user_story), :method => :delete, :confirm => "Are you sure?", :class => "userstorydelete" unless @user_story.new_record? %></li>
 	</ul>
 	<div class="c">&nbsp;</div>
 </div>
 <div id="main" class="wide">
-	<h1>Edit user story</h1>
+	<h1><% if @sprint -%>Sprint: <%= @sprint.name %><br /><% end -%>Edit user story</h1>
 	<%= error_messages_for :user_story %>
 	<% form_for :user_story, @user_story, :url => user_story_path(:id => @user_story, :sprint_id => params[:sprint_id], :from => params[:from]), :html => {:method => :put} do |us| %>
 	  <%= render :partial => 'form', :locals => {:account => @account, :us => us, :user_story => @user_story, :tags => @tags} %>

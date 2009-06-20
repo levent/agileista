@@ -1,7 +1,7 @@
 <div id="user_story_container_<%= user_story.id %>">
   <div class="storycards">
     <% if first -%><h2>User story</h2><% end -%>
-    <%= render :partial => 'sprints/user_story', :locals => {:user_story => user_story, :count => count} %>
+    <%= render :partial => 'sprints/user_story', :locals => {:user_story => user_story, :count => count, :sprint => sprint, :from => from} %>
   </div>
   <div class="taskcards" id="incomplete_<%= user_story.id %>">
     <% if first -%><h2>Incomplete</h2><% end -%>

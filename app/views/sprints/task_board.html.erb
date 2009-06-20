@@ -7,7 +7,7 @@
       <% @sprint.user_stories.each do |user_story| -%>
         <% count += 1 %>
         <% user_story_positions[user_story.id] = count %>
-        <%= render :partial => 'user_story_container', :locals => {:user_story => user_story, :count => count, :user_story_positions => user_story_positions, :first => first} %>
+        <%= render :partial => 'user_story_container', :locals => {:user_story => user_story, :count => count, :user_story_positions => user_story_positions, :first => first, :sprint => @sprint, :from => 'tb'} %>
         <% first = false -%>
         <hr />
         <% unless current_user.is_a?(Contributor) -%>

@@ -1,22 +1,24 @@
 <div id="navii">
     <ul>
-	<% if params[:sprint_id] && params[:from] %>
-		<li><%= link_to "Back to task board", :controller => 'sprint' %></li>
-	<% elsif params[:sprint_id] %>
-		<li><%= link_to "Back to sprint planning", plan_sprint_path(:id => params[:sprint_id]) %></li>
+	<% if params[:from] %>
+			<li>
+			  <%= link_to "Back to task board", sprint_path(params[:sprint_id]) if params[:from] == 'tb' %>
+			  <%= link_to "Back to themes", themes_path if params[:from] == 'themes' %>
+			  <%= link_to "Back to sprint planning", plan_sprint_path(:id => params[:sprint_id]) if params[:from] == 'plan' %>
+			</li>
 	<% else -%>
 		<li><%= link_to "Back to backlog", :controller => 'backlog' unless params[:from] == 'themes' %></li>
-		<li><%= link_to "Back to themes", :controller => 'themes' if params[:from] == 'themes' %></li>
 	<% end -%>
 	<% if current_user.is_a?(TeamMember) -%>
-	    <li><%= link_to 'Edit', edit_user_story_path(:id => @user_story), :title => 'Edit' %></li>
+	    <li><%= link_to 'Edit', edit_sprint_user_story_path(@sprint, @user_story, :from => params[:from]), :title => 'Edit' if @sprint %></li>
+	    <li><%= link_to 'Edit', edit_user_story_path(@user_story, :from => params[:from]), :title => 'Edit' unless @sprint %></li>
 	<% end -%>
 	</ul>
 	<div class="c">&nbsp;</div>
 </div>
 <div id="main">
 	<div id="user_story">
-		<h1><%=h @user_story.definition %></h1>
+		<h1><% if @sprint -%>Sprint: <%= @sprint.name %><br /><% end -%><%=h @user_story.definition %></h1>
 		<%= simple_format(@user_story.description) %>
 		<h2>Story points:</h2>
 		    <p><%=h show_story_points(@user_story.story_points) %></p>
