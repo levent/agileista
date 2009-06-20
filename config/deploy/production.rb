@@ -17,17 +17,17 @@ set :deploy_to, "/home/levent/apps/#{application}"
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
 # set :scm, :subversion
-ssh_options[:port] = 30000
-set :port, 30000
+ssh_options[:port] = 40000
+set :port, 40000
 set :user, "levent"
 set :use_sudo, false
 default_run_options[:pty] = true
 
 set :application, "agileista.com"
 set :rails_env, "production"
-role :app, "app.agileista.com"
-role :web, "app.agileista.com"
-role :db,  "app.agileista.com", :primary => true
+role :app, "67.207.137.12"
+role :web, "67.207.137.12"
+role :db,  "67.207.137.12", :primary => true
 
 namespace :deploy do
   task :restart do
@@ -50,13 +50,13 @@ end
 
 desc "Stop the sphinx server"
 task :stop_sphinx , :roles => :app do
-  run "cd #{current_path} && rake ts:stop RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && /opt/ruby-enterprise-1.8.6-20090610/bin/rake ts:stop RAILS_ENV=#{rails_env}"
 end
 
 
 desc "Start the sphinx server" 
 task :start_sphinx, :roles => :app do
-  run "cd #{current_path} && rake ts:config RAILS_ENV=#{rails_env} && rake ts:start RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && /opt/ruby-enterprise-1.8.6-20090610/bin/rake ts:config RAILS_ENV=#{rails_env} && /opt/ruby-enterprise-1.8.6-20090610/bin/rake ts:start RAILS_ENV=#{rails_env}"
 end
 
 desc "Restart the sphinx server"
@@ -67,7 +67,7 @@ end
 
 desc "Reindex search index"
 task :reindex_sphinx, :roles => :app do
-  run "cd #{current_path} && rake ts:index RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && /opt/ruby-enterprise-1.8.6-20090610/bin/rake ts:index RAILS_ENV=#{rails_env}"
 end
 
 task :setup_symlinks, :roles => :web do
