@@ -31,7 +31,7 @@ class NotificationMailer < ActionMailer::Base
     @body[:user] = user
     @body[:pass] = password
     @body[:account] = account
-    @subject     = "Hey Agileista! Here is your password reminder"
+    @subject     = "Hey Agileista! This should help you login"
   end
   
   def account_information(user, account)
