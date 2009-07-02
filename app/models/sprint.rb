@@ -58,7 +58,7 @@ class Sprint < ActiveRecord::Base
   end
   
   def current?
-    self.start_at < Time.now && self.end_at > 1.days.ago
+    self.start_at < Time.now && self.end_at > Time.now
   end
   
   def calculate_end_date
