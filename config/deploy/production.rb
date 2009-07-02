@@ -13,6 +13,7 @@ set :scm_verbose, true
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
 set :deploy_to, "/home/levent/apps/#{application}"
+set :ruby_enterprise, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake"
 
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
@@ -50,13 +51,13 @@ end
 
 desc "Stop the sphinx server"
 task :stop_sphinx , :roles => :app do
-  run "cd #{current_path} && /opt/ruby-enterprise-1.8.6-20090610/bin/rake ts:stop RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && #{ruby_enterprise} ts:stop RAILS_ENV=#{rails_env}"
 end
 
 
 desc "Start the sphinx server" 
 task :start_sphinx, :roles => :app do
-  run "cd #{current_path} && /opt/ruby-enterprise-1.8.6-20090610/bin/rake ts:config RAILS_ENV=#{rails_env} && /opt/ruby-enterprise-1.8.6-20090610/bin/rake ts:start RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && #{ruby_enterprise} ts:config RAILS_ENV=#{rails_env} && #{ruby_enterprise} ts:start RAILS_ENV=#{rails_env}"
 end
 
 desc "Restart the sphinx server"
@@ -67,7 +68,7 @@ end
 
 desc "Reindex search index"
 task :reindex_sphinx, :roles => :app do
-  run "cd #{current_path} && /opt/ruby-enterprise-1.8.6-20090610/bin/rake ts:index RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && #{ruby_enterprise} ts:index RAILS_ENV=#{rails_env}"
 end
 
 task :setup_symlinks, :roles => :web do
