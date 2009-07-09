@@ -4,6 +4,7 @@ class Sprint < ActiveRecord::Base
   has_many :user_stories, :through => :sprint_elements, :order => 'user_stories.done, sprint_elements.position'
   has_many :burndowns
   has_many :sprint_changes, :as => :auditable
+  has_many :audits, :class_name => "SprintChange"
   
   belongs_to :account
   validates_presence_of :account_id

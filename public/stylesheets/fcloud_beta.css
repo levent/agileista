@@ -1,0 +1,63 @@
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%; }
+
+body {
+  font-family: verdana, arial, sans-serif;
+  font-size: 75%;
+  margin: 0;
+  padding: 0;
+  background-color: #fff; }
+
+#container {
+  width: 956px; }
+
+div#logo {
+  float: left;
+  width: 530px;
+  padding-top: 82px; }
+  div#logo h1 {
+    width: 240px;
+    margin: 0 auto; }
+
+div#rightside {
+  float: left;
+  width: 311px;
+  margin: 0; }
+  div#rightside div {
+    padding: 10px; }
+  div#rightside div#info {
+    background-color: #009ed1;
+    padding-top: 82px;
+    color: #fff; }
+    div#rightside div#info h2 {
+      margin: 0;
+      padding: 0; }
+    div#rightside div#info span#moreinfo {
+      display: none; }
+    div#rightside div#info a {
+      color: #000;
+      text-decoration: none; }
+    div#rightside div#info .rightalign {
+      text-align: right; }
+  div#rightside div#infobottom {
+    margin: 0;
+    margin-bottom: 60px;
+    padding: 0; }
+  div#rightside div#signup {
+    position: relative;
+    background: url(/images/fcloud_beta_form.png) no-repeat;
+    height: 95px; }
+    div#rightside div#signup p {
+      margin-top: 0;
+      padding-top: 0; }
+    div#rightside div#signup label {
+      float: left;
+      margin-right: 8px; }
+    div#rightside div#signup #textinput {
+      float: left;
+      margin-right: 8px;
+      width: 50%; }
+    div#rightside div#signup #signupbutton {
+      float: left; }

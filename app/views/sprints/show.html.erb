@@ -1,6 +1,17 @@
+
 <div id="main" class="wide">
 <h1><%= sprint_header(@sprint) %></h1>
 <%= @chart %>
+
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Summary</a></li>
+    <li><a href="#tabs-2">Audit</a></li>
+  </ul>
+</div>
+
+<div id="tabs-1">
+
 <table id="current_sprint">
 	<thead>
 		<tr>
@@ -32,4 +43,58 @@
 	  <% end %>
 	</tbody>
 </table>
+
+
 </div>
+
+<div id="tabs-2">
+  
+<table id="sprint_story_completeness">
+  <thead>
+    <tr>
+      <th>User story</th><th>Complete?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- for user_story in @sprint.user_stories -%>
+    <tr>
+      <td><%=h truncate(user_story.definition, 50) %></td>
+      <td><%= user_story.complete? %></td>
+    </tr>
+    <%- end -%>
+  </tbody>
+</table>
+
+
+<table id="sprint_changes">
+  <thead>
+    <tr>
+      <th>Change</th>
+      <th>Major?</th>
+      <th>When</th>
+      <th>Change</th>
+      <th>By</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- for sprint_change in @sprint.audits -%>
+    <tr>
+      <td><%=h sprint_change.details %></td>
+      <td><%= sprint_change.major? %></td>
+      <td><%= show_date_and_time(sprint_change.created_at) %></td>
+      <td><%- if sprint_change.kind == "update" %><%= ActiveSupport::JSON.decode(sprint_change.changes).inspect %><% end -%></td>
+      <td><%= sprint_change.person ? sprint_change.person.name : "Unknown" %>
+    </tr>
+    <%- end -%>
+  </tbody>
+</table>
+
+</div>
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+  		$("#tabs").tabs();
+  	});
+</script>
