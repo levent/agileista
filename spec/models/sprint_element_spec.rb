@@ -20,7 +20,7 @@ describe SprintElement do
         audit = SprintChange.last
         audit.major.should be_true
         audit.kind.should == "create"
-        audit.details.should == "User story ##{@us.id} added by schlong"
+        audit.details.should == "User story added by schlong"
         audit.person.should == @person
       end
       
@@ -33,7 +33,7 @@ describe SprintElement do
         audit = SprintChange.last
         audit.major.should be_false
         audit.kind.should == "create"
-        audit.details.should == "User story ##{@us.id} added by schlong"
+        audit.details.should == "User story added by schlong"
         audit.person.should == @person
       end
     end
@@ -45,7 +45,7 @@ describe SprintElement do
         audit = SprintChange.last
         audit.major.should be_true
         audit.kind.should == "destroy"
-        audit.details.should == "User story ##{@us.id} removed by schlong"
+        audit.details.should == "User story removed by schlong"
         audit.person.should == @person
       end
       
@@ -58,7 +58,7 @@ describe SprintElement do
         audit = SprintChange.last
         audit.major.should be_false
         audit.kind.should == "destroy"
-        audit.details.should == "User story ##{@us.id} removed by schlong"
+        audit.details.should == "User story removed by schlong"
         audit.person.should == @person
       end
       

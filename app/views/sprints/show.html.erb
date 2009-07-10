@@ -6,7 +6,7 @@
 <div id="tabs">
   <ul>
     <li><a href="#tabs-1">Summary</a></li>
-    <li><a href="#tabs-2">Audit</a></li>
+    <li><a href="#tabs-2">Activity</a></li>
   </ul>
 </div>
 
@@ -54,6 +54,7 @@
   <thead>
     <tr>
       <th>Change</th>
+      <th>User story</th>
       <th>Major?</th>
       <th>When</th>
       <th>Change</th>
@@ -64,6 +65,7 @@
     <%- for sprint_change in @sprint.audits -%>
     <tr>
       <td><%=h sprint_change.details %></td>
+      <td><%- if sprint_change.auditable && sprint_change.auditable_type == "UserStory" %><%= link_to "Show", sprint_user_story_url(@sprint, sprint_change.auditable) if sprint_change.auditable.sprint %><%= link_to "Show", user_story_url(sprint_change.auditable) unless sprint_change.auditable.sprint %><% end -%>
       <td><%= sprint_change.major? %></td>
       <td><%= show_date_and_time(sprint_change.created_at) %></td>
       <td><%- if sprint_change.kind == "update" %><%= ActiveSupport::JSON.decode(sprint_change.changes).inspect %><% end -%></td>

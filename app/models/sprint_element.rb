@@ -16,19 +16,19 @@ class SprintElement < ActiveRecord::Base
   end
   
   def audit_create(person)
-    SprintChange.create(:kind => "create", :sprint_id => self.sprint_id, :auditable => self, :major => self.sprint.current?, :details => "User story ##{self.user_story.id} added by #{person.name}", :person => person)
+    SprintChange.create(:kind => "create", :sprint_id => self.sprint_id, :auditable => self.user_story, :major => self.sprint.current?, :details => "User story added by #{person.name}", :person => person)
   rescue NoMethodError => e
     Rails.logger.warn("[AUDIT FAIL]: SprintElement create #{self.inspect}")
   end
   
   def audit_destroy(person)
-    SprintChange.create(:kind => "destroy", :sprint_id => self.sprint_id, :auditable => self, :major => self.sprint.current?, :details => "User story ##{self.user_story.id} removed by #{person.name}", :person => person)
+    SprintChange.create(:kind => "destroy", :sprint_id => self.sprint_id, :auditable => self.user_story, :major => self.sprint.current?, :details => "User story removed by #{person.name}", :person => person)
   rescue NoMethodError => e
     Rails.logger.warn("[AUDIT FAIL]: SprintElement destroy #{self.inspect}")
   end
   
   def audit_update(person)
-    SprintChange.create(:kind => "update", :sprint_id => self.sprint_id, :auditable => self, :major => self.sprint.current?, :details => "User story ##{self.user_story.id} changed by #{person.name}", :person => person, :changes => self.send(:changed_attributes))
+    SprintChange.create(:kind => "update", :sprint_id => self.sprint_id, :auditable => self.user_story, :major => self.sprint.current?, :details => "User story changed by #{person.name}", :person => person, :changes => self.send(:changed_attributes))
   rescue NoMethodError => e
     Rails.logger.warn("[AUDIT FAIL]: SprintElement update #{self.inspect}")
   end
