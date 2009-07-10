@@ -3,6 +3,7 @@ class UserStoriesController < AbstractSecurityController
   before_filter :user_story_must_exist, :only => ['update', 'remove_from_sprint', 'show',
     :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
   before_filter :set_sprint, :only => [:show, :edit]
+  before_filter :set_tags_and_themes, :only => [:create, :update]
   
   def copy
     if @user_story.copy
@@ -25,8 +26,6 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def create
-    @tags = params[:tags]
-    @themes = params[:themes] || ""
     @user_story = UserStory.new(params[:user_story])
     @user_story.account = @account
     @user_story.person = current_user
@@ -72,8 +71,6 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def update
-    @tags = params[:tags]
-    @themes = params[:themes] || ""
     if @user_story.update_attributes(params[:user_story])
       @user_story.tag_with(@tags)
       @user_story.theme_with(@themes)
@@ -147,5 +144,11 @@ class UserStoriesController < AbstractSecurityController
   
   def set_sprint
     @sprint = @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
+  end
+  
+  def set_tags_and_themes
+    @tags = params[:tags]
+    @themes = params[:themes] || []
+    @themes << params[:additional_theme] unless params[:additional_theme].blank?
   end
 end
