@@ -1,7 +1,7 @@
 <div id="main">
   <h1>Edit user</h1>
 	<%= error_messages_for :person %>
-	<% form_for :person, @person, :url => {:action => 'update', :id => @person.id} do |p| %>
+	<% form_for :person, @person, :url => user_path(@person), :html => {:method => :put} do |p| %>
 		<label for="person_name">Name: </label><%= p.text_field :name %>
 		<label for="person_email">Email: </label><%= p.text_field :email %>
 		<% unless @person.account_holder? -%>
