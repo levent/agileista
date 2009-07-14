@@ -24,7 +24,7 @@
 		<tr class="user_story">
 			<% count += 1 -%>
 			<td><%= "##{count}" %></td>
-			<td><%= truncate(user_story.definition, 50) %> <%= link_to "Show", sprint_user_story_path(:id => user_story, :sprint_id => @sprint), :title => user_story.definition if current_user.is_a?(TeamMember) %> <%= link_to "Copy", {:controller => 'user_stories', :action => 'copy', :id => user_story}, :method => :post, :title => "Copy" if current_user.is_a?(TeamMember) && !user_story.complete? %></td>
+			<td><%= truncate(user_story.definition, 50) %> <%= link_to "Show", sprint_user_story_path(:id => user_story, :sprint_id => @sprint), :title => user_story.definition %> <%= link_to "Copy", {:controller => 'user_stories', :action => 'copy', :id => user_story}, :method => :post, :title => "Copy" if current_user.is_a?(TeamMember) && !user_story.complete? %></td>
 			<td><%= pluralize(user_story.tasks.count, "task") %></td>
 			<td><%= show_story_points(user_story.story_points) %></td>
 			<td><%= link_to_if current_user.is_a?(TeamMember), "Remove", {:controller => 'user_stories', :action => 'remove_from_sprint', :id => user_story, :sprint_id => @sprint}, :method => :post unless user_story.complete? %><%= "Complete" if user_story.complete? %></td>
