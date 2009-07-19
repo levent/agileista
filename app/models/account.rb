@@ -1,4 +1,6 @@
 class Account < ActiveRecord::Base
+  acts_as_tagger
+  
   has_many :people, :order => 'name', :dependent => :destroy
   has_many :team_members, :order => 'name'
   has_many :contributors, :order => 'name'
@@ -7,7 +9,7 @@ class Account < ActiveRecord::Base
   has_many :impediments, :order => 'resolved_at, created_at DESC', :dependent => :destroy
   has_many :themes, :order => 'name', :dependent => :destroy
   has_many :releases, :dependent => :destroy
-  has_many :tags, :dependent => :destroy
+  # has_many :tags, :dependent => :destroy
   
   belongs_to :account_holder, :class_name => "Person", :foreign_key => 'account_holder_id'
   

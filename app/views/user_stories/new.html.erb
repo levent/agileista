@@ -3,6 +3,6 @@
 <%= error_messages_for :user_story %>
 <% form_for :user_story, @user_story, :url => {:action => 'create'} do |us| %>
 
-	<%= render :partial => 'form', :locals => {:account => @account, :us => us, :user_story => @user_story, :tags => @tags} %>
+	<%= render :partial => 'form', :locals => {:account => @account, :us => us, :user_story => @user_story, :tags => @tags, :sprint => @sprint} %>
 <% end %>
 </div>

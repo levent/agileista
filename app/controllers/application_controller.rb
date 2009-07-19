@@ -4,15 +4,15 @@ class ApplicationController < ActionController::Base
   
   helper :all
   
-  require_dependency 'tag'
-  require_dependency 'tagging'
+  # require_dependency 'tag'
+  # require_dependency 'tagging'
   
   filter_parameter_logging :password
 
   protected
   
   def ssl_required?
-    return false if local_request? || Rails.env == 'test'
+    return false if local_request? || ['test', 'cucumber'].include?(Rails.env)
     super
   end
       

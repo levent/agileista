@@ -65,7 +65,7 @@ describe Account do
   it {should have_many(:impediments).dependent(:destroy)}
   it {should have_many(:themes).dependent(:destroy)}
   it {should have_many(:releases).dependent(:destroy)}
-  it {should have_many(:tags).dependent(:destroy)}
+  # it {should have_many(:tags).dependent(:destroy)}
   it {should have_many(:people).dependent(:destroy)}
   it {should have_many(:sprints).dependent(:destroy)}
   it {should have_many(:user_stories).dependent(:destroy)}

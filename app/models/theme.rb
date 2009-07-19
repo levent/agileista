@@ -3,10 +3,10 @@ class Theme < ActiveRecord::Base
   validates_presence_of :name
   acts_as_list :scope => :account
 
-  has_many_polymorphs :themables,
-      :from => [:user_stories],
-      :through => :themings,
-      :dependent => :destroy
+  # has_many_polymorphs :themables,
+  #     :from => [:user_stories],
+  #     :through => :themings,
+  #     :dependent => :destroy
       
   def story_points
     @story_points = 0

@@ -1,9 +1,10 @@
 class UserStoriesController < AbstractSecurityController
+  ssl_allowed
   before_filter :must_be_team_member, :except => [:add, :create_via_add, :show, :plan, :unplan, :reorder]
   before_filter :user_story_must_exist, :only => ['update', 'remove_from_sprint', 'show',
     :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
   before_filter :set_sprint, :only => [:show, :edit]
-  before_filter :set_tags_and_themes, :only => [:create, :update]
+  before_filter :set_additional_themes, :only => [:create, :update]
   
   def copy
     if @user_story.copy
@@ -27,12 +28,14 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def create
+    @sprint = @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
     @user_story = UserStory.new(params[:user_story])
     @user_story.account = @account
     @user_story.person = current_user
+    @user_story.sprint = @sprint
     if @user_story.save
-      @user_story.tag_with(params[:tags])
-      @user_story.theme_with(params[:themes])
+      @account.tag(@user_story, :with => params[:tags], :on => :tags)
+      @user_story.themes << @additional_theme if @additional_theme
       
       if params[:commit] == "Add at start of backlog"
         @user_story.move_to_top
@@ -40,9 +43,15 @@ class UserStoriesController < AbstractSecurityController
         @user_story.move_to_bottom
       end
       
-      flash[:notice] = "User story created successfully"
-      redirect_to backlog_index_path
-      
+      if params[:commit] == "Add to task board"
+        SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
+        flash[:notice] = "User story added successfully"
+        redirect_to sprint_url(@sprint)
+      else
+        flash[:notice] = "User story created successfully"
+        redirect_to backlog_index_path
+      end
+
     else
       flash[:error] = "There were errors creating the user story"
       @user_story.acceptance_criteria.build
@@ -72,9 +81,12 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def update
+    # p params[:user_story][:themes]
+
     if @user_story.update_attributes(params[:user_story])
-      @user_story.tag_with(@tags)
-      @user_story.theme_with(@themes)
+      @account.tag(@user_story, :with => params[:tags], :on => :tags)
+      @user_story.themes << @additional_theme if @additional_theme
+      # @account.tag(@user_story, :with => params[:themes], :on => :themes)
       flash[:notice] = "User story updated successfully"
     else
       flash[:error] = "User story couldn't be updated"
@@ -147,9 +159,9 @@ class UserStoriesController < AbstractSecurityController
     @sprint = @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
   end
   
-  def set_tags_and_themes
-    @tags = params[:tags]
-    @themes = params[:themes] || []
-    @themes << params[:additional_theme] unless params[:additional_theme].blank?
+  def set_additional_themes
+    unless params[:additional_theme].blank?
+      @additional_theme = @account.themes.find_or_create_by_name(params[:additional_theme])
+    end
   end
 end

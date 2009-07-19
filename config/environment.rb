@@ -54,7 +54,7 @@ Rails::Initializer.run do |config|
   config.gem "json"
   config.gem "prawn"
   config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
-  # config.gem 'haml'
+  config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
 
   config.gem "newrelic_rpm"
 end
