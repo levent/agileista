@@ -15,6 +15,7 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def new
+    @sprint = @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
     @user_story = UserStory.new
     @user_story.acceptance_criteria.build
   end

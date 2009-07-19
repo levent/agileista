@@ -1,3 +1,5 @@
+<div id="navii"><% if current_user.is_a?(TeamMember) %><%= link_to "Add story to sprint", new_sprint_user_story_url(@sprint) %><% end -%></div>
+
 <div id="main" class="wide">
     <h1><%= sprint_header(@sprint) %></h1>
     <% count = 0 -%>

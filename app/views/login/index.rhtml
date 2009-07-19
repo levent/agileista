@@ -2,9 +2,9 @@
 <h1>Please login below</h1>
 <%= form_tag :action => 'authenticate' %>
 	<fieldset>
-	<label for="user_email">Your email:</label>
+	<label for="email">Your email:</label>
 	<%= text_field_tag "email", params[:email] %>
-	<label for="user_password">Your password:</label>
+	<label for="password">Your password:</label>
 	<%= password_field_tag "password" %>
 	<%= submit_tag "Login" %>
 	<%= link_to 'I forgot my password', :controller => 'login', :action => 'forgot' %>

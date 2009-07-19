@@ -1,5 +1,5 @@
 <div id="main" class="wide">
-<h1>Add a user story</h1>
+<h1><%= @sprint ? "Add a user story to #{@sprint.name}" : "Add a user story" %></h1>
 <%= error_messages_for :user_story %>
 <% form_for :user_story, @user_story, :url => {:action => 'create'} do |us| %>
 

@@ -4,6 +4,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec/autorun'
 require 'spec/rails'
+
 require RAILS_ROOT + '/spec/time_spec_helper'
 require RAILS_ROOT + '/spec/sexy_objects'
 
