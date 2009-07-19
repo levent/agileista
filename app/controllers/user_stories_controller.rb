@@ -1,9 +1,9 @@
 class UserStoriesController < AbstractSecurityController
   ssl_allowed
   before_filter :must_be_team_member, :except => [:add, :create_via_add, :show, :plan, :unplan, :reorder]
-  before_filter :user_story_must_exist, :only => ['update', 'remove_from_sprint', 'show',
+  before_filter :user_story_must_exist, :only => ['update', 'show',
     :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
-  before_filter :set_sprint, :only => [:show, :edit]
+  before_filter :set_sprint, :only => [:new, :show, :edit, :create, :plan, :unplan, :reorder]
   before_filter :set_additional_themes, :only => [:create, :update]
   
   def copy
@@ -16,7 +16,6 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def new
-    @sprint = @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
     @user_story = UserStory.new
     @user_story.acceptance_criteria.build
   end
@@ -28,14 +27,13 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def create
-    @sprint = @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
     @user_story = UserStory.new(params[:user_story])
     @user_story.account = @account
     @user_story.person = current_user
     @user_story.sprint = @sprint
     if @user_story.save
       @account.tag(@user_story, :with => params[:tags], :on => :tags)
-      @user_story.themes << @additional_theme if @additional_theme
+      assign_additional_themes
       
       if params[:commit] == "Add at start of backlog"
         @user_story.move_to_top
@@ -51,7 +49,6 @@ class UserStoriesController < AbstractSecurityController
         flash[:notice] = "User story created successfully"
         redirect_to backlog_index_path
       end
-
     else
       flash[:error] = "There were errors creating the user story"
       @user_story.acceptance_criteria.build
@@ -81,12 +78,9 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def update
-    # p params[:user_story][:themes]
-
     if @user_story.update_attributes(params[:user_story])
       @account.tag(@user_story, :with => params[:tags], :on => :tags)
-      @user_story.themes << @additional_theme if @additional_theme
-      # @account.tag(@user_story, :with => params[:themes], :on => :themes)
+      assign_additional_themes
       flash[:notice] = "User story updated successfully"
     else
       flash[:error] = "User story couldn't be updated"
@@ -105,44 +99,34 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def plan
-    sprint = @account.sprints.find(params[:sprint_id])
-    @user_story.sprint = sprint
+    @user_story.sprint = @sprint
     @user_story.save
-    SprintElement.find_or_create_by_sprint_id_and_user_story_id(sprint.id, @user_story.id)
+    SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
     render :json => {:ok => true}.to_json
   end
   
   def unplan
-    sprint = @account.sprints.find(params[:sprint_id])
     @user_story.sprint = nil
     @user_story.save
-    SprintElement.destroy_all("sprint_id = #{sprint.id} AND user_story_id = #{@user_story.id}")
-    render :json => {:ok => true}.to_json
+    SprintElement.destroy_all("sprint_id = #{@sprint.id} AND user_story_id = #{@user_story.id}")
+    respond_to do |format|
+      format.html {
+        flash[:notice] = "User story removed from sprint"
+        redirect_to sprint_path(@sprint)
+      }
+      format.json {render :json => {:ok => true}.to_json}
+    end
   end
   
   def reorder
-    sprint = @account.sprints.find(params[:sprint_id])
     split_by = "&com[]="
     items = params[:user_stories].split(split_by)
     items[0] = items[0].gsub('com[]=', '')
-    sprint.sprint_elements.each do |se|
+    @sprint.sprint_elements.each do |se|
       se.position = items.index(se.user_story_id.to_s) + 1
       se.save
     end
     render :json => {:ok => true}.to_json
-  end
-  
-  def remove_from_sprint
-    @user_story.sprint = nil
-    @sprint = Sprint.find(params[:sprint_id])
-    SprintElement.find(:all, :conditions => ["sprint_id = ? AND user_story_id = ?", @sprint.id, @user_story.id]).collect{|se| se.destroy}
-    if @user_story.save
-      flash[:notice] = "User story removed from sprint"
-    else
-      flash[:error] = "User story couldn't be removed"
-      render :action => 'edit'
-    end
-    redirect_to sprint_path(:id => params[:sprint_id])
   end
   
   def destroy
@@ -163,5 +147,9 @@ class UserStoriesController < AbstractSecurityController
     unless params[:additional_theme].blank?
       @additional_theme = @account.themes.find_or_create_by_name(params[:additional_theme])
     end
+  end
+  
+  def assign_additional_themes
+    @user_story.themes << @additional_theme if @additional_theme
   end
 end
