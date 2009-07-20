@@ -3,6 +3,9 @@ class Theme < ActiveRecord::Base
   validates_presence_of :name
   acts_as_list :scope => :account
 
+  has_many :themings, :foreign_key => "theme_id"
+  has_many :user_stories, :through => :themings
+
   # has_many_polymorphs :themables,
   #     :from => [:user_stories],
   #     :through => :themings,
