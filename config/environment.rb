@@ -57,6 +57,7 @@ Rails::Initializer.run do |config|
   config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
 
   config.gem "newrelic_rpm"
+  config.gem 'gravtastic', :version => '>= 2.1.0'
 end
 
 # Add new inflection rules using the following format 

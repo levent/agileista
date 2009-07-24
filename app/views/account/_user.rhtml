@@ -1,5 +1,5 @@
 <tr>
-	<td><%= gravatar_for user, :size => 25 %> <%= user.name %></td>
+	<td><%= image_tag user.gravatar_url(:size => 25) %> <%= user.name %></td>
 	<td><%= link_to 'Edit', {:controller => 'users', :action => 'edit', :id => user} if current_user.account_holder? || user == current_user %></td>
 	<td><%= link_to 'Delete', {:controller => 'users', :action => 'delete', :id => user}, :method => :post, :confirm => "Are you sure?" unless !current_user.can_delete_users? || user.account_holder? %></td>
 	<td><% unless user.authenticated? %><%= link_to 'Inactive', {:controller => 'account', :action => 'resend_authentication', :id => user}, :method => :post %><% else %>Active<% end %></td>
