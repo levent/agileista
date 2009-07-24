@@ -35,6 +35,7 @@
         <li class="floatright"><%= link_to "Logout", :controller => '/login', :action => 'logout' if logged_in? %></li>
         <li class="floatright"><%= link_to "Settings", :controller => '/account', :action => 'settings' %></li>
         <li class="floatright"><span id="currentuser"><%= current_user.name %></span></li>
+        <li class="floatright"><%= gravatar_for current_user, :size => 25 %></li>
 	    </ul>
 
 	<% else %>
