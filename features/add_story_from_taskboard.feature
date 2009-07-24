@@ -18,7 +18,7 @@ Background:
     And I follow "Add story to sprint"
     And I fill in "Title" with "As a user I'd like to accomplish things"
     And I fill in "Story points" with "8"
-    # And I fill in "additional_theme" with "theme"
+    And I fill in "additional_theme" with "theme"
     And I press "Add to task board"
     And I am on "the backlog page"
     And I follow "Task board"
