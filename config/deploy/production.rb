@@ -7,7 +7,7 @@ set :deploy_via, :remote_cache
 # set :copy_exclude, [".git"]
 set :branch, "0.3.26"
 set :scm_verbose, true
-
+set :keep_releases,       5
 # set :deploy_via, :export
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
