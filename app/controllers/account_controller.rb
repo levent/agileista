@@ -29,7 +29,7 @@ class AccountController < AbstractSecurityController
           render :action => 'settings'
         end
       else
-        flash[:error] = 'The password you entered is incorrect'
+        flash[:error] = "The password you entered didn't match"
         redirect_to :action => 'settings' and return false
       end
     end

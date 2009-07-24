@@ -16,7 +16,7 @@ describe Impediment do
       Time.freeze do
         @it.should_receive(:resolved_at=).with(Time.now)
         @it.should_receive(:save).and_return('tru')
-        @it.resolve.should == 'tru'
+        @it.resolve!.should == 'tru'
       end
     end
   end

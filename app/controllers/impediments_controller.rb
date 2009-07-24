@@ -56,7 +56,7 @@ class ImpedimentsController < AbstractSecurityController
   
   def resolve
     @impediment = @account.impediments.find(params[:id])
-    @impediment.resolve ? flash[:notice] = 'Impediment resolved' : flash[:error] = 'Impediment could not be resolved'
+    @impediment.resolve! ? flash[:notice] = 'Impediment resolved' : flash[:error] = 'Impediment could not be resolved'
     redirect_to :action => 'index', :page => params[:page]
   end
 end

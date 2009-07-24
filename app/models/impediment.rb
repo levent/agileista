@@ -8,7 +8,7 @@ class Impediment < ActiveRecord::Base
   named_scope :unresolved, :conditions => {:resolved_at => nil}
   named_scope :resolved, :conditions => "resolved_at IS NOT NULL"
   
-  def resolve
+  def resolve!
     self.resolved_at = Time.now
     self.save
   end

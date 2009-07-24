@@ -5,7 +5,6 @@ class AcceptanceCriteriaController < AbstractSecurityController
   before_filter :set_acceptance_criterion, :only => [:update, :destroy]
   
   def create
-    # return false unless @user_story
     @acceptance_criterion = @user_story.acceptance_criteria.new(params[:acceptance_criterion])
     @acceptance_criterion.save
     respond_to do |format|
@@ -15,13 +14,11 @@ class AcceptanceCriteriaController < AbstractSecurityController
   end
   
   def update
-    # return false unless @user_story
     @acceptance_criterion.update_attribute(:detail, params[:value])
     render :text => @acceptance_criterion.detail
   end
   
   def destroy
-    # return false unless @user_story
     @acceptance_criterion.destroy
     respond_to do |format|
       format.html {redirect_to :back}

@@ -110,7 +110,7 @@ describe ImpedimentsController do
     it "should resolve impediment" do
       @impediment = Impediment.new(:team_member => @person)
       @account.impediments.should_receive(:find).with('67').and_return(@impediment)
-      @impediment.should_receive(:resolve).and_return(true)
+      @impediment.should_receive(:resolve!).and_return(true)
       post :resolve, :id => '67'
       response.should be_redirect
       response.should redirect_to(:action => 'index')
@@ -121,7 +121,7 @@ describe ImpedimentsController do
     it "should inform user if resolving impediment failed" do
       @impediment = Impediment.new(:team_member => @person)
       @account.impediments.should_receive(:find).with('67').and_return(@impediment)
-      @impediment.should_receive(:resolve).and_return(false)
+      @impediment.should_receive(:resolve!).and_return(false)
       post :resolve, :id => '67'
       response.should be_redirect
       response.should redirect_to(:action => 'index')
