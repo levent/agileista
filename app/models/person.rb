@@ -1,6 +1,8 @@
 require 'digest/sha1'
 
-class Person < ActiveRecord::Base  
+class Person < ActiveRecord::Base
+  is_gravtastic!
+  
   validates_confirmation_of :password
   validates_length_of :password, :in => 6..16, :if => :password_required?
   validates_presence_of :name
