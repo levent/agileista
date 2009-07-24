@@ -505,7 +505,7 @@ ol {
     color: #fff; }
 
 #current_sprint tr.user_story {
-  font-weight: bold; }
+  /*font-weight: bold;*/ }
 #current_sprint tr.task td.title {
   padding-left: 25px; }
 #current_sprint tr.task th {
@@ -852,3 +852,4 @@ input.saveButton {
 
 
 li.floatright img {padding-top:4px;}
+#sprint_changes td {padding:2px 4px;}

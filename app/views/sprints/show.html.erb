@@ -15,7 +15,7 @@
 <table id="current_sprint">
 	<thead>
 		<tr>
-			<th><%= link_to "Show tasks", "", :id => "showtasks" %></th><th>Title</th><th>Task hours</th><th>Story points</th><th>Assignee</th><th></th>
+			<th><%= link_to "Show tasks", "", :id => "showtasks" %></th><th>Title</th><th>Task hours</th><th>Story points</th><th>Assignee/State</th><th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,20 +24,20 @@
 		<tr class="user_story">
 			<% count += 1 -%>
 			<td><%= "##{count}" %></td>
-			<td><%= truncate(user_story.definition, 50) %> <%= link_to "Show", sprint_user_story_path(:id => user_story, :sprint_id => @sprint), :title => user_story.definition %> <%= link_to "Copy", {:controller => 'user_stories', :action => 'copy', :id => user_story}, :method => :post, :title => "Copy" if current_user.is_a?(TeamMember) && !user_story.complete? %></td>
+			<td><%= truncate(user_story.definition, 50) %></td>
 			<td><%= pluralize(user_story.tasks.count, "task") %></td>
 			<td><%= show_story_points(user_story.story_points) %></td>
 			<td><%= link_to_if current_user.is_a?(TeamMember), "Remove", unplan_sprint_user_story_url(@sprint, user_story), :method => :post unless user_story.complete? %><%= "Complete" if user_story.complete? %></td>
-			<td>User Story</td>
+			<td><%= link_to "Show", sprint_user_story_path(:id => user_story, :sprint_id => @sprint), :title => user_story.definition %> <%= link_to "Copy", copy_user_story_url(user_story), :method => :post, :title => "Copy" if current_user.is_a?(TeamMember) && !user_story.complete? %></td>
 		</tr>
 		<% user_story.tasks.each do |task| %>
 		<tr class="task">
 			<th scope="row">#<%= count.to_s + '.' + task.position.to_s %></th>
-			<td class="title"><%= truncate(task.definition, 50) %> <%= link_to "Show", user_story_task_path(:id => task, :user_story_id => user_story) %></td>
+			<td class="title"><%= truncate(task.definition, 50) %></td>
 			<td><%= show_hours_left(task.hours) %></td>
 			<td></td>
 			<td><%= show_assignee(task.developer) %></td>
-			<td>Task</td>
+			<td><%= link_to "Show", user_story_task_path(:id => task, :user_story_id => user_story) %></td>
 		</tr>
 		<% end %>
 	  <% end %>
@@ -53,23 +53,22 @@
 <table id="sprint_changes">
   <thead>
     <tr>
-      <th>Change</th>
-      <th>User story</th>
+      <th colspan="2">Change</th>
       <th>Major?</th>
       <th>When</th>
-      <th>Change</th>
-      <th>By</th>
+      <th>Diff</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <%- for sprint_change in @sprint.audits -%>
     <tr>
+      <td><%- if sprint_change.person %><%= image_tag sprint_change.person.gravatar_url(:size => 25) %><% else %>Unknown<% end %></td>
       <td><%=h sprint_change.details %></td>
-      <td><%- if sprint_change.auditable && sprint_change.auditable_type == "UserStory" %><%= link_to "Show", sprint_user_story_url(@sprint, sprint_change.auditable) if sprint_change.auditable.sprint %><%= link_to "Show", user_story_url(sprint_change.auditable) unless sprint_change.auditable.sprint %><% end -%>
       <td><%= sprint_change.major? %></td>
       <td><%= show_date_and_time(sprint_change.created_at) %></td>
       <td><%- if sprint_change.kind == "update" %><%= ActiveSupport::JSON.decode(sprint_change.changes).inspect %><% end -%></td>
-      <td><%= sprint_change.person ? sprint_change.person.name : "Unknown" %>
+      <td><%- if sprint_change.auditable && sprint_change.auditable_type == "UserStory" %><%= link_to "Show", sprint_user_story_url(@sprint, sprint_change.auditable) if sprint_change.auditable.sprint %><%= link_to "Show", user_story_url(sprint_change.auditable) unless sprint_change.auditable.sprint %><% end -%></td>
     </tr>
     <%- end -%>
   </tbody>
