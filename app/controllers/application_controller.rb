@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   protected
   
   def ssl_required?
-    return false if local_request? || ['test', 'cucumber'].include?(Rails.env)
+    return false if (local_request? || ['test', 'cucumber'].include?(Rails.env))
     super
   end
       
