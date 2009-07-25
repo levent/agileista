@@ -27,3 +27,7 @@ Sprint.blueprint do
   end_at { 1.weeks.from_now }
 end
 
+Burndown.blueprint do
+  hours_left { rand(100) }
+  sprint_id { rand(100) }
+end

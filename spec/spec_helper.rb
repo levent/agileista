@@ -7,6 +7,7 @@ require 'spec/rails'
 
 require RAILS_ROOT + '/spec/time_spec_helper'
 require RAILS_ROOT + '/spec/sexy_objects'
+require RAILS_ROOT + '/features/support/blueprints'
 
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
