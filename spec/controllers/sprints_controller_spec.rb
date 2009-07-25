@@ -8,7 +8,6 @@ describe SprintsController do
   describe "before filters" do
     before(:each) do
       stub_login_and_account_setup
-      controller.stub!(:create_chart)
       @sprint = Sprint.new
     end
 
@@ -82,7 +81,7 @@ describe SprintsController do
     
     describe "after before filters" do
       before(:each) do
-        stub_iteration_length_and_create_chart
+        stub_iteration_length
       end
 
       it "should load all the sprints" do
@@ -182,7 +181,7 @@ describe SprintsController do
     
     describe "after before filters" do
       before(:each) do
-        stub_iteration_length_and_create_chart
+        stub_iteration_length
       end
     
       it "should ensure sprint exists" do
@@ -199,11 +198,7 @@ describe SprintsController do
           @account.sprints.should_receive(:find).with('23').and_return(@sprint)          
         end
         
-        it "should call create_chart" do
-          @sprint.should_receive(:current?).and_return(false)
-          controller.should_receive(:create_chart).exactly(1).times
-          get :show, :id => 23
-        end
+        it "should call create_chart"
 
         it "should render show_task_board if current sprint and calc burndown" do
           @sprint.should_receive(:current?).and_return(true)
