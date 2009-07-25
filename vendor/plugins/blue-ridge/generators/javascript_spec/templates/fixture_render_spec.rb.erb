@@ -1,0 +1,10 @@
+require "#{File.dirname(__FILE__)}/javascript_spec_helper"
+
+<% view = actions.first || file_path_without_spec -%>
+run_javascript_spec(<%= file_path_without_spec.inspect %>, "/<%= view %>.html.erb") do
+  # Example code to prepare for a template to be rendered
+  #
+  #   @current_user = User.make
+  #   template.stub!(:current_user).and_return(@current_user)
+  #   assigns[:current_user] = @current_user
+end

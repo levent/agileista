@@ -28,5 +28,6 @@ config.gem "cucumber"
 config.gem "webrat"
 config.gem "notahat-machinist", :lib => false, :source => "http://gems.github.com"
 config.gem "faker", :lib => false
+# config.gem "drnic-blue-ridge", :lib => false, :source => "http://gems.github.com"
 
 EMAIL_FROM = "donotreply@agileista.purebreeze.com"
