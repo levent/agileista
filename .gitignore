@@ -6,5 +6,4 @@ db/sphinx/*
 coverage/*
 config/database.yml
 config/*.sphinx.conf
-public/javascripts/all.js
 index/*
