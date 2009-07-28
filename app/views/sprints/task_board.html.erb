@@ -1,5 +1,8 @@
 <div id="navii"><% if current_user.is_a?(TeamMember) %><%= link_to "Add story to sprint", new_sprint_user_story_url(@sprint) %><% end -%></div>
 
+<div id="burndown">
+
+</div>
 <div id="main" class="wide">
     <h1><%= sprint_header(@sprint) %></h1>
     <% count = 0 -%>
@@ -20,3 +23,10 @@
       <% end -%>
     </div>
 </div>
+
+
+<% content_for :custom_js do %>
+<script type="text/javascript" charset="utf-8">
+  FCLOUD.Charts.burndown(<%= @burndown_labels.inspect %>, <%= @burndown_data.inspect %>);
+</script>
+<% end %>

@@ -14,6 +14,7 @@
   <%= javascript_include_tag 'application', :cache => "app" %>
   <%= javascript_include_tag 'account-switcher', :cache => "switcher" %>
   <%= javascript_include_tag 'raphael-0.8.2', :cache => "raphael" %>
+  <%= javascript_include_tag 'charts', :cache => "chart" %>
 </head>
 <body>
 	<div id="header">
@@ -55,6 +56,7 @@
 		</div>
 		<% end -%>
 	</div>
+<%= yield :custom_js %>
 <% unless Rails.env == "development" %>
   <% if Rails.env == "staging" -%>
     <script type="text/javascript">

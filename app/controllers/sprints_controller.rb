@@ -10,6 +10,10 @@ class SprintsController < AbstractSecurityController
   
   def show
     @current_sprint = @sprint
+    @burndowns = @sprint.burndowns
+    @burndown_labels = @burndowns.map{|burn| burn.created_on.strftime("%d %B %Y")}
+    @burndown_data = @burndowns.map{|burn| burn.hours_left}
+    # raise @burndown_labels_and_data
     respond_to do |format|
       if @sprint && @sprint.current?
         calculate_tomorrows_burndown
