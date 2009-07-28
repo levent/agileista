@@ -10,9 +10,7 @@ class SprintsController < AbstractSecurityController
   
   def show
     @current_sprint = @sprint
-    @burndowns = @sprint.burndowns
-    @burndown_labels = @burndowns.map{|burn| burn.created_on.strftime("%d %B %Y")}
-    @burndown_data = @burndowns.map{|burn| burn.hours_left}
+    calculate_burndown_points
     # raise @burndown_labels_and_data
     respond_to do |format|
       if @sprint && @sprint.current?
@@ -87,6 +85,13 @@ class SprintsController < AbstractSecurityController
     if @sprint.start_at.blank? && params[:from]
       @sprint.start_at = Date.new(params[:from][:year].to_i, params[:from][:month].to_i, params[:from][:day].to_i).strftime("%Y-%m-%d %H:%M:%S")
     end
+  end
+  
+  def calculate_burndown_points
+    return nil unless @sprint
+    burndowns = @sprint.burndowns
+    @burndown_labels = burndowns.map{|burn| burn.created_on.strftime("%d %B %Y")}
+    @burndown_data = burndowns.map{|burn| burn.hours_left}
   end
   
 end
