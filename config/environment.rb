@@ -51,7 +51,7 @@ Rails::Initializer.run do |config|
   # config.gem "pdf-writer", :lib => "pdf/writer"
   # config.gem "color-tools", :lib => "color"
   config.gem "fastercsv"
-  config.gem "json"
+  config.gem "json", :version => '1.1.6'
   config.gem "prawn"
   config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
