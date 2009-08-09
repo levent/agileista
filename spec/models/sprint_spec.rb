@@ -12,6 +12,27 @@ describe Sprint do
   end
   
   it {should have_many(:sprint_changes)}
+
+  context "auto setting end time" do
+    it "should set it on save based on account's iteration length" do
+      start = 1.day.from_now
+      account = Account.make(:iteration_length => 1)
+      sprint = Sprint.create!(:name => "Disco dance prep", :account => account, :start_at => start)
+      account.iteration_length.weeks.from_now(1.day.ago(start)).end_of_day.should == sprint.end_at
+    end
+    
+    it "should set it to end of day on subsequent saves" do
+      start = 1.day.from_now
+      account = Account.make(:iteration_length => 1)
+      sprint = Sprint.create!(:name => "Disco dance prep", :account => account, :start_at => start)
+      finish = account.iteration_length.weeks.from_now(1.day.ago(start))
+      initial_finish = sprint.end_at
+      sprint.end_at = finish
+      sprint.save!
+      sprint.reload
+      sprint.end_at.should == initial_finish
+    end
+  end
   
   describe "#velocity" do
     before(:each) do
