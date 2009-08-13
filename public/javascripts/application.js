@@ -127,12 +127,11 @@ function setupSprintPlanning(sprint_id) {
 function setupBacklog() {
   $('#userstorylist').sortable({
     items: 'div',
-    revert: false,
     update: function(event, ui) {
       $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
         document.location.href = '/backlog';
       }, "json");
-      return false;
+      // return false;
     }
   });
 }
@@ -146,7 +145,7 @@ function setupThemes(){
       $.post('/themes/sort', {theme_id: ui.item.attr('id').substr(6), themes: $(this).sortable('serialize')}, function(data) {
         return false;
       }, "json");
-      return false;
+      // return false;
     }
   });
 }
