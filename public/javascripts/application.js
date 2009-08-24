@@ -110,14 +110,14 @@ function setupSprintPlanning(sprint_id) {
       $(this).html('Return to planning');
       $('#committed').sortable({
         items: 'div',
-        revert: false,
+        // revert: false,
         update: function(event, ui) {
           $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(4) + '/reorder', {user_stories: $(this).sortable('serialize')}, function(data) {
             if(data.ok == true) {
               $('#flashs').html('Sprint reordered');
             }
           }, "json");
-          return false;
+          // return false;
         }
       });
     }
