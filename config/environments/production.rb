@@ -37,3 +37,4 @@ config.action_mailer.smtp_settings = {
 
 EMAIL_FROM = "donotreply@agileista.com"
 
+config.gem 'smtp_tls'
