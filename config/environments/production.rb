@@ -24,4 +24,16 @@ config.action_controller.session = {
 # Disable delivery errors if you bad email addresses should just be ignored
 # config.action_mailer.raise_delivery_errors = false
 
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  :enable_starttls_auto => true,
+  :address => "smtp.gmail.com",
+  :port => 587,
+  :domain => "agileista.com",
+  :authentication => :plain,
+  :user_name => "donotreply",
+  :password => "xxxxxxxx"
+}
+
 EMAIL_FROM = "donotreply@agileista.com"
+
