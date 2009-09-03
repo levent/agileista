@@ -1,5 +1,5 @@
 ActiveRecord::Base
-require 'smtp_tls'
+config.gem 'ambethia-smtp-tls', :lib => 'smtp-tls'
 
 # Settings specified here will take precedence over those in config/environment.rb
 
@@ -38,5 +38,3 @@ config.action_mailer.smtp_settings = {
 }
 
 EMAIL_FROM = "donotreply@agileista.com"
-
-config.gem 'smtp_tls'
