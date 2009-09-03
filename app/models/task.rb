@@ -7,7 +7,7 @@ class Task < ActiveRecord::Base
   belongs_to :user_story
   belongs_to :developer, :foreign_key => 'developer_id', :class_name => "Person"
   
-  named_scope :incomplete, :conditions => "developer_id IS NULL && hours > 0"
+  named_scope :incomplete, :conditions => "developer_id IS NULL && (hours > 0 OR hours IS NULL)"
   named_scope :inprogress, :conditions => "(developer_id IS NOT NULL AND hours > 0) OR (developer_id IS NOT NULL AND hours IS NULL)"
   named_scope :complete, :conditions => "hours = 0"
   

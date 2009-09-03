@@ -9,7 +9,7 @@ describe Task do
   describe "named_scopes" do
     describe "incomplete" do
       it "should get all incomplete tasks" do
-        expected_options = { :conditions => "developer_id IS NULL && hours > 0" }
+        expected_options = { :conditions => "developer_id IS NULL && (hours > 0 OR hours IS NULL)" }
         assert_equal expected_options, Task.incomplete.proxy_options
       end
     end
