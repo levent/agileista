@@ -5,7 +5,7 @@ set :deploy_via, :remote_cache
 # set :deploy_via, :copy
 # set :copy_cache, true
 # set :copy_exclude, [".git"]
-set :branch, "0.4.2"
+set :branch, "0.4.3"
 set :scm_verbose, true
 set :keep_releases,       5
 # set :deploy_via, :export
