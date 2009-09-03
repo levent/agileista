@@ -31,7 +31,7 @@ config.action_mailer.smtp_settings = {
   :port => 587,
   :domain => "featurecloud.com",
   :authentication => :plain,
-  :user_name => "app",
+  :user_name => "app@featurecloud.com",
   :password => "xxxxxxxx"
 }
 

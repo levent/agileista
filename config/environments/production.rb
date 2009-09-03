@@ -31,7 +31,7 @@ config.action_mailer.smtp_settings = {
   :port => 587,
   :domain => "agileista.com",
   :authentication => :plain,
-  :user_name => "donotreply",
+  :user_name => "donotreply@agileista.com",
   :password => "xxxxxxxx"
 }
 
