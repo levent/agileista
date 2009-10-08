@@ -5,7 +5,7 @@ set :deploy_via, :remote_cache
 # set :deploy_via, :copy
 # set :copy_cache, true
 # set :copy_exclude, [".git"]
-# set :branch, "raphael"
+set :branch, "webapp-theme"
 set :scm_verbose, true
 set :keep_releases,       5
 
