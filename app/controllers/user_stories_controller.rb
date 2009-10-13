@@ -24,6 +24,7 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def show
+    redirect_to sprint_user_story_url(@user_story.sprint_id, @user_story) if @user_story.sprint && !params[:sprint_id]
   end
   
   def create
@@ -140,7 +141,7 @@ class UserStoriesController < AbstractSecurityController
   protected
   
   def set_sprint
-    @sprint = @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
+    @sprint ||= @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
   end
   
   def set_additional_themes

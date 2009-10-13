@@ -26,6 +26,7 @@ Sprint.blueprint do
   name { Sham.name }
   start_at { 1.weeks.ago }
   end_at { 1.weeks.from_now }
+  account { Account.make }
 end
 
 Burndown.blueprint do
