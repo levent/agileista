@@ -7,6 +7,6 @@ module SprintsHelper
   
   def sprint_header(sprint)
     # <h1><%=h @sprint.name %> - <span class="small"><%= show_date(@sprint.start_at) %> to <%= show_date(@sprint.end_at) %> (<%= pluralize(@sprint.hours_left, 'hour') %> left)</span></h1>
-    "#{@sprint.name} - <span class=\"small\">#{show_date(@sprint.start_at)} to #{show_date(@sprint.end_at)} (#{pluralize(@sprint.hours_left, 'hour')} left)</span>"
+    "#{sprint.name} - <span class=\"small\">#{show_date(sprint.start_at)} to #{show_date(sprint.end_at)} (#{pluralize(sprint.hours_left, 'hour')} left - #{pluralize(sprint.user_stories.sum('story_points'), "story point")} planned)</span>"
   end
 end
