@@ -3,10 +3,8 @@ namespace :task_developers do
   task(:migrate => :environment) do
     Task.all.each do |task|
       if task.developer_id
-        team_member = TeamMember.find(task.developer_id)
-        task.developers = [team_member]
-        task.save!
-        p "#{team_member.name} to [#{task.developers.first.name}] for #{task.definition}"
+        TaskDeveloper.create!(:task_id => task.id, :developer_id => task.developer_id)
+        p "#{task.developers.first.name} for #{task.definition}"
       end
     end ; nil
   end
