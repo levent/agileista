@@ -5,15 +5,27 @@ class Task < ActiveRecord::Base
   validates_uniqueness_of :definition, :scope => :user_story_id
   
   belongs_to :user_story
-  belongs_to :developer, :foreign_key => 'developer_id', :class_name => "Person"
+  # belongs_to :developer, :foreign_key => 'developer_id', :class_name => "Person"
   
-  named_scope :incomplete, :conditions => "developer_id IS NULL && (hours > 0 OR hours IS NULL)"
-  named_scope :inprogress, :conditions => "(developer_id IS NOT NULL AND hours > 0) OR (developer_id IS NOT NULL AND hours IS NULL)"
+  has_many :task_developers
+  has_many :developers, :through => :task_developers, :foreign_key => 'developer_id', :class_name => "Person", :uniq => true
+
+  
+  # named_scope :incomplete, :conditions => "developer_id IS NULL && (hours > 0 OR hours IS NULL)"
+  # named_scope :inprogress, :conditions => "(developer_id IS NOT NULL AND hours > 0) OR (developer_id IS NOT NULL AND hours IS NULL)"
   named_scope :complete, :conditions => "hours = 0"
   
   after_save :calculate_burndown
   after_destroy :calculate_burndown
   
+  def self.incomplete
+    all(:conditions => "hours > 0 OR hours IS NULL").select {|x| x.developers.blank?}
+  end
+  
+  def self.inprogress
+    all(:conditions => "hours > 0 OR hours IS NULL").select {|x| x.developers.any?}
+  end
+
   def calculate_burndown
     self.user_story.sprint.calculate_day_zero if self.user_story && self.user_story.sprint
   end

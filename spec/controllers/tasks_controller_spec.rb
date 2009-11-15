@@ -169,10 +169,6 @@ describe TasksController do
       params_from(:post, '/user_stories/8/tasks/7/claim').should == {:controller => 'tasks', :action => 'claim', :id => '7', :user_story_id => '8'}
     end
     
-    it "should generate params from POST /tasks/7/release correctly" do
-      params_from(:post, '/user_stories/8/tasks/7/release').should == {:controller => 'tasks', :action => 'release', :id => '7', :user_story_id => '8'}
-    end
-    
     it "should generate params from POST /tasks/7/move_up correctly" do
       params_from(:post, '/user_stories/8/tasks/7/move_up').should == {:controller => 'tasks', :action => 'move_up', :id => '7', :user_story_id => '8'}
     end

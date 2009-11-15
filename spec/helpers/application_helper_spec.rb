@@ -8,6 +8,24 @@ describe ApplicationHelper do
     @us = UserStory.new
   end
   
+  describe "show_assignees" do
+    before(:each) do
+      @task = Task.make
+    end
+    
+    it "should show the names of assigned developers" do
+      team_member1 = TeamMember.make
+      team_member2 = TeamMember.make
+      team_member3 = TeamMember.make
+      @task.developers = [team_member3, team_member2, team_member1]
+      @it.show_assignees(@task.developers).should == "#{team_member3.name}, #{team_member2.name}, #{team_member1.name}"
+    end
+    
+    it "should show nobody if blank" do
+      @it.show_assignees(@task.developers).should == "Nobody"
+    end
+  end
+  
   describe "#undefined?" do
     it "should return css class if user_story has no story point assigned" do
       @us.acceptance_criteria.stub!(:blank?).and_return(false)

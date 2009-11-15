@@ -2,8 +2,8 @@ class TasksController < AbstractSecurityController
   
   # ssl_required :create, :claim, :release, :move_up, :move_down
   before_filter :must_be_team_member
-  before_filter :set_user_story, :only => [:show, :edit, :update, :destroy, :new, :create, :create_quick, :assign]
-  before_filter :set_task, :only => [:show, :edit, :update, :destroy]
+  before_filter :set_user_story, :only => [:show, :edit, :update, :destroy, :new, :create, :create_quick, :assign, :claim, :unclaim]
+  before_filter :set_task, :only => [:show, :edit, :update, :destroy, :claim, :unclaim]
 
   def show
   end
@@ -39,10 +39,10 @@ class TasksController < AbstractSecurityController
     if task
       case params[:onto]
       when "incomplete"
-        task.developer = nil
+        task.developers = []
         task.save
       when "inprogress"
-        task.developer = current_user unless task.developer
+        task.developers = [current_user] unless task.developers.any?
         task.save
       when "complete"
         task.hours = 0
@@ -79,36 +79,30 @@ class TasksController < AbstractSecurityController
   end
 
   def claim
-    if request.post?
-      begin
-        @task = Task.find(params[:id])
-      rescue
-        @task = nil
-      end
-      unless @task.blank?
-        @task.developer = current_user
-        @task.save
-        flash[:notice] = "Task assigned successfully"
-      end
-    end
-    redirect_to :back
+    @task.developers << current_user
+    redirect_to sprint_path(:id => @account.sprints.current.first)
   end
-
-  def release
-    if request.post?
-      begin
-        @task = Task.find(params[:id])
-      rescue
-        @task = nil
-      end
-      unless @task.blank?
-        @task.developer = nil if @task.developer == Person.find(session[:user])
-        @task.save
-        flash[:notice] = "Task released successfully"
-      end
-    end
-    redirect_to :back
+  
+  def unclaim
+    @task.developers = @task.developers - [current_user]
+    redirect_to sprint_path(:id => @account.sprints.current.first)
   end
+  # 
+  # def release
+  #   if request.post?
+  #     begin
+  #       @task = Task.find(params[:id])
+  #     rescue
+  #       @task = nil
+  #     end
+  #     unless @task.blank?
+  #       @task.developer = nil if @task.developer == Person.find(session[:user])
+  #       @task.save
+  #       flash[:notice] = "Task released successfully"
+  #     end
+  #   end
+  #   redirect_to :back
+  # end
   
   def move_up
     if request.post?

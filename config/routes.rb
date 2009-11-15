@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :impediments, :member => {:resolve => :post}, :collection => {:active => :get, :resolved => :get}
   map.resources :user_stories, :member => {:copy => :post, :create_via_add => :post, :create_task => :post}, :collection => {:add => :get} do |user_story|
-    user_story.resources :tasks, :member => {:move_up => :post, :move_down => :post, :release => :post, :claim => :post}, :collection => {:create_quick => :post, :assign => :post}
+    user_story.resources :tasks, :member => {:move_up => :post, :move_down => :post, :claim => :post, :unclaim => :post}, :collection => {:create_quick => :post, :assign => :post}
     user_story.resources :acceptance_criteria
   end
   map.resources :themes, :collection => {:sort => :post}

@@ -56,9 +56,9 @@ module ApplicationHelper
     end
   end
   
-  def show_assignee(developer)
-    unless developer.nil?
-      return developer.name
+  def show_assignees(developers)
+    if developers.any?
+      return developers.map(&:name).join(', ')
     else
       return "Nobody"
     end
