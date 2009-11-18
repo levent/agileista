@@ -18,7 +18,6 @@
 			<label for="task_definition">Definition:</label><%= t.text_field :definition %>
 			<label for="task_description">Description:</label><%= t.text_area :description %>
 			<label for="task_hours">Hours:</label><%= t.text_field :hours %>
-			<label for="task_developer">Assigned to:</label><%= t.select "developer_id", @account.team_members.collect {|p| [ p.name, p.id ] }, { :include_blank => true } %>
 			<%= submit_tag 'Save changes' %>
 		<% end %>
 	</div>
