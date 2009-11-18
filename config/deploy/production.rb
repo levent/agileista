@@ -24,7 +24,6 @@ set :user, "levent"
 set :use_sudo, false
 default_run_options[:pty] = true
 
-set :application, "agileista.com"
 set :rails_env, "production"
 role :app, "67.207.137.12"
 role :web, "67.207.137.12"
