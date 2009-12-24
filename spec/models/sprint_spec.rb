@@ -22,7 +22,7 @@ describe Sprint do
     end
     
     it "should set it to end of day on subsequent saves" do
-      start = 1.day.from_now
+      start = 19.days.from_now
       account = Account.make(:iteration_length => 1)
       sprint = Sprint.create!(:name => "Disco dance prep", :account => account, :start_at => start)
       finish = account.iteration_length.weeks.from_now(1.day.ago(start))
@@ -30,7 +30,7 @@ describe Sprint do
       sprint.end_at = finish
       sprint.save!
       sprint.reload
-      sprint.end_at.should == initial_finish
+      sprint.end_at.should.to_s == initial_finish.to_s
     end
   end
   
