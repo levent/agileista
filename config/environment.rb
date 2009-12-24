@@ -95,4 +95,4 @@ SubdomainFu.tld_sizes = {:development => 1,
                          :cucumber => 1}
 SubdomainFu.mirrors = %w(app) if Rails.env == "staging"
 # SubdomainFu.preferred_mirror = "app"
-# TagList.delimiter = ' '
+TagList.delimiter = ' '
