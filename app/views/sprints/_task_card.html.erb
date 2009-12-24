@@ -9,7 +9,7 @@
   </dt>
   <dd class="definition">
     <%= h truncate(task_card.definition, :length => 60) %>
-    <strong><%= show_assignee(task_card.developer) %></strong>
+    <strong><%= show_assignees(task_card.developers) %></strong>
   </dd>
   <dd class="tasks clearfix"><% form_for :task, task_card, :url => user_story_task_path(:user_story_id => task_card.user_story, :id => task_card, :from => 'tb'), :html => {:method => :put} do |f| %><%= f.text_field(:hours, :size => 3, :class => 'tasksave') %> <%= submit_tag 'Save', :class => 'tasksave' %><% end %></dd>
 </dl>

@@ -39,7 +39,7 @@ class Task < ActiveRecord::Base
   end
   
   def incomplete?
-    return false if self.developer
+    return false if self.developers.any?
     if self.hours
       return self.hours > 0
     elsif self.hours == 0
@@ -52,9 +52,9 @@ class Task < ActiveRecord::Base
   
   def inprogress?
     if self.hours
-      !self.developer.blank? && self.hours && self.hours > 0
+      !self.developers.blank? && self.hours && self.hours > 0
     else
-      !self.developer.blank?
+      !self.developers.blank?
     end
   end
 end
