@@ -1,18 +1,25 @@
-<%= render :partial => 'subnav' %>
-<div id="main" class="wide sprint_planning">
-	<h1>Edit sprint</h1>
-	<%= error_messages_for :sprint %>
-	<% form_for @sprint do |s| %>
-		<label for="sprint_name">Name:</label><br />
-		<%= s.text_field :name %>
-		<label for="sprint_start_at">Start at:</label><br />
+<div id="main">
+  <div id="block-text" class="block">
+    <%= render(:partial => "shared/navigation/sprints_secondary") %>
 
-			<%= s.date_select :start_at, :order => [:day, :month, :year] %><br />
+    <div class="content">
+      <h2 class="title">Editing sprint <%= @sprint.name %></h2>
+      <div class="inner">
+        <% form_for :sprint, @sprint, :url => sprint_url(@sprint), :html => {:method => "put", :class => "form"} do |form| %>
+          <%= render :partial => 'form', :locals => {:form => form} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 
-		<label for="sprint_end_at">End at:</label><br />
-		<%= s.date_select :end_at, :order => [:day, :month, :year] %><br />
-		<label for="sprint_end_at">Sprint goal:</label>
-		<%= s.text_area :goal %>
-		<%= submit_tag "Save sprint" %>
-	<% end %>
+  <%= render(:partial => "shared/footer") %>
 </div>
+
+<% if @sprint.errors.size > 0 %>
+<div id="sidebar">
+  <div class="block notice errors">
+    <%= error_messages_for :sprint, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
+  </div>
+</div>
+<% end %>
+

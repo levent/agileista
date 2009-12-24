@@ -1,5 +1,23 @@
-<div id="item_<%= user_story.id %>" class="defined userstory" title="<%=h user_story.definition %>">
-  <h2>#<%= count %></h2>
-  <%=h truncate(user_story.definition, :length => 80) %><span class="user_story_points"><%= show_story_points(user_story.story_points) %></span>
-  <% if sprint -%><%= link_to 'Show', sprint_user_story_path(sprint, user_story, :from => from), :title => 'Show' %> <%= link_to 'Edit', edit_sprint_user_story_path(sprint, user_story, :from => from), :title => 'Edit' if current_user.is_a?(TeamMember) %><% else -%><%= link_to 'Show', user_story_path(user_story, :from => from), :title => 'Show' %> <%= link_to 'Edit', user_story_path(user_story, :from => from), :title => 'Edit' if current_user.is_a?(TeamMember) %><% end -%> <%= link_to 'Add tasks', new_user_story_task_path(:user_story_id => user_story, :from => 'tb'), :title => "Add tasks" if from == 'tb' %><span class="cardcreator">see <%= show_stakeholder(user_story) %></span>
-</div>
+<tr id="user_story_container_<%= user_story.id %>">
+  <td class="name">
+    <%= render :partial => 'user_stories/user_story', :locals => {:user_story => user_story, :tasks => true} %>
+  </td>
+  <td class="tasks incomplete" id="incomplete_<%= user_story.id %>">
+    <%= render :partial => 'sprints/task_card', :collection => user_story.tasks.incomplete, :locals => {:user_story => user_story} %>
+  </td>
+  <td class="tasks inprogress" id="inprogress_<%= user_story.id %>">
+    <%= render :partial => 'sprints/task_card', :collection => user_story.tasks.inprogress, :locals => {:user_story => user_story} %>
+  </td>
+  <td class="tasks complete" id="complete_<%= user_story.id %>">
+    <%= render :partial => 'sprints/task_card', :collection => user_story.tasks.complete, :locals => {:user_story => user_story} %>
+  </td>
+</tr>
+
+<% unless current_user.is_a?(Contributor) %>
+  <% content_for :custom_js do %>
+  <script type="text/javascript" charset="utf-8">
+    setupTaskBoard(<%= user_story.id %>);
+  </script>
+  <% end %>
+<% end %>
+

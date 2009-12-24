@@ -1,8 +1,12 @@
 class UsersController < AbstractSecurityController
 
   ssl_allowed :new, :create, :delete, :edit, :update
-  before_filter :must_be_account_holder, :except => [:edit, :update]
+  before_filter :must_be_account_holder, :except => [:index, :edit, :update]
   before_filter :can_i_edit_them, :only => [:edit, :update]
+
+  def index
+    @users = @account.people
+  end
 
   def new
     @person = Person.new
@@ -27,7 +31,7 @@ class UsersController < AbstractSecurityController
       end
     end
   end
-  
+
   def delete
     if request.post?
       @person = @account.people.find(params[:id])
@@ -40,10 +44,10 @@ class UsersController < AbstractSecurityController
     end
     redirect_to :controller => 'account', :action => 'settings'
   end
-  
+
   def edit
   end
-  
+
   def update
     unless (@person == current_user) || (@person.account_holder?)
       if params[:type] == "team_member"
@@ -55,18 +59,19 @@ class UsersController < AbstractSecurityController
     end
     if @person.update_attributes(params[:person])
       flash[:notice] = "User updated successfully"
-      redirect_to :action => 'edit', :id => @person.id
+      redirect_to :action => 'index'
     else
       flash[:error] = "User could not be updated"
       render :action => 'edit'
     end
   end
-  
+
   private
-  
+
   def can_i_edit_them
     @person = @account.people.find(params[:id])
     redirect_to :controller => 'account', :action => 'settings' unless (@person == current_user) || current_user.account_holder?
   end
 
 end
+

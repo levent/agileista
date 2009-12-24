@@ -41,6 +41,20 @@ describe Task do
         assert_equal expected_options, Task.complete.proxy_options
       end
     end
+    
+    describe "done" do
+      it "should get all done tasks" do
+        expected_options = { :conditions => "hours = 0" }
+        assert_equal expected_options, Task.done.proxy_options
+      end
+    end
+    
+    describe "not_done" do
+      it "should get all not done tasks" do
+        expected_options = { :conditions => "hours > 0 OR hours IS NULL" }
+        assert_equal expected_options, Task.not_done.proxy_options
+      end
+    end
   end
   
   context "developers" do

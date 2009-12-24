@@ -1,0 +1,35 @@
+<div id="main" class="wide">
+  <div class="block">
+    <%= render(:partial => "shared/navigation/account_secondary") %>
+    <div class="content">
+      <% if @users.blank?%>
+        <div class="inner">
+          <div class="flash">
+            <div class="message notice">
+              <p>There are no team members or contributors for this project. <%= link_to "Create the first user", new_user_url if current_user.is_a?(TeamMember) %>.</p>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <!-- MEMBERS -->
+        <h2 class="title"><span class="tab">Users</span> <span class="hightlight"><strong><%= @users.active.count %></strong> active. <strong><%= @users.inactive.count %></strong> inactive.</span></h2>
+        <div class="inner">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th class="id">Gravatar</th>
+                <th class="description">Name</th>
+                <th class="date">Created</th>
+                <th class="date">Type of user</th>
+                <th class="actions last"></th>
+              </tr>
+              <%= render :partial => "user", :collection => @users %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= render(:partial => "shared/footer") %>
+</div>
+

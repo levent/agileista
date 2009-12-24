@@ -1,32 +1,33 @@
-<div id="navii"><% if current_user.is_a?(TeamMember) %><%= link_to "Add story to sprint", new_sprint_user_story_url(@sprint) %><% end -%></div>
-
-<div id="burndown">
-
-</div>
 <div id="main" class="wide">
-    <h1><%= sprint_header(@sprint) %></h1>
-    <% count = 0 -%>
-    <% first = true %>
-    <% user_story_positions = {} -%>
-    <div id="thewall">
-      <% @sprint.user_stories.each do |user_story| -%>
-        <% count += 1 %>
-        <% user_story_positions[user_story.id] = count %>
-        <%= render :partial => 'user_story_container', :locals => {:user_story => user_story, :count => count, :user_story_positions => user_story_positions, :first => first, :sprint => @sprint, :from => 'tb'} %>
-        <% first = false -%>
-        <hr />
-        <% unless current_user.is_a?(Contributor) -%>
-          <script type="text/javascript" charset="utf-8">
-            setupTaskBoard(<%= user_story.id %>);
-          </script>
-        <% end -%>
-      <% end -%>
-    </div>
-</div>
+  <div class="block">
 
+    <div class="content">
+      <div id="burndown"></div>
+
+      <h2 class="title"><%= sprint_header(@sprint, :buttons => [:add_story]) %></h2>
+
+      <div class="inner">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>User story</th>
+              <th>Incomplete</th>
+              <th>In progress</th>
+              <th>Complete</th>
+            </tr>
+          <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <%= render(:partial => "shared/footer") %>
+</div>
 
 <% content_for :custom_js do %>
 <script type="text/javascript" charset="utf-8">
   FCLOUD.Charts.burndown(<%= @burndown_labels.inspect %>, <%= @burndown_data.inspect %>);
 </script>
 <% end %>
+

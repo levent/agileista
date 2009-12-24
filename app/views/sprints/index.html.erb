@@ -1,37 +1,37 @@
-<%= render :partial => 'subnav' %>
 <div id="main" class="wide">
-	<h1>Sprints:</h1>
-	<table id="sprints">
-	  <thead>
-	    <tr>
-	      <th>Name</th>
-	      <th>From</th>
-	      <th>To</th>
-	      <th>Story points (Completed)</th>
-	      <th>Hours left</th>
-	      <th></th>
-		  <th></th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <% @sprints.each do |sprint| -%>
-		<tr <%= identify_key_sprint(sprint) %>>
-	      <td><%=h sprint.name %></td>
-	      <td><%= show_date(sprint.start_at) %></td>
-	      <td><%= show_date(sprint.end_at) %></td>
-	      <td><%= sprint.user_stories.sum('story_points') %> <strong><%= "(#{sprint.calculated_velocity})" %></strong></td>
-	      <td><%= sprint.hours_left %></td>
-	      <td>
-	          <%= link_to 'Show', sprint_path(:id => sprint), :title => 'Show' %>
-	          <% if current_user.is_a?(TeamMember) -%>
-    			<%= link_to 'Plan', plan_sprint_path(:id => sprint), :title => 'Plan' unless sprint.finished? %>
-    			<%= link_to 'Edit', edit_sprint_path(:id => sprint), :title => 'Edit' unless sprint.finished? %>
-    			<%= link_to 'Delete', sprint_path(:id => sprint), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' unless sprint.finished? %>
-			  <% end -%>
-		  </td>
-		  <td><%= "Current sprint" if sprint.current? %><%= "Next sprint" if sprint.upcoming? %></td>
-	    </tr>
-	    <% end %>
-	  </tbody>
-	</table>
+  <div class="block">
+    <%= render(:partial => "shared/navigation/sprints_secondary") %>
+
+    <div class="content">
+      <% unless @sprints.blank? %>
+        <h2 class="title">Total: <strong class="hightlight"><%= @sprints.size %></strong>. Finished: <strong class="hightlight"><%= @sprints.finished.size %></strong>. Average velocity: <strong class="hightlight"><%= average_velocity(@sprints) %></strong>.</h2>
+        <div class="inner">
+          <table class="table">
+            <tbody>
+              <tr>
+              <th class="first">Name</th>
+              <th class="description">Description</th>
+              <th class="points">Points</th>
+              <th class="points">Velocity</th>
+              <th class="date">From</th>
+              <th class="date">To</th>
+              <th class="actions last"></th>
+            </tr>
+            <%= render @sprints %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="inner">
+          <div class="flash">
+            <div class="message notice">
+              <p>There are no sprints for this project, <%= link_to "create your first sprint", new_sprint_url %>.</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= render(:partial => "shared/footer") %>
 </div>
+

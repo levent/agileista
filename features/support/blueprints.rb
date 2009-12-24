@@ -22,6 +22,13 @@ TeamMember.blueprint do
   password_confirmation { "password" }
 end
 
+Contributor.blueprint do
+  name {Sham.name}
+  email {Sham.email}
+  password { "password" }
+  password_confirmation { "password" }
+end
+
 Sprint.blueprint do
   name { Sham.name }
   start_at { 1.weeks.ago }

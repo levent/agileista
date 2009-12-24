@@ -1,0 +1,34 @@
+<div id="box">
+  <div class="block" id="block-login">
+    <h2 class="clearfix">Login<%= create_new_account? %></h2>
+    <div class="content login">
+      <%= form_tag({:action => 'authenticate'}, :class => 'form login') %>
+        <div class="group clearfix">
+          <div class="left">
+            <label for="email" class="label right">Email</label>
+          </div>
+          <div class="right">
+            <%= text_field_tag "email", params[:email], :class => 'text_field' %>
+          </div>
+        </div>
+
+        <div class="group clearfix">
+          <div class="left">
+            <label for="password" class="label right">Password</label>
+          </div>
+          <div class="right">
+            <%= password_field_tag "password", nil, :class => 'text_field' %>
+          </div>
+        </div>
+
+        <div class="group navform clearfix">
+          <div class="right">
+            <%= submit_tag "Login", :class => 'button' %>
+            <%= link_to 'I forgot my password', {:controller => 'login', :action => 'forgot'}, :class => 'link' %>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

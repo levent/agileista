@@ -1,8 +1,25 @@
-<div id="main" class="wide">
-	<h1>Add an impediment</h1>
-	<%= error_messages_for :impediment %>
-	<% form_for @impediment do |f| %>
-		<label for="">Description</label><%= f.text_area :description, :rows => 8, :class => "long fat" %>
-		<%= f.submit 'Add' %>
-	<% end %>
+<div id="main">
+  <div id="block-text" class="block">
+    <%= render(:partial => "shared/navigation/impediments_secondary") %>
+
+    <div class="content">
+      <h2 class="title">New Impediment</h2>
+      <div class="inner">
+        <% form_for :impediment, @impediment, :url => {:action => 'create'}, :html => {:class => "form"} do |form| %>
+          <%= render :partial => 'form', :locals => {:form => form} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(:partial => "shared/footer") %>
 </div>
+
+<% if @impediment.errors.size > 0 %>
+<div id="sidebar">
+  <div class="block notice errors">
+    <%= error_messages_for :impediment, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
+  </div>
+</div>
+<% end %>
+

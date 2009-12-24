@@ -1,29 +1,38 @@
 <%= impediment_feed(controller.action_name) %>
-<div id="navii"><ul><li><%= link_to "Add an impediment", new_impediment_path %></li></ul><div class="c">&nbsp;</div></div>
+
 <div id="main" class="wide">
-	<h1>Impediments:</h1>
-	<ul><li><%= link_to("All", impediments_path, :class => current_view('index')) %> <%= link_to("Active", active_impediments_path, :class => current_view('active')) %> <%= link_to("Resolved", resolved_impediments_path, :class => current_view('resolved')) %></li></ul>
-	<table id="impediments">
-	  <thead>
-	    <tr>
-	      	<th>Description</th>
-	      	<th>Reporter</th>
-	      	<th>Created</th>
-	      	<th>Resolved</th>
-			    <th>Delete</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <% @impediments.each do |impediment| -%>
-		<tr<%= impediment_complete?(impediment) %>>
-	      	<td><%=h impediment.description %></td>
-			<td><%= impediment.team_member ? impediment.team_member.name : "User has been removed" %></td>
-			<td><%= time_ago_in_words(impediment.created_at) %> ago</td>
-			<td><%= show_resolved_at(impediment) %></td>
-			<td><%= link_to_if (impediment.team_member == current_user && impediment.resolved_at == nil), 'Delete', impediment_path(:id => impediment), :method => :delete %></td>
-		</tr>
-		<% end -%>
-	  </tbody>
-	</table>
-	<%= will_paginate @impediments %>
+  <div class="block">
+    <%= render(:partial => "shared/navigation/impediments_secondary") %>
+
+    <div class="content">
+      <% unless @impediments.blank? %>
+        <h2 class="title">Resolved :) <strong class="hightlight"><%= @resolved_count %></strong>. Unresolved :( <strong class="hightlight"><%= @unresolved_count %></strong>.</h2>
+        <div class="inner">
+          <table class="table">
+            <tbody>
+              <tr>
+              <th class="description first">Description</th>
+              <th class="reporter">Reporter</th>
+              <th>Created</th>
+              <th>Resolved</th>
+              <th class="actions last"></th>
+            </tr>
+            <%= render @impediments %>
+            </tbody>
+          </table>
+          <%= will_paginate @impediments %>
+        </div>
+      <% else %>
+        <div class="inner">
+          <div class="flash">
+            <div class="message notice">
+              <p>Hooray! There are no impediments for this project, but you can <%= link_to "create the first impediment", new_impediment_url %> : (.</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= render(:partial => "shared/footer") %>
 </div>
+

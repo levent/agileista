@@ -7,8 +7,8 @@ describe UsersController do
   
   describe 'create' do
     before(:each) do
-      stub_login_and_account_setup
-      controller.stub!(:must_be_account_holder).and_return(true)
+      stub_login_and_account_setup_properly
+      # controller.stub!(:must_be_account_holder).and_return(true)
     end
     
     it "should set temp password and email it" # do
@@ -20,5 +20,21 @@ describe UsersController do
      #      NotificationMailer.should_receive(:deliver_account_invitation).with(@it, nil, 'tempass', controller)
      #      post :create, :person => {:name => 'name', :email => 'email@example.com'}, :type => 'team_member'
      #    end
+  end
+  
+  context "listing users" do
+    before(:each) do
+      stub_login_and_account_setup_properly
+      # controller.stub!(:must_be_account_holder).and_return(true)
+    end
+    
+    it "should return all the account users and render a list" do
+      controller.stub!(:current_user).and_return(@person)
+      team_member = TeamMember.make(:account => @account)
+      contributor = Contributor.make(:account => @account)
+      get :index
+      assigns(:users).should include(team_member)
+      assigns(:users).should include(contributor)
+    end
   end
 end

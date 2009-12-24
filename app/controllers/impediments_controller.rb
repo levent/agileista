@@ -2,6 +2,7 @@ class ImpedimentsController < AbstractSecurityController
   
   ssl_allowed :index, :new, :create, :destroy, :resolve
   before_filter :must_be_team_member, :only => [:new, :destroy, :create, :resolve]
+  before_filter :count_impediments, :only => [:index, :active, :resolved]
   
   def index
     @impediments = @account.impediments.paginate :page => params[:page]
@@ -58,5 +59,13 @@ class ImpedimentsController < AbstractSecurityController
     @impediment = @account.impediments.find(params[:id])
     @impediment.resolve! ? flash[:notice] = 'Impediment resolved' : flash[:error] = 'Impediment could not be resolved'
     redirect_to :action => 'index', :page => params[:page]
+  end
+  
+  
+  protected
+  
+  def count_impediments
+    @resolved_count = @account.impediments.resolved.size
+    @unresolved_count = @account.impediments.unresolved.size
   end
 end

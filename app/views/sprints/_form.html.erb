@@ -1,0 +1,46 @@
+<div class="columns clearfix">
+
+  <div class="column left">
+    <div class="group">
+      <%= form.label :name, nil, :class => "label" %>
+      <%= form.text_field :name, :class => "text_field" %>
+    </div>
+
+    <div class="group">
+      <%= form.label :goal, "Description", :class => "label" %>
+      <%= form.text_area :goal, :class => "text_area", :rows => 5 %>
+    </div>
+  </div>
+
+  <div class="column right">
+    <div class="group">
+      <%= form.label :start_at, nil, :class => "label" %>
+      <% if !@sprint.new_record? %>
+			  <%= form.date_select :start_at, :order => [:day, :month, :year] %>
+		  <% elsif @sprint.new_record? && !@account.sprints.blank? %>
+			  <%= form.date_select :start_at, {:order => [:day, :month, :year], :default => 1.day.from_now(@account.sprints.first.end_at)} %>
+		  <% end %>
+    </div>
+
+    <div class="group">
+      <% if @account && @sprint.new_record? %>
+        <%= form.label :end_at, "End in", :class => "label" %>
+        <%= pluralize(@account.iteration_length, "week") %>
+      <% else %>
+        <%= form.label :end_at, nil, :class => "label" %>
+        <%= form.date_select :end_at, :order => [:day, :month, :year] %>
+      <% end %>
+    </div>
+
+    <div class="group">
+      <% if @sprint.new_record?  %>
+        <%= submit_tag "Create sprint" %>
+      <% else %>
+        <%= submit_tag "Save changes to sprint" %>
+      <% end %>
+      or <%= link_to "cancel", sprints_url %>
+    </div>
+  </div>
+
+</div>
+

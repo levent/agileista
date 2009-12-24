@@ -1,0 +1,34 @@
+<div id="main">
+  <div id="block-text" class="block">
+    <%= render(:partial => "shared/navigation/themes_secondary") %>
+
+    <div class="content">
+      <h2 class="title">Editing theme <%= @theme.name %></h2>
+      <div class="inner">
+        <% form_for :theme, @theme, :url => theme_url(@theme), :html => {:method => "put", :class => "form"} do |form| %>
+          <%= render :partial => 'form', :locals => {:form => form} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(:partial => "shared/footer") %>
+</div>
+
+<div id="sidebar">
+<% if @theme.errors.size > 0 %>
+  <div class="block notice errors">
+    <%= error_messages_for :theme, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
+  </div>
+<% end %>
+  
+  <div class="block">
+    <h3>User stories in this theme</h3>
+    <ul class="navigation">
+      <% @theme.user_stories[0..4].each do |user_story| %>
+      <li><%= link_to %{<span class="hightlight">##{user_story.id}</span> } + h(user_story.definition), user_story_url(user_story) %></li>
+      <% end %>
+      <li><%= link_to "VIEW ALL", themes_url(:anchor => @theme.name.gsub(/\W/, "")) %></li>
+    </ul>
+  </div>
+</div>

@@ -9,7 +9,6 @@ class TasksController < AbstractSecurityController
   end
 
   def new
-    @task = @user_story.tasks.new
   end
 
   def create

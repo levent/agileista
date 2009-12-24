@@ -1,58 +1,49 @@
-<div id="navii">
-    <ul>
-	<% if params[:from] %>
-			<li>
-			  <%= link_to "Back to task board", sprint_path(params[:sprint_id]) if params[:from] == 'tb' %>
-			  <%= link_to "Back to themes", themes_path if params[:from] == 'themes' %>
-			  <%= link_to "Back to sprint planning", plan_sprint_path(:id => params[:sprint_id]) if params[:from] == 'plan' %>
-			</li>
-	<% else -%>
-		<li><%= link_to "Back to backlog", :controller => 'backlog' unless params[:from] == 'themes' %></li>
-	<% end -%>
-	<% if current_user.is_a?(TeamMember) -%>
-	    <li><%= link_to 'Edit', edit_sprint_user_story_path(@sprint, @user_story, :from => params[:from]), :title => 'Edit' if @sprint %></li>
-	    <li><%= link_to 'Edit', edit_user_story_path(@user_story, :from => params[:from]), :title => 'Edit' unless @sprint %></li>
-	<% end -%>
-	</ul>
-	<div class="c">&nbsp;</div>
-</div>
 <div id="main">
-	<div id="user_story">
-		<h1><% if @sprint -%>Sprint: <%= @sprint.name %><br /><% end -%><%=h @user_story.definition %></h1>
-		<%= simple_format(@user_story.description) %>
-		<h2>Story points:</h2>
-		    <p><%=h show_story_points(@user_story.story_points) %></p>
-		<h2>Themes:</h2>
-		<% if @user_story.themes.blank? -%>
-			<p>Not assigned to any themes</p>
-		<% else -%>
-		<ul>
-			<% @user_story.themes.each do |t| -%>
-				<li><%=h t.name %></li>
-			<% end -%>
-		</ul>
-		<% end -%>
-		<h2>Tags:</h2>
-		<% if @user_story.tags.blank? -%>
-		<p>No tags</p>
-		<% else -%>
-		<ul id="usshowtags">
-		<% @user_story.tags.collect{|tag| tag.name}.each do |name| -%>
-		    <li><%= link_to name, {:controller => 'backlog', :action => 'search', :q => name}, :method => :post %></li>
-		<% end -%>
-		</ul>
-		<div class="c">&nbsp;</div>
-		<% end -%>
-		<h2>Stakeholder:</h2>
-		<p><%= show_stakeholder(@user_story, false) %></p>
-        <h2>Created:</h2>
-        <p><%= show_date(@user_story.created_at) %> <%= show_user(@user_story) %></p>
-	</div>
-    <div class="c">&nbsp;</div>
+  <div class="block">
+    <%= render(:partial => "shared/navigation/backlog_secondary") %>
+
+    <div class="content clearfix">
+      <table class="table right">
+        <tbody>
+          <tr>
+            <th scope="row">Stakeholder</th>
+            <td><%= show_stakeholder(@user_story) %>
+          </tr>
+          <tr>
+            <th scope="row">Points</th>
+            <td><%= show_story_points(@user_story.story_points, :unit => "") %></td>
+          </tr>
+          <tr>
+            <th scope="row">Themes</th>
+            <td><%= show_themes(@user_story.themes) %></td>
+          </tr>
+          <tr>
+            <th scope="row">Date</th>
+            <td><%= show_date(@user_story.created_at) %></td>
+          </tr>
+          <tr>
+            <th scope="row">Created</th>
+            <td><%= show_user(@user_story) %></td>
+          </tr>
+        </tbody>
+      </table>
+      <h2 class="title"><%= %{<span class="highlight">##{@user_story.id}</span> } + h(@user_story.definition) %></h2>
+      <div class="inner">
+        <%= simple_format(@user_story.description) %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(:partial => "shared/footer") %>
 </div>
+
 <div id="sidebar">
-    <%= render :partial => 'show_acceptance_criteria' %>
+  <%= render :partial => 'show_acceptance_criteria', :locals => {:user_story => @user_story} %>
+  <%= render :partial => 'show_tasks', :locals => {:user_story => @user_story} %>
 </div>
-<div id="sidebar">
-    <%= render :partial => 'show_tasks' %>
-</div>
+
+<% unless current_user.is_a?(Contributor) || params[:order] -%>
+  <script type="text/javascript">
+    setupBacklog();
+  </script>
+<% end -%>

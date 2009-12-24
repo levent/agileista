@@ -1,44 +1,33 @@
-<%= render :partial => 'subnav' %>
 <div id="main" class="wide">
-  <h1>Plan <%= @sprint.name %>:<br /><span class="small" id="dynamic_numbers">(<%= pluralize(@sprint.user_stories.sum('story_points'), 'story point') %> so far - <%= pluralize(@sprint.hours_left, 'hour') %> planned)</span></h1>
-  <img src="/images/ajax-loader.gif" id="ajaxloader" style="display:none;position:absolute;top:10px;right:10px" />
-  
-  <div class="equal">
-    <div class="row">
-  
-  <div id="estimated" class="dragdropl">
-    <h2>Estimated user stories:</h2>
-	<% count = 0 -%>
-    <% @account.user_stories.estimated.each do |user_story| -%>
-	<% count += 1 -%>
-      <div id="est_<%= user_story.id %>" class="notecard defined">
-		<h2>#<%= count %></h2>
-        <%=h truncate(user_story.definition, :length => 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(user_story.story_points) %></span>
-<%= link_to 'View', {:controller => 'user_stories', :action => 'show', :id => user_story, :sprint_id => @sprint}, :title => "Show user story" %> <%= link_to 'Edit', {:controller => 'user_stories', :action => 'edit', :id => user_story, :sprint_id => @sprint}, :title => "Edit user story" %>
+  <div class="block">
+    <%= render(:partial => "shared/navigation/sprints_secondary") %>
+
+    <div class="content">
+      <h2 class="title">Planning <strong><%= @sprint.name %></strong>. <span class="hightlight"><strong><%= show_story_points(@sprint.user_stories.sum('story_points')) %></strong> and <strong><%= show_story_points(@sprint.hours_left, :unit => "hour") %></strong> planned.</span></h2>
+      <div class="inner clearfix">
+        <div id="estimated" class="clearfix left">
+          <h3>Estimated user stories:</h3>
+          <% @account.user_stories.estimated.each do |user_story| %>
+            <%= render :partial => '/user_stories/user_story', :locals => {:user_story => user_story} %>
+          <% end %>
+        </div>
+    
+        <div id="committed" class="clearfix right">
+          <h3 class="tab"><%= @sprint.name %> <%= link_to "Change order", "#", :id => "reorder", :class => "button" %></h3>
+          <% @sprint.user_stories.each do |user_story| %>
+            <%= render :partial => '/user_stories/user_story', :locals => {:user_story => user_story, :tasks => true} %>
+          <% end %>
+        </div>
       </div>
-    <% end -%>
-  </div>
-  
-  <div id="committed" class="dragdropr">
-    <h2>Sprint: <%= @sprint.name %> <span class="small"><%= link_to "Change order", "#", :id => 'reorder' %></span></h2>
-	  <% count = 0 -%>
-    <% @sprint.user_stories.each do |us| -%>
-	    <% count += 1 -%>
-     <div id="com_<%= us.id %>" class="notecard<%= tasked?(us) %>">
-       <h2><%= link_to "##{count}", sprint_user_story_path(:id => us, :sprint_id => @sprint), :title => "Show user story" %></h2>
-       <%=h truncate(us.definition, :length => 80) %><span style="color:#990000;display:block;margin-bottom: 2px;"><%= show_story_points(us.story_points) %><br /><%= pluralize us.tasks.count, 'task', 'tasks' %></span>
-	     <%= link_to 'Add tasks', new_user_story_task_path(:user_story_id => us), :title => "Add tasks" %> <%= link_to 'Auto task', create_quick_user_story_tasks_path(:user_story_id => us), :method => :post, :title => 'Auto task' if us.tasks.blank? %>
-     </div>
-    <% end -%>
-  </div>
-  <!--[if IE]>
-    <div class="ieclearer"></div>
-  <![endif]-->
     </div>
-    </div>
+  </div>
+  <%= render(:partial => "shared/footer") %>
 </div>
+
 <% unless current_user.is_a?(Contributor) -%>
-  <script type="text/javascript" charset="utf-8">
-    setupSprintPlanning(<%= @sprint.id %>);
-  </script>
+  <% content_for :custom_js do %>
+    <script type="text/javascript" charset="utf-8">
+      setupSprintPlanning(<%= @sprint.id %>);
+    </script>
+  <% end %>
 <% end -%>

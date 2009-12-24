@@ -1,20 +1,39 @@
-<div id="navii"><% if current_user.is_a?(Contributor) -%><%= link_to "Add a user story", :controller => 'user_stories', :action => "add" %><% elsif current_user.is_a?(TeamMember) %><%= link_to "Add a user story", :controller => 'user_stories', :action => "new" %><% end -%></div>
 <div id="main" class="wide">
-	<h1><%= "User stories found for '#{params[:q]}'" if params[:q] %><%= "User stories tagged with '#{params[:tag]}" if params[:tag] %> - <span class="small"><%= pluralize(@user_stories.total_entries, "user story") %></span></h1>
-	<table>
-		<thead>
-			<tr>
-				<th>State</th>
-				<th>Story</th>
-				<th>Story Points</th>
-				<th>Stakeholder</th>
-			</tr>
-		</thead>
-		<tbody>
-		<% @user_stories.each do |us| %>
-			<%= render :partial => 'user_story_row', :locals => {:us => us} %>
-		<% end %>
-		</tbody>
-	</table>
-	<p><%= will_paginate @user_stories, :params => {:q => params[:q]} %></p>
+  <div class="block">
+    <%= render(:partial => "shared/navigation/backlog_secondary") %>
+
+    <div class="content">
+      <h2 class="title"><%= pagination_info(@user_stories, "user story") %> <%= "found for '<strong>#{params[:q]}</strong>'" if params[:q] %><%= "tagged with '<strong>#{params[:tag]}</strong>'" if params[:tag] %>.</h2>
+
+      <div class="inner">
+        <% unless @user_stories.blank? %>
+          <table class="table">
+            <tbody>
+              <tr>
+                <th class="state first">State</th>
+                <th class="id">ID</th>
+                <th class="description">Description</th>
+                <th class="points">Points</th>
+                <th class="stakholder">Stakeholder</th>
+                <th class="actions last"></th>
+              </tr>
+              <%= render :partial => "themes/user_story", :collection => @user_stories %>
+            </tbody>
+          </table>
+          <div class="actions-bar clearfix">
+            <div class="pagination"><%= will_paginate @user_stories, :params => {:q => params[:q]} %></div>
+          </div>
+        <% else %>
+          <div class="flash">
+            <div class="message notice">
+              <p>No user stories were found for your query.<p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(:partial => "shared/footer") %>
 </div>
+

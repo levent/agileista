@@ -1,25 +1,29 @@
-<link rel="alternate" type="application/atom+xml" title="Backlog Feed" href="<%= backlog_index_url(:format => :atom) %>">
-<div id="navii"><% if current_user.is_a?(Contributor) -%><%= link_to "Add a user story", :controller => 'user_stories', :action => "add" %><% elsif current_user.is_a?(TeamMember) %><%= link_to "Add a user story", :controller => 'user_stories', :action => "new" %><% end -%></div>
-<div id="main" class="wide">
-	<h1>Unassigned Backlog - <span class="small"><%= pluralize(@user_stories.length, "user story") %> (<%= show_story_points(@story_points ||= nil) %>)</span></h1>
-	<div id="userstorylist">
-		<% count = 0 -%>
-		<% @user_stories.each do |user_story| %>
-			<% count += 1 -%>
-			<%= render :partial => 'show_story_card', :locals => {:user_story => user_story, :count => count} %>
-		<% end %>
-	</div>
-	<div id="exportlinks">
-	    <ul>
-	        <li><%= link_to "Export backlog as csv", backlog_index_path(:format => 'csv'), { :alt => "export", :title => "export" } %></li>
-	        <li id="udnoborder"><h3>Stories highlighted in blue require estimation</h3></li>
-	        <li id="ncnoborder"><h3>Stories highlighted in orange lack acceptance criteria</h3></li>
-	        <li id="tvnoborder"><h3>Stories highlighted in grey cannot be estimated by the team</h3></li>
-	    </ul>
-	</div>
+<div id="main">
+  <div class="block">
+    <%= render(:partial => "shared/navigation/backlog_secondary") %>
+
+    <div class="content">
+      <h2 class="title">Unassigned Backlog: <strong class="hightlight"><%= pluralize(@user_stories.length, "user story") %></strong> worth <strong class="hightlight"><%= show_story_points(@story_points ||= nil) %></strong>.</h2>
+      <div id="user_stories" class="clearfix">
+        <% @user_stories.each do |user_story| %>
+          <%= render :partial => '/user_stories/user_story', :locals => {:user_story => user_story} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(:partial => "shared/footer") %>
 </div>
-<% unless current_user.is_a?(Contributor) || params[:order] -%>
-  <script type="text/javascript" charset="utf-8">
-    setupBacklog();
-  </script>
-<% end -%>
+
+<div id="sidebar">
+  <div class="block color-scheme">
+    <h3>Color scheme</h3>
+    <ul class="navigation">
+      <li class="plan">Ready to be planned</li>
+      <li class="estimate">Require estimation</li>
+      <li class="criteria">Lack acceptance criteria</li>
+      <li class="clarify">Cannot be estimated by the team</li>
+    </ul>
+  </div>
+</div>
+

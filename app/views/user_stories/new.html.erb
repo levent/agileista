@@ -1,8 +1,18 @@
-<div id="main" class="wide">
-<h1><%= @sprint ? "Add a user story to #{@sprint.name}" : "Add a user story" %></h1>
-<%= error_messages_for :user_story %>
-<% form_for :user_story, @user_story, :url => {:action => 'create'} do |us| %>
+<% form_for :user_story, @user_story, :url => {:action => 'create'}, :html => {:class => "form"} do |us| %>
+<div id="main">
+  <div id="block-text" class="block">
+    <%= render(:partial => "shared/navigation/backlog_secondary") %>
 
-	<%= render :partial => 'form', :locals => {:account => @account, :us => us, :user_story => @user_story, :tags => @tags, :sprint => @sprint} %>
-<% end %>
+    <div class="content">
+      <h2 class="title"><%= @sprint ? "New user story for #{@sprint.name} sprint" : "New user story" %></h2>
+      <div class="inner">
+        <%= render :partial => 'form', :locals => {:account => @account, :us => us, :user_story => @user_story, :tags => @tags, :sprint => @sprint} %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(:partial => "shared/footer") %>
 </div>
+
+<%= render(:partial => "sidebar", :locals => {:user_story => @user_story, :acceptance_criteria => @user_story.acceptance_criteria, :us => us}) %>
+<% end %>

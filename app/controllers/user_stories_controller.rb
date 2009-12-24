@@ -18,6 +18,7 @@ class UserStoriesController < AbstractSecurityController
   def new
     @user_story = UserStory.new
     @user_story.acceptance_criteria.build
+    @user_story.tasks.build
   end
   
   def add
@@ -53,6 +54,7 @@ class UserStoriesController < AbstractSecurityController
     else
       flash[:error] = "There were errors creating the user story"
       @user_story.acceptance_criteria.build
+      @user_story.tasks.build
       render :action => 'new'
     end
   end
@@ -74,8 +76,8 @@ class UserStoriesController < AbstractSecurityController
   
   def edit
     @tags = @user_story.tags.map(&:name).join(' ')
-    @task = Task.new
     @user_story.acceptance_criteria.build
+    @user_story.tasks.build
   end
   
   def update
@@ -86,6 +88,7 @@ class UserStoriesController < AbstractSecurityController
     else
       flash[:error] = "User story couldn't be updated"
       @user_story.acceptance_criteria.build
+      @user_story.tasks.build
       render :action => 'edit' and return false
     end
     if params[:sprint_id]
@@ -120,9 +123,9 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def reorder
-    split_by = "&com[]="
+    split_by = "&item[]="
     items = params[:user_stories].split(split_by)
-    items[0] = items[0].gsub('com[]=', '')
+    items[0] = items[0].gsub('item[]=', '')
     @sprint.sprint_elements.each do |se|
       se.position = items.index(se.user_story_id.to_s) + 1
       se.save

@@ -87,6 +87,37 @@ describe UserStory do
     end
   end
   
+  describe "total hours remaining on tasks" do
+    it "should tell you how many hours are left on the tasks assigned to the story" do
+      user_story = UserStory.make
+      task1 = Task.make(:user_story => user_story, :hours => 200)
+      task2 = Task.make(:user_story => user_story, :hours => 65)
+      user_story.total_hours.should == 265
+    end
+  end
+  
+  describe "#state?" do
+    it "should return css class if user_story has no story point assigned" do
+      @us.acceptance_criteria.stub!(:blank?).and_return(false)
+      @us.state.should == "estimate"
+    end
+
+    it "should return css class if user_story has story points assigned" do
+      @us.story_points = 8
+      @us.state.should == "plan"
+    end
+
+    it "should return css class if user_story cannot be estimated" do
+      @us.cannot_be_estimated = 1
+      @us.state.should == "clarify"
+    end
+
+    it "should return css class if user_story has no acceptance criteria and has not been estimated" do
+      @us.acceptance_criteria.should be_blank
+      @us.state.should == "criteria"
+    end
+  end
+  
   describe "#inprogress?" do
     it "should return false if no tasks" do
       @us.inprogress?.should be_false

@@ -1,0 +1,64 @@
+// Default colours
+@red: #7A1818;
+@lgrey: #F0F0EE;
+@grey: #494949;
+@dgrey: #262626;
+@green: #187949;
+@orange: #E46719;
+@blue: #184979;
+@yellow: #FFB;
+
+.table td {
+  vertical-align: top;
+}
+
+.table tr.even {
+  background-color: @lgrey;
+}
+
+.table td.definition{
+  width: 60%;
+}
+.table td.state {
+  color: #FFF;
+}
+.sprints .table td.name {
+  width: 12%;
+}
+.sprints .table td.description,
+.sprints .table td.tasks {
+  width: 30%;
+}
+.impediments .table td.description {
+  width: 50%;
+}
+
+.table td.date {
+  width: 15%
+}
+
+.table td.actions {
+  width: 12%;
+}
+.sprints .table td.actions {
+  line-height: 2;
+  width: 18%;
+}
+
+.table td.points {
+  text-align: center;
+}
+
+.user_stories.show .content .table {
+  margin: 10px;
+  width: 30%;
+}
+.user_stories.show .content .table th {
+  background-color: @lgrey; color: #222;
+  width: 30%;
+}
+.user_stories.show .content .table td {
+  background-color: @dgrey; color: #FFF;
+  width: 70%;
+}
+

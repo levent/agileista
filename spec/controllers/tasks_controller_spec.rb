@@ -148,12 +148,6 @@ describe TasksController do
       @account.user_stories.should_receive(:find).and_return(@user_story)
       # @user_story.tasks.should_receive(:find).and_return(@task)
     end
-
-    it "should instantiate object" do
-      @user_story.tasks.should_receive(:new).and_return(@task)
-      get :new
-      assigns(:task).should == @task
-    end
   end
 
   describe "route recognition" do

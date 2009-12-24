@@ -17,6 +17,9 @@ class Person < ActiveRecord::Base
   
   attr_accessor :password
   
+  named_scope :active, :conditions => {:authenticated => true}
+  named_scope :inactive, :conditions => {:authenticated => false}
+  
   def validate_account
     self.authenticated = 1
     self.activation_code = nil

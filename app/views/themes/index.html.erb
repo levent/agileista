@@ -1,32 +1,40 @@
-<div id="navii"><%= link_to "Add a theme", new_theme_path %></div>
-<div id="main" class="wide">
-  <h1>Themes</h1>
-  <div id="themewall">
-    <% if @themes.blank? -%>
-      <p>You have no themes defined</p>
-      <p><%= link_to "Click here", new_theme_path %> to create a theme</p>
-    <% else -%>
-    <% @themes.each do |theme| -%>
-    <div class="atheme" id="theme_<%= theme.id %>">
-      <div class="themecard handle">x</div><div title="<%=h theme.name %>" class="themecard"><h2><%=h theme.name %> <span class="small"><%= link_to 'Edit', edit_theme_path(:id => theme) %> <%= link_to 'Delete', theme_path(:id => theme), :method => :delete, :confirm => "This cannot be undone. Are you sure?", :title => 'Delete' if current_user.is_a?(TeamMember) %></span></h2><p><%=h truncate(theme.description, :length => 190) %></p><%= link_to_function 'Hide stories', "Element.toggle('theme_#{theme.id}')" %> <%= show_story_points(theme.story_points, :unit => "point") %> <%= show_story_points_remaining(theme.story_points_left) %>
-      </div>
-      <div id="theme_<%= theme.id %>">
-        <% count = 0 -%>
-        <% theme.user_stories.each do |us| -%>
-          <% count += 1 %>
-          <%= render :partial => 'sprints/user_story', :locals => {:user_story => us, :count => count, :sprint => us.sprint, :from => 'themes'} %>
-        <% end -%>
-      </div>
-      <div class="c">&nbsp;</div>
-    </div>
+<div id="main">
+  <div class="block">
+    <%= render(:partial => "shared/navigation/themes_secondary") %>
 
-      <hr />
-    <% end -%>
-    <% end -%>
+    <div class="content">
+      <% unless @themes.blank? %>
+        <%= render @themes %>
+      <% else %>
+        <div class="inner">
+          <div class="flash">
+            <div class="message notice">
+              <p>There are no themes defined, please <%= link_to "create a theme", new_theme_url %>.</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= render(:partial => "shared/footer") %>
+</div>
+
+<% unless @themes.blank? %>
+<div id="sidebar">
+  <div class="block">
+    <h3>Themes overview</h3>
+    <ol class="navigation">
+      <%= render :partial => "theme_sidebar", :collection => @themes %>
+    </ol>
   </div>
 </div>
+<% end %>
+
 <% unless current_user.is_a?(Contributor) -%>
-  <script type="text/javascript" charset="utf-8">
-    setupThemes();
-  </script>
+  <% content_for :custom_js do %>
+    <script type="text/javascript" charset="utf-8">
+      setupThemes();
+    </script>
+  <% end %>
 <% end -%>
+

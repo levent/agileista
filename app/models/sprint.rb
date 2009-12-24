@@ -1,20 +1,21 @@
 class Sprint < ActiveRecord::Base
-  
+
   has_many :sprint_elements, :dependent => :delete_all, :order => 'sprint_elements.position'
   has_many :user_stories, :through => :sprint_elements, :order => 'user_stories.done, sprint_elements.position'
   has_many :burndowns
   has_many :sprint_changes, :as => :auditable
   has_many :audits, :class_name => "SprintChange"
-  
+
   belongs_to :account
   validates_presence_of :account_id
   validates_presence_of :start_at, :end_at
   validates_presence_of :name
-  
+
   before_validation :calculate_end_date
-  
+
   named_scope :current, lambda { { :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago] } }
-  
+  named_scope :finished, lambda { {:conditions => ["end_at < ?", Time.now]} }
+
   def validate
     errors.add(:start_at, "and end at must be different") if self.start_at >= self.end_at
     # errors.add(:start_at, "cannot overlap with another sprint") if !@account.sprints.blank? && (self.start_at <= @account.sprints.last.end_at)
@@ -28,8 +29,16 @@ class Sprint < ActiveRecord::Base
   end
 
   def calculated_velocity
-    return nil unless self.finished?
+    return 0 unless self.finished?
     self.velocity || calculate_velocity
+  end
+
+  def total_story_points
+    self.user_stories.sum('story_points')
+  end
+
+  def completed_story_points
+    self.calculated_velocity
   end
 
   def calculate_velocity
@@ -41,7 +50,7 @@ class Sprint < ActiveRecord::Base
     save!
     return tally
   end
-  
+
   def hours_left
     count = 0
     self.user_stories.each do |us|
@@ -49,19 +58,19 @@ class Sprint < ActiveRecord::Base
     end
     return count
   end
-  
+
   def finished?
     self.end_at < Time.now ? true : false
   end
-  
+
   def upcoming?
     self.start_at > Time.now ? true : false
   end
-  
+
   def current?
     self.start_at < Time.now && self.end_at > Time.now
   end
-  
+
   def calculate_end_date
     unless self.end_at
       self.end_at = self.account.iteration_length.to_i.weeks.from_now(1.day.ago(self.start_at)).end_of_day
@@ -69,7 +78,7 @@ class Sprint < ActiveRecord::Base
       self.end_at = self.end_at.end_of_day
     end
   end
-  
+
   def destroy
     self.user_stories.each do |us|
       us.sprint_id = nil
@@ -78,3 +87,4 @@ class Sprint < ActiveRecord::Base
     super
   end
 end
+

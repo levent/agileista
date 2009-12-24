@@ -1,0 +1,25 @@
+<div id="main">
+  <div id="block-text" class="block">
+    <%= render(:partial => "shared/navigation/themes_secondary") %>
+
+    <div class="content">
+      <h2 class="title">New theme</h2>
+      <div class="inner">
+        <% form_for :theme, @theme, :url => {:action => 'create'}, :html => {:class => "form"} do |form| %>
+          <%= render :partial => 'form', :locals => {:form => form} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(:partial => "shared/footer") %>
+</div>
+
+<% if @theme.errors.size > 0 %>
+<div id="sidebar">
+  <div class="block notice errors">
+    <%= error_messages_for :theme, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
+  </div>
+</div>
+<% end %>
+

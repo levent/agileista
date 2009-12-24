@@ -50,7 +50,7 @@ Spec::Runner.configure do |config|
   # config.mock_with :rr
   #
   # == Notes
-  # 
+  #
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
   def block_should_be_yielded_to
     observer = mock(:block)
@@ -67,7 +67,7 @@ Spec::Runner.configure do |config|
       observer.yielded
     end
   end
-  
+
   def stub_login_and_account_setup
     @person = TeamMember.new
     @account = Account.new
@@ -78,15 +78,30 @@ Spec::Runner.configure do |config|
   end
 
   def stub_login_and_account_setup_properly
-    @person = TeamMember.make
     @account = Account.make
+    @person = @account.account_holder
     @person.account = @account
     session[:user] = @person.id
     session[:account] = @account.id
     Person.stub!(:find_by_id_and_account_id).and_return(@person)
   end
-  
+
+  def stub_count_impediments
+    controller.stub!(:count_impediments)
+  end
+
   def stub_iteration_length
     controller.stub!(:iteration_length_must_be_specified)
+  end
+
+  def stub_sprint
+    @sprint = Sprint.new(:name => "Sprint A")
+    @sprint.id = 1
+    @sprint.start_at = 1.weeks.ago
+    @sprint.end_at = 1.weeks.from_now
+
+    sweeper = mock_model(SprintAuditSweeper)
+    sweeper.stub!(:update)
+    SprintElement.instance_variable_set(:@observer_peers, [sweeper])
   end
 end

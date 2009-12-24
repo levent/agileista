@@ -1,0 +1,49 @@
+<div id="sidebar">
+  <% if user_story.errors.size > 0 %>
+  <div class="block notice errors">
+    <%= error_messages_for :user_story, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
+  </div>
+  <% end %>
+  
+  <div id="user_story_acceptance_criteria" class="block acceptance_criteria">
+    <h3>Acceptance criteria</h3>
+    <ol>
+    <% us.fields_for :acceptance_criteria do |crit_form| %>
+      <li>
+        <%= crit_form.text_area :detail, :class => "text_area", :rows => 3 %>
+        <% unless crit_form.object.new_record? %>
+          <span class="remove">
+            <%= crit_form.check_box '_delete' %>
+            <%= crit_form.label '_delete', 'Remove' %>
+          </span>
+        <% end %>
+      </li>
+    <% end %>
+    <p><%= link_to 'Add another', '#acceptance_criterium', :class => "add_nested_criterium", :rel => "acceptance_criteria" %></p>
+  </div>
+ 
+  <% if current_user.is_a?(TeamMember) %>
+  <div id="user_story_tasks" class="block tasks">
+    <h3>Tasks</h3>
+    <ol>
+    <% us.fields_for :tasks do |tasks_form| %>
+      <li>
+        <%= tasks_form.label :definition, nil, :class => "label" %>
+        <%= tasks_form.text_field :definition, :class => "text_field" %>
+        <%= tasks_form.label :description, nil, :class => "label" %>
+        <%= tasks_form.text_area :description, :class => "text_area", :rows => 3 %>
+        <%= tasks_form.label :hours, nil, :class => "label" %>
+        <%= tasks_form.text_field :hours, :class => "text_field" %>
+        <% if !tasks_form.object.new_record? && tasks_form.object.incomplete? %>
+          <span class="remove">
+            <%= tasks_form.check_box '_delete' %>
+            <%= tasks_form.label '_delete', 'Remove' %>
+          </span>
+        <% end %>
+      </li>
+    <% end %>
+    <p><%= link_to 'Add another', '#tasks', :class => "add_nested_task", :rel => "tasks" %></p>
+  </div>
+  <% end %>
+
+</div>

@@ -1,0 +1,12 @@
+<div class="block acceptance_criteria">
+  <h3>Acceptance Criteria (<%= user_story.acceptance_criteria.size %>) </h3>
+  <% if user_story.acceptance_criteria.blank? %>
+    <p>There are no acceptance criteria for this user story</p>
+  <% else %>
+    <ol>
+      <% user_story.acceptance_criteria.each do |crit| %>
+        <li><%= h crit.detail %></li>
+      <% end %>
+    </ol>
+  <% end %>
+</div>

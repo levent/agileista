@@ -23,6 +23,11 @@ test:
   # No reason to collect exceptions when running tests by default
   enabled: false
 
+cucumber:
+  <<: *default_settings
+  # No reason to collect exceptions when running tests by default
+  enabled: false
+
 production:
   <<: *default_settings
   enabled: true

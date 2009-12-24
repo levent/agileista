@@ -1,106 +1,34 @@
-<div id="burndown">
-
-</div>
-
 <div id="main" class="wide">
-<h1><%= sprint_header(@sprint) %></h1>
+  <div class="block">
+    <%= render(:partial => "shared/navigation/sprints_secondary") %>
 
-<div id="tabs">
-  <ul>
-    <li><a href="#tabs-1">Summary</a></li>
-    <li><a href="#tabs-2">Activity</a></li>
-  </ul>
+    <div class="content">
+      <div id="burndown"></div>
+
+      <h2 class="title"><%= sprint_header(@sprint, :show_date? => true) %></h2>
+
+      <div class="inner">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>User story</th>
+              <th>Incomplete</th>
+              <th>In progress</th>
+              <th>Complete</th>
+            </tr>
+          <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'sprints'} %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <%= render(:partial => "shared/footer") %>
 </div>
-
-<div id="tabs-1">
-
-<table id="current_sprint">
-	<thead>
-		<tr>
-			<th><%= link_to "Show tasks", "", :id => "showtasks" %></th><th>Title</th><th>Task hours</th><th>Story points</th><th>Assignee/State</th><th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<% count = 0 -%>
-		<% @sprint.user_stories.all.each do |user_story| %>
-		<tr class="user_story">
-			<% count += 1 -%>
-			<td><%= "##{count}" %></td>
-			<td><%= user_story.definition %></td>
-			<td><%= pluralize(user_story.tasks.count, "task") %></td>
-			<td><%= user_story.story_points %></td>
-			<td><%= link_to_if current_user.is_a?(TeamMember), "Remove", unplan_sprint_user_story_url(@sprint, user_story), :method => :post unless user_story.complete? %><%= "Complete" if user_story.complete? %></td>
-			<td><%= link_to "Show", sprint_user_story_path(:id => user_story, :sprint_id => @sprint), :title => user_story.definition %> <%= link_to "Copy", copy_user_story_url(user_story), :method => :post, :title => "Copy" if current_user.is_a?(TeamMember) && !user_story.complete? %></td>
-		</tr>
-		<% user_story.tasks.each do |task| %>
-		<tr class="task">
-			<th scope="row">#<%= count.to_s + '.' + task.position.to_s %></th>
-			<td class="title"><%= truncate(task.definition, 50) %></td>
-			<td><%= show_hours_left(task.hours) %></td>
-			<td></td>
-			<td><%= show_assignees(task.developers) %></td>
-			<td><%= link_to "Show", user_story_task_path(:id => task, :user_story_id => user_story) %></td>
-		</tr>
-		<% end %>
-	  <% end %>
-	</tbody>
-</table>
-
-
-</div>
-
-<div id="tabs-2">
-
-
-<table id="sprint_changes">
-  <thead>
-    <tr>
-      <th colspan="2">Change</th>
-      <th>Major?</th>
-      <th>When</th>
-      <th>Diff</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%- for sprint_change in @sprint.audits -%>
-    <tr>
-      <td><%- if sprint_change.person %><%= image_tag sprint_change.person.gravatar_url(:size => 25) %><% else %>Unknown<% end %></td>
-      <td><%=h sprint_change.details %></td>
-      <td><%= sprint_change.major? %></td>
-      <td><%= show_date_and_time(sprint_change.created_at) %></td>
-      <td><%- if sprint_change.kind == "update" %><%= ActiveSupport::JSON.decode(sprint_change.changes).inspect %><% end -%></td>
-      <td><%- if sprint_change.auditable && sprint_change.auditable_type == "UserStory" %><%= link_to "Show", sprint_user_story_url(@sprint, sprint_change.auditable) if sprint_change.auditable.sprint %><%= link_to "Show", user_story_url(sprint_change.auditable) unless sprint_change.auditable.sprint %><% end -%></td>
-    </tr>
-    <%- end -%>
-  </tbody>
-</table>
-
-</div>
-
-</div>
-
-
 
 <% content_for :custom_js do %>
-<script type="text/javascript" charset="utf-8">
-  $(function() {
-  		$("#tabs").tabs();
-  		$(".task").toggle();
-  	});
-  	
-    $("#showtasks").click(function() {
-  		$(".task").toggle();
-  		if($(this).html() == "Show tasks"){
-  		  $(this).html("Hide tasks")
-		  }else {
-		    $(this).html("Show tasks")
-		  }
-  		return false;
-  	});
-  	
-</script>
 <script type="text/javascript" charset="utf-8">
   FCLOUD.Charts.burndown(<%= @burndown_labels.inspect %>, <%= @burndown_data.inspect %>);
 </script>
 <% end %>
+

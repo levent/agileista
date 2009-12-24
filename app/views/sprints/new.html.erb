@@ -1,21 +1,25 @@
-<%= render :partial => 'subnav' %>
-<div id="main" class="sprint_planning">
-	<h1>New sprint</h1>
-	<%= error_messages_for :sprint %>
-	<% form_for @sprint do |s| %>
-		<label for="sprint_name">Name:</label><br />
-		<%= s.text_field :name %>
-		<label for="sprint_start_at">Start at:</label><br />
-		<% if @account.sprints.blank? %>
-			<%= s.date_select :start_at, :order => [:day, :month, :year], :start_month => 12 %><br />
-		<% else %>
-			<%= select_date 1.day.from_now(@account.sprints.first.end_at), :prefix => 'from' %><br />
-		<% end %>
-		<p><label for="sprint_end_at">End in:</label><br />
-		<%= pluralize(@account.iteration_length, "week", "weeks") %></p>
+<div id="main">
+  <div id="block-text" class="block">
+    <%= render(:partial => "shared/navigation/sprints_secondary") %>
 
-		<label for="sprint_end_at">Sprint goal:</label>
-		<%= s.text_area :goal %>
-		<%= submit_tag "Create sprint" %>
-	<% end %>
+    <div class="content">
+      <h2 class="title">New sprint</h2>
+      <div class="inner">
+        <% form_for :sprint, @sprint, :url => {:action => 'create'}, :html => {:class => "form"} do |form| %>
+          <%= render :partial => 'form', :locals => {:form => form} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(:partial => "shared/footer") %>
 </div>
+
+<% if @sprint.errors.size > 0 %>
+<div id="sidebar">
+  <div class="block notice errors">
+    <%= error_messages_for :sprint, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
+  </div>
+</div>
+<% end %>
+

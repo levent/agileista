@@ -7,4 +7,5 @@ coverage/*
 config/database.yml
 config/*.sphinx.conf
 index/*
+.swp
 mkmf.log

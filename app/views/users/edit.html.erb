@@ -1,0 +1,57 @@
+<div id="main">
+  <div class="block">
+    <%= render(:partial => "shared/navigation/account_secondary") %>
+
+    <div class="content">
+      <h2 class="title">Editing <strong class="hightlight"><%= @person.name %>'s</strong> details</h2>
+      <div class="inner">
+        <% form_for :person, @person, :url => user_url(@person), :html => {:method => :put, :class => "form"} do |p| %>
+        <div class="columns clearfix">
+
+          <div class="column left">
+        		<div class="group">
+        		  <%= p.label :name, nil, :class => "label" %>
+        		  <%= p.text_field :name, :class => "text_field" %>
+        		</div>
+
+        		<div class="group">
+        		  <%= p.label :email, nil, :class => "label" %>
+        		  <%= p.text_field :email, :class => "text_field" %>
+        		</div>
+
+        		<div class="group">
+      		    <%= submit_tag "Save" %> or <%= link_to "cancel", users_url %>
+      		  </div>
+      		</div>
+
+          <div class="column right">
+            <% unless @person.account_holder? %>
+        		<div class="group">
+        		  <label class="label">User type</label>
+        		  <div>
+        		    <input type="radio" name="type" id="team_member" value="team_member" class="checkbox"<%= ' checked="checked"' if @person.class == TeamMember %> />
+        		    <label for="team_member" class="radio">Team member</label>
+        		  </div>
+        		  <div>
+        		    <input type="radio" name="type" id="contributor" value="contributor" class="checkbox"<%= ' checked="checked"' if @person.class == Contributor %> />
+        			  <label for="contributor" class="radio">Contributor</label>
+        			 </div>
+        	  </div>
+        		<% end %>
+          </div>
+        </div>
+      	<% end %>
+      </div>
+    </div>
+  </div>
+  <%= render(:partial => "shared/footer") %>
+</div>
+
+<div id="sidebar">
+  <% if @person.errors.size > 0 %>
+  <div class="block notice errors">
+    <%= error_messages_for :person, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
+  </div>
+  <% end %>
+</div>
+

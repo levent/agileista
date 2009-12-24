@@ -1,53 +1,63 @@
-<div id="navii"><ul><li><%= link_to "Add users", :controller => 'users', :action => 'new' if current_user.is_a?(TeamMember) %></li><li><%= link_to "Back to backlog", :controller => 'backlog' %></li></ul><div class="c">&nbsp;</div></div>
-<div id="main" class="wide">
-	<h1>Settings:</h1>
-	<div id="settingsleft">
-		<h2>Users:</h2>
-		<table>
-			<thead>
-				<tr>
-					<th>User</th>
-					<th>Edit</th>
-					<th>Delete</th>
-					<th>Status</th>
-					<th>Account holder</th>
-				</tr>
-				<tr>
-					<th class="titlerow">Team Members</th><td colspan="5"></td>
-				</tr>
-			</thead>
-			<tbody>
-				<%= render :partial => "user", :collection => @account.team_members %>
-				<tr>
-					<th colspan="5" class="titlerow">Contributors</th>
-				</tr>
-				<%= render :partial => "user", :collection => @account.contributors %>
-			</tbody>
-		</table>
-	</div>
-	<div id="settingsright">
-    	<% if current_user.account_holder? %>
-        	<h2>Account settings:</h2>
-        	<%= error_messages_for :account %>
-        	<% form_for :account, @account, :url => {:action => 'settings'} do |a| %>
-        		<label for="account_iteration_length">Sprint iteration length:</label>
-        	        <%= a.select :iteration_length, [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]], :include_blank => true %>
-        		<%= submit_tag "Save settings" %>
-        	<% end %>
-    	    <div class="c">&nbsp;</div>
-    	<% end %>
-    	
-		<%= error_messages_for :user %>
-		<h2>Change password:</h2>
-		<%= form_tag :action => 'change_password', :id => session[:user] %>
-		<label for="old_password">Old password</label>
-		<%= password_field_tag 'old_password' %>
-		<label for="new_password">New password</label>
-		<%= password_field_tag 'new_password' %>
-		<label for="new_password_confirmation">Please confirm new password</label>
-		<%= password_field_tag 'new_password_confirmation' %>
-		<%= submit_tag 'Change password' %>
-        </form>
-	</div>
-  <div class="c">&nbsp;</div>
+<div id="main">
+  <div class="block">
+    <%= render(:partial => "shared/navigation/account_secondary") %>
+
+    <div class="content">
+      <h2 class="title">Account settings</h2>
+      <div class="inner form">
+        <div class="columns clearfix">
+
+          <div class="column left">
+            <%= form_tag({:action => 'change_password', :id => session[:user]}, {:class => "form"}) %>
+              <div class="group">
+                <label for="old_password" class="label">Old password</label>
+                <%= password_field_tag 'old_password', nil, :class => "text_field" %>
+              </div>
+
+              <div class="group">
+                <label for="new_password" class="label">New password</label>
+                <%= password_field_tag 'new_password', nil, :class => "text_field" %>
+              </div>
+
+              <div class="group">
+                <label for="new_password_confirmation" class="label">Confirm new password</label>
+                <%= password_field_tag 'new_password_confirmation', nil, :class => "text_field" %>
+              </div>
+
+              <div class="group">
+                <%= submit_tag 'Change password' %>
+              </div>
+            </form>
+          </div>
+
+          <% if current_user.account_holder? %>
+          <div class="column right">
+          	<% form_for :account, @account, :url => {:action => 'settings'} do |a| %>
+          		<div class="group">
+          		  <label for="account_iteration_length" class="label">Sprint iteration length:</label>
+                <%= a.select :iteration_length, [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]], :include_blank => true, :class => "select" %>
+              </div>
+              <div class="group">
+          		  <%= submit_tag "Change iteration length" %>
+          		</div>
+          	<% end %>
+          </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render(:partial => "shared/footer") %>
 </div>
+
+<% if current_user.account_holder? %>
+<div id="sidebar">
+  <% if @account.errors.size > 0 %>
+  <div class="block notice errors">
+    <%= error_messages_for :account, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
+  </div>
+  <% end %>
+</div>
+<% end %>
+
