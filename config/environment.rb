@@ -54,6 +54,10 @@ Rails::Initializer.run do |config|
   config.gem "fastercsv"
   config.gem "json"#, :version => '1.1.6'
   config.gem "prawn"
+  config.gem "prawn-core"
+  config.gem "prawn-format"
+  config.gem "prawn-security"
+  config.gem "prawn-layout"
   config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
   config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
 
