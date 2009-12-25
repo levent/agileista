@@ -50,6 +50,7 @@ Rails::Initializer.run do |config|
   # The gems required by this application
   # config.gem "pdf-writer", :lib => "pdf/writer"
   # config.gem "color-tools", :lib => "color"
+  config.gem "rack", :version => '>= 1.0.1'
   config.gem "fastercsv"
   config.gem "json"#, :version => '1.1.6'
   config.gem "prawn"
