@@ -21,6 +21,7 @@ class BacklogController < AbstractSecurityController
   end
   
   def search
+    store_location
     if params[:q]
       raise ArgumentError unless @account.id
       @user_stories = UserStory.search("#{params[:q]}", {:with => {:account_id => @account.id}, :limit => 1000, :per_page => 20, :page => params[:page]})
