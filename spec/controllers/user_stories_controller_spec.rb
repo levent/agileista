@@ -44,4 +44,14 @@ describe UserStoriesController do
     end
     
   end
+  
+  context "editing a story" do
+    before(:each) do
+      stub_login_and_account_setup_properly
+    end
+    
+    it "should take me back to sprint planning if I came from there" do
+      
+    end
+  end
 end

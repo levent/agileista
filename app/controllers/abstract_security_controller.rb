@@ -33,4 +33,24 @@ class AbstractSecurityController < ApplicationController
     @account = current_user.account
     @other_accounts = Person.find_all_by_email_and_authenticated(current_user.email, 1)
   end
+
+  def redirect_back_or(default)
+    redirect_to(return_to || default)
+    clear_return_to
+  end
+
+  def store_location
+    if request.get?
+      session[:return_to] = request.request_uri
+    end
+  end
+  
+  def return_to
+    session[:return_to] || params[:return_to]
+  end
+  
+  def clear_return_to
+    session[:return_to] = nil
+  end
+  
 end

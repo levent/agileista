@@ -91,15 +91,7 @@ class UserStoriesController < AbstractSecurityController
       @user_story.tasks.build
       render :action => 'edit' and return false
     end
-    if params[:sprint_id]
-      redirect_to sprint_path(:id => params[:sprint_id])
-    elsif params[:from] && params[:from] == 'themes'
-      redirect_to :controller => 'themes'
-    elsif params[:from] && params[:from] == 'show'
-      redirect_to :action => 'show', :id => @user_story
-    else
-      redirect_to :controller => 'backlog'
-    end
+    redirect_back_or(backlog_index_url)
   end
   
   def plan
@@ -137,8 +129,7 @@ class UserStoriesController < AbstractSecurityController
     if @user_story.destroy
       flash[:notice] = "User story deleted"
     end
-    redirect_to themes_path and return false if params[:from] == 'themes'
-    redirect_to :controller => 'backlog' and return false
+    redirect_back_or(backlog_index_url)
   end
   
   protected

@@ -9,6 +9,7 @@ class SprintsController < AbstractSecurityController
   end
   
   def show
+    store_location
     @current_sprint = @sprint
     calculate_burndown_points
     # raise @burndown_labels_and_data
@@ -55,6 +56,7 @@ class SprintsController < AbstractSecurityController
   end
   
   def plan
+    store_location
     render_404 if @sprint && @sprint.finished?
   end
   

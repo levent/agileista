@@ -2,6 +2,7 @@ class ThemesController < AbstractSecurityController
   before_filter :must_be_team_member, :except => [:index]
 
   def index
+    store_location
     @themes = @account.themes.find(:all, :order => 'themes.position, user_stories.position', :include => [:user_stories])
   end
   

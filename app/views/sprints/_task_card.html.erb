@@ -2,7 +2,11 @@
   <dt class="clearfix">
     <% if current_user.is_a?(TeamMember) %>
       <strong><%= "##{user_story.id}.#{task_card.position}" %></strong>
-      <%= link_to 'Edit', edit_user_story_url(user_story, :from => "tba", :anchor => "user_story_tasks"), :title => "Edit ##{user_story.id}.#{task_card.position}", :class => "edit" %>
+      <% if defined?(sprint) %>
+        <%= link_to 'Edit', edit_sprint_user_story_url(sprint, user_story, :anchor => "user_story_tasks"), :title => "Edit ##{user_story.id}.#{task_card.position}", :class => "edit" %>
+      <% else %>
+        <%= link_to 'Edit', edit_user_story_url(user_story, :anchor => "user_story_tasks"), :title => "Edit ##{user_story.id}.#{task_card.position}", :class => "edit" %>
+      <% end %>
     <% else %>
       <%= "##{user_story.id}.#{task_card.position}" %>
     <% end %>
@@ -11,5 +15,5 @@
     <%= h truncate(task_card.definition, :length => 60) %>
     <strong><%= show_assignees(task_card.developers) %></strong>
   </dd>
-  <dd class="tasks clearfix"><% form_for :task, task_card, :url => user_story_task_path(:user_story_id => task_card.user_story, :id => task_card, :from => 'tb'), :html => {:method => :put} do |f| %><%= f.text_field(:hours, :size => 3, :class => 'tasksave') %> <%= submit_tag 'Save', :class => 'tasksave' %><% end %></dd>
+  <dd class="tasks clearfix"><% form_for :task, task_card, :url => user_story_task_path(:user_story_id => task_card.user_story, :id => task_card), :html => {:method => :put} do |f| %><%= f.text_field(:hours, :size => 3, :class => 'tasksave') %> <%= submit_tag 'Save', :class => 'tasksave' %><% end %></dd>
 </dl>
