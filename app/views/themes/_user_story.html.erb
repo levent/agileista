@@ -6,4 +6,3 @@
   <td class="stakeholder"><%= show_stakeholder(user_story) %></td>
   <td class="actions"><%= link_to 'Show', show_link(user_story), :class => "button" %> <%= link_to 'Edit', edit_link(user_story), :class => "button" if current_user.is_a?(TeamMember) %></td>
 </tr>
-

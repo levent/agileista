@@ -821,7 +821,7 @@ dl.user_story, dl.task_card {
   float: left;
   line-height: 1.1;
   margin: 0 2% 15px 0;
-  width: 17.5%;
+  width: 12.2%;
 }
 .incomplete dl.task_card {
   background-color: #f0f0ee;
@@ -918,7 +918,7 @@ dl.task_card dd {
   position: relative;
 }
 dl.user_story dd.story {
-  height: 5em;
+  height: 6em;
   overflow: hidden;
 }
 dl.task_card dd.definition {
@@ -949,6 +949,14 @@ dl.user_story dd.tasks a:hover { color: #262626; }
 #committed dl.user_story dd.story { height: 6em; }
 .table dl.user_story dd.story { height: 6em; }
 .state span { padding: 2px 5px; }
+.cardstate span { padding: 2px 5px; }
+.cardstate span {
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 #estimated, #committed {
   width: 50%;
   min-height: 200px;

@@ -1,4 +1,4 @@
-<dl id="item_<%= user_story.id %>" class="user_story <%= user_story.state %>" title="<%=h user_story.definition %>">
+<dl id="item_<%= user_story.id %>" class="user_story" title="<%=h user_story.definition %>">
   <dt class="clearfix">
     <%= link_to "##{user_story.id}", user_story_url(user_story) %>
     <% if defined?(sprint) %>
@@ -10,6 +10,7 @@
   </dt>
   <dd class="story">
     <%= h truncate(user_story.definition, :length => 90) %>
+    <span class="cardstate"><%= user_story_state(user_story.state) %></span>
   </dd>
   <% if local_assigns[:tasks] %><dd class="tasks clearfix"><%= link_to 'Add tasks', edit_sprint_user_story_url(sprint, user_story, :anchor => "user_story_tasks", :from => local_assigns[:from]), :title => "Add tasks", :class => "left" %> <%= link_to 'Auto task', create_quick_user_story_tasks_path(:user_story_id => user_story), :method => :post, :title => 'Auto task', :class => "right" if user_story.tasks.blank? %></dd><% end %>
 </dl>
