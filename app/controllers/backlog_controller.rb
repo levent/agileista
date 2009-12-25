@@ -3,7 +3,7 @@ class BacklogController < AbstractSecurityController
   ssl_required :feed
   ssl_allowed :index, :sort, :search
   before_filter :must_be_team_member, :only => ['sort']
-  before_filter :account_user_stories ,:only => ['index', 'export', 'feed', 'pdf', 'sort']
+  before_filter :account_user_stories ,:only => ['index', 'export', 'feed', 'sort']
 
   def index
     @story_points = 0
@@ -14,15 +14,9 @@ class BacklogController < AbstractSecurityController
         render_csv("current_backlog_#{Time.now.strftime('%Y%m%d%H%M')}")
       end
     end
-    prawnto :filename => 'backlog.pdf', :inline => false
   end
   
   def feed
-    render :layout => false
-  end
-  
-  def pdf
-    @rails_pdf_name = "Backlog.pdf"
     render :layout => false
   end
   

@@ -9,3 +9,4 @@ config/*.sphinx.conf
 index/*
 .swp
 mkmf.log
+rerun.txt
