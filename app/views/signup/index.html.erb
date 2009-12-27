@@ -1,33 +1,72 @@
-<div id="main" class="wide signup">
-	<!-- <div id="leftcontent"> -->
-		<h1>Signup here...</h1>
-		<%= error_messages_for :account %>
-		<%= form_tag :action => 'create' %>
-			<fieldset>
-				<legend>1. Your account name</legend>
-				<p>This will be the unique way of identifying your account. How about your company, group or organisation name?</p>
-				<%= text_field :account, :name %><br />
-				<small>For example: Apple, Microsoft (boo) or Google</small>
-			</fieldset>
-			<fieldset>
-				<legend>2. Your site address</legend>
-				<p>This is your unique address where you will login<br /><strong>Letters and numbers only with no spaces</strong></p>
-				http://<%= text_field :account, :subdomain, :class => 'nowrap' %>.<%= AccountStuff::DOMAIN %>
-			</fieldset>
-			
-			<%= error_messages_for :user %>
-			<fieldset>
-				<legend>3. Your details</legend>
-				<p>Once you've got this set up you'll be able to set up your project and invite other users</p>
-				<label for="user_name">Your name:</label><%= text_field :user, :name %>
-				<label for="user_name">Your email:</label><%= text_field :user, :email %>
-				<label for="user_password">Your password:</label><%= password_field :user, :password %>
-				<label for="user_password_confirmation">...and again:</label><%= password_field :user, :password_confirmation %>
-			</fieldset>
-			<fieldset>
-				<legend>4. That's it</legend>
-				<p>Just click the button and you're done!</p>
-				<%= submit_tag "Create account" %>
-			</fieldset>
-		</form>
+<div id="box">
+  <div class="block" id="block-signup">
+    <h2 class="clearfix">Signup</h2>
+    <div class="content signup">
+      <%= error_messages_for :account %>
+  		<%= form_tag({:action => 'create'}, :class => "form signup") %>
+        <div class="group clearfix">
+          <div class="left">
+            <label for="account_name" class="label right">Account name</label>
+
+          </div>
+          <div class="right">
+            <%= text_field :account, :name, :class => "text_field" %>
+          </div>
+        </div>
+
+        <div class="group clearfix">
+          <div class="left">
+            <label for="account_subdomain" class="label right">Site address</label>
+          </div>
+          <div class="right">
+            <%= text_field :account, :subdomain, :class => 'nowrap' %>.<%= AccountStuff::DOMAIN %>
+          </div>
+        </div>
+
+			<%= error_messages_for :user %>        
+        <div class="group clearfix">
+          <div class="left">
+            <label for="user_name" class="label right">Your name</label>
+          </div>
+          <div class="right">
+            <%= text_field :user, :name %>
+          </div>
+        </div>
+
+        <div class="group clearfix">
+          <div class="left">
+            <label for="user_name" class="label right">Your email</label>
+          </div>
+          <div class="right">
+            <%= text_field :user, :email %>
+          </div>
+        </div>
+        
+        
+        <div class="group clearfix">
+          <div class="left">
+            <label for="user_password" class="label right">Password</label>
+          </div>
+          <div class="right">
+            <%= password_field :user, :password %>
+          </div>
+        </div>
+
+        <div class="group clearfix">
+          <div class="left">
+            <label for="user_password_confirmation" class="label right">Confirm your password</label>
+          </div>
+          <div class="right">
+            <%= password_field :user, :password_confirmation %>
+          </div>
+        </div>
+
+        <div class="group navform clearfix">
+          <div class="right">
+            <%= submit_tag "Create account", :class => 'button' %>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

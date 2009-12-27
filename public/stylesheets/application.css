@@ -1011,3 +1011,16 @@ h2.title .tab a.button:hover { background-color: #b80606; }
 .fieldWithErrors label { background-color: #ffdddd; }
 .fieldWithErrors input { background-color: #ffdddd; }
 .fieldWithErrors textarea { background-color: #ffdddd; }
+#box .block .signup .fieldWithErrors { display: inline; }
+#box .block .signup .errorExplanation {
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 120%;
+}
+#box .block .signup .errorExplanation h2 {
+  padding: 0;
+  margin: 0;
+  color: #7a1818;
+  background-color: #ffffff;
+  font-size: 1.5em;
+}

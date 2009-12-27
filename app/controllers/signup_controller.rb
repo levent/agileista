@@ -25,7 +25,7 @@ class SignupController < ApplicationController
       flash[:notice] = "Account created.. please check your email to validate your account"
       redirect_to :action => 'ok', :subdomain => @account.subdomain
     else
-      flash[:error] = "Oh oh!"
+      # flash[:error] = "Oh oh!"
       render :action => 'index'
     end    
   end
