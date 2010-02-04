@@ -20,14 +20,14 @@ ActionController::Base.session_options[:session_domain] = 'agileista.local'
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
-config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => 'http://gems.github.com'
-config.gem "rspec", :lib => false, :version => ">= 1.2.9"
-config.gem "rspec-rails", :lib => false, :version => ">= 1.2.9"
-# config.gem "cucumber"
-# config.gem "brynary-webrat", :lib => 'webrat', :source => 'http://gems.github.com'
-config.gem "webrat"
-config.gem "notahat-machinist", :lib => false, :source => "http://gems.github.com"
-config.gem "faker", :lib => false
+# config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => 'http://gems.github.com'
+# config.gem "rspec", :lib => false, :version => "1.2.9"
+# config.gem "rspec-rails", :lib => false, :version => "1.2.9"
+# # config.gem "cucumber"
+# # config.gem "brynary-webrat", :lib => 'webrat', :source => 'http://gems.github.com'
+# # config.gem "webrat"
+# config.gem "notahat-machinist", :lib => false, :source => "http://gems.github.com"
+# config.gem "faker", :lib => false
 # config.gem "drnic-blue-ridge", :lib => false, :source => "http://gems.github.com"
 
 EMAIL_FROM = "donotreply@agileista.purebreeze.com"

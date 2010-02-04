@@ -1,6 +1,7 @@
 require 'digest/sha1'
 
 class Person < ActiveRecord::Base
+  include Gravtastic
   is_gravtastic!
   
   validates_confirmation_of :password

@@ -1,5 +1,5 @@
 ActiveRecord::Base
-config.gem 'ambethia-smtp-tls', :lib => 'smtp-tls'
+# config.gem 'ambethia-smtp-tls', :lib => 'smtp-tls'
 
 # Settings specified here will take precedence over those in config/environment.rb
 

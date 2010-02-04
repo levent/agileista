@@ -48,21 +48,7 @@ Rails::Initializer.run do |config|
   
   # See Rails::Configuration for more options
   # The gems required by this application
-  # config.gem "pdf-writer", :lib => "pdf/writer"
-  # config.gem "color-tools", :lib => "color"
-  config.gem "rack", :version => '>= 1.0.1'
-  config.gem "fastercsv"
-  config.gem "json"#, :version => '1.1.6'
-  # config.gem "prawn"
-  # config.gem "prawn-core"
-  # config.gem "prawn-format"
-  # config.gem "prawn-security"
-  # config.gem "prawn-layout"
-  config.gem 'mislav-will_paginate', :version => '~> 2.3.6', :lib => 'will_paginate', :source => 'http://gems.github.com'
-  config.gem "mbleigh-acts-as-taggable-on", :source => "http://gems.github.com", :lib => "acts-as-taggable-on"
 
-  config.gem "newrelic_rpm"
-  config.gem 'gravtastic', :version => '>= 2.1.0'
 end
 
 # Add new inflection rules using the following format 
