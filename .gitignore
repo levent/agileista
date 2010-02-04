@@ -8,7 +8,6 @@ config/database.yml
 config/*.sphinx.conf
 index/*
 .swp
-<<<<<<< HEAD:.gitignore
 mkmf.log
 rerun.txt
 
@@ -19,5 +18,6 @@ bin/
 gems/*
 !gems/cache
 !gems/bundler
+!gems/dirs
 
 .bundle/config
