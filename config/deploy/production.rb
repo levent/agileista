@@ -37,8 +37,8 @@ namespace :deploy do
   end
 
   task :bundle do
-    # run("cd #{current_path}; bundle install #{current_path}/gems/")
-    run("cd #{current_path}; gem bundle")
+    # run("cd #{release_path}; bundle install #{release_path}/gems/")
+    run("cd #{release_path}; gem bundle")
   end
   
   
