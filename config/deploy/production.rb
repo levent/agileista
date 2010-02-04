@@ -5,7 +5,7 @@ set :deploy_via, :remote_cache
 # set :deploy_via, :copy
 # set :copy_cache, true
 # set :copy_exclude, [".git"]
-# set :branch, "0.4.8"
+set :branch, "master" 
 set :scm_verbose, true
 set :keep_releases,       5
 # set :deploy_via, :export
@@ -35,20 +35,17 @@ namespace :deploy do
     restart_sphinx
     run "touch #{release_path}/tmp/restart.txt"
   end
-end
 
-namespace :deploy do
   task :bundle do
-     run("cd #{release_path}; bundle install #{release_path}/gems/")
+    # run("cd #{current_path}; bundle install #{current_path}/gems/")
+    run("cd #{current_path}; gem bundle")
   end
   
   
   task :stop do
     run "touch #{release_path}/tmp/restart.txt"
   end
-end
 
-namespace :deploy do
   task :start do
     run "touch #{release_path}/tmp/restart.txt"
   end
