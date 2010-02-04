@@ -13,7 +13,8 @@ set :keep_releases,       5
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
 set :deploy_to, "/home/levent/apps/#{application}"
-set :ruby_enterprise, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake"
+# set :ruby_enterprise, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake"
+# set :ruby_enterprise_gem, "/opt/ruby-enterprise-1.8.6-20090610/bin/gem"
 
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
@@ -37,6 +38,11 @@ namespace :deploy do
 end
 
 namespace :deploy do
+  task :bundle do
+     run("cd #{release_path}; bundle install #{release_path}/gems/")
+  end
+  
+  
   task :stop do
     run "touch #{release_path}/tmp/restart.txt"
   end
@@ -50,13 +56,13 @@ end
 
 desc "Stop the sphinx server"
 task :stop_sphinx , :roles => :app do
-  run "cd #{current_path} && #{ruby_enterprise} ts:stop RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && rake ts:stop RAILS_ENV=#{rails_env}"
 end
 
 
 desc "Start the sphinx server" 
 task :start_sphinx, :roles => :app do
-  run "cd #{current_path} && #{ruby_enterprise} ts:config RAILS_ENV=#{rails_env} && #{ruby_enterprise} ts:start RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && rake ts:config RAILS_ENV=#{rails_env} && rake ts:start RAILS_ENV=#{rails_env}"
 end
 
 desc "Restart the sphinx server"
@@ -67,7 +73,7 @@ end
 
 desc "Reindex search index"
 task :reindex_sphinx, :roles => :app do
-  run "cd #{current_path} && #{ruby_enterprise} ts:index RAILS_ENV=#{rails_env}"
+  run "cd #{current_path} && rake ts:index RAILS_ENV=#{rails_env}"
 end
 
 task :setup_symlinks, :roles => :web do
@@ -76,4 +82,5 @@ task :setup_symlinks, :roles => :web do
 end
 
 after "deploy:update_code", :setup_symlinks
+after "deploy:update_code", "deploy:bundle"
 after "deploy", "deploy:cleanup"

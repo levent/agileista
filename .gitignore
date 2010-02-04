@@ -17,3 +17,5 @@ mkmf.log
 gems/*
 !gems/cache
 !gems/bundler
+
+.bundle/config
