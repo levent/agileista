@@ -1,15 +1,20 @@
+
 # This file is copied to ~/spec when you run 'ruby script/generate rspec'
 # from the project root directory.
-ENV["RAILS_ENV"] = "test"
-require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
 require 'spec/autorun'
 require 'spec/rails'
 
-require RAILS_ROOT + '/spec/time_spec_helper'
-require RAILS_ROOT + '/spec/sexy_objects'
-require RAILS_ROOT + '/features/support/blueprints'
+# Uncomment the next line to use webrat's matchers
+#require 'webrat/integrations/rspec-rails'
 
-require "#{RAILS_ROOT}/features/support/blueprints"
+# Requires supporting files with custom matchers and macros, etc,
+# in ./support/ and its subdirectories.
+Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
+
+require File.expand_path(File.join(File.dirname(__FILE__),'..','spec','sexy_objects'))
+require File.expand_path(File.join(File.dirname(__FILE__),'..','features','support', 'blueprints'))
 
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
@@ -18,9 +23,10 @@ Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-  # config.include(ActiveRecordAssociationMatcher)
-  # config.include(ActiveRecordValidationMatcher)
 
+
+  config.before(:all)    { Sham.reset(:before_all)  }
+  config.before(:each)   { Sham.reset(:before_each) }
   # == Fixtures
   #
   # You can declare fixtures for each example_group like this:

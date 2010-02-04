@@ -27,6 +27,7 @@ gem "rspec", "1.2.9",            :only => 'test'
 gem "rspec-rails", "1.2.9",      :only => 'test'
 gem "machinist",                 :only => 'test'
 gem "faker",                     :only => 'test'
+gem "timecop",                     :only => 'test'
 
 
 gem 'cucumber',                  :only => 'cucumber'

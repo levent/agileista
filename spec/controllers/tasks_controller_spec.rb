@@ -118,17 +118,14 @@ describe TasksController do
       @task.should_receive(:update_attributes).with('hash').and_return(true)
       put :update, :task => 'hash'
       response.should be_redirect
-      response.should redirect_to('http://test.host/user_stories/1/tasks/1')
+      response.should redirect_to(edit_user_story_url(@user_story, :anchor => "user_story_tasks"))
     end
     
     it "should update task and redirect to taskboard on success with parameter" do
-      sprint = Sprint.new
-      sprint.stub!(:id).and_return(123)
-      @account.sprints.should_receive(:current).and_return([sprint])
       @task.should_receive(:update_attributes).with('hash').and_return(true)
       put :update, :task => 'hash', :from => 'tb'
       response.should be_redirect
-      response.should redirect_to('http://test.host/sprints/123')
+      response.should redirect_to(edit_user_story_url(@user_story, :anchor => "user_story_tasks"))
     end
     
     it "should update task and redirect on fail" do

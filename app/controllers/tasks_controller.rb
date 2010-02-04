@@ -59,12 +59,13 @@ class TasksController < AbstractSecurityController
   end
   
   def update
+    update_task_developers(params[:commit], @task)
     if @task && @task.update_attributes(params[:task])
        flash[:notice] = "Task saved"
        if params[:from] == 'tb'
-         redirect_to sprint_path(:id => @account.sprints.current.first)
+         redirect_back_or(edit_user_story_url(@user_story, :anchor => "user_story_tasks"))
        else
-         redirect_to user_story_task_path(:id => @task, :user_story_id => @user_story)
+         redirect_back_or(edit_user_story_url(@user_story, :anchor => "user_story_tasks"))
        end
      else
        flash[:error] = "Task couldn't be saved"
@@ -86,22 +87,6 @@ class TasksController < AbstractSecurityController
     @task.developers = @task.developers - [current_user]
     redirect_to sprint_path(:id => @account.sprints.current.first)
   end
-  # 
-  # def release
-  #   if request.post?
-  #     begin
-  #       @task = Task.find(params[:id])
-  #     rescue
-  #       @task = nil
-  #     end
-  #     unless @task.blank?
-  #       @task.developer = nil if @task.developer == Person.find(session[:user])
-  #       @task.save
-  #       flash[:notice] = "Task released successfully"
-  #     end
-  #   end
-  #   redirect_to :back
-  # end
   
   def move_up
     if request.post?
@@ -119,4 +104,14 @@ class TasksController < AbstractSecurityController
     redirect_to :controller => 'user_stories', :action => 'edit', :id => params[:user_story_id], :sprint_id => params[:sprint_id]
   end
   
+  private
+  
+  def update_task_developers(commit, task)
+    case commit
+    when "Claim"
+      task.developers << current_user
+    when "Renounce"
+      task.developers.delete(current_user)
+    end
+  end
 end

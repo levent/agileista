@@ -13,7 +13,7 @@ describe Impediment do
   
   describe "resolve" do
     it "should try and set the resolved_at time and save" do
-      Time.freeze do
+      Timecop.freeze do
         @it.should_receive(:resolved_at=).with(Time.now)
         @it.should_receive(:save).and_return('tru')
         @it.resolve!.should == 'tru'
@@ -24,7 +24,7 @@ describe Impediment do
   describe '#to_s' do
     describe 'when summary is Active' do
       it "should show something useful" do
-        Time.freeze do
+        Timecop.freeze do
           @it.stub!(:status).and_return("Active")
           @it.stub!(:created_at).and_return(Time.now)
           @it.to_s.should == "Active since #{Time.now.strftime('%T %d/%m/%y')}"
@@ -34,7 +34,7 @@ describe Impediment do
     
     describe 'when summary is Resolved' do
       it "should show something useful" do
-        Time.freeze do
+        Timecop.freeze do
           @it.stub!(:status).and_return("Resolved")
           @it.stub!(:resolved_at).and_return(Time.now)
           @it.to_s.should == "Resolved at #{Time.now.strftime('%T %d/%m/%y')}"
