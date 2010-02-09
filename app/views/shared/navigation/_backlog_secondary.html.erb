@@ -6,7 +6,7 @@
     <li class="show"><%= link_to 'Preview', user_story_url(@user_story) %></li>
       <% if current_user.is_a?(TeamMember) %>
     <li class="edit"><%= link_to 'Edit', edit_user_story_url(@user_story) %></li>
-    <li class="delete"><%= link_to("Delete", user_story_url(@user_story), :method => :delete, :confirm => confirmation_message("user_story", @user_story.id)) %></li>
+    <li class="delete"><%= link_to("Delete", user_story_url(@user_story), :method => :delete, :confirm => confirmation_message("user story", @user_story.id)) %></li>
       <% end %>
     <% end %>
     <%= content_tag(:li, link_to("Back to task board", sprint_url(params[:sprint_id]))) if params[:from] == 'tb' %>
