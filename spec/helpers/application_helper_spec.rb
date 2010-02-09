@@ -8,6 +8,16 @@ describe ApplicationHelper do
     @us = UserStory.new
   end
   
+  describe "show_story_points" do
+    it "should give you an informative message on how many story points a story is worth" do
+      @it.show_story_points(13).should == "13 story points"
+    end
+
+    it "should inform user if story points aren't defind" do
+      @it.show_story_points(nil).should == "? story points"
+    end
+  end
+  
   describe "show_assignees" do
     before(:each) do
       @task = Task.make
