@@ -6,6 +6,7 @@ class BacklogController < AbstractSecurityController
   before_filter :account_user_stories ,:only => ['index', 'export', 'feed', 'sort']
 
   def index
+    store_location
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     respond_to do |format|
