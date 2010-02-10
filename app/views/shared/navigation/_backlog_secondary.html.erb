@@ -3,7 +3,6 @@
     <li class="index first"><%= link_to "All user stories", :controller => "backlog" %></li>
     <li class="add"><%= add_user_story %></li>
     <% if @user_story && !@user_story.new_record? %>
-    <li class="show"><%= link_to 'Preview', user_story_url(@user_story) %></li>
       <% if current_user.is_a?(TeamMember) %>
     <li class="edit"><%= link_to 'Edit', edit_user_story_url(@user_story) %></li>
     <li class="delete"><%= link_to("Delete", user_story_url(@user_story), :method => :delete, :confirm => confirmation_message("user story", @user_story.id)) %></li>
