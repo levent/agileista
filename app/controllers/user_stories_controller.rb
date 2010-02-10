@@ -128,6 +128,7 @@ class UserStoriesController < AbstractSecurityController
   
   def destroy
     if @user_story.destroy
+      session[:return_to] = nil if session[:return_to].split("/").last == @user_story.id.to_s
       flash[:notice] = "User story deleted"
     end
     redirect_back_or(backlog_index_url)

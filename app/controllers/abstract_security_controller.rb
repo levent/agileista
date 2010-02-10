@@ -42,6 +42,7 @@ class AbstractSecurityController < ApplicationController
   def store_location
     if request.get?
       session[:return_to] = request.request_uri
+      session[:return_to] = "/backlog" if session[:return_to] == "/backlog.atom"
     end
   end
   
