@@ -2,7 +2,7 @@
   <dt class="clearfix">
     <%= link_to "##{user_story.id}", user_story_url(user_story) %>
     <% if defined?(sprint) %>
-      <%= link_to 'Edit', edit_sprint_user_story_url(sprint, user_story, :from => local_assigns[:from]), :title => "Edit ##{user_story.id}", :class => "edit" if current_user.is_a?(TeamMember) %>
+      <%= link_to 'Edit', edit_sprint_user_story_url(sprint, user_story, :from => local_assigns[:from]), :title => "Edit ##{user_story.id}", :class => "edit" if current_user.is_a?(TeamMember) && !sprint.finished? %>
     <% else %>
       <%= link_to 'Edit', edit_user_story_url(user_story, :from => local_assigns[:from]), :title => "Edit ##{user_story.id}", :class => "edit" if current_user.is_a?(TeamMember) %>
     <% end %>

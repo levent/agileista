@@ -60,11 +60,11 @@ class Sprint < ActiveRecord::Base
   end
 
   def finished?
-    self.end_at < Time.now ? true : false
+    self.end_at < Time.now
   end
 
   def upcoming?
-    self.start_at > Time.now ? true : false
+    self.start_at > Time.now
   end
 
   def current?

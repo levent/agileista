@@ -3,7 +3,7 @@
     <% if current_user.is_a?(TeamMember) %>
       <strong><%= "##{user_story.id}.#{task_card.position}" %></strong>
       <% if defined?(sprint) %>
-        <%= link_to 'Edit', edit_sprint_user_story_url(sprint, user_story, :anchor => "user_story_tasks"), :title => "Edit ##{user_story.id}.#{task_card.position}", :class => "edit" %>
+        <%= link_to 'Edit', edit_sprint_user_story_url(sprint, user_story, :anchor => "user_story_tasks"), :title => "Edit ##{user_story.id}.#{task_card.position}", :class => "edit" unless sprint.finished? %>
       <% else %>
         <%= link_to 'Edit', edit_user_story_url(user_story, :anchor => "user_story_tasks"), :title => "Edit ##{user_story.id}.#{task_card.position}", :class => "edit" %>
       <% end %>
@@ -15,5 +15,9 @@
     <%= h truncate(task_card.definition, :length => 60) %>
     <strong><%= show_assignees(task_card.developers) %></strong>
   </dd>
-  <dd class="tasks clearfix"><% form_for :task, task_card, :url => user_story_task_path(:user_story_id => task_card.user_story, :id => task_card), :html => {:method => :put} do |f| %><%= f.text_field(:hours, :size => 3, :class => 'tasksave') %> <%= submit_tag 'Save', :class => 'tasksave' %><% if claim %> <%= task_card.developers.include?(current_user) ? (submit_tag 'Renounce', :class => 'tasksave') : (submit_tag 'Claim', :class => 'tasksave') %><% end ; end %></dd>
+  <% if defined?(sprint) && !sprint.finished? %>
+    <dd class="tasks clearfix"><% form_for :task, task_card, :url => user_story_task_path(:user_story_id => task_card.user_story, :id => task_card), :html => {:method => :put} do |f| %><%= f.text_field(:hours, :size => 3, :class => 'tasksave') %> <%= submit_tag 'Save', :class => 'tasksave' %><% if claim %> <%= task_card.developers.include?(current_user) ? (submit_tag 'Renounce', :class => 'tasksave') : (submit_tag 'Claim', :class => 'tasksave') %><% end ; end %></dd>
+  <% else %>
+    <dd class="tasks clearfix"><%= pluralize(task_card.hours, "hours") %> remaining</dd>
+  <% end %>
 </dl>

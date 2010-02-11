@@ -109,36 +109,6 @@ class UserStory < ActiveRecord::Base
     end
   end
 
-  # def tag_with(tags)
-  #   self.taggings.destroy_all
-  #   p tags.inspect
-  #   tags.split(" ").each do |tag|
-  #     Tag.find_or_create_by_name_and_account_id(tag,self.account_id).taggables << self
-  #   end
-  # end
-  #
-  # alias :tags= :tag_with
-  #
-  # def theme_with(themes)
-  #   self.themings.destroy_all
-  #   return unless themes
-  #   p themes.inspect
-  #   themes.each do |theme|
-  #     Theme.find_or_create_by_name_and_account_id(theme,self.account_id).themables << self
-  #   end
-  # end
-  #
-  # alias :themes= :theme_with
-
-  # I believe this is unused LA
-  # def active
-  #   if self.done == 0 && self.sprint.blank?
-  #     return "yes"
-  #   else
-  #     return "no"
-  #   end
-  # end
-
   def copy
     new_us = self.clone
     self.acceptance_criteria.each do |ac|
