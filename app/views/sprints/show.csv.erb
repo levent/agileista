@@ -6,7 +6,7 @@ ID,Definition,Description,Story points,Acceptance Criteria,Complete,Position,Cre
     a.description,
     a.story_points,
     a.acceptance_criteria.map(&:detail).join(";").gsub('"', "'"),
-    a.complete?
+    a.complete?,
     a.position,
     a.created_at.strftime('%d/%m/%y %T'),
     a.updated_at.strftime('%d/%m/%y %T')]
