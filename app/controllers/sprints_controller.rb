@@ -1,3 +1,4 @@
+require 'fastercsv'
 class SprintsController < AbstractSecurityController
 
   before_filter :must_be_team_member, :only => [:plan, :new, :edit, :update, :create, :destroy]
