@@ -38,6 +38,7 @@ module SprintsHelper
   end
 
   def average_velocity(sprints, opts = {})
+    return nil unless sprints.length >= 2
     options = {:unit => "story points"}.merge(opts)
 
     if sprints.size == 0
