@@ -19,7 +19,7 @@ gem "newrelic_rpm"
 # gem 'gravtastic', '2.1.3'
 
 gem 'ruby-debug', :except => 'production'
-
+gem 'exceptional', '2.0.12'
 
 
 gem 'shoulda',                   :only => 'test'
