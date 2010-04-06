@@ -10,8 +10,10 @@ Background:
   Given the following themes:
     | account | name        |
     | levent  | New hotness |
-    | levent  | Wow factor  |
   And I sign in as team member "levent@example.com" to an account "levent"
 
   Scenario: Navigate and add a story to a theme
-    Given I pend this
+    Given follow "Themes"
+    And I follow "New hotness"
+    When I follow "add new user story"
+    Then the "New hotness" checkbox should be checked

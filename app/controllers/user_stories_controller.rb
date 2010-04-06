@@ -5,6 +5,7 @@ class UserStoriesController < AbstractSecurityController
     :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
   before_filter :set_sprint, :only => [:new, :show, :edit, :create, :plan, :unplan, :reorder]
   before_filter :set_additional_themes, :only => [:create, :update]
+  before_filter :load_theme, :only => [:new]
   
   def copy
     if @user_story.copy
@@ -16,7 +17,8 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def new
-    @user_story = UserStory.new
+    @user_story = UserStory.new#(:themes => [@theme])
+    @user_story.themes << @theme if @theme
     @user_story.acceptance_criteria.build
     @user_story.tasks.build
   end
@@ -148,5 +150,9 @@ class UserStoriesController < AbstractSecurityController
   
   def assign_additional_themes
     @user_story.themes << @additional_theme if @additional_theme
+  end
+  
+  def load_theme
+    @theme = @account.themes.find(params[:theme_id]) if params[:theme_id]
   end
 end
