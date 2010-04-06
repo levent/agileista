@@ -1,12 +1,32 @@
-<div id="navii"><%= link_to "Back to settings", :controller => 'account', :action => 'settings' %></div>
 <div id="main">
-	<h1>Invite a new user to your account</h1>
-	<%= error_messages_for :person %>
-	<% form_for :person, @person, :url => {:action => 'create'} do |p| %>
-		<label for="person_name">Name: </label><%= p.text_field :name %>
-		<label for="person_email">Email: </label><%= p.text_field :email %>
-		<label for="team_member">Team member</label><input type="radio" name="type" value="team_member" checked="checked" />
-		<label for="contributor">Contributor</label><input type="radio" name="type" value="contributor" />
-		<%= submit_tag "Send invitation" %>
-	<% end %>
+  <div class="block">
+    <%= render(:partial => "shared/navigation/account_secondary") %>
+    <div class="content">
+      <h2 class="title">Invite a new user to your account</h2>
+      <div class="inner form">
+        <div class="columns clearfix">
+          <div class="column left">
+          <%= error_messages_for :person %>
+          <% form_for :person, @person, :url => {:action => 'create'}, :html => {:class => "form"} do |p| %>
+            <div class="group">
+              <label for="person_name" class="label">Name: </label>
+              <%= p.text_field :name, :class => "text_field" %>
+            </div>
+            <div class="group">
+              <label for="person_email" class="label">Email: </label>
+              <%= p.text_field :email, :class => "text_field" %>
+            </div>
+            <div class="group">
+              <label for="team_member" class="label">Team member</label><input type="radio" name="type" value="team_member" checked="checked" />
+              <label for="contributor" class="label">Contributor</label><input type="radio" name="type" value="contributor" />
+            </div>
+            <div class="group">
+              <%= submit_tag "Send invitation" %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
