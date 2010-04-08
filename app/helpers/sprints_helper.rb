@@ -41,7 +41,7 @@ module SprintsHelper
     return nil unless sprints.length >= 2
     options = {:unit => "story points"}.merge(opts)
 
-    if sprints.size == 0
+    if sprints.size == 0 || sprints.finished.size == 0
       "0 #{options[:unit]}"
     else
       (sprints.finished.collect(&:calculated_velocity).sum / sprints.finished.size).to_s + " #{options[:unit]}"
