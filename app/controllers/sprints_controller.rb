@@ -1,3 +1,4 @@
+require 'fastercsv'
 class SprintsController < AbstractSecurityController
 
   before_filter :must_be_team_member, :only => [:plan, :new, :edit, :update, :create, :destroy]
@@ -19,6 +20,9 @@ class SprintsController < AbstractSecurityController
         format.html {render :action => 'task_board'}
       else
         format.html
+        format.csv do
+          render_csv("sprint_#{@sprint.id}_#{Time.now.strftime('%Y%m%d%H%M')}")
+        end
       end
     end
   end
@@ -84,6 +88,8 @@ class SprintsController < AbstractSecurityController
   def set_start_at
     if @sprint.start_at.blank? && params[:from]
       @sprint.start_at = Date.new(params[:from][:year].to_i, params[:from][:month].to_i, params[:from][:day].to_i).strftime("%Y-%m-%d %H:%M:%S")
+    elsif @sprint.start_at.blank?
+      @sprint.start_at = Date.today
     end
   end
   

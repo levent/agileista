@@ -19,23 +19,23 @@ gem "newrelic_rpm"
 # gem 'gravtastic', '2.1.3'
 
 gem 'ruby-debug', :except => 'production'
-
+gem 'exceptional', '2.0.12'
 
 
 gem 'shoulda',                   :only => 'test'
-gem "rspec", "1.2.9",            :only => 'test'
-gem "rspec-rails", "1.2.9",      :only => 'test'
+gem "rspec", "1.3.0",            :only => 'test'
+gem "rspec-rails", "1.3.2",      :only => 'test'
 gem "machinist",                 :only => 'test'
 gem "faker",                     :only => 'test'
 gem "timecop",                     :only => 'test'
 
 
-gem 'cucumber',                  :only => 'cucumber'
+gem 'cucumber', '0.6.4',         :only => 'cucumber'
 gem 'cucumber-rails',            :only => 'cucumber'
-gem 'database_cleaner',          :only => 'cucumber'
+gem 'database_cleaner', '0.5.0', :only => 'cucumber'
 gem 'webrat',                    :only => 'cucumber'
-gem 'rspec', '1.2.9',            :only => 'cucumber'
-gem 'rspec-rails', '1.2.9',      :only => 'cucumber'
+gem 'rspec', '1.3.0',            :only => 'cucumber'
+gem 'rspec-rails', '1.3.2',      :only => 'cucumber'
 
 # config.gem 'ambethia-smtp-tls', :lib => 'smtp-tls', :only => 'production'
 gem "smtp-tls", :git => "git://github.com/ambethia/smtp-tls", :only => 'production'

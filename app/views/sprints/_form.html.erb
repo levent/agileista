@@ -16,10 +16,10 @@
     <div class="group">
       <%= form.label :start_at, nil, :class => "label" %>
       <% if !@sprint.new_record? %>
-			  <%= form.date_select :start_at, :order => [:day, :month, :year] %>
-		  <% elsif @sprint.new_record? && !@account.sprints.blank? %>
-			  <%= form.date_select :start_at, {:order => [:day, :month, :year], :default => 1.day.from_now(@account.sprints.first.end_at)} %>
-		  <% end %>
+        <%= form.date_select :start_at, :order => [:day, :month, :year] %>
+      <% elsif @sprint.new_record? && !@account.sprints.blank? %>
+        <%= form.date_select :start_at, {:order => [:day, :month, :year], :default => 1.day.from_now(@account.sprints.first.end_at)} %>
+      <% end %>
     </div>
 
     <div class="group">

@@ -22,7 +22,7 @@
   <% else %>
     <div class="flash">
       <div class="message notice">
-        <p>There are no user stories for this theme, <%= link_to "add new user story", new_user_story_url(:theme => theme.id) %>.<p>
+        <p>There are no user stories for this theme, <%= link_to "add new user story", new_theme_user_story_url(theme) %>.<p>
       </div>
     </div>
   <% end %>

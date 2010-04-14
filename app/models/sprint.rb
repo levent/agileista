@@ -73,7 +73,7 @@ class Sprint < ActiveRecord::Base
 
   def calculate_end_date
     unless self.end_at
-      self.end_at = self.account.iteration_length.to_i.weeks.from_now(1.day.ago(self.start_at)).end_of_day
+      self.end_at = self.account.iteration_length.to_i.weeks.from_now(1.day.ago(start_at)).end_of_day
     else
       self.end_at = self.end_at.end_of_day
     end
