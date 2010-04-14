@@ -948,6 +948,7 @@ dl.user_story dd.story {
   border: 2px solid #999999;
   border-top: none;
 }
+dl.user_story.complete dd.story { background-color: #ddffbb; }
 dl.user_story dd.tasks {
   background-color: #999999;
   border-radius-bottomleft: 5px;

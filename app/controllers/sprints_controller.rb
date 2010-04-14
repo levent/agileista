@@ -56,8 +56,6 @@ class SprintsController < AbstractSecurityController
   end
   
   def plan
-    store_location
-    render_404 if @sprint && @sprint.finished?
   end
   
   def destroy

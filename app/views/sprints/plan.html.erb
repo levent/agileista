@@ -15,7 +15,7 @@
         <div id="committed" class="clearfix right">
           <h3 class="tab"><%= @sprint.name %> <%= link_to "Change order", "#", :id => "reorder", :class => "button" %></h3>
           <% @sprint.user_stories.each do |user_story| %>
-            <%= render :partial => '/user_stories/user_story', :locals => {:sprint => @sprint, :user_story => user_story, :tasks => true} %>
+            <%= render :partial => '/user_stories/user_story', :locals => {:sprint => @sprint, :user_story => user_story, :tasks => !@sprint.finished?, :copy => @sprint.finished? && !user_story.complete?} %>
           <% end %>
         </div>
       </div>
@@ -24,7 +24,7 @@
   <%= render(:partial => "shared/footer") %>
 </div>
 
-<% unless current_user.is_a?(Contributor) -%>
+<% unless current_user.is_a?(Contributor) || @sprint.finished? -%>
   <% content_for :custom_js do %>
     <script type="text/javascript" charset="utf-8">
       setupSprintPlanning(<%= @sprint.id %>);
