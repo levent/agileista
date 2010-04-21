@@ -28,7 +28,7 @@
         <%= text_field_tag 'q' %><%= submit_tag 'Search', :class => "submit" %>
       <% end %>
 
-      <%= link_to(image_tag(current_user.gravatar_url(:size => 40)), edit_user_url(current_user), :class => "gravatar right") %>
+      <%= link_to(image_tag(current_user.gravatar_url(:rating => 'G', :size => 40)), edit_user_url(current_user), :class => "gravatar right") %>
       <%= flash_messages("p") %>
     </div>
     <div id="user-navigation" class="clearfix main-navigation">
