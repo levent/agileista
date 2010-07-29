@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'rails', '2.3.8'
+gem 'bundler', '~>0.9.26' # for phusion passenger
 
 gem "mysql"
 gem "fastercsv"

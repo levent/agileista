@@ -88,6 +88,10 @@ dependencies:
     group: 
     - :development
     version: ">= 0"
+  bundler: 
+    group: 
+    - :default
+    version: ~> 0.9.26
   cucumber: 
     group: 
     - :cucumber
@@ -113,6 +117,8 @@ specs:
     version: 0.2.1
 - builder: 
     version: 2.1.2
+- bundler: 
+    version: 0.9.26
 - columnize: 
     version: 0.3.1
 - diff-lcs: 
@@ -184,7 +190,7 @@ specs:
     version: 0.7.1
 - will_paginate: 
     version: 2.3.14
-hash: 40b52fc50c66d72cb677064bc846f831077cc158
+hash: eaa1b53726d234c0f732b4518c8ae16b6af4241d
 sources: 
 - Git: 
     uri: git://github.com/ambethia/smtp-tls
