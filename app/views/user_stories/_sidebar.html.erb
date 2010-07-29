@@ -13,8 +13,8 @@
         <%= crit_form.text_area :detail, :class => "text_area", :rows => 3 %>
         <% unless crit_form.object.new_record? %>
           <span class="remove">
-            <%= crit_form.check_box '_delete' %>
-            <%= crit_form.label '_delete', 'Remove' %>
+            <%= crit_form.check_box '_destroy' %>
+            <%= crit_form.label '_destroy', 'Remove' %>
           </span>
         <% end %>
       </li>
@@ -36,8 +36,8 @@
         <%= tasks_form.text_field :hours, :class => "text_field" %>
         <% unless tasks_form.object.new_record? || tasks_form.object.complete? %>
           <span class="remove">
-            <%= tasks_form.check_box '_delete' %>
-            <%= tasks_form.label '_delete', 'Remove' %>
+            <%= tasks_form.check_box '_destroy' %>
+            <%= tasks_form.label '_destroy', 'Remove' %>
           </span>
         <% end %>
       </li>
