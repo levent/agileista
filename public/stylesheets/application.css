@@ -281,7 +281,10 @@ ul.list li .item .avatar {
   width: 500px;
   margin: 50px auto;
 }
-#box .block { margin-bottom: 20px; }
+#box .block {
+  margin-bottom: 20px;
+  -webkit-box-shadow: #999999 0px 0px 6px;
+}
 #box .block h2 {
   padding: 10px 15px;
   margin: 0;
@@ -738,10 +741,7 @@ body.plan { background-color: #f0f0ee; }
   margin-right: 10px;
   padding: 3px;
 }
-#header a.gravatar {
-  border: 5px solid rgba(0, 0, 0, 0.1);
-  margin-top: 10px;
-}
+#header a.gravatar { margin-top: 10px; }
 .main-navigation li a.unresolved { color: #cc0000; }
 .main-navigation li a.unresolved:after { content: "*"; }
 .sprints.show.task_board .main-navigation ul li.sprints.active {

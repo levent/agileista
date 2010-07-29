@@ -1,43 +1,40 @@
-clear_sources
-source 'http://gemcutter.org'
-source 'http://gems.github.com'  
- 
-disable_system_gems
- 
-bundle_path 'gems'
- 
-gem 'rails', '2.3.5'
+source :rubygems
+
+gem 'rails', '2.3.8'
 
 gem "mysql"
 gem "fastercsv"
 gem "json"
 gem "prawn"
-gem 'will_paginate'
+gem 'will_paginate', '~> 2.3.11'
 gem "acts-as-taggable-on"
 gem "awesome_print"
 gem "newrelic_rpm"
 # gem 'gravtastic', '2.1.3'
 
-gem 'ruby-debug', :except => 'production'
+group :development do
+  gem 'ruby-debug'
+  gem 'less'
+end
 gem 'exceptional', '2.0.12'
 
 
-gem 'shoulda',                   :only => 'test'
-gem "rspec", "1.3.0",            :only => 'test'
-gem "rspec-rails", "1.3.2",      :only => 'test'
-gem "machinist",                 :only => 'test'
-gem "faker",                     :only => 'test'
-gem "timecop",                     :only => 'test'
+gem 'shoulda',                   :group => 'test'
+gem "rspec", "1.3.0",            :group => 'test'
+gem "rspec-rails", "1.3.2",      :group => 'test'
+gem "machinist",                 :group => 'test'
+gem "faker",                     :group => 'test'
+gem "timecop",                     :group => 'test'
 
 
-gem 'cucumber', '0.6.4',         :only => 'cucumber'
-gem 'cucumber-rails',            :only => 'cucumber'
-gem 'database_cleaner', '0.5.0', :only => 'cucumber'
-gem 'webrat',                    :only => 'cucumber'
-gem 'rspec', '1.3.0',            :only => 'cucumber'
-gem 'rspec-rails', '1.3.2',      :only => 'cucumber'
+gem 'cucumber', '0.6.4',         :group => 'cucumber'
+gem 'cucumber-rails',            :group => 'cucumber'
+gem 'database_cleaner', '0.5.0', :group => 'cucumber'
+gem 'webrat',                    :group => 'cucumber'
+gem 'rspec', '1.3.0',            :group => 'cucumber'
+gem 'rspec-rails', '1.3.2',      :group => 'cucumber'
 
-# config.gem 'ambethia-smtp-tls', :lib => 'smtp-tls', :only => 'production'
-gem "smtp-tls", :git => "git://github.com/ambethia/smtp-tls", :only => 'production'
+# config.gem 'ambethia-smtp-tls', :lib => 'smtp-tls', :group => 'production'
+gem "smtp-tls", :git => "git://github.com/ambethia/smtp-tls", :group => 'production'
 
 
