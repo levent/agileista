@@ -106,9 +106,6 @@ module Rails
   end
 end
 
-# All that for this:
-Rails.boot!
-
 class Rails::Boot
   def run
     load_initializer
@@ -122,3 +119,8 @@ class Rails::Boot
     Rails::Initializer.run(:set_load_path)
   end
 end
+
+# All that for this:
+Rails.boot!
+
+
