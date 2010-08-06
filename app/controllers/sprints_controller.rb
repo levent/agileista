@@ -60,6 +60,7 @@ class SprintsController < AbstractSecurityController
   end
   
   def plan
+    store_location
   end
   
   def destroy
