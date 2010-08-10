@@ -2,8 +2,9 @@
   <div class="block">
 
     <div class="content">
-      <div id="burndown"></div>
-
+      <% if @flot_points.length > 1 %>
+      <div id="burndown" style="width:800;height:268px;"></div> 
+      <% end %>
       <h2 class="title"><%= sprint_header(@sprint, :buttons => [:add_story]) %></h2>
 
       <div class="inner">
@@ -26,8 +27,13 @@
 </div>
 
 <% content_for :custom_js do %>
-<script type="text/javascript" charset="utf-8">
-  FCLOUD.Charts.burndown(<%= @burndown_labels.inspect %>, <%= @burndown_data.inspect %>);
-</script>
+<script id="source" language="javascript" type="text/javascript"> 
+$(function () {
+    var burndown = <%= @flot_points.inspect %>;
+    
+    $.plot($("#burndown"), [ burndown ], { xaxis: { mode: "time", minTickSize: [1, "day"] }, yaxis: { min: 0, mintickSize: 1, tickDecimals: 0} });
+});
+</script> 
+ 
 <% end %>
 

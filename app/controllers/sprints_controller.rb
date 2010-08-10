@@ -52,7 +52,7 @@ class SprintsController < AbstractSecurityController
   def update
     if @sprint && @sprint.update_attributes(params[:sprint])
       flash[:notice] = "Sprint saved"
-      redirect_to sprints_path
+      redirect_back_or(sprints_path)
     else
       flash[:error] = "Sprint couldn't be saved"
       render :action => 'edit'
@@ -99,6 +99,12 @@ class SprintsController < AbstractSecurityController
     burndowns = @sprint.burndowns
     @burndown_labels = burndowns.map{|burn| burn.created_on.strftime("%d %B %Y")}
     @burndown_data = burndowns.map{|burn| burn.hours_left}
+    @flot_points = burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.hours_left]}
+    if @flot_points.length > 1
+      burndowns[-2].created_on.to_date.upto @sprint.end_at.to_date do |date|
+        @flot_points << [date.to_time.to_i * 1000, 'null']
+      end
+    end
   end
   
 end
