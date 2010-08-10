@@ -283,7 +283,9 @@ ul.list li .item .avatar {
 }
 #box .block {
   margin-bottom: 20px;
-  -webkit-box-shadow: #999999 0px 0px 6px;
+  -webkit-box-shadow: 2px 2px 6px #aaaaaa;
+  -moz-box-shadow: 2px 2px 6px #aaaaaa;
+  box-shadow: 2px 2px 6px #aaaaaa;
 }
 #box .block h2 {
   padding: 10px 15px;
@@ -454,8 +456,9 @@ hr {
   font-size: 0.9em;
 }
 .flash .message {
-  -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
   text-align: center;
   margin: 0 auto 15px;
 }
