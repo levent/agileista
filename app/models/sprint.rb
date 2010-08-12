@@ -30,7 +30,7 @@ class Sprint < ActiveRecord::Base
 
   def calculated_velocity
     return 0 unless self.finished?
-    self.velocity || calculate_velocity
+    self.velocity || calculate_velocity!
   end
 
   def total_story_points
@@ -41,7 +41,7 @@ class Sprint < ActiveRecord::Base
     self.calculated_velocity
   end
 
-  def calculate_velocity
+  def calculate_velocity!
     tally = 0
     self.user_stories.each do |us|
       tally += us.story_points if us.story_points && us.complete?
