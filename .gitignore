@@ -8,7 +8,7 @@ coverage/*
 config/database.yml
 config/*.sphinx.conf
 index/*
-.swp
+*.swp
 mkmf.log
 rerun.txt
 
