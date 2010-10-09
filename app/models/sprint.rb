@@ -25,6 +25,8 @@ class Sprint < ActiveRecord::Base
     return false if self.start_at <= Time.now
     @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(self.id, self.start_at.to_date)
     @burndown.hours_left = self.hours_left
+    @burndown.story_points_complete = self.story_points_burned
+    @burndown.story_points_remaining = self.total_story_points
     @burndown.save
   end
 
@@ -37,18 +39,18 @@ class Sprint < ActiveRecord::Base
     self.user_stories.sum('story_points')
   end
 
-  def completed_story_points
-    self.calculated_velocity
-  end
-
-  def calculate_velocity!
+  def story_points_burned
     tally = 0
     self.user_stories.each do |us|
       tally += us.story_points if us.story_points && us.complete?
     end
-    self.velocity = tally
+    tally
+  end
+
+  def calculate_velocity!
+    self.velocity = self.story_points_burned
     save!
-    return tally
+    return self.velocity
   end
 
   def hours_left

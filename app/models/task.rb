@@ -10,6 +10,7 @@ class Task < ActiveRecord::Base
   has_many :task_developers
   has_many :developers, :through => :task_developers, :foreign_key => 'developer_id', :class_name => "Person", :uniq => true
 
+  delegate :sprint, :to => :user_story, :allow_nil => true
   
   # named_scope :incomplete, :conditions => "developer_id IS NULL && (hours > 0 OR hours IS NULL)"
   # named_scope :inprogress, :conditions => "(developer_id IS NOT NULL AND hours > 0) OR (developer_id IS NOT NULL AND hours IS NULL)"
@@ -31,7 +32,7 @@ class Task < ActiveRecord::Base
   end
 
   def calculate_burndown
-    self.user_story.sprint.calculate_day_zero if self.user_story && self.user_story.sprint
+    self.user_story.sprint.calculate_day_zero if self.sprint
   end
   
   def complete?

@@ -20,7 +20,7 @@ module SprintsHelper
     end
 
     result << %{<span class="hightlight">#{show_date(sprint.start_at)} to #{show_date(sprint.end_at)}.</span>} if options[:show_date?]
-    result << %{<span class="hightlight"><strong>#{sprint.completed_story_points}</strong> out of <strong>#{sprint.total_story_points}</strong> story points completed</span>} if options[:show_story_points?] && !sprint.user_stories.blank?
+    result << %{<span class="hightlight"><strong>#{sprint.calculated_velocity}</strong> out of <strong>#{sprint.total_story_points}</strong> story points completed</span>} if options[:show_story_points?] && !sprint.user_stories.blank?
 
     return result.join(" ")
   end

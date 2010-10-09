@@ -2,7 +2,7 @@
   <td class="name"><%= link_to h(sprint.name), sprint_url(sprint) %></td>
   <td class="description"><%= h sprint.goal %></td>
   <td class="points"><%= sprint.total_story_points %></td>
-  <td class="points"><%= sprint.completed_story_points %></td>
+  <td class="points"><%= sprint.calculated_velocity %></td>
   <td class="date"><%= show_date(sprint.start_at) %></td>
   <td class="date"><%= show_date(sprint.end_at) %></td>
   <td class="actions">
