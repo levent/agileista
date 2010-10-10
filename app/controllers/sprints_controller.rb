@@ -97,12 +97,15 @@ class SprintsController < AbstractSecurityController
   def calculate_burndown_points
     return nil unless @sprint
     burndowns = @sprint.burndowns
-    @burndown_labels = burndowns.map{|burn| burn.created_on.strftime("%d %B %Y")}
-    @burndown_data = burndowns.map{|burn| burn.hours_left}
-    @flot_points = burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.hours_left]}
-    if @flot_points.length > 1
+    @flot_burnup = []
+    @flot_burndown = burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.hours_left]}
+    @flot_burnup << burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.story_points_complete || 'null']} 
+    @flot_burnup << burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.story_points_remaining || 'null']}
+    if @flot_burndown.length > 1 && @flot_burnup.first.length > 1 && @flot_burnup.last.length > 1
       burndowns[-2].created_on.to_date.upto @sprint.end_at.to_date do |date|
-        @flot_points << [date.to_time.to_i * 1000, 'null']
+        @flot_burndown << [date.to_time.to_i * 1000, 'null']
+        @flot_burnup[0] << [date.to_time.to_i * 1000, 'null']
+        @flot_burnup[1] << [date.to_time.to_i * 1000, 'null']
       end
     end
   end

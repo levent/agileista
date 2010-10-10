@@ -2,9 +2,7 @@
   <div class="block">
 
     <div class="content">
-      <% if @flot_points.length > 1 %>
-      <div id="burndown" style="width:800;height:268px;"></div> 
-      <% end %>
+      <%= render :partial => "shared/burn_charts", :locals => {:flot_points => @flot_points} %>
       <h2 class="title"><%= sprint_header(@sprint, :buttons => [:add_story]) %></h2>
 
       <div class="inner">
@@ -25,15 +23,3 @@
   </div>
   <%= render(:partial => "shared/footer") %>
 </div>
-
-<% content_for :custom_js do %>
-<script id="source" language="javascript" type="text/javascript"> 
-$(function () {
-    var burndown = <%= @flot_points.inspect %>;
-    
-    $.plot($("#burndown"), [ burndown ], { xaxis: { mode: "time", minTickSize: [1, "day"] }, yaxis: { min: 0, mintickSize: 1, tickDecimals: 0} });
-});
-</script> 
- 
-<% end %>
-

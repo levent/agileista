@@ -3,10 +3,8 @@
     <%= render(:partial => "shared/navigation/sprints_secondary") %>
 
     <div class="content">
-      <div id="burndown"></div>
-
+      <%= render :partial => "shared/burn_charts", :locals => {:flot_points => @flot_points} %>
       <h2 class="title"><%= sprint_header(@sprint, :show_date? => true) %></h2>
-
       <div class="inner">
         <table class="table">
           <tbody>
@@ -26,9 +24,4 @@
   <%= render(:partial => "shared/footer") %>
 </div>
 
-<% content_for :custom_js do %>
-<script type="text/javascript" charset="utf-8">
-  FCLOUD.Charts.burndown(<%= @burndown_labels.inspect %>, <%= @burndown_data.inspect %>);
-</script>
-<% end %>
 
