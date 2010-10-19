@@ -953,6 +953,7 @@ dl.user_story dd.story {
   border-top: none;
 }
 dl.user_story.complete dd.story { background-color: #ddffbb; }
+dl.user_story.inprogress dd.story { background-color: #ffffbb; }
 dl.user_story dd.tasks {
   background-color: #999999;
   border-radius-bottomleft: 5px;
