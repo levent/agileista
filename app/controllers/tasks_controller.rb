@@ -29,7 +29,7 @@ class TasksController < AbstractSecurityController
     else
       flash[:error] = "Task could not be created"
     end
-    redirect_to plan_sprint_path(:id => @user_story.sprint_id)
+    redirect_back_or(plan_sprint_path(:id => @user_story.sprint_id))
   end
   
   def assign
