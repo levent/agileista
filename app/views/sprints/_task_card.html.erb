@@ -1,4 +1,4 @@
-<dl id="task_card_<%= task_card.id %>" class="task_card" title="<%=h task_card.user_story.definition %>">
+<dl id="task_card_<%= task_card.id %>" class="task_card" title="<%=h task_card.definition %>">
   <dt class="clearfix">
     <% if current_user.is_a?(TeamMember) %>
       <strong><%= "##{user_story.id}.#{task_card.position}" %></strong>
