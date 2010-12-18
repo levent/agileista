@@ -52,7 +52,16 @@ class TasksController < AbstractSecurityController
     else
       error = "You cannot move tasks across user stories"
     end
-    render :json => {:error => error, :html_content => params.inspect, :sprint_id => @user_story.sprint_id}.to_json
+    devs = task.developers.any? ? "<strong>#{task.developers.map(&:name).join(', ')}</strong>" : "<strong>Nobody</strong>"
+    render :json => {
+      :error => error,
+      :html_content => params.inspect,
+      :sprint_id => @user_story.sprint_id,
+      :user_story_id => @user_story.id,
+      :task_id => task.id,
+      :hours_left => task.hours,
+      :onto => params[:onto],
+      :definition => "#{task.definition} #{devs}" }
   end
   
   def edit

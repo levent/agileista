@@ -4,11 +4,46 @@
 	});
 })(jQuery);
 
+if($('#loading')) {
+  $('#loading').ajaxStart(function(){
+    $(this).show();
+  });
+  $('#loading').ajaxStop(function(){
+    $(this).hide();
+  });
+}
+
+// if($('.task_card_form')) {
+//   $('.task_card_form').submit(function(){ return false });
+//   $(".tasksavehours, .taskclaim, .taskrenounce").click(function(event) {
+//     $form = $(this).parent("form");
+//     $.ajax({
+//       type: "PUT",
+//       url: $form.attr("action"),
+//       data: $form.serialize() + "&submit=" + $(this).attr("value"),
+//       success: function(data) {
+//         $form.hide();
+//         console.log('here');
+//         console.log(data);
+//         return false;
+//       },
+//       dataType: "json"
+//     });
+//       
+//     return false;
+//   });
+// }
+
 function set_flash_or_refresh_task_board(data) {
   if(data.error) {
     set_flash(data.error);
   } else {
-    document.location.href = '/sprints/' + data.sprint_id;
+    var column = $('#' + data.onto + '_' + data.user_story_id);
+    var task_card = $('#' + 'task_card_' + data.task_id);
+    column.append(task_card);
+    task_card.attr('style', 'position:relative');
+    $('#task_card_' + data.task_id + ' dd.definition').html(data.definition);
+    $('#task_card_' + data.task_id + ' input#task_hours')[0].value = data.hours_left;
   }
 }
 
@@ -17,6 +52,8 @@ function set_flash(message) {
 }
 
 function setupTaskBoard(user_story_id) {
+
+
   var us_container = '#user_story_container_' + user_story_id;
   $(us_container).find('dl.task_card').draggable({delay: 100, zIndex: 100});
 
