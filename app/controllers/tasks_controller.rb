@@ -2,8 +2,8 @@ class TasksController < AbstractSecurityController
   
   # ssl_required :create, :claim, :release, :move_up, :move_down
   before_filter :must_be_team_member
-  before_filter :set_user_story, :only => [:show, :edit, :update, :destroy, :new, :create, :create_quick, :assign, :claim, :unclaim]
-  before_filter :set_task, :only => [:show, :edit, :update, :destroy, :claim, :unclaim]
+  before_filter :set_user_story, :only => [:show, :edit, :update, :destroy, :new, :create, :create_quick, :assign, :claim]
+  before_filter :set_task, :only => [:show, :edit, :update, :destroy, :claim]
 
   def show
   end
@@ -33,7 +33,7 @@ class TasksController < AbstractSecurityController
   end
   
   def assign
-    task = @user_story.tasks.find(:first, :conditions => ["id = ?", params[:task_id]])
+    task = @user_story.tasks.find(params[:task_id])
     error = ''
     if task
       case params[:onto]
@@ -55,7 +55,6 @@ class TasksController < AbstractSecurityController
     devs = task.developers.any? ? "<strong>#{task.developers.map(&:name).join(', ')}</strong>" : "<strong>Nobody</strong>"
     render :json => {
       :error => error,
-      :html_content => params.inspect,
       :sprint_id => @user_story.sprint_id,
       :user_story_id => @user_story.id,
       :task_id => task.id,
@@ -70,16 +69,12 @@ class TasksController < AbstractSecurityController
   def update
     update_task_developers(params[:commit], @task)
     if @task && @task.update_attributes(params[:task])
-       flash[:notice] = "Task saved"
-       if params[:from] == 'tb'
-         redirect_back_or(edit_user_story_url(@user_story, :anchor => "user_story_tasks"))
-       else
-         redirect_back_or(edit_user_story_url(@user_story, :anchor => "user_story_tasks"))
-       end
-     else
-       flash[:error] = "Task couldn't be saved"
-       render :action => 'edit'
-     end
+      flash[:notice] = "Task saved"
+      redirect_back_or(edit_user_story_url(@user_story, :anchor => "user_story_tasks"))
+    else
+      flash[:error] = "Task couldn't be saved"
+      render :action => 'edit'
+    end
   end
   
   def destroy
@@ -88,15 +83,29 @@ class TasksController < AbstractSecurityController
   end
 
   def claim
-    @task.developers << current_user
-    redirect_to sprint_path(:id => @account.sprints.current.first)
+    case params[:submit]
+    when 'taskrenounce'
+      @task.developers.delete(current_user)
+    when 'taskclaim'
+      @task.developers << current_user
+    end
+    @task.update_attributes(params[:task])
+    if @task.developers.any?
+      devs = "<strong>#{@task.developers.map(&:name).join(', ')}</strong>"
+      @task.hours.to_i > 0 ? onto = 'inprogress' : onto = 'complete'
+    else
+      devs = "<strong>Nobody</strong>"
+      onto = 'incomplete'
+    end
+    render :json => {
+      :sprint_id => @user_story.sprint_id,
+      :user_story_id => @user_story.id,
+      :task_id => @task.id,
+      :hours_left => @task.hours,
+      :onto => onto,
+      :definition => "#{@task.definition} #{devs}" }
   end
-  
-  def unclaim
-    @task.developers = @task.developers - [current_user]
-    redirect_to sprint_path(:id => @account.sprints.current.first)
-  end
-  
+
   def move_up
     if request.post?
       @account.user_stories.find(params[:user_story_id]).tasks.find(params[:id]).move_higher

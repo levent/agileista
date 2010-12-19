@@ -13,37 +13,43 @@ if($('#loading')) {
   });
 }
 
-// if($('.task_card_form')) {
-//   $('.task_card_form').submit(function(){ return false });
-//   $(".tasksavehours, .taskclaim, .taskrenounce").click(function(event) {
-//     $form = $(this).parent("form");
-//     $.ajax({
-//       type: "PUT",
-//       url: $form.attr("action"),
-//       data: $form.serialize() + "&submit=" + $(this).attr("value"),
-//       success: function(data) {
-//         $form.hide();
-//         console.log('here');
-//         console.log(data);
-//         return false;
-//       },
-//       dataType: "json"
-//     });
-//       
-//     return false;
-//   });
-// }
+if($('.task_card_form')) {
+  $('.task_card_form').submit(function(){ return false });
+
+  $(".taskclaim, .taskrenounce, .tasksavehours").click(function(event) {
+    $form = $(this).parent("form");
+    $.post($form.attr("action") + '/claim', $form.serialize() + '&submit=' + this.className, function(data) {
+      set_flash_or_refresh_task_board(data);
+    }, "json");
+    return false;
+  });
+}
 
 function set_flash_or_refresh_task_board(data) {
   if(data.error) {
     set_flash(data.error);
   } else {
-    var column = $('#' + data.onto + '_' + data.user_story_id);
+    if (data.hours_left == '0') {
+      var column = $('#complete_' + data.user_story_id);
+    } else {
+      var column = $('#' + data.onto + '_' + data.user_story_id);
+    }
     var task_card = $('#' + 'task_card_' + data.task_id);
     column.append(task_card);
     task_card.attr('style', 'position:relative');
     $('#task_card_' + data.task_id + ' dd.definition').html(data.definition);
     $('#task_card_' + data.task_id + ' input#task_hours')[0].value = data.hours_left;
+    if(data.onto == 'inprogress') {
+      $('#givetake_' + data.task_id)[0].value = 'Renounce';
+      $('#claimtype_' + data.task_id)[0].value = 'renounce';
+      $('#givetake_' + data.task_id).addClass('taskrenounce');
+      $('#givetake_' + data.task_id).removeClass('taskclaim');
+    } else if (data.onto == 'incomplete') {
+      $('#givetake_' + data.task_id)[0].value = 'Claim';
+      $('#claimtype_' + data.task_id)[0].value = 'claim';
+      $('#givetake_' + data.task_id).addClass('taskclaim');
+      $('#givetake_' + data.task_id).removeClass('taskrenounce');
+    }
   }
 }
 
