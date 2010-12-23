@@ -39,16 +39,28 @@ function set_flash_or_refresh_task_board(data) {
     task_card.attr('style', 'position:relative');
     $('#task_card_' + data.task_id + ' dd.definition').html(data.definition);
     $('#task_card_' + data.task_id + ' input#task_hours')[0].value = data.hours_left;
+    $('#item_' + data.user_story_id).removeClass('complete');
+    $('#item_' + data.user_story_id).removeClass('inprogress');
+    $('#item_' + data.user_story_id).addClass(data.user_story_status);
+
     if(data.onto == 'inprogress') {
-      $('#givetake_' + data.task_id)[0].value = 'Renounce';
-      $('#claimtype_' + data.task_id)[0].value = 'renounce';
-      $('#givetake_' + data.task_id).addClass('taskrenounce');
-      $('#givetake_' + data.task_id).removeClass('taskclaim');
+      if($('#givetake_' + data.task_id)) {
+        $('#givetake_' + data.task_id)[0].value = 'Renounce';
+        $('#givetake_' + data.task_id).addClass('taskrenounce');
+        $('#givetake_' + data.task_id).removeClass('taskclaim');
+      }
+      if($('#claimtype_' + data.task_id)) {
+        $('#claimtype_' + data.task_id)[0].value = 'renounce';
+      }
     } else if (data.onto == 'incomplete') {
-      $('#givetake_' + data.task_id)[0].value = 'Claim';
-      $('#claimtype_' + data.task_id)[0].value = 'claim';
-      $('#givetake_' + data.task_id).addClass('taskclaim');
-      $('#givetake_' + data.task_id).removeClass('taskrenounce');
+      if($('#givetake_' + data.task_id)) {
+        $('#givetake_' + data.task_id)[0].value = 'Claim';
+        $('#givetake_' + data.task_id).addClass('taskclaim');
+        $('#givetake_' + data.task_id).removeClass('taskrenounce');
+      }
+      if($('#claimtype_' + data.task_id)) {
+        $('#claimtype_' + data.task_id)[0].value = 'claim';
+      }
     }
   }
 }

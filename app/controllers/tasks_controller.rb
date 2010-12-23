@@ -53,6 +53,13 @@ class TasksController < AbstractSecurityController
       error = "You cannot move tasks across user stories"
     end
     devs = task.developers.any? ? "<strong>#{task.developers.map(&:name).join(', ')}</strong>" : "<strong>Nobody</strong>"
+    if @user_story.inprogress?
+      status = "inprogress"
+    elsif @user_story.complete?
+      status = "complete"
+    else
+      status = ""
+    end
     render :json => {
       :error => error,
       :sprint_id => @user_story.sprint_id,
@@ -60,6 +67,7 @@ class TasksController < AbstractSecurityController
       :task_id => task.id,
       :hours_left => task.hours,
       :onto => params[:onto],
+      :user_story_status => status,
       :definition => "#{task.definition} #{devs}" }
   end
   
@@ -97,12 +105,21 @@ class TasksController < AbstractSecurityController
       devs = "<strong>Nobody</strong>"
       onto = 'incomplete'
     end
+    if @user_story.inprogress?
+      status = "inprogress"
+    elsif @user_story.complete?
+      status = "complete"
+    else
+      status = ""
+    end
+
     render :json => {
       :sprint_id => @user_story.sprint_id,
       :user_story_id => @user_story.id,
       :task_id => @task.id,
       :hours_left => @task.hours,
       :onto => onto,
+      :user_story_status => status,
       :definition => "#{@task.definition} #{devs}" }
   end
 
