@@ -60,6 +60,7 @@ class TasksController < AbstractSecurityController
     else
       status = ""
     end
+    task_def = truncate(task.definition)
     render :json => {
       :error => error,
       :sprint_id => @user_story.sprint_id,
@@ -68,7 +69,7 @@ class TasksController < AbstractSecurityController
       :hours_left => task.hours,
       :onto => params[:onto],
       :user_story_status => status,
-      :definition => "#{task.definition} #{devs}" }
+      :definition => "#{task_def}... #{devs}" }
   end
   
   def edit
@@ -113,6 +114,7 @@ class TasksController < AbstractSecurityController
       status = ""
     end
 
+    task_def = truncate(@task.definition)
     render :json => {
       :sprint_id => @user_story.sprint_id,
       :user_story_id => @user_story.id,
@@ -120,7 +122,7 @@ class TasksController < AbstractSecurityController
       :hours_left => @task.hours,
       :onto => onto,
       :user_story_status => status,
-      :definition => "#{@task.definition} #{devs}" }
+      :definition => "#{task_def} #{devs}" }
   end
 
   def move_up
@@ -148,5 +150,10 @@ class TasksController < AbstractSecurityController
     when "Renounce"
       task.developers.delete(current_user)
     end
+  end
+
+  def truncate(string, length = 60)
+    return string if string.length <= 60
+    string[0...length-3] + "..."
   end
 end
