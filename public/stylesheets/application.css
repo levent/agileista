@@ -700,6 +700,7 @@ body.plan { background-color: #f0f0ee; }
   margin-top: 3px;
 }
 .table td { vertical-align: top; }
+.table tr.odd { background-color: white; }
 .table tr.even { background-color: #f0f0ee; }
 .table td.definition { width: 60%; }
 .table td.state { color: #ffffff; }
@@ -727,6 +728,13 @@ body.plan { background-color: #f0f0ee; }
   background-color: #262626;
   color: #ffffff;
   width: 70%;
+}
+#user_stories table.table { width: 94%; }
+#user_stories table.table tr.user_story { cursor: move; }
+#user_stories table.table td.actions {
+  background-image: url("/images/icons/move_vertical_9x24.png");
+  background-repeat: no-repeat;
+  background-position: 90% 50%;
 }
 #header h1 { color: #ffffff; }
 #header #accountswitcher { margin: 23px 0 0 10px; }

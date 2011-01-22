@@ -12,6 +12,10 @@
   vertical-align: top;
 }
 
+.table tr.odd {
+  background-color: white;
+}
+
 .table tr.even {
   background-color: @lgrey;
 }
@@ -60,5 +64,19 @@
 .user_stories.show .content .table td {
   background-color: @dgrey; color: #FFF;
   width: 70%;
+}
+
+#user_stories table.table {
+  width: 94%;
+}
+
+#user_stories table.table tr.user_story {
+  cursor: move;
+}
+
+#user_stories table.table td.actions {
+  background-image: url("/images/icons/move_vertical_9x24.png");
+  background-repeat: no-repeat;
+  background-position: 90% 50%;
 }
 

@@ -10,7 +10,13 @@ class BacklogController < AbstractSecurityController
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     respond_to do |format|
-      format.html {render :action => 'get_started' if @account.user_stories.blank?}
+      format.html do
+        if @account.user_stories.blank?
+          render :action => 'get_started' 
+        elsif cookies[:backlog] == "list"
+          render :action => 'list'
+        end
+      end
       format.csv do
         render_csv("current_backlog_#{Time.now.strftime('%Y%m%d%H%M')}")
       end

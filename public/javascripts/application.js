@@ -218,6 +218,27 @@ $(function() {
       }
     });
   }
+
+// Return a helper with preserved width of cells
+  var fixHelper = function(e, ui) {
+    ui.children().each(function() {
+      $(this).width($(this).width());
+    });
+    return ui;
+  };
+  
+  if ($('#user_stories tr.user_story').length > 0) {
+    $('#user_stories').sortable({
+      items: 'tr.user_story',
+      helper: fixHelper,
+      update: function(event, ui) {
+        $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
+          document.location.href = '/backlog';
+        }, "json");
+      }
+    });
+
+  }
 });
 
 function add_new_item(element) {
