@@ -22,6 +22,16 @@ class BacklogController < AbstractSecurityController
       end
     end
   end
+
+  def grid
+    cookies[:backlog] = 'grid'
+    redirect_to backlog_index_url
+  end
+
+  def list
+    cookies[:backlog] = 'list'
+    redirect_to backlog_index_url
+  end
   
   def feed
     render :layout => false
@@ -48,4 +58,5 @@ class BacklogController < AbstractSecurityController
     end
     render :json => {:ok => true}.to_json
   end
+
 end

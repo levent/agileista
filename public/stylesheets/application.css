@@ -169,6 +169,7 @@ body {
   display: block;
   padding: 10px 15px;
 }
+.secondary-navigation li.change_view a { padding: 7px 15px 8px 15px; }
 #footer { padding-bottom: 20px; }
 .pagination a {
   padding: 2px 5px;
@@ -409,6 +410,7 @@ hr {
 }
 .secondary-navigation li.active { background-color: #262626; }
 .secondary-navigation li.active a:hover { background-color: #262626; }
+.secondary-navigation li.change_view { float: right; }
 #footer .block {
   color: #ffffff;
   background: #262626;
@@ -577,6 +579,10 @@ ul.list li {
   -moz-border-radius-topright: 4px;
   -webkit-border-top-right-radius: 4px;
 }
+.secondary-navigation li.change_view.last a {
+  -moz-border-radius-topright: 4px;
+  -webkit-border-top-right-radius: 4px;
+}
 .secondary-navigation li.first {
   -moz-border-radius-topleft: 4px;
   -webkit-border-top-left-radius: 4px;
@@ -732,7 +738,7 @@ body.plan { background-color: #f0f0ee; }
 #user_stories table.table { width: 94%; }
 #user_stories table.table tr.user_story { cursor: move; }
 #user_stories table.table td.actions {
-  background-image: url("/images/icons/move_vertical_9x24.png");
+  background-image: url("/images/icons/16x16/cursor_H_split.png");
   background-repeat: no-repeat;
   background-position: 90% 50%;
 }
