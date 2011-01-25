@@ -16,6 +16,7 @@ class BacklogController < AbstractSecurityController
         elsif cookies[:backlog] == "list"
           render :action => 'list'
         end
+        cookies[:backlog] ||= "grid"
       end
       format.csv do
         render_csv("current_backlog_#{Time.now.strftime('%Y%m%d%H%M')}")
