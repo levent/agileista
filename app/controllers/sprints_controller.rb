@@ -101,12 +101,10 @@ class SprintsController < AbstractSecurityController
     @flot_burndown = burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.hours_left]}
     @flot_burnup << burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.story_points_complete || 'null']} 
     @flot_burnup << burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.story_points_remaining || 'null']}
-    if @flot_burndown.length > 1 && @flot_burnup.first.length > 1 && @flot_burnup.last.length > 1
-      burndowns[-2].created_on.to_date.upto @sprint.end_at.to_date do |date|
-        @flot_burndown << [date.to_time.to_i * 1000, 'null']
-        @flot_burnup[0] << [date.to_time.to_i * 1000, 'null']
-        @flot_burnup[1] << [date.to_time.to_i * 1000, 'null']
-      end
+    1.day.from_now(@sprint.start_at).to_date.upto @sprint.end_at.to_date do |date|
+      @flot_burndown << [date.to_time.to_i * 1000, 'null']
+      @flot_burnup[0] << [date.to_time.to_i * 1000, 'null']
+      @flot_burnup[1] << [date.to_time.to_i * 1000, 'null']
     end
   end
   

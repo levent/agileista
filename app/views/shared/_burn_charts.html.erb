@@ -1,17 +1,10 @@
-<% if @flot_burndown.length > 1 %>
 <div id="burnall" style="width:768px;height:268px;"></div> 
-<% end %>
 <% content_for :custom_js do %>
 <script id="source" language="javascript" type="text/javascript"> 
 $(function () {
     var burndown = { data: <%= @flot_burndown.inspect %>, label: "Hours remaining" };
-    <% if @flot_burnup.first.any?{|x|x[1] != "null"} %>
-      var burnup1 = { data: <%= @flot_burnup[0].inspect %>, label: "Story points complete", yaxis: 2} ;
-      var burnup2 = { data: <%= @flot_burnup[1].inspect %>, label: "Story points planned", yaxis: 2} ;
-    <% else %>
-      var burnup1 = ["null"];
-      var burnup2 = ["null"];
-    <% end %>
+    var burnup1 = { data: <%= @flot_burnup[0].inspect %>, label: "Story points complete", yaxis: 2} ;
+    var burnup2 = { data: <%= @flot_burnup[1].inspect %>, label: "Story points planned", yaxis: 2} ;
     
     $.plot($("#burnall"), [burndown, burnup1, burnup2 ], { xaxis: { mode: "time", minTickSize: [1, "day"] }, yaxis: { min: 0, mintickSize: 1, tickDecimals: 0, tickFormatter: function (v, axis) { return v.toFixed(axis.tickDecimals) + " hours" }}, y2axis: { tickFormatter: function (v, axis) { return v.toFixed(axis.tickDecimals) + " story points" }} });
 });
