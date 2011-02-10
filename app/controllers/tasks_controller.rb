@@ -33,7 +33,6 @@ class TasksController < AbstractSecurityController
   end
   
   def assign
-    debugger
     task = @user_story.tasks.find(params[:task_id])
     error = ''
     if task
