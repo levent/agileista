@@ -16,6 +16,7 @@ class SprintsController < AbstractSecurityController
     # raise @burndown_labels_and_data
     respond_to do |format|
       if @sprint && @sprint.current?
+        calculate_todays_burndown
         calculate_tomorrows_burndown
         format.html {render :action => 'task_board'}
       else
@@ -98,10 +99,10 @@ class SprintsController < AbstractSecurityController
     return nil unless @sprint
     burndowns = @sprint.burndowns
     @flot_burnup = []
-    @flot_burndown = burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.hours_left]}
+    @flot_burndown = burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.hours_left || 'null']}
     @flot_burnup << burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.story_points_complete || 'null']} 
     @flot_burnup << burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.story_points_remaining || 'null']}
-    1.day.from_now(@sprint.start_at).to_date.upto @sprint.end_at.to_date do |date|
+    @sprint.start_at.to_date.upto @sprint.end_at.to_date do |date|
       @flot_burndown << [date.to_time.to_i * 1000, 'null']
       @flot_burnup[0] << [date.to_time.to_i * 1000, 'null']
       @flot_burnup[1] << [date.to_time.to_i * 1000, 'null']
