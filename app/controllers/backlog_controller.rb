@@ -53,9 +53,8 @@ class BacklogController < AbstractSecurityController
     split_by = "&item[]="
     items = params[:user_stories].split(split_by)
     items[0] = items[0].gsub('item[]=', '')
-    @user_stories.each do |us|
-      us.position = items.index(us.id.to_s) + 1
-      us.save
+    items.each_with_index do |id, index|
+      @user_stories.update_all(['position=?', index+1], ['id=?', id])
     end
     render :json => {:ok => true}.to_json
   end
