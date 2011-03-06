@@ -3,7 +3,7 @@
 
     <div class="content">
       <%= render :partial => "shared/burn_charts", :locals => {:flot_points => @flot_points} %>
-      <h2 class="title"><%= sprint_header(@sprint, :buttons => [:add_story]) %> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
+      <h2 class="title"><%= sprint_header(@sprint, :buttons => [:add_story], :show_total_story_points_only? => true) %> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
       
 
       <div class="inner">

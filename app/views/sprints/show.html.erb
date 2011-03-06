@@ -4,7 +4,7 @@
 
     <div class="content">
       <%= render :partial => "shared/burn_charts", :locals => {:flot_points => @flot_points} %>
-      <h2 class="title"><%= sprint_header(@sprint, :show_date? => true) %></h2>
+      <h2 class="title"><%= sprint_header(@sprint, :show_date? => true, :show_story_points? => true) %></h2>
       <div class="inner">
         <table class="table">
           <tbody>
