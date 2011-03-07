@@ -71,7 +71,6 @@ function set_flash(message) {
 
 function setupTaskBoard(user_story_id) {
 
-
   var us_container = '#user_story_container_' + user_story_id;
   $(us_container).find('dl.task_card').draggable({delay: 100, zIndex: 100});
 
