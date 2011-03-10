@@ -106,71 +106,39 @@ function setupTaskBoard(user_story_id) {
   });
 }
 
-function setupSprintPlanningDefaults(sprint_id) {
-  $('dl.user_story').each(function(card) {
-    $(this).draggable({delay: 100, zIndex: 100, revert: false});
-  });
-
-  $('#estimated').droppable({
-    accept: 'dl.user_story',
-    drop: function(event, ui) {
-      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.draggable.attr('id').substr(4) + '/unplan', {format: 'json'}, function(data) {
-        if(data.ok == true) {
-          document.location.href = '/sprints/' + sprint_id + '/plan';
-        }
-      }, "json");
-      return false;
-    }
-  });
-
-  $('#committed').droppable({
-    accept: 'dl.user_story',
-    activate: function(event, ui) {
-      $('#thesprints').css("background-color", "rgb(255, 255, 153)");
-      return false;
-    },
-    deactivate: function(event, ui) {
-      $('#thesprints').css("background-color", "rgb(255, 255, 255)");
-      return false;
-    },
-    drop: function(event, ui) {
-      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.draggable.attr('id').substr(4) + '/plan', {format: 'json'}, function(data) {
-        if(data.ok == true) {
-          document.location.href = '/sprints/' + sprint_id + '/plan';
-        }
-      }, "json");
-      return false;
-    }
-  });
-}
-
 function setupSprintPlanning(sprint_id) {
-  setupSprintPlanningDefaults(sprint_id);
-
-  $('#reorder').livequery('click', function() {
-    if($(this).html() == 'Return to planning') {
-      $('#committed').sortable('destroy');
-      setupSprintPlanningDefaults(sprint_id);
-      $(this).html('Change order');
-    } else {
-      $('dl.user_story').each(function(card) {
-        $(this).draggable('destroy');
-      });
-      $('#committed').droppable('destroy');
-      $('#estimated').droppable('destroy');
-      $(this).html('Return to planning');
-      $('#committed').sortable({
-        items: 'dl.user_story',
-        update: function(event, ui) {
-          $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(5) + '/reorder', {user_stories: $(this).sortable('serialize')}, function(data) {
-            if(data.ok == true) {
-              $('#flashs').html('Sprint reordered');
-            }
-          }, "json");
+  $('#estimated').sortable({
+    items: 'dl.user_story',
+    connectWith: '#committed',
+    receive: function(event, ui) {
+      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(4) + '/unplan', {format: 'json'}, function(data) {
+        if(data.ok == true) {
+          console.log(data);
+          $('#flashs').html('Sprint reordered');
         }
-      });
+      }, "json");
     }
-    return false;
+  });
+
+  $('#committed').sortable({
+    items: 'dl.user_story',
+    connectWith: '#estimated',
+    update: function(event, ui) {
+      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(5) + '/reorder', {user_stories: $(this).sortable('serialize')}, function(data) {
+        if(data.ok == true) {
+          $('#flashs').html('Sprint reordered');
+        }
+      }, "json");
+    },
+    receive: function(event, ui) {
+
+      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(4) + '/plan', {format: 'json'}, function(data) {
+        if(data.ok == true) {
+          console.log(data);
+          $('#flashs').html('Sprint reordered');
+        }
+      }, "json");
+    }
   });
 }
 
