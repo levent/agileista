@@ -5,30 +5,28 @@ set :deploy_via, :remote_cache
 # set :deploy_via, :copy
 # set :copy_cache, true
 # set :copy_exclude, [".git"]
-set :branch, "master" 
+set :branch, "fukushima" 
 set :scm_verbose, true
 set :keep_releases,       5
 # set :deploy_via, :export
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
-set :deploy_to, "/home/levent/apps/#{application}"
-# set :ruby_enterprise, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake"
-# set :ruby_enterprise_gem, "/opt/ruby-enterprise-1.8.6-20090610/bin/gem"
+set :deploy_to, "/u/apps/#{application}"
+set :ruby_enterprise, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake"
+set :ruby_enterprise_gem, "/opt/ruby-enterprise-1.8.6-20090610/bin/gem"
 
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
 # set :scm, :subversion
-ssh_options[:port] = 40000
-set :port, 40000
-set :user, "levent"
+set :user, "rails"
 set :use_sudo, false
 default_run_options[:pty] = true
 
 set :rails_env, "production"
-role :app, "67.207.137.12"
-role :web, "67.207.137.12"
-role :db,  "67.207.137.12", :primary => true
+role :app, "fukushima"
+role :web, "fukushima"
+role :db,  "fukushima", :primary => true
 
 namespace :deploy do
   task :restart do
