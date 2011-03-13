@@ -10,7 +10,7 @@ gem 'will_paginate', '~> 2.3.11'
 gem "acts-as-taggable-on"
 gem "awesome_print"
 gem "newrelic_rpm"
-# gem 'gravtastic', '2.1.3'
+gem 'juggernaut'
 
 group :development do
   gem 'ruby-debug'
