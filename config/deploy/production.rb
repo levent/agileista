@@ -13,8 +13,8 @@ set :keep_releases,       5
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
 set :deploy_to, "/u/apps/#{application}"
-set :ruby_enterprise, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake"
-set :ruby_enterprise_gem, "/opt/ruby-enterprise-1.8.6-20090610/bin/gem"
+# set :ruby_enterprise, "/opt/ruby-enterprise-1.8.6-20090610/bin/rake"
+# set :ruby_enterprise_gem, "/opt/ruby-enterprise-1.8.6-20090610/bin/gem"
 
 # If you aren't using Subversion to manage your source code, specify
 # your SCM below:
@@ -36,7 +36,7 @@ namespace :deploy do
 
   task :bundle do
     # run("cd #{release_path}; bundle install #{release_path}/gems/")
-    run("cd #{release_path}; bundle install --without development cucumber test")
+    run("cd #{release_path}; bundle install --without development cucumber test --path=.gem/")
   end
   
   
