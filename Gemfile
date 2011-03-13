@@ -11,6 +11,7 @@ gem "acts-as-taggable-on"
 gem "awesome_print"
 gem "newrelic_rpm"
 gem 'juggernaut'
+gem 'SystemTimer'
 
 group :development do
   gem 'ruby-debug'

@@ -61,7 +61,7 @@ class TasksController < AbstractSecurityController
       status = ""
     end
     task_def = truncate(task.definition)
-    render :json => {
+    json = {
       :error => error,
       :sprint_id => @user_story.sprint_id,
       :user_story_id => @user_story.id,
@@ -70,6 +70,8 @@ class TasksController < AbstractSecurityController
       :onto => params[:onto],
       :user_story_status => status,
       :definition => "#{task_def}... #{devs}" }
+    Juggernaut.publish("sid#{@user_story.sprint_id}", json)
+    render :json => json
   end
   
   def edit
@@ -115,7 +117,8 @@ class TasksController < AbstractSecurityController
     end
 
     task_def = truncate(@task.definition)
-    render :json => {
+
+    json = {
       :sprint_id => @user_story.sprint_id,
       :user_story_id => @user_story.id,
       :task_id => @task.id,
@@ -123,6 +126,8 @@ class TasksController < AbstractSecurityController
       :onto => onto,
       :user_story_status => status,
       :definition => "#{task_def} #{devs}" }
+    Juggernaut.publish("sid#{@user_story.sprint_id}", json)
+    render :json => json
   end
 
   def move_up

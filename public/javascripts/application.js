@@ -19,7 +19,6 @@ if($('.task_card_form')) {
   $(".taskclaim, .taskrenounce, .tasksavehours").click(function(event) {
     $form = $(this).parent("form");
     $.post($form.attr("action") + '/claim', $form.serialize() + '&submit=' + this.className, function(data) {
-      set_flash_or_refresh_task_board(data);
     }, "json");
     return false;
   });
@@ -43,23 +42,31 @@ function set_flash_or_refresh_task_board(data) {
     $('#item_' + data.user_story_id).removeClass('inprogress');
     $('#item_' + data.user_story_id).addClass(data.user_story_status);
 
+    var btn = $('#givetake_' + data.task_id);
+    var btn_action = $('#claimtype_' + data.task_id);
     if(data.onto == 'inprogress') {
-      if($('#givetake_' + data.task_id)) {
-        $('#givetake_' + data.task_id)[0].value = 'Renounce';
-        $('#givetake_' + data.task_id).addClass('taskrenounce');
-        $('#givetake_' + data.task_id).removeClass('taskclaim');
+      if (btn) {
+        if (btn[0]) {
+          btn[0].value = 'Renounce';
+          btn.addClass('taskrenounce');
+          btn.removeClass('taskclaim');
+        }
+        else {
+//          $("<input type='submit' value='Renounce' name='commit' id='givetake_" + data.task_id + "5979' class='taskrenounce'>").appendTo(task_card + " form")
+
+        }
       }
-      if($('#claimtype_' + data.task_id)) {
-        $('#claimtype_' + data.task_id)[0].value = 'renounce';
+      if(btn_action) {
+        btn_action[0].value = 'renounce';
       }
     } else if (data.onto == 'incomplete') {
-      if($('#givetake_' + data.task_id)) {
-        $('#givetake_' + data.task_id)[0].value = 'Claim';
-        $('#givetake_' + data.task_id).addClass('taskclaim');
-        $('#givetake_' + data.task_id).removeClass('taskrenounce');
+      if (btn) {
+        btn[0].value = 'Claim';
+        btn.addClass('taskclaim');
+        btn.removeClass('taskrenounce');
       }
-      if($('#claimtype_' + data.task_id)) {
-        $('#claimtype_' + data.task_id)[0].value = 'claim';
+      if (btn_action) {
+        btn_action[0].value = 'claim';
       }
     }
   }
@@ -78,7 +85,6 @@ function setupTaskBoard(user_story_id) {
     accept: us_container + ' dl.task_card',
     drop: function(event, props) {
       $.post('/user_stories/' + user_story_id + '/tasks/assign', {task_id: props.draggable.attr('id').substr(10), onto: 'incomplete'}, function(data) {
-        set_flash_or_refresh_task_board(data);
       }, "json");
       return false;
     }
@@ -88,7 +94,6 @@ function setupTaskBoard(user_story_id) {
     accept: us_container + ' dl.task_card',
     drop: function(event, props) {
       $.post('/user_stories/' + user_story_id + '/tasks/assign', {task_id: props.draggable.attr('id').substr(10), onto: 'inprogress'},  function(data) {
-        set_flash_or_refresh_task_board(data);
       }, "json");
 
       return false;
@@ -99,7 +104,6 @@ function setupTaskBoard(user_story_id) {
     accept: us_container + ' dl.task_card',
     drop: function(event, props) {
       $.post('/user_stories/' + user_story_id + '/tasks/assign', {task_id: props.draggable.attr('id').substr(10), onto: 'complete'},  function(data) {
-        set_flash_or_refresh_task_board(data);
       }, "json");
       return false;
     }
