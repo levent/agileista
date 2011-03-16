@@ -69,8 +69,10 @@ class TasksController < AbstractSecurityController
       :hours_left => task.hours,
       :onto => params[:onto],
       :user_story_status => status,
-      :definition => "#{task_def}... #{devs}" }
-    Juggernaut.publish("sid#{@user_story.sprint_id}", json)
+      :definition => "#{task_def}... #{devs}"
+    }
+    uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
+    Juggernaut.publish(uid, json)
     render :json => json
   end
   
@@ -125,8 +127,10 @@ class TasksController < AbstractSecurityController
       :hours_left => @task.hours,
       :onto => onto,
       :user_story_status => status,
-      :definition => "#{task_def} #{devs}" }
-    Juggernaut.publish("sid#{@user_story.sprint_id}", json)
+      :definition => "#{task_def} #{devs}"
+    }
+    uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
+    Juggernaut.publish(uid, json)
     render :json => json
   end
 

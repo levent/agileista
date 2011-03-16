@@ -38,7 +38,7 @@
     jug.on("disconnect", function(){ log("Disconnected") });
     jug.on("reconnect", function(){ log("Reconnecting") });
     
-    jug.subscribe("sid<%= @sprint.id %>", function(data){
+    jug.subscribe("<%= @uid %>", function(data){
       update(data);
     });
     

@@ -18,6 +18,7 @@ class SprintsController < AbstractSecurityController
       if @sprint && @sprint.current?
         calculate_todays_burndown
         calculate_tomorrows_burndown
+        @uid = Digest::SHA1.hexdigest("exclusiveshit#{@sprint.id}")
         format.html {render :action => 'task_board'}
       else
         format.html
