@@ -307,6 +307,11 @@ ul.list li .item .avatar {
   font-size: 200%;
   display: none;
 }
+#notification-bar a.close-bar {
+  position: absolute;
+  right: 40px;
+  text-decoration: none;
+}
 .small { font-size: 11px; }
 .gray { color: #999999; }
 .hightlight { background-color: #ffffcc; }

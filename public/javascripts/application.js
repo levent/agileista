@@ -24,6 +24,12 @@ if($('.task_card_form')) {
   });
 }
 
+if($('#notification-bar')) {
+  $(".close-bar").click(function() {
+    $('#notification-bar').hide();
+  });
+}
+
 function notifyUser(json, user) {
   if(user != json.performed_by) {
     $('#notification-bar').html(json.notification);
