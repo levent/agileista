@@ -40,12 +40,15 @@ class TasksController < AbstractSecurityController
       when "incomplete"
         task.developers = []
         task.save
+        message = "#{current_user.name} renounced a task on ##{@user_story.id}"
       when "inprogress"
         task.developers = [current_user] unless task.developers.any?
         task.save
+        message = "#{current_user.name} claimed a task on ##{@user_story.id}"
       when "complete"
         task.hours = 0
         task.save
+        message = "#{current_user.name} completed a task on ##{@user_story.id}"
       else
         error = "Please try again"
       end
@@ -69,7 +72,9 @@ class TasksController < AbstractSecurityController
       :hours_left => task.hours,
       :onto => params[:onto],
       :user_story_status => status,
-      :definition => "#{task_def}... #{devs}"
+      :definition => "#{task_def}... #{devs}",
+      :notification => message,
+      :performed_by => current_user.name
     }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     Juggernaut.publish(uid, json)
@@ -99,8 +104,12 @@ class TasksController < AbstractSecurityController
     case params[:submit]
     when 'taskrenounce'
       @task.developers.delete(current_user)
+      message = "#{current_user.name} renounced a task on ##{@user_story.id}"
     when 'taskclaim'
       @task.developers << current_user
+      message = "#{current_user.name} claimed a task on ##{@user_story.id}"
+    else
+      message = "#{current_user.name} updated a task on ##{@user_story.id}"
     end
     @task.update_attributes(params[:task])
     if @task.developers.any?
@@ -127,7 +136,9 @@ class TasksController < AbstractSecurityController
       :hours_left => @task.hours,
       :onto => onto,
       :user_story_status => status,
-      :definition => "#{task_def} #{devs}"
+      :definition => "#{task_def} #{devs}",
+      :notification => message,
+      :performed_by => current_user.name
     }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     Juggernaut.publish(uid, json)

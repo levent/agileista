@@ -24,6 +24,16 @@ if($('.task_card_form')) {
   });
 }
 
+function notifyUser(json, user) {
+  if(user != json.performed_by) {
+    $('#notification-bar').html(json.notification);
+    $('#notification-bar').slideDown('slow');
+    setTimeout(function() {
+      $("#notification-bar").slideUp('slow');
+    }, 5000);
+  }
+}
+
 function set_flash_or_refresh_task_board(data) {
   if(data.error) {
     set_flash(data.error);
