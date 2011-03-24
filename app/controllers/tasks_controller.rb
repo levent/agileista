@@ -40,15 +40,15 @@ class TasksController < AbstractSecurityController
       when "incomplete"
         task.developers = []
         task.save
-        message = "#{current_user.name} renounced a task on ##{@user_story.id}"
+        message = "#{current_user.name} renounced task ##{@user_story.id}.#{task.position}"
       when "inprogress"
         task.developers = [current_user] unless task.developers.any?
         task.save
-        message = "#{current_user.name} claimed a task on ##{@user_story.id}"
+        message = "#{current_user.name} claimed task ##{@user_story.id}.#{task.position}"
       when "complete"
         task.hours = 0
         task.save
-        message = "#{current_user.name} completed a task on ##{@user_story.id}"
+        message = "#{current_user.name} completed task ##{@user_story.id}.#{task.position}"
       else
         error = "Please try again"
       end
@@ -104,12 +104,12 @@ class TasksController < AbstractSecurityController
     case params[:submit]
     when 'taskrenounce'
       @task.developers.delete(current_user)
-      message = "#{current_user.name} renounced a task on ##{@user_story.id}"
+      message = "#{current_user.name} renounced task ##{@user_story.id}.#{@task.position}"
     when 'taskclaim'
       @task.developers << current_user
-      message = "#{current_user.name} claimed a task on ##{@user_story.id}"
+      message = "#{current_user.name} claimed task ##{@user_story.id}.#{@task.position}"
     else
-      message = "#{current_user.name} updated a task on ##{@user_story.id}"
+      message = "#{current_user.name} updated task ##{@user_story.id}.#{@task.position}"
     end
     @task.update_attributes(params[:task])
     if @task.developers.any?
