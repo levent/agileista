@@ -323,12 +323,12 @@ h1, h2, h3 { color: #7a1818; }
 a { -moz-outline: none; }
 body {
   color: #222222;
-  background: #f0f0ee;
+  background: #e6e6e6;
   font-family: "Helvetica Neue", helvetica, arial, sans-serif;
 }
 hr {
-  background: #f0f0ee;
-  color: #f0f0ee;
+  background: #e6e6e6;
+  color: #e6e6e6;
 }
 #header { background: #7a1818; }
 #header h1 { padding: 20px 0; }
@@ -384,7 +384,7 @@ hr {
   background: #262626;
   margin-right: 0;
 }
-.main-navigation li.active { background: #f0f0ee; }
+.main-navigation li.active { background: #e6e6e6; }
 .main-navigation li a:link {
   text-decoration: none;
   color: #ffffff;
