@@ -133,7 +133,8 @@ function setupSprintPlanning(sprint_id) {
     receive: function(event, ui) {
       $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(4) + '/unplan', {format: 'json'}, function(data) {
         if(data.ok == true) {
-          console.log(data);
+          $('#points_planned').html(data.points_planned + ' story points');
+          $('#hours_left').html(data.hours_left + ' hours');
           $('#flashs').html('Sprint reordered');
         }
       }, "json");
@@ -154,7 +155,8 @@ function setupSprintPlanning(sprint_id) {
 
       $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(4) + '/plan', {format: 'json'}, function(data) {
         if(data.ok == true) {
-          console.log(data);
+          $('#points_planned').html(data.points_planned + ' story points');
+          $('#hours_left').html(data.hours_left + ' hours');
           $('#flashs').html('Sprint reordered');
         }
       }, "json");

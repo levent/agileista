@@ -101,7 +101,9 @@ class UserStoriesController < AbstractSecurityController
     @user_story.sprint = @sprint
     @user_story.save
     SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
-    render :json => {:ok => true}.to_json
+    points_planned = @sprint.user_stories.sum('story_points')
+    hours_left = @sprint.hours_left
+    render :json => {:ok => true, :points_planned => points_planned, :hours_left => hours_left}.to_json
   end
   
   def unplan
@@ -113,7 +115,11 @@ class UserStoriesController < AbstractSecurityController
         flash[:notice] = "User story removed from sprint"
         redirect_to sprint_path(@sprint)
       }
-      format.json {render :json => {:ok => true}.to_json}
+      format.json {
+        hours_left = @sprint.hours_left
+        points_planned = @sprint.user_stories.sum('story_points')
+        render :json => {:ok => true, :points_planned => points_planned, :hours_left => hours_left}.to_json
+      }
     end
   end
   

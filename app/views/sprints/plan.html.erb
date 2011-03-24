@@ -3,7 +3,7 @@
     <%= render(:partial => "shared/navigation/sprints_secondary") %>
 
     <div class="content">
-      <h2 class="title">Planning <strong><%= @sprint.name %></strong> <span class="hightlight"><strong><%= show_story_points(@sprint.user_stories.sum('story_points')) %></strong> and <strong><%= show_story_points(@sprint.hours_left, :unit => "hour") %></strong> planned</span> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
+      <h2 class="title">Planning <strong><%= @sprint.name %></strong> <span class="hightlight"><strong><span id="points_planned"><%= show_story_points(@sprint.user_stories.sum('story_points')) %></span></strong> and <strong><span id="hours_left"><%= show_story_points(@sprint.hours_left, :unit => "hour") %></span></strong> planned</span> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
       <div class="inner clearfix">
         <div id="estimated" class="clearfix left">
           <h3>Estimated user stories:</h3>
