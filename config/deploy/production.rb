@@ -34,10 +34,10 @@ namespace :deploy do
     run "touch #{release_path}/tmp/restart.txt"
   end
 
-  task :bundle do
-    # run("cd #{release_path}; bundle install #{release_path}/gems/")
-    run("cd #{release_path}; bundle install --without development cucumber test --path=.gem/")
-  end
+  # task :bundle do
+  #   # run("cd #{release_path}; bundle install #{release_path}/gems/")
+  #   run("cd #{release_path}; bundle install --without development cucumber test --path=.gem/")
+  # end
   
   
   task :stop do
@@ -77,5 +77,5 @@ task :setup_symlinks, :roles => :web do
 end
 
 after "deploy:update_code", :setup_symlinks
-after "deploy:update_code", "deploy:bundle"
+# after "deploy:update_code", "deploy:bundle"
 after "deploy", "deploy:cleanup"
