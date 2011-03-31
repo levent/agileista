@@ -1,1 +1,6 @@
-<%= @account.to_yaml %>
+Account Name: <%= @account.name %>
+Subdomain: <%= @account.subdomain %>
+
+Account Holder: <%= @account.account_holder.try(:name) %>
+Account Holder Email: <%= @account.account_holder.try(:email) %>
+
