@@ -1,6 +1,6 @@
 module AccountStuff
   AccountStuff::RESERVED_SUBDOMAINS = %w(app www site we blog dev stage)
-  AccountStuff::TEAM_AGILEISTA = ["lebreeze@gmail.com", "ebstar@gmail.com"]
+  AccountStuff::TEAM_AGILEISTA = ["lebreeze@gmail.com"]
   if Rails.env == "staging"
     AccountStuff::MASTER_SUBDOMAIN = "www"
     AccountStuff::DOMAIN = "featurecloud.com"

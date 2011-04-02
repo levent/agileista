@@ -11,7 +11,7 @@ describe Impediment do
     @it = Impediment.new
   end
   
-  describe "resolve" do
+  describe "resolve!" do
     it "should try and set the resolved_at time and save" do
       Timecop.freeze do
         @it.should_receive(:resolved_at=).with(Time.now)

@@ -12,32 +12,31 @@ gem "awesome_print"
 gem "newrelic_rpm"
 gem 'juggernaut'
 gem 'SystemTimer'
+gem 'exceptional', '2.0.12'
+gem "smtp-tls", :git => "git://github.com/ambethia/smtp-tls", :group => 'production'
 
 group :development do
   gem 'ruby-debug'
   gem 'less'
 end
-gem 'exceptional', '2.0.12'
 
+group :test do
+  gem 'shoulda'
+  gem "rspec", "1.3.1"
+  gem "rspec-rails", "1.3.3"
+  gem "machinist"
+  gem "faker"
+  gem "timecop"
+  gem "rcov"
+end
 
-gem 'shoulda',                   :group => 'test'
-gem "rspec", "1.3.0",            :group => 'test'
-gem "rspec-rails", "1.3.2",      :group => 'test'
-gem "machinist",                 :group => 'test'
-gem "faker",                     :group => 'test'
-gem "timecop",                   :group => 'test'
-gem "rcov",                      :group => 'test'
-
-
-gem 'cucumber', '0.6.4',         :group => 'cucumber'
-gem 'cucumber-rails',            :group => 'cucumber'
-gem 'database_cleaner', '0.5.0', :group => 'cucumber'
-gem 'webrat',                    :group => 'cucumber'
-gem 'rspec', '1.3.0',            :group => 'cucumber'
-gem 'rspec-rails', '1.3.2',      :group => 'cucumber'
-gem "rcov",                      :group => 'cucumber'
-
-# config.gem 'ambethia-smtp-tls', :lib => 'smtp-tls', :group => 'production'
-gem "smtp-tls", :git => "git://github.com/ambethia/smtp-tls", :group => 'production'
-
+group :cucumber do
+  gem 'cucumber', '0.6.4'
+  gem 'cucumber-rails'
+  gem 'database_cleaner', '0.5.0'
+  gem 'webrat'
+  gem 'rspec', '1.3.1'
+  gem 'rspec-rails', '1.3.3'
+  gem "rcov"
+end
 

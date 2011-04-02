@@ -7,6 +7,21 @@ describe Person do
     @it = Person.new
   end
 
+  # validates_confirmation_of :password
+  # validates_length_of :password, :in => 6..16, :if => :password_required?
+  it { should validate_presence_of :name }
+  it { should validate_presence_of :email }
+  # validates_uniqueness_of :email, :scope => :account_id
+  it { should belong_to :account }
+  it { should have_many :user_stories }
+
+  it "should have unique email addresses per account" do
+    account = Account.make
+    person1 = TeamMember.make(:account => account)
+    person2 = TeamMember.make(:email => person1.email)
+    lambda { TeamMember.make(:account => account, :email => person1.email) }.should raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email has already been taken")
+  end
+
   describe "in general" do
     it "should have a hashed_password field" do
       @it.respond_to?(:hashed_password).should be_true
@@ -65,7 +80,6 @@ describe Person do
       @it.hashed_password.should be_blank
       @it.save
       @it.hashed_password.should == Digest::SHA1.hexdigest("#{@it.salt}--m3t00!")
-      # @it.do_authenticate('email@example.com', 'm3t00!')
     end
   end
   
@@ -95,7 +109,6 @@ describe Person do
     
     it "should set salt if not new record but no salt" do
       @it.stub!(:new_record?).and_return(false)
-      # @it.salt = "salted"
       @it.password = "monkeyface"
       Timecop.freeze do
         Digest::SHA1.should_receive(:hexdigest).with("#{Time.now}--somecrazyrandomstring").and_return('salted')

@@ -11,7 +11,18 @@ describe Sprint do
     SprintElement.instance_variable_set(:@observer_peers, [sweeper])
   end
   
-  it {should have_many(:sprint_changes)}
+  it { should have_many(:sprint_changes)}
+  it { should have_many(:sprint_elements).dependent(:delete_all) }
+  it { should have_many(:user_stories) }
+  it { should have_many(:burndowns) }
+  it { should have_many(:sprint_changes) }
+  it { should have_many(:audits) }
+
+  it { should belong_to :account }
+  it { should validate_presence_of :account_id }
+  it { should validate_presence_of :start_at }
+  it { should validate_presence_of :end_at }
+  it { should validate_presence_of :name }
 
   context "auto setting end time" do
     it "should set it on save based on account's iteration length" do

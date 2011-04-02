@@ -15,7 +15,6 @@ describe NotificationMailer do
   
     it "should be sent to team agileista" do
       @email.to.should include("lebreeze@gmail.com")
-      @email.to.should include("ebstar@gmail.com")
     end
     
     it "should have a subject" do
@@ -23,7 +22,14 @@ describe NotificationMailer do
     end
     
     it "should have the account details" do
-      @email.body.should == @account.to_yaml
+      @email.body.should == <<XML
+Account Name: woot
+Subdomain: subdomain
+
+Account Holder: 
+Account Holder Email: 
+
+XML
     end
   end
 end

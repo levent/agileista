@@ -17,8 +17,8 @@ class Sprint < ActiveRecord::Base
   named_scope :finished, lambda { {:conditions => ["end_at < ?", Time.now]} }
 
   def validate
+    return unless start_at && end_at
     errors.add(:start_at, "and end at must be different") if self.start_at >= self.end_at
-    # errors.add(:start_at, "cannot overlap with another sprint") if !@account.sprints.blank? && (self.start_at <= @account.sprints.last.end_at)
   end
 
   def calculate_day_zero
@@ -74,10 +74,10 @@ class Sprint < ActiveRecord::Base
   end
 
   def calculate_end_date
-    unless self.end_at
-      self.end_at = self.account.iteration_length.to_i.weeks.from_now(1.day.ago(start_at)).end_of_day
-    else
+    if self.end_at
       self.end_at = self.end_at.end_of_day
+    elsif self.account
+      self.end_at = self.account.iteration_length.to_i.weeks.from_now(1.day.ago(start_at)).end_of_day
     end
   end
 
