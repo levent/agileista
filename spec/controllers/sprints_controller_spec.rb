@@ -203,6 +203,8 @@ describe SprintsController do
         it "should call create_chart"
 
         it "should render show_task_board if current sprint and calc burndown" do
+          controller.stub!(:calculate_burndown_points)
+          controller.stub!(:calculate_todays_burndown)
           @sprint.should_receive(:current?).and_return(true)
           controller.should_receive(:calculate_tomorrows_burndown).exactly(1).times
           get :show, :id => 23
@@ -210,6 +212,7 @@ describe SprintsController do
         end
 
         it "should render show if not current sprint and NOT calc burndown" do
+          controller.stub!(:calculate_burndown_points)
           @sprint.should_receive(:current?).and_return(false)
           controller.should_receive(:calculate_tomorrows_burndown).exactly(0).times
           get :show, :id => 23

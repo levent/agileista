@@ -43,7 +43,7 @@ describe SprintsHelper do
     end
 
     it "should display the date if asked to" do
-      @it.sprint_header(@sprint, :show_date? => true).should have_tag('span.hightlight', "START to END.")
+      @it.sprint_header(@sprint, :show_date? => true).should have_tag('span.hightlight', "START to END")
     end
 
     it "should display number of allocated sp if asked to" do
