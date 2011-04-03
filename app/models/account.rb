@@ -8,7 +8,6 @@ class Account < ActiveRecord::Base
   has_many :user_stories, :order => :position, :dependent => :destroy
   has_many :impediments, :order => 'resolved_at, created_at DESC', :dependent => :destroy
   has_many :themes, :order => 'name', :dependent => :destroy
-  has_many :releases, :dependent => :destroy
   
   belongs_to :account_holder, :class_name => "Person", :foreign_key => 'account_holder_id'
   

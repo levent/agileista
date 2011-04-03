@@ -32,7 +32,6 @@ class UserStory < ActiveRecord::Base
   #  Please see action > estimated_account_user_stories
   belongs_to :sprint
   belongs_to :person
-  belongs_to :release
 
   named_scope :estimated, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil]
   named_scope :unassigned,
