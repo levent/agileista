@@ -12,13 +12,10 @@ index/*
 *.swp
 mkmf.log
 rerun.txt
-
 mkmf.log
-
 bin/
-
 gems/*
 !gems/cache
 !gems/dirs
-
 .bundle/config
+coverage.data

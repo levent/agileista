@@ -17,7 +17,6 @@ describe Task do
     
     describe "incomplete" do
       it "should get all incomplete tasks" do
-        
         Task.incomplete.should include(@task1)
         Task.incomplete.should include(@task2)
         Task.incomplete.should_not include(@task3)
@@ -71,4 +70,52 @@ describe Task do
       @task.developers.should == [@team_member1, @team_member2]
     end
   end
+
+  describe "incomplete?" do
+    it "should be false if any developers are assigned" do
+      @task = Task.new
+      @task.stub!(:developers).and_return(["a developer"])
+      @task.should_not be_incomplete
+    end
+
+    it "should be true if any hours left" do
+      @task = Task.new(:hours => 100)
+      @task.should be_incomplete
+    end
+
+    it "should be true if nil hours left" do
+      @task = Task.new(:hours => nil)
+      @task.should be_incomplete
+    end
+
+    it "should be false if no hours are left" do
+      @task = Task.new(:hours => 0)
+      @task.should_not be_incomplete
+    end
+  end
+
+  describe "inprogress?" do
+    it "should be true if any developers and hours left" do
+      @task = Task.new(:hours => 1)
+      @task.stub!(:developers).and_return(["a developer"])
+      @task.should be_inprogress
+    end
+
+    it "should be true if any developers and nil hours left" do
+      @task = Task.new(:hours => nil)
+      @task.stub!(:developers).and_return(["a developer"])
+      @task.should be_inprogress
+    end
+
+    it "should be false if no developers and hours left" do
+      @task = Task.new(:hours => 1)
+      @task.should_not be_inprogress
+    end
+
+    it "should be false if no developers and nil hours left" do
+      @task = Task.new(:hours => nil)
+      @task.should_not be_inprogress
+    end
+  end
+
 end

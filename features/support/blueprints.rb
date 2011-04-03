@@ -38,7 +38,7 @@ end
 
 Burndown.blueprint do
   hours_left { rand(100) }
-  sprint_id { rand(100) }
+  sprint { Sprint.make }
 end
 
 Theme.blueprint do

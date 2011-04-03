@@ -159,12 +159,16 @@ describe UserStory do
       UserStory.find(:all).last.definition.should == "definition - (2nd copy)"
       @us.copy
       UserStory.find(:all).last.definition.should == "definition - (3rd copy)"
+    end
+
+    it "should copy acceptance criteria and incomplete tasks" do
+      task1 = @us.tasks.make(:hours => 6)
+      task2 = @us.tasks.make(:hours => 0)
+      2.times { @us.acceptance_criteria.create(:detail => "It should work") }
       @us.copy
-      UserStory.find(:all).last.definition.should == "definition - (4th copy)"
-      @us.copy
-      UserStory.find(:all).last.definition.should == "definition - (5th copy)"
-      @us.copy
-      UserStory.find(:all).last.definition.should == "definition - (6th copy)"
+      us = UserStory.last
+      us.should have(1).tasks
+      us.should have(2).acceptance_criteria
     end
   end
   

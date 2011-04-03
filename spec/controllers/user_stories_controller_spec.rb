@@ -26,7 +26,6 @@ describe UserStoriesController do
     it "should redirect to sprint scope if story is assigned to one" do
       sprint = Sprint.make(:account => @account)
       user_story = UserStory.make(:sprint => sprint, :account => @account)
-      # SprintElement.find_or_create_by_sprint_id_and_user_story_id(sprint.id, user_story.id)
       
       get :show, :id => user_story.id
       response.should be_redirect
@@ -36,7 +35,6 @@ describe UserStoriesController do
     it "should not go redirect crazy if story is assigned to sprint and url already reflects this" do
       sprint = Sprint.make(:account => @account)
       user_story = UserStory.make(:sprint => sprint, :account => @account)
-      # SprintElement.find_or_create_by_sprint_id_and_user_story_id(sprint.id, user_story.id)
       
       get :show, :id => user_story.id
       response.should be_redirect

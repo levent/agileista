@@ -25,7 +25,7 @@ describe Impediment do
     describe 'when summary is Active' do
       it "should show something useful" do
         Timecop.freeze do
-          @it.stub!(:status).and_return("Active")
+          @it.stub!(:new_record?).and_return(false)
           @it.stub!(:created_at).and_return(Time.now)
           @it.to_s.should == "Active since #{Time.now.strftime('%T %d/%m/%y')}"
         end
@@ -35,7 +35,7 @@ describe Impediment do
     describe 'when summary is Resolved' do
       it "should show something useful" do
         Timecop.freeze do
-          @it.stub!(:status).and_return("Resolved")
+          @it.stub!(:new_record?).and_return(false)
           @it.stub!(:resolved_at).and_return(Time.now)
           @it.to_s.should == "Resolved at #{Time.now.strftime('%T %d/%m/%y')}"
         end

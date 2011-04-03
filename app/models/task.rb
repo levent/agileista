@@ -41,22 +41,14 @@ class Task < ActiveRecord::Base
   end
   
   def incomplete?
-    return false if self.developers.any?
-    if self.hours
-      return self.hours > 0
-    elsif self.hours == 0
-      return false
-    else
-      return true
-    end
-      
+    return false if developers.any?
+    return true if hours.nil?
+    hours.to_i > 0
   end
   
   def inprogress?
-    if self.hours
-      !self.developers.blank? && self.hours && self.hours > 0
-    else
-      !self.developers.blank?
-    end
+    return false unless developers.any?
+    return true if hours.nil?
+    hours.to_i > 0
   end
 end

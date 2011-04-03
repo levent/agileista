@@ -1,26 +1,35 @@
 <div id="main" class="wide">
-	<h1>Accounts:</h1>
-	<table id="accounts">
-	  <thead>
-	    <tr>
-	      <th>Name</th>
-	      <th>Members</th>
-	      <th>Account Holder</th>
-	      <th>Created</th>
-	      <th>Total User Stories</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <% @accounts.each do |account| -%>
-		  <tr>
-		    <td><%= account.name %></td>
-		    <td><%= account.people.count %></td>
-		    <td><%= show_account_holder(account) %></td>
-		    <td><%= show_date(account.created_at) %></td>
-		    <td><%= account.user_stories.count %></td>
-	    </tr>
-	    <% end %>
-	  </tbody>
-	</table>
-	<%= will_paginate @accounts %>
+  <div class="block">
+    <div class="content">
+      <h2 class="title">Accounts:</h2>
+      <div class="inner">
+        <table id="accounts" class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Members</th>
+              <th>Account Holder</th>
+              <th>Created</th>
+              <th>Total User Stories</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @accounts.each do |account| -%>
+              <tr>
+                <td><%= account.name %></td>
+                <td><%= account.people.count %></td>
+                <td><%= show_account_holder(account) %></td>
+                <td><%= show_date(account.created_at) %></td>
+                <td><%= account.user_stories.count %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="actions-bar clearfix">
+          <%= will_paginate @accounts %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+

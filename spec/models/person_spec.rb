@@ -22,6 +22,36 @@ describe Person do
     lambda { TeamMember.make(:account => account, :email => person1.email) }.should raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email has already been taken")
   end
 
+  describe "#validate_account" do
+    it "should person to authenticated" do
+      @it.should_not be_authenticated
+      @it.validate_account
+      @it.should be_authenticated
+    end
+  end
+
+  describe "account_holder" do
+    before(:each) do
+      @account = Account.make
+    end
+
+    it "should return true if person is account holder" do
+      @it.account = @account
+      @it.should_not be_account_holder
+      @account.account_holder = @it
+      @account.save!
+      @it.should be_account_holder
+    end
+
+    it "should allow user deletion" do
+      @it.account = @account
+      @it.should_not be_can_delete_users
+      @account.account_holder = @it
+      @account.save!
+      @it.should be_can_delete_users
+    end
+  end
+
   describe "in general" do
     it "should have a hashed_password field" do
       @it.respond_to?(:hashed_password).should be_true
