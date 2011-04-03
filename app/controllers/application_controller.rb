@@ -3,10 +3,7 @@ class ApplicationController < ActionController::Base
   include SslRequirement
   
   helper :all
-  
-  # require_dependency 'tag'
-  # require_dependency 'tagging'
-  
+   
   filter_parameter_logging :password
 
   protected

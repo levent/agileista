@@ -1,8 +1,7 @@
 class UserStoriesController < AbstractSecurityController
   ssl_allowed
-  before_filter :must_be_team_member, :except => [:add, :create_via_add, :show, :plan, :unplan, :reorder]
-  before_filter :user_story_must_exist, :only => ['update', 'show',
-    :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
+  before_filter :must_be_team_member, :except => [:show, :plan, :unplan, :reorder]
+  before_filter :user_story_must_exist, :only => [:update, :show, :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
   before_filter :set_sprint, :only => [:new, :show, :edit, :create, :plan, :unplan, :reorder]
   before_filter :set_additional_themes, :only => [:create, :update]
   before_filter :load_theme, :only => [:new]
@@ -17,13 +16,10 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def new
-    @user_story = UserStory.new#(:themes => [@theme])
+    @user_story = UserStory.new
     @user_story.themes << @theme if @theme
     @user_story.acceptance_criteria.build
     @user_story.tasks.build
-  end
-  
-  def add
   end
   
   def show
@@ -59,21 +55,6 @@ class UserStoriesController < AbstractSecurityController
       @user_story.acceptance_criteria.build
       @user_story.tasks.build
       render :action => 'new'
-    end
-  end
-
-  def create_via_add
-    @user_story = UserStory.new
-    @user_story.definition = params[:user_story][:definition]
-    @user_story.description = params[:user_story][:description]
-    @user_story.account = @account
-    @user_story.person = current_user
-    if @user_story.save
-      flash[:notice] = "User story created successfully"
-      redirect_to :controller => 'backlog'
-    else
-      flash[:error] = "There were errors creating the user story"
-      render :action => 'add'
     end
   end
   

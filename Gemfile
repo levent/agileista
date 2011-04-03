@@ -5,7 +5,6 @@ gem 'rails', '2.3.11'
 gem "mysql"
 gem "fastercsv"
 gem "json"
-gem "prawn"
 gem 'will_paginate', '~> 2.3.11'
 gem "acts-as-taggable-on"
 gem "awesome_print"

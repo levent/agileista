@@ -25,7 +25,7 @@ describe TasksController do
     
     # Still some legacy actions
     # TasksController.instance_methods(false).each do |action|
-    %w(show edit update destroy new create create_quick assign).each do |action|
+    %w(edit update destroy create_quick assign).each do |action|
       it "should set_user_story on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
         controller.should_receive(:set_user_story).and_raise(ActiveRecord::RecordNotFound)
@@ -33,38 +33,13 @@ describe TasksController do
       end
     end
     
-    %w(show edit update destroy).each do |action|
+    %w(edit update destroy).each do |action|
       it "should set_task on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
         controller.stub!(:set_user_story).and_return(@user_story)
         controller.should_receive(:set_task).and_raise("whoa")
         lambda {get action.to_sym}.should raise_error("whoa")
       end
-    end
-  end
-
-  describe 'create' do
-    before(:each) do
-      stub_login_and_account_setup
-      @user_story = UserStory.new
-      @task = Task.new
-      @user_story.stub!(:id).and_return(1)
-      @user_story.stub!(:sprint_id).and_return(1)
-      @account.user_stories.should_receive(:find).and_return(@user_story)
-    end
-    
-    it "should create task and redirect on success" do
-      @user_story.tasks.should_receive(:new).with('hash').and_return(@task)
-      @task.should_receive(:save).and_return(true)
-      post :create, :task => 'hash'
-      response.should be_redirect
-    end
-    
-    it "should create task and redirect on fail" do
-      @user_story.tasks.should_receive(:new).with('hash').and_return(@task)
-      @task.should_receive(:save).and_return(false)
-      controller.should_receive(:render).with(:action => 'new')
-      post :create, :task => 'hash'
     end
   end
   

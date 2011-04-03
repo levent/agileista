@@ -1,26 +1,8 @@
 class TasksController < AbstractSecurityController
   
-  # ssl_required :create, :claim, :release, :move_up, :move_down
   before_filter :must_be_team_member
-  before_filter :set_user_story, :only => [:show, :edit, :update, :destroy, :new, :create, :create_quick, :assign, :claim]
-  before_filter :set_task, :only => [:show, :edit, :update, :destroy, :claim]
-
-  def show
-  end
-
-  def new
-  end
-
-  def create
-    @task = @user_story.tasks.new(params[:task])
-    if @task && @task.save
-      flash[:notice] = "Task saved"
-      redirect_to new_user_story_task_path(:user_story_id => @user_story)
-    else
-      flash[:error] = "Task couldn't be saved"
-      render :action => 'new'
-    end
-  end
+  before_filter :set_user_story, :only => [:edit, :update, :destroy, :create_quick, :assign, :claim]
+  before_filter :set_task, :only => [:edit, :update, :destroy, :claim]
   
   def create_quick
     @task = @user_story.tasks.new(:definition => @user_story.definition, :description => @user_story.description, :hours => 6)
@@ -143,22 +125,6 @@ class TasksController < AbstractSecurityController
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     Juggernaut.publish(uid, json)
     render :json => json
-  end
-
-  def move_up
-    if request.post?
-      @account.user_stories.find(params[:user_story_id]).tasks.find(params[:id]).move_higher
-      flash[:notice] = "Task moved up"
-    end
-    redirect_to :controller => 'user_stories', :action => 'edit', :id => params[:user_story_id], :sprint_id => params[:sprint_id]
-  end
-
-  def move_down
-    if request.post?
-      @account.user_stories.find(params[:user_story_id]).tasks.find(params[:id]).move_lower
-      flash[:notice] = "Task moved down"
-    end
-    redirect_to :controller => 'user_stories', :action => 'edit', :id => params[:user_story_id], :sprint_id => params[:sprint_id]
   end
   
   private

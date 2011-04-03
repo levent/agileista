@@ -3,7 +3,7 @@ class SprintsController < AbstractSecurityController
 
   before_filter :must_be_team_member, :only => [:plan, :new, :edit, :update, :create, :destroy]
   before_filter :iteration_length_must_be_specified
-  before_filter :sprint_must_exist, :only => [:show, :overview, :edit, :plan, :update, :destroy]
+  before_filter :sprint_must_exist, :only => [:show, :edit, :plan, :update, :destroy]
   
   def index
     @sprints = @account.sprints
@@ -13,7 +13,6 @@ class SprintsController < AbstractSecurityController
     store_location
     @current_sprint = @sprint
     calculate_burndown_points
-    # raise @burndown_labels_and_data
     respond_to do |format|
       if @sprint && @sprint.current?
         calculate_todays_burndown
@@ -45,9 +44,6 @@ class SprintsController < AbstractSecurityController
     end
   end
   
-  def overview
-  end
-  
   def edit
   end
   
@@ -75,10 +71,6 @@ class SprintsController < AbstractSecurityController
   end
   
   private 
-  
-  def render_404
-    render :file => "#{RAILS_ROOT}/public/404.html", :status => 404
-  end
   
   def iteration_length_must_be_specified
     if @account.iteration_length.blank?

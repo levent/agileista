@@ -27,7 +27,7 @@ describe SprintsController do
       end
     end
     
-    %w(show overview edit plan update destroy).each do |action|
+    %w(show edit plan update destroy).each do |action|
       it "should set sprint on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
         controller.stub!(:iteration_length_must_be_specified).and_return(true)
@@ -237,10 +237,6 @@ describe SprintsController do
     
     it "should generate params from DELETE /agile/sprints/7 correctly" do
       params_from(:delete, '/sprints/7').should == {:controller => 'sprints', :action => 'destroy', :id => '7'}
-    end
-    
-    it "should generate params from GET /agile/sprints/7/overview correctly" do
-      params_from(:get, '/sprints/7/overview').should == {:controller => 'sprints', :action => 'overview', :id => '7'}
     end
   end
 end
