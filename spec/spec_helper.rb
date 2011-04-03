@@ -13,7 +13,6 @@ require 'spec/rails'
 # in ./support/ and its subdirectories.
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
 
-require File.expand_path(File.join(File.dirname(__FILE__),'..','spec','sexy_objects'))
 require File.expand_path(File.join(File.dirname(__FILE__),'..','features','support', 'blueprints'))
 
 Spec::Runner.configure do |config|

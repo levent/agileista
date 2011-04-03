@@ -6,7 +6,7 @@ describe SprintElement do
       sweeper = mock_model(SprintAuditSweeper)
       sweeper.stub!(:update)
       SprintElement.instance_variable_set(:@observer_peers, [sweeper])
-      @account = create_account
+      @account = Account.make(:name => "sexy_dev_team", :subdomain => "xxx", :iteration_length => 2)
       @sprint = Sprint.create!(:account => @account, :start_at => 3.days.ago, :name => "Fluff")
       @us = UserStory.create!(:account => @account, :definition => "As a user I'd like some fluffing")
       @sprint_element = SprintElement.create!(:sprint => @sprint, :user_story => @us)
