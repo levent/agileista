@@ -56,41 +56,9 @@ Rails::Initializer.run do |config|
   config.i18n.locale = :en
 end
 
-# Add new inflection rules using the following format 
-# (all these examples are active by default):
-# Inflector.inflections do |inflect|
-#   inflect.plural /^(ox)$/i, '\1en'
-#   inflect.singular /^(ox)en/i, '\1'
-#   inflect.irregular 'person', 'people'
-#   inflect.uncountable %w( fish sheep )
-# end
-
-# Include your application configuration below
-# ActionMailer::Base.delivery_method = :sendmail
-# 
-# ActionMailer::Base.sendmail_settings = {
-# :location       => '/usr/sbin/sendmail',
-# :arguments      => '-i -t'
-# }
-#ActionMailer::Base.perform_deliveries = true
-#ActionMailer::Base.raise_delivery_errors = true
-#ActionMailer::Base.server_settings = {
-#  :address        => "agileista.leventali.com", 
-#  :port           => 25, 
-#  :user_name      => "levental", 
-#  :password       => "xxxxxxxx", 
-#  :authentication => :login 
-#}
-# ExceptionNotifier.exception_recipients = %w(levent@leventali.com)
-# ExceptionNotifier.sender_address = %("Agileista Exception" <exception@agileista.purebreeze.com>)
 PEOPLE_SALT = 'somecrazyrandomstring'
 SubdomainFu.tld_sizes = {:development => 1,
                          :test => 1,
-                         :staging => 1,
                          :production => 1,
                          :cucumber => 1}
-SubdomainFu.mirrors = %w(app) if Rails.env == "staging"
-# SubdomainFu.preferred_mirror = "app"
-
-# TagList.delimiter = ' '
 require 'will_paginate'

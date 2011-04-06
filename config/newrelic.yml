@@ -134,5 +134,5 @@ production:
 # the agent turned on.
 staging:
   <<: *default_settings
-  enabled: true
+  enabled: false
   app_name: Agileista (Staging)
