@@ -14,6 +14,13 @@ KNOWN ISSUES
  * No Documentation
  * No in app assistance etc.
 
+Workflow
+--------
+
+I like to work in the develop or feature branches and then merge and deploy master so master is always deployable
+
+We losely base our work on [http://nvie.com/posts/a-successful-git-branching-model/](http://nvie.com/posts/a-successful-git-branching-model/)
+
 Contact
 -------
 
