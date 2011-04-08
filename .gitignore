@@ -19,3 +19,5 @@ gems/*
 !gems/dirs
 .bundle/config
 coverage.data
+config/mailer.yml
+
