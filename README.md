@@ -24,6 +24,7 @@ We losely base our work on [http://nvie.com/posts/a-successful-git-branching-mod
 Contact
 -------
 
-[levent@purebreeze.com](mailto:levent@purebreeze.com)
-[@lebreeze](http://twitter.com/lebreeze)
+Email: [levent@purebreeze.com](mailto:levent@purebreeze.com)
+
+Twitter: [@lebreeze](http://twitter.com/lebreeze)
 
