@@ -24,7 +24,7 @@ We losely base our work on [http://nvie.com/posts/a-successful-git-branching-mod
 Editing CSS
 -----------
 
-The guy who build the initial layout used less and watchr.
+The guy who built the initial layout chose less and watchr.
 
 To ensure the css files are compiled start the following before editing the less files.
 
