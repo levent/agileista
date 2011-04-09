@@ -21,6 +21,16 @@ I like to work in the develop or feature branches and then merge and deploy mast
 
 We losely base our work on [http://nvie.com/posts/a-successful-git-branching-model/](http://nvie.com/posts/a-successful-git-branching-model/)
 
+Editing CSS
+-----------
+
+The guy who build the initial layout used less and watchr.
+
+To ensure the css files are compiled start the following before editing the less files.
+
+ 1. cd public/stylesheets/
+ 2. watchr less.watchr
+
 Contact
 -------
 

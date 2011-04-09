@@ -17,6 +17,7 @@ gem "smtp-tls", :git => "git://github.com/ambethia/smtp-tls", :group => 'product
 group :development do
   gem 'ruby-debug'
   gem 'less'
+  gem 'watchr'
 end
 
 group :test do
