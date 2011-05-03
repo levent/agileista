@@ -27,5 +27,6 @@ config.action_controller.session = {
 # config.action_mailer.raise_delivery_errors = false
 
 config.action_mailer.delivery_method = :smtp
+MAILER = YAML.load_file("#{RAILS_ROOT}/config/mailer.yml")[Rails.env]
 config.action_mailer.smtp_settings = MAILER
 EMAIL_FROM = "donotreply@agileista.com"

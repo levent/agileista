@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+0.5.2
+-----
+ * Bug fix for mailer loader
+
 0.5.1
 -----
 
