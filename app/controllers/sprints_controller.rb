@@ -13,11 +13,11 @@ class SprintsController < AbstractSecurityController
     store_location
     @current_sprint = @sprint
     calculate_burndown_points
+    @uid = Digest::SHA1.hexdigest("exclusiveshit#{@sprint.id}")
     respond_to do |format|
       if @sprint && @sprint.current?
         calculate_todays_burndown
         calculate_tomorrows_burndown
-        @uid = Digest::SHA1.hexdigest("exclusiveshit#{@sprint.id}")
         format.html {render :action => 'task_board'}
       else
         format.html

@@ -1,0 +1,22 @@
+<script type="text/javascript" charset="utf-8"> 
+  var log = function(data){
+  };
+  var update = function(data){
+    set_flash_or_refresh_task_board(data);
+    notifyUser(data, "<%= current_user.name %>");
+  };
+  
+  var jug = new Juggernaut({secure: ('https:' == document.location.protocol)});
+  
+  jug.on("connect", function(){ log("Connected") });
+  jug.on("disconnect", function(){ log("Disconnected") });
+  jug.on("reconnect", function(){ log("Reconnecting") });
+  
+  jug.subscribe("<%= uid %>", function(data){
+    update(data);
+  });
+  
+  // Expose for debugging
+  window.jug = jug;
+</script> 
+

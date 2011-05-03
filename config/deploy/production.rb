@@ -73,6 +73,7 @@ end
 
 task :setup_symlinks, :roles => :web do
   run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
+  run "ln -nfs #{shared_path}/mailer.yml #{release_path}/config/mailer.yml"
   run "ln -nfs #{shared_path}/sphinx #{release_path}/db/sphinx"
 end
 
