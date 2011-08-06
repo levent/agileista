@@ -9,7 +9,7 @@ gem 'will_paginate', '~> 2.3.11'
 gem "acts-as-taggable-on"
 gem "awesome_print"
 gem "newrelic_rpm"
-gem 'juggernaut'
+gem 'juggernaut', '2.0.3'
 gem 'SystemTimer'
 gem 'exceptional', '2.0.12'
 gem "smtp-tls", :git => "git://github.com/ambethia/smtp-tls", :group => 'production'

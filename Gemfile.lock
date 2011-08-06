@@ -40,7 +40,7 @@ GEM
     i18n (0.5.0)
     json (1.5.1)
     json_pure (1.5.1)
-    juggernaut (2.0.1)
+    juggernaut (2.0.3)
       redis
     less (1.2.21)
       mutter (>= 0.4.2)
@@ -100,7 +100,7 @@ DEPENDENCIES
   faker
   fastercsv
   json
-  juggernaut
+  juggernaut (= 2.0.3)
   less
   machinist
   mysql
