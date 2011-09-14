@@ -20,6 +20,7 @@ class SprintsController < AbstractSecurityController
         calculate_tomorrows_burndown
         format.html {render :action => 'task_board'}
       else
+        calculate_end_burndown
         format.html
         format.csv do
           render_csv("sprint_#{@sprint.id}_#{Time.now.strftime('%Y%m%d%H%M')}")
