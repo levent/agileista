@@ -54,3 +54,7 @@ Task.blueprint do
   definition { Sham.sentence }
   hours { rand(12) }
 end
+
+AcceptanceCriterium.blueprint do
+  detail { Sham.sentence }
+end

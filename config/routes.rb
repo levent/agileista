@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :backlog, :controller => 'backlog', :collection => {:feed => :get, :search => :get, :search_tags => :get, :sprint => :get, :sort => :post, :grid => :get, :list => :get}
+  map.resources :backlog, :controller => 'backlog', :collection => {:feed => :get, :search => :get, :search_tags => :get, :sprint => :get, :sort => :post, :grid => :get, :list => :get}, :except => [:show]
+  map.connect 'backlog/:filter', :controller => 'backlog', :action => 'index'
+  map.connect 'backlog/:filter/:range', :controller => 'backlog', :action => 'index'
 
   map.resources :sprints, :member => { :plan => :get } do |sprint|
     sprint.resources :user_stories, :member => {:plan => :post, :unplan => :post, :reorder => :post}

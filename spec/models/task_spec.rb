@@ -5,6 +5,11 @@ describe Task do
   before(:each) do
     @task = Task.new
   end
+
+  it "should touch the story when changes are made" do
+    task = Task.make(:hours => 0, :user_story => UserStory.make)
+    lambda {task.update_attribute(:hours, 10)}.should change(task.user_story, :updated_at)
+  end
   
   describe "named_scopes" do
     before(:each) do

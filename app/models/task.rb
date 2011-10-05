@@ -5,7 +5,7 @@ class Task < ActiveRecord::Base
   # Screws up in accepts_nested_attributes_for
   # validates_uniqueness_of :definition, :scope => :user_story_id
   
-  belongs_to :user_story
+  belongs_to :user_story, :touch => true
   # belongs_to :developer, :foreign_key => 'developer_id', :class_name => "Person"
   
   has_many :task_developers

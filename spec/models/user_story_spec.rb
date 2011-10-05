@@ -26,6 +26,16 @@ describe UserStory do
         assert_equal expected_options, UserStory.unassigned('story_points').proxy_options
       end
     end
+
+    describe "#stale" do
+      it "should get all stale user_stories" do
+        Time.freeze do
+          expected_options = { :conditions => ['done = ? AND updated_at < ?', 0, 1.month.ago] }
+          assert_equal expected_options, UserStory.stale(1.month.ago).proxy_options
+        end
+      end
+
+    end
   end
   
   describe "in general" do

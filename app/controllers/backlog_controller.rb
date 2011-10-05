@@ -9,6 +9,10 @@ class BacklogController < AbstractSecurityController
     store_location
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
+    if params[:filter] == 'stale'
+      @how_stale = calculate_staleness(params[:t])
+      @user_stories = @user_stories.stale(@how_stale)
+    end
     respond_to do |format|
       format.html do
         if @account.user_stories.blank?
@@ -57,6 +61,17 @@ class BacklogController < AbstractSecurityController
       @user_stories.update_all(['position=?', index+1], ['id=?', id])
     end
     render :json => {:ok => true}.to_json
+  end
+  
+  private
+
+  def calculate_staleness(t)
+    if t =~ /^(\d+)(seconds|minute|minutes|hour|hours|day|days|week|weeks|month|months|year|years)$/
+      duration = $1.to_i.send($2.to_sym)
+      Time.now - duration
+    else
+      1.month.ago
+    end
   end
 
 end
