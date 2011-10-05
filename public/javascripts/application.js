@@ -197,7 +197,8 @@ $(function() {
   if ($('#sidebar .tasks').length)
     setupTasks();
 
-  if ($('#user_stories dl').length > 0) {
+  if ($('#user_stories dl').length > 0 && (window.location.pathname.indexOf('stale') === -1)) {
+
     $('#user_stories').sortable({
       items: 'dl',
       update: function(event, ui) {
