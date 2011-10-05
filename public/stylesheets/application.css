@@ -1031,6 +1031,7 @@ dl.user_story dd.tasks a:hover { color: #262626; }
   padding: 0 2%;
   width: 46%;
 }
+#user_stories table.table tr.release_marker { border-bottom: 2px solid #187949; }
 a.button:link {
   background-color: #999999;
   color: #ffffff;

@@ -42,4 +42,14 @@ describe BacklogController do
       assigns(:user_stories).should_not include(stale)
     end
   end
+
+  describe "#index" do
+    it "should render velocity/release markers" do
+      stub_login_and_account_setup_properly
+      @account.sprints.make(:end_at => 1.week.ago, :start_at => 2.weeks.ago, :velocity => 120)
+      @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 72)
+      get :index
+      assigns(:velocity).should == 96
+    end
+  end
 end

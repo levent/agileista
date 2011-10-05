@@ -227,6 +227,7 @@ $(function() {
         $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
           if(data.ok == true) {
             $('#flashs').html('Backlog reordered');
+            $('tr.user_story').removeClass('release_marker');
           }
         }, "json");
       }

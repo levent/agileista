@@ -8,7 +8,9 @@ class BacklogController < AbstractSecurityController
   def index
     store_location
     @story_points = 0
+    @story_point_count = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
+    @velocity = @account.average_velocity
     if params[:filter] == 'stale'
       @how_stale = calculate_staleness(params[:t])
       @user_stories = @user_stories.stale(@how_stale)

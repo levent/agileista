@@ -18,6 +18,17 @@ class Account < ActiveRecord::Base
   
   before_validation :make_fields_lowercase
 
+  def median_velocity
+    return if sprints.finished.empty?
+    sorted = sprints.finished.map {|s| s.calculated_velocity}.sort
+    (sorted[sorted.length/2] + sorted[(sorted.length + 1) / 2]) / 2
+  end
+
+  def average_velocity
+    return if sprints.finished.empty?
+    sprints.finished.map {|s| s.calculated_velocity}.sum / sprints.finished.count
+  end
+
   def authenticate(email, password)
     person = self.people.find_by_email_and_authenticated_and_activation_code(email, 1, nil)
     return nil unless person

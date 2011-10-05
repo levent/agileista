@@ -51,4 +51,41 @@ describe Account do
       @it.authenticate('someone@example.com', '!password').should be_nil
     end
   end
+
+  context "velocity calculations" do
+    before(:each) do
+      @account = Account.make
+    end
+
+    describe "#average_velocity" do
+
+      it "should return nil if no velocity" do
+        @account.average_velocity.should be_nil
+      end
+
+      it "should return the average velocity" do
+        @account.sprints.make(:end_at => 1.week.ago, :start_at => 2.weeks.ago, :velocity => 1)
+        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        @account.sprints.make(:end_at => 3.week.ago, :start_at => 4.weeks.ago, :velocity => 22)
+        @account.average_velocity.should == 23
+      end
+    end
+
+    describe "#median_velocity" do
+      it "should return nil if no velocity" do
+        @account.median_velocity.should be_nil
+      end
+
+      it "should return the median velocity" do
+        @account.sprints.make(:end_at => 1.week.ago, :start_at => 2.weeks.ago, :velocity => 1)
+        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        @account.sprints.make(:end_at => 3.week.ago, :start_at => 4.weeks.ago, :velocity => 22)
+        @account.median_velocity.should == 32
+      end
+    end
+  end
 end
