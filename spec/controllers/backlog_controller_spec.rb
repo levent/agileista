@@ -25,4 +25,21 @@ describe BacklogController do
       lambda {post :search, :q => 'find me carrots'}.should raise_error(ArgumentError)
     end
   end
+
+  describe "index#stale" do
+    it "should be routed by /backlog/stale" do
+      params_from(:get, '/backlog/stale').should == {:controller => 'backlog', :action => 'index', :filter => 'stale'}
+    end
+
+    it "should filter out the recent stories" do
+      stub_login_and_account_setup
+      @account.user_stories.make
+      stale = @account.user_stories.make
+      stale.updated_at = 3.years.ago
+      stale.save!
+      get :index, :filter => 'stale'
+      assigns(:user_stories).should == @account.user_stories.unassigned('position').stale(1.month.ago)
+      assigns(:user_stories).should_not include(stale)
+    end
+  end
 end
