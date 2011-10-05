@@ -219,7 +219,7 @@ $(function() {
     return ui;
   };
   
-  if ($('#user_stories tr.user_story').length > 0) {
+  if ($('#user_stories tr.user_story').length > 0 && (window.location.pathname.indexOf('stale') === -1)) {
     $('#user_stories').sortable({
       items: 'tr.user_story',
       helper: fixHelper,
