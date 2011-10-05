@@ -31,7 +31,6 @@ describe SprintsController do
       it "should set sprint on '#{action}'" do
         controller.stub!(:must_be_team_member).and_return(true)
         controller.stub!(:iteration_length_must_be_specified).and_return(true)
-        controller.should_receive(:sprint_must_exist).and_return(@sprint)
         get action.to_sym
       end
     end
@@ -196,7 +195,7 @@ describe SprintsController do
     
       describe "by loading a real sprint" do
         before(:each) do
-          @sprint = Sprint.new
+          @sprint = Sprint.new(:start_at => 1.day.ago, :end_at => 1.day.from_now)
           @account.sprints.should_receive(:find).with('23').and_return(@sprint)          
         end
         
