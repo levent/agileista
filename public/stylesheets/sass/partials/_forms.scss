@@ -1,28 +1,22 @@
 .form textarea.text_area {
-  font-family: helvetica, arial, sans-serif;
-}
-.form input.text_field {
-  font-size: 1.1em;
-}
+  font-family: helvetica, arial, sans-serif; }
 
-/* Login form >>> */
+.form input.text_field {
+  font-size: 1.1em; }
+
 #block-login .new_account {
-  float: right;
-}
+  float: right; }
+
 #block-login .new_account a {
-  color: #300;
-}
+  color: #330000; }
+
 #block-login .button {
- float: left;
-}
+  float: left; }
+
 #block-login .link {
   float: right;
-  padding-top: 4px;
-}
-/* <<< login form */
+  padding-top: 4px; }
 
 .form .description {
   display: block;
-  margin-top: 3px;
-}
-
+  margin-top: 3px; }

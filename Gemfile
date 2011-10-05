@@ -13,11 +13,10 @@ gem 'juggernaut', '2.0.4'
 gem 'SystemTimer'
 gem 'exceptional', '2.0.12'
 gem "smtp-tls", :git => "git://github.com/ambethia/smtp-tls", :group => 'production'
+gem 'sass', '3.1.8'
 
 group :development do
   gem 'ruby-debug'
-  gem 'less'
-  gem 'watchr'
 end
 
 group :test do

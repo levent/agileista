@@ -21,4 +21,4 @@ gems/*
 coverage.data
 config/mailer.yml
 vendor/bundle
-
+tmp/

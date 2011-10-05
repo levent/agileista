@@ -1,0 +1,70 @@
+$red: #7a1818;
+$lgrey: #ecefef;
+$grey: #494949;
+$dgrey: #262626;
+$green: #187949;
+$orange: #e46719;
+$blue: #184979;
+$yellow: #ffffbb;
+
+.table td {
+  vertical-align: top; }
+
+.table tr.odd {
+  background-color: white; }
+
+.table tr.even {
+  background-color: $lgrey; }
+
+.table td.definition {
+  width: 60%; }
+
+.table td.state {
+  color: white; }
+
+.sprints .table td.name {
+  width: 12%; }
+
+.sprints .table td.description, .sprints .table td.tasks {
+  width: 30%; }
+
+.impediments .table td.description {
+  width: 50%; }
+
+.table td.date {
+  width: 15%; }
+
+.table td.actions {
+  width: 12%; }
+
+.sprints .table td.actions {
+  line-height: 2;
+  width: 18%; }
+
+.table td.points {
+  text-align: center; }
+
+.user_stories.show .content .table {
+  margin: 10px;
+  width: 30%; }
+
+.user_stories.show .content .table th {
+  background-color: $lgrey;
+  color: #222222;
+  width: 30%; }
+
+.user_stories.show .content .table td {
+  background-color: $dgrey;
+  color: white;
+  width: 70%; }
+
+#user_stories table.table {
+  width: 94%; }
+
+#user_stories table.table tr.user_story {
+  cursor: move; }
+
+#user_stories table.table td.actions {
+  background-image: url("/images/icons/16x16/cursor_H_split.png");
+  background-repeat: no-repeat;
+  background-position: 90% 50%; }

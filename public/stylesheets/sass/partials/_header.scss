@@ -1,29 +1,25 @@
 #header h1 {
-  color: #FFF;
-}
+  color: white; }
 
 #header #accountswitcher {
-  margin: 23px 0 0 10px;
-}
+  margin: 23px 0 0 10px; }
 
 #header #search_form {
   padding: 25px 0;
-  position: absolute; left: 40%;
-}
+  position: absolute;
+  left: 40%; }
+
 #header #search_form .submit {
-  margin-left: 5px;
-}
+  margin-left: 5px; }
 
 #header .flash {
   float: right;
-  padding-top: 28px;
-}
+  padding-top: 28px; }
+
 #header .flash .message {
   float: right;
   margin-right: 10px;
-  padding: 3px;
-}
+  padding: 3px; }
 
 #header a.gravatar {
-  margin-top: 10px;
-}
+  margin-top: 10px; }

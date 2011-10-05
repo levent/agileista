@@ -42,12 +42,8 @@ GEM
     json_pure (1.5.1)
     juggernaut (2.0.4)
       redis
-    less (1.2.21)
-      mutter (>= 0.4.2)
-      treetop (>= 1.4.2)
     linecache (0.43)
     machinist (1.0.6)
-    mutter (0.5.3)
     mysql (2.8.1)
     newrelic_rpm (2.13.4)
     nokogiri (1.4.4)
@@ -74,12 +70,12 @@ GEM
       ruby-debug-base (~> 0.10.4.0)
     ruby-debug-base (0.10.4)
       linecache (>= 0.3)
+    sass (3.1.8)
     shoulda (2.11.3)
     term-ansicolor (1.0.5)
     timecop (0.3.5)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    watchr (0.7)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
@@ -101,7 +97,6 @@ DEPENDENCIES
   fastercsv
   json
   juggernaut (= 2.0.4)
-  less
   machinist
   mysql
   newrelic_rpm
@@ -110,9 +105,9 @@ DEPENDENCIES
   rspec (= 1.3.1)
   rspec-rails (= 1.3.3)
   ruby-debug
+  sass (= 3.1.8)
   shoulda
   smtp-tls!
   timecop
-  watchr
   webrat
   will_paginate (~> 2.3.11)
