@@ -22,3 +22,7 @@ coverage.data
 config/mailer.yml
 vendor/bundle
 tmp/
+*.rbc
+*.sassc
+.sass-cache
+/public/stylesheets/application.css
