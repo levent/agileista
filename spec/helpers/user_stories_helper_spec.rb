@@ -37,5 +37,32 @@ describe UserStoriesHelper do
       @it.user_story_status(@us).should == "OK"
     end
   end
+
+  describe "#parse_definition" do
+    it "should convert tags" do
+      @us.definition = "[PO] As a user I wanna go home"
+      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D">[PO]</a> As a user I wanna go home'.html_safe
+    end
+
+    it "should convert multiple tags" do
+      @us.definition = "[PO] [BUG] As a user I wanna go home"
+      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D">[PO]</a> <a href="/backlog/search?q=%5BBUG%5D">[BUG]</a> As a user I wanna go home'.html_safe
+    end
+
+    it "should convert multiple joined tags" do
+      @us.definition = "[PO][BUG] As a user I wanna go home"
+      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D">[PO]</a><a href="/backlog/search?q=%5BBUG%5D">[BUG]</a> As a user I wanna go home'.html_safe
+    end
+
+    it "should handle duplicate tags" do
+      @us.definition = "[PO][PO] As a user I wanna go home"
+      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D">[PO]</a><a href="/backlog/search?q=%5BPO%5D">[PO]</a> As a user I wanna go home'.html_safe
+    end
+
+    it "should not convert non tagged definitions" do
+      @us.definition = "As a user I wanna go home"
+      @it.parse_definition(@us.definition).should == 'As a user I wanna go home'
+    end
+  end
 end
 
