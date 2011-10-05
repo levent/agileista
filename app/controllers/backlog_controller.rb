@@ -15,12 +15,12 @@ class BacklogController < AbstractSecurityController
     end
     respond_to do |format|
       format.html do
+        cookies[:backlog] ||= "list"
         if @account.user_stories.blank?
           render :action => 'get_started' 
         elsif cookies[:backlog] == "list"
           render :action => 'list'
         end
-        cookies[:backlog] ||= "grid"
       end
       format.csv do
         render_csv("current_backlog_#{Time.now.strftime('%Y%m%d%H%M')}")
