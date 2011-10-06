@@ -184,5 +184,13 @@ dl.user_story dd.tasks a:hover {
   padding: 0 2%;
   width: 46%; }
 
-#user_stories table.table tr.release_marker {
-  border-bottom: 2px solid #187949; }
+#user_stories {
+  table.table {
+    tr.release_marker {
+      border-top: 2px solid $green;
+    }
+    tr.warning{
+      background-color: $yellow;
+    }
+  }
+}

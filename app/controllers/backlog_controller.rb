@@ -8,7 +8,6 @@ class BacklogController < AbstractSecurityController
   def index
     store_location
     @story_points = 0
-    @story_point_count = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     @velocity = @account.average_velocity
     if params[:filter] == 'stale'
@@ -62,7 +61,7 @@ class BacklogController < AbstractSecurityController
     items.each_with_index do |id, index|
       @user_stories.update_all(['position=?', index+1], ['id=?', id])
     end
-    render :json => {:ok => true}.to_json
+    render :json => {:ok => true, :velocity => @account.average_velocity}.to_json
   end
   
   private

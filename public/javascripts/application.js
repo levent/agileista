@@ -227,7 +227,7 @@ $(function() {
         $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
           if(data.ok == true) {
             $('#flashs').html('Backlog reordered');
-            $('tr.user_story').removeClass('release_marker');
+            setupVelocityMarkers(data.velocity)
           }
         }, "json");
       }
@@ -243,4 +243,25 @@ function add_new_item(element) {
   e.after(
     $('<'+tag+'>'+'</'+tag+'>').append(e.html().replace(/\d+(?=\_)|\d+(?=\])/g, function(match) {return parseInt(match)+1;}))
   );
+}
+
+function setupVelocityMarkers(velocity) {
+  if(!(velocity === '') && window.location.pathname.indexOf('stale') === -1){
+    $('.release_marker').removeClass('release_marker');
+    var user_stories = $('tr.user_story');
+    var tally = 0;
+    $.each(user_stories, function(index, story) {
+      var story_points = parseInt($(story).children('td.points').text());
+      if(!isNaN(story_points)){
+        tally += story_points;
+      }
+      if(tally > velocity) {
+        if(story_points > velocity)
+      $(story).addClass('warning');
+    $(story).addClass('release_marker');
+    tally = story_points;
+      }
+
+    });
+  }
 }
