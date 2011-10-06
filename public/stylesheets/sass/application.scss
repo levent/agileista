@@ -277,6 +277,28 @@ ul.list li .item .avatar {
   width: 30px;
   height: 30px; }
 
+body.signup {
+  #box {
+    float: left;
+  }
+}
+
+#info {
+  padding: 1.6em 2em;
+  font-size: 2em;
+  h2 {
+    font-size: 1em;
+  }
+  float: left;
+  margin: 50px auto;
+  ul {
+    padding-left: 0.4em;
+  }
+  ul li:before {
+   content: "✔ ";
+  }
+}
+
 #box {
   width: 500px;
   margin: 50px auto; }
