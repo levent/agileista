@@ -175,6 +175,12 @@ dl.user_story dd.tasks a:hover {
   bottom: 0;
   right: 0; }
 
+#estimated {
+  dl.user_story dd.tasks {
+    display:none;
+  }
+}
+
 #estimated, #committed {
   width: 50%;
   min-height: 200px; }

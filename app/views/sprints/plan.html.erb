@@ -8,7 +8,7 @@
         <div id="estimated" class="clearfix left">
           <h3>Estimated user stories:</h3>
           <% @account.user_stories.estimated.each do |user_story| %>
-            <%= render :partial => '/user_stories/user_story', :locals => {:user_story => user_story} %>
+            <%= render :partial => '/user_stories/user_story', :locals => {:sprint => @sprint, :user_story => user_story, :tasks => !@sprint.finished?, :copy => @sprint.finished? && !user_story.complete?} %>
           <% end %>
         </div>
     
