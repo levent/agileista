@@ -278,24 +278,30 @@ ul.list li .item .avatar {
   height: 30px; }
 
 body.signup {
+  div#wrapper {
+    width: 1000px;
+  }
+
   #box {
+    width: 500px;
     float: left;
   }
-}
 
-#info {
-  padding: 1.6em 2em;
-  font-size: 2em;
-  h2 {
-    font-size: 1em;
-  }
-  float: left;
-  margin: 50px auto;
-  ul {
-    padding-left: 0.4em;
-  }
-  ul li:before {
-   content: "✔ ";
+  #info {
+    width: 400px;
+    padding: 1.6em 2em;
+    font-size: 1.8em;
+    h2 {
+      font-size: 1.4em;
+    }
+    float: left;
+    margin: 50px 0;
+    ul {
+      padding-left: 0.4em;
+    }
+    ul li:before {
+     content: "✔ ";
+    }
   }
 }
 
