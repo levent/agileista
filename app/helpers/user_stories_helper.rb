@@ -58,9 +58,9 @@ module UserStoriesHelper
   def parse_definition(definition)
     definition.scan(/\[\w+\]/).uniq.each do |m|
       link = link_to m, search_backlog_path(:q => m)
-      definition.gsub!(m, link)
+      definition.gsub!(m, link).html_safe
     end
-    definition
+    definition.html_safe
   end
 end
 

@@ -1,7 +1,7 @@
 <tr id="item_<%= user_story_row.id %>" class="<%= cycle('odd', 'even', :name => "user_stories") %> user_story">
   <td class="state"><%= user_story_state(user_story_row.state) %></td>
   <td class="id"><%= link_to user_story_row.id, show_link(user_story_row) %></td>
-  <td class="definition"><%=h parse_definition(user_story_row.definition) %></td>
+  <td class="definition"><%= h parse_definition(user_story_row.definition) %></td>
   <td class="points"><%= show_story_points(user_story_row.story_points, :unit => "") %></td>
   <td class="stakeholder"><%= show_stakeholder(user_story_row) %></td>
   <td class="actions"><%= link_to 'Show', show_link(user_story_row), :class => "button" %> <%= link_to 'Edit', edit_link(user_story_row), :class => "button" if current_user.is_a?(TeamMember) %></td>
