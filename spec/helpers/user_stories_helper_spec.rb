@@ -63,6 +63,11 @@ describe UserStoriesHelper do
       @us.definition = "As a user I wanna go home"
       @it.parse_definition(@us.definition).should == 'As a user I wanna go home'
     end
+
+    it "should handle escaping other dodgy tags" do
+      @us.definition = "[PO] As a user I wanna go <title>home</title>"
+      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D">[PO]</a> As a user I wanna go &lt;title&gt;home&lt;/title&gt;'.html_safe
+    end
   end
 end
 
