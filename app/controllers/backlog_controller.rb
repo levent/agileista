@@ -10,6 +10,7 @@ class BacklogController < AbstractSecurityController
     @story_points = 0
     @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
     @velocity = @account.average_velocity
+    @uid = Digest::SHA1.hexdigest("backlog#{@account.id}")
     if params[:filter] == 'stale'
       @how_stale = calculate_staleness(params[:t])
       @user_stories = @user_stories.stale(@how_stale)
@@ -61,6 +62,12 @@ class BacklogController < AbstractSecurityController
     items.each_with_index do |id, index|
       @user_stories.update_all(['position=?', index+1], ['id=?', id])
     end
+    json = {
+      :notification => "Backlog reordered by #{current_user.name}",
+      :performed_by => current_user.name
+    }
+    uid = Digest::SHA1.hexdigest("backlog#{@account.id}")
+    Juggernaut.publish(uid, json)
     render :json => {:ok => true, :velocity => @account.average_velocity}.to_json
   end
   

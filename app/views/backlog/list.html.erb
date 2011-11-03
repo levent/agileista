@@ -34,4 +34,6 @@
   <script type="text/javascript" charset="utf-8">
     setupVelocityMarkers('<%= @velocity %>');
   </script>
+
+  <%= render :partial => 'juggernaut', :locals => {:uid => @uid} %>
 <% end %>
