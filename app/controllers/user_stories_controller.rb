@@ -108,9 +108,8 @@ class UserStoriesController < AbstractSecurityController
     split_by = "&item[]="
     items = params[:user_stories].split(split_by)
     items[0] = items[0].gsub('item[]=', '')
-    @sprint.sprint_elements.each do |se|
-      se.position = items.index(se.user_story_id.to_s) + 1
-      se.save
+    items.each_with_index do |id, index|
+      @sprint.sprint_elements.update_all(['position=?', index+1], ['id=?', id])
     end
     render :json => {:ok => true}.to_json
   end
