@@ -1,7 +1,7 @@
 class Sprint < ActiveRecord::Base
 
   has_many :sprint_elements, :dependent => :delete_all, :order => 'sprint_elements.position'
-  has_many :user_stories, :through => :sprint_elements, :order => 'user_stories.done, sprint_elements.position'
+  has_many :user_stories, :through => :sprint_elements, :order => 'sprint_elements.position, user_stories.done'
   has_many :burndowns
   has_many :sprint_changes, :as => :auditable
   has_many :audits, :class_name => "SprintChange"
