@@ -4,7 +4,7 @@
 
     <div class="content">
       <% unless @sprints.blank? %>
-        <h2 class="title">Total: <strong class="hightlight"><%= @sprints.size %></strong>. Finished: <strong class="hightlight"><%= @sprints.finished.size %></strong>. Average velocity: <strong class="hightlight"><%= average_velocity(@sprints) %></strong>.</h2>
+        <h2 class="title">Total: <strong class="hightlight"><%= @sprints.size %></strong>. Finished: <strong class="hightlight"><%= @sprints.finished.size %></strong>. Average velocity: <strong class="hightlight"><%= average_velocity(@account) %></strong>.</h2>
         <div class="inner">
           <table class="table">
             <tbody>

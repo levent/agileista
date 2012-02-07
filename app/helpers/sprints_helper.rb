@@ -41,15 +41,10 @@ module SprintsHelper
     return result.join(" ") if result.any?
   end
 
-  def average_velocity(sprints, opts = {})
-    return nil unless sprints.length >= 2
+  def average_velocity(account, opts = {})
+    return nil unless velocity = account.average_velocity
     options = {:unit => "story points"}.merge(opts)
-
-    if sprints.size == 0 || sprints.finished.size == 0
-      "0 #{options[:unit]}"
-    else
-      (sprints.finished.collect(&:calculated_velocity).sum / sprints.finished.size).to_s + " #{options[:unit]}"
-    end
+    "#{velocity} #{options[:unit]}"
   end
 
   def state(item)
