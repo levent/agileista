@@ -122,8 +122,8 @@ module ApplicationHelper
 
   def flash_messages(wrapper = "h3")
     messages = []
-    messages << "notice" if flash.has_key?("notice".to_sym)
-    messages << "error" if flash.has_key?("error".to_sym)
+    messages << "notice" if flash[:notice]
+    messages << "error" if flash[:error]
 
     if messages.size > 0
       result = []
@@ -150,7 +150,7 @@ module ApplicationHelper
       end
     end
 
-    return content_tag(:ul, result.join("\t\n"))
+    content_tag(:ul, result.join("").html_safe)
   end
 
   def user_navigation
@@ -163,7 +163,7 @@ module ApplicationHelper
       end
     end
 
-    return content_tag(:ul, result.join("\t\n"))
+    return content_tag(:ul, result.join("").html_safe)
   end
 
   def add_user_story

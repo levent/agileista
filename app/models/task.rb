@@ -15,11 +15,11 @@ class Task < ActiveRecord::Base
   
   # named_scope :incomplete, :conditions => "developer_id IS NULL && (hours > 0 OR hours IS NULL)"
   # named_scope :inprogress, :conditions => "(developer_id IS NOT NULL AND hours > 0) OR (developer_id IS NOT NULL AND hours IS NULL)"
-  named_scope :complete, :conditions => "hours = 0"
+  scope :complete, :conditions => "hours = 0"
   
   # Similar to above, but we're using these in the user_story/show context
-  named_scope :done, lambda { complete.scope(:find) }
-  named_scope :not_done, :conditions => "hours > 0 OR hours IS NULL"
+  scope :done, lambda { complete.scope(:find) }
+  scope :not_done, :conditions => "hours > 0 OR hours IS NULL"
   
   after_save :calculate_burndown
   after_destroy :calculate_burndown

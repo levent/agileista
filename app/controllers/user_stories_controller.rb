@@ -48,7 +48,7 @@ class UserStoriesController < AbstractSecurityController
         redirect_to sprint_url(@sprint)
       else
         flash[:notice] = "User story created successfully"
-        redirect_to backlog_index_path
+        redirect_to backlog_path
       end
     else
       flash[:error] = "There were errors creating the user story"
@@ -75,7 +75,7 @@ class UserStoriesController < AbstractSecurityController
       @user_story.tasks.build
       render :action => 'edit' and return false
     end
-    redirect_back_or(backlog_index_url)
+    redirect_back_or(backlog_url)
   end
   
   def plan
@@ -119,7 +119,7 @@ class UserStoriesController < AbstractSecurityController
       session[:return_to] = nil if session[:return_to].split("/").last == @user_story.id.to_s
       flash[:notice] = "User story deleted"
     end
-    redirect_back_or(backlog_index_url)
+    redirect_back_or(backlog_url)
   end
   
   protected

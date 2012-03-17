@@ -1,40 +1,37 @@
-ActiveRecord::Base
-require 'timecop'
-# Settings specified here will take precedence over those in config/environment.rb
+Agileista::Application.configure do
+  # Settings specified here will take precedence over those in config/application.rb
 
-# The test environment is used exclusively to run your application's
-# test suite.  You never need to work with it otherwise.  Remember that
-# your test database is "scratch space" for the test suite and is wiped
-# and recreated between test runs.  Don't rely on the data there!
-config.cache_classes = true
+  # The test environment is used exclusively to run your application's
+  # test suite. You never need to work with it otherwise. Remember that
+  # your test database is "scratch space" for the test suite and is wiped
+  # and recreated between test runs. Don't rely on the data there!
+  config.cache_classes = true
 
-# Log error messages when you accidentally call methods on nil.
-config.whiny_nils = true
+  # Configure static asset server for tests with Cache-Control for performance
+  config.serve_static_assets = true
+  config.static_cache_control = "public, max-age=3600"
 
-# Show full error reports and disable caching
-config.action_controller.consider_all_requests_local = true
-config.action_controller.perform_caching             = false
-ActionController::Base.session_options[:session_domain] = 'agileista.local'
+  # Log error messages when you accidentally call methods on nil
+  config.whiny_nils = true
 
-# Tell ActionMailer not to deliver emails to the real world.
-# The :test delivery method accumulates sent emails in the
-# ActionMailer::Base.deliveries array.
-config.action_mailer.delivery_method = :test
+  # Show full error reports and disable caching
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
 
-# config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :source => 'http://gems.github.com'
-# config.gem "rspec", :lib => false, :version => "1.2.9"
-# config.gem "rspec-rails", :lib => false, :version => "1.2.9"
-# # config.gem "cucumber"
-# # config.gem "brynary-webrat", :lib => 'webrat', :source => 'http://gems.github.com'
-# # config.gem "webrat"
-# config.gem "notahat-machinist", :lib => false, :source => "http://gems.github.com"
-# config.gem "faker", :lib => false
-# config.gem "drnic-blue-ridge", :lib => false, :source => "http://gems.github.com"
+  # Raise exceptions instead of rendering exception templates
+  config.action_dispatch.show_exceptions = false
 
-EMAIL_FROM = "donotreply@agileista.purebreeze.com"
+  # Disable request forgery protection in test environment
+  config.action_controller.allow_forgery_protection    = false
 
-config.after_initialize do
-  # Set Time.now to September 1, 2008 10:05:00 AM (at this instant), but allow it to move forward
-  t = Time.local(2008, 9, 1, 10, 5, 0)
-  Timecop.travel(t)
+  # Tell Action Mailer not to deliver emails to the real world.
+  # The :test delivery method accumulates sent emails in the
+  # ActionMailer::Base.deliveries array.
+  config.action_mailer.delivery_method = :test
+
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
+
+  # Print deprecation notices to the stderr
+  config.active_support.deprecation = :stderr
 end

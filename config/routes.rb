@@ -1,29 +1,36 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resources :backlog, :controller => 'backlog', :collection => {:feed => :get, :search => :get, :sprint => :get, :sort => :post, :grid => :get, :list => :get}, :except => [:show]
-  map.connect 'backlog/:filter', :controller => 'backlog', :action => 'index'
-  map.connect 'backlog/:filter/:range', :controller => 'backlog', :action => 'index'
+Agileista::Application.routes.draw do
+  # resources :backlog, :controller => 'backlog', :collection => {:feed => :get, :search => :get, :sprint => :get, :sort => :post, :grid => :get, :list => :get}, :except => [:show]
 
-  map.resources :sprints, :member => { :plan => :get } do |sprint|
-    sprint.resources :user_stories, :member => {:plan => :post, :unplan => :post, :reorder => :post}
+  get "/backlog/:filter" => "backlog#index"
+  get "/backlog/:filter/:range" => "backlog#index"
+
+  resources :sprints, :member => { :plan => :get } do
+    resources :user_stories, :member => {:plan => :post, :unplan => :post, :reorder => :post}
   end
 
-  map.resources :impediments, :member => {:resolve => :post}, :collection => {:active => :get, :resolved => :get}
+  resources :impediments, :member => {:resolve => :post}, :collection => {:active => :get, :resolved => :get}
 
-  map.resources :user_stories, :member => {:copy => :post, :create_task => :post} do |user_story|
-    user_story.resources :tasks, :member => {:move_up => :post, :move_down => :post, :claim => :put}, :collection => {:create_quick => :post, :assign => :post}
+  resources :user_stories, :member => {:copy => :post, :create_task => :post} do
+    resources :tasks, :member => {:move_up => :post, :move_down => :post, :claim => :put}, :collection => {:create_quick => :post, :assign => :post}
   end
 
-  map.resources :themes, :collection => {:sort => :post} do |theme|
-    theme.resources :user_stories
+  resources :themes, :collection => {:sort => :post} do
+    resources :user_stories
   end
 
-  map.resources :users
+  resources :users
+
+  get "/login" => "login#index"
+  post "/login/authenticate" => "login#authenticate"
+
+  get "/backlog" => "backlog#index"
+  get "/backlog/search" => "backlog#search"
 
 
   # The priority is based upon order of creation: first created -> highest priority.
   
   # Sample of regular route:
-  # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
+  # connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
@@ -32,15 +39,5 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed by hooking up '' 
   # -- just remember to delete public/index.html.
-  map.root :controller => "signup"
-
-  # Allow downloading Web Service WSDL as a file with an extension
-  # instead of a file named 'wsdl'
-  map.connect ':controller/service.wsdl', :action => 'wsdl'
-
-  # Install the default route as the lowest priority.
-  # map.connect ':account_name/:controller/:action/:id'
-  # map.connect ':account_name', :controller => "backlog"
-
-  map.connect ':controller/:action/:id'
+  root :to => "signup#index"
 end

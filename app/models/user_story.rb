@@ -33,14 +33,14 @@ class UserStory < ActiveRecord::Base
   belongs_to :sprint
   belongs_to :person
 
-  named_scope :stale,
+  scope :stale,
     lambda { |range|
     { 
       :conditions => ['done = ? AND updated_at < ?', 0, range]
     }
   }
-  named_scope :estimated, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil]
-  named_scope :unassigned,
+  scope :estimated, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil]
+  scope :unassigned,
     lambda {|order|
         {
           :conditions => ['done = ? AND sprint_id IS ?', 0, nil],

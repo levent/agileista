@@ -1,11 +1,9 @@
+require 'account_stuff'
 class ApplicationController < ActionController::Base
+  force_ssl
+  protect_from_forgery
   include AccountStuff
-  include SslRequirement
   
-  helper :all
-   
-  filter_parameter_logging :password
-
   protected
   
   def render_csv(filename = nil)
@@ -53,16 +51,16 @@ class ApplicationController < ActionController::Base
       @task = @user_story.tasks.find(params[:id])
     rescue
       flash[:error] = "No such task"
-      redirect_to backlog_index_url and return false
+      redirect_to backlog_url and return false
     end
   end
   
   def must_be_team_member
-    current_user.is_a?(TeamMember) ? true : (redirect_to backlog_index_url and return false)
+    current_user.is_a?(TeamMember) ? true : (redirect_to backlog_url and return false)
   end
   
   def must_be_account_holder
-    current_user.account_holder? ? true : (redirect_to backlog_index_url and return false)
+    current_user.account_holder? ? true : (redirect_to backlog_url and return false)
   end
   
   # excludes DONE

@@ -1,11 +1,12 @@
 class SignupController < ApplicationController
-  ssl_required :index, :ok, :create, :validate
+#  ssl_required :index, :ok, :create, :validate
 
   def index
+    puts url_for(:controller => 'login', :subdomain => current_subdomain)
     if logged_in?
       redirect_to :controller => 'backlog', :subdomain => current_subdomain and return false
     elsif AccountStuff::MASTER_SUBDOMAIN != current_subdomain
-      redirect_to :controller => 'login', :subdomain => current_subdomain and return false
+      redirect_to login_path(:subdomain => current_subdomain)
     end
     @account = Account.new
   end

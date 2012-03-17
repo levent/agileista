@@ -2,7 +2,7 @@ require 'digest/sha1'
 
 class Person < ActiveRecord::Base
   include Gravtastic
-  is_gravtastic!
+  gravtastic
   
   validates_confirmation_of :password
   validates_length_of :password, :in => 6..16, :if => :password_required?
@@ -17,8 +17,8 @@ class Person < ActiveRecord::Base
   
   attr_accessor :password
   
-  named_scope :active, :conditions => {:authenticated => true}
-  named_scope :inactive, :conditions => {:authenticated => false}
+  scope :active, :conditions => {:authenticated => true}
+  scope :inactive, :conditions => {:authenticated => false}
   
   def validate_account
     self.authenticated = 1

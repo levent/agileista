@@ -1,5 +1,5 @@
 class LoginController < ApplicationController
-  ssl_required :index, :authenticate, :logout
+#  ssl_required :index, :authenticate, :logout
   
   def index
     if AccountStuff::MASTER_SUBDOMAIN == current_subdomain
@@ -12,29 +12,27 @@ class LoginController < ApplicationController
   end
   
   def authenticate
-    if request.post?
-      account = Account.find_by_subdomain(current_subdomain)
-      unless account.nil?
-        if logged_in?
-          person = account.people.find(:first, :conditions => ["email = ? AND authenticated = ?", current_user.email, 1])
-        else
-          person = account.authenticate(params[:email], params[:password])
-        end
-        unless person.nil?
-          flash[:notice] = "You have logged in successfully"
-          session[:user] = person.id
-          session[:account] = account.id
-          redirect_to :controller => 'backlog', :subdomain => account.subdomain
-        else
-          # setup_account_name_for_form
-          flash[:error] = "Sorry we couldn't find anyone by that email and password in the account \"#{account.name}\""
-          render :action => 'index'
-        end
+    account = Account.find_by_subdomain(current_subdomain)
+    unless account.nil?
+      if logged_in?
+        person = account.people.find(:first, :conditions => ["email = ? AND authenticated = ?", current_user.email, 1])
       else
-        flash[:error] = "Sorry we couldn't find that account"
+        person = account.authenticate(params[:email], params[:password])
+      end
+      unless person.nil?
+        flash[:notice] = "You have logged in successfully"
+        session[:user] = person.id
+        session[:account] = account.id
+        redirect_to backlog_path(:subdomain => account.subdomain)
+      else
         # setup_account_name_for_form
+        flash[:error] = "Sorry we couldn't find anyone by that email and password in the account \"#{account.name}\""
         render :action => 'index'
       end
+    else
+      flash[:error] = "Sorry we couldn't find that account"
+      # setup_account_name_for_form
+      render :action => 'index'
     end
   end
   

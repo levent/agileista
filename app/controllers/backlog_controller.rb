@@ -1,7 +1,7 @@
 require 'fastercsv'
 class BacklogController < AbstractSecurityController
-  ssl_required :feed
-  ssl_allowed :index, :sort, :search
+  # ssl_required :feed
+  # ssl_allowed :index, :sort, :search
   before_filter :must_be_team_member, :only => ['sort']
   before_filter :account_user_stories ,:only => ['index', 'export', 'feed', 'sort']
 
@@ -32,12 +32,12 @@ class BacklogController < AbstractSecurityController
 
   def grid
     cookies[:backlog] = 'grid'
-    redirect_to backlog_index_url
+    redirect_to backlog_url
   end
 
   def list
     cookies[:backlog] = 'list'
-    redirect_to backlog_index_url
+    redirect_to backlog_url
   end
   
   def feed

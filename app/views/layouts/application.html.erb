@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -9,9 +8,13 @@
   <meta name="keywords" content="agile, scrum" />
   <link rel="home" href="http://<%= "#{request.host_with_port}" %>" />
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="alternate" type="application/atom+xml" title="Backlog Feed" href="<%= backlog_index_url(:format => :atom) %>">
-  <%= stylesheet_link_tag "application", :cache => "styles" %>
+  <link rel="alternate" type="application/atom+xml" title="Backlog Feed" href="<%= backlog_url(:format => :atom) %>">
+  <%= stylesheet_link_tag "application" %>
   <!--[if IE]><link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+
+  <!-- %= stylesheet_link_tag    "application", :media => "all" % -->
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
 </head>
 <body id="agileista" class="<%= page_signature %>">
   <div id="notification-bar"><a href="" class="close-bar">×</a></div>
@@ -28,15 +31,15 @@
         <%= text_field_tag 'q' %><%= submit_tag 'Search', :class => "submit" %>
       <% end %>
 
-      <%= link_to(image_tag(current_user.gravatar_url(:rating => 'G', :size => 40)), edit_user_url(current_user), :class => "gravatar right") %>
+      <%= link_to(image_tag(current_user.gravatar_url(:rating => 'G', :size => 40, :secure => true)), edit_user_url(current_user), :class => "gravatar right") %>
       <%= flash_messages("p") %>
     </div>
     <div id="user-navigation" class="clearfix main-navigation">
-      <%= user_navigation %>
+      <%= user_navigation.html_safe %>
     </div>
 
     <div class="clearfix main-navigation">
-      <%= main_navigation %>
+      <%= main_navigation.html_safe %>
     </div>
 
   <% else %>
@@ -50,11 +53,9 @@
 
   <div class="c"></div>
 
-  <!-- Wrapper >>> -->
   <div id="wrapper" class="clearfix">
     <%= yield %>
   </div>
-  <!-- <<< wrapper -->
 
   <%= render(:partial => "shared/javascripts") %>
   <%= yield :custom_js %>

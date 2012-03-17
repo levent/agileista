@@ -5,8 +5,8 @@ class Impediment < ActiveRecord::Base
   belongs_to :team_member, :class_name => "TeamMember", :foreign_key => "person_id"
   belongs_to :account
   
-  named_scope :unresolved, :conditions => {:resolved_at => nil}
-  named_scope :resolved, :conditions => "resolved_at IS NOT NULL"
+  scope :unresolved, :conditions => {:resolved_at => nil}
+  scope :resolved, :conditions => "resolved_at IS NOT NULL"
   
   def resolve!
     self.resolved_at = Time.now

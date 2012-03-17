@@ -1,22 +1,36 @@
 source :rubygems
 
-gem 'rails', '2.3.11'
+gem 'rails', '3.2.2'
 
-gem "mysql"
+gem "mysql2"
 gem "fastercsv"
 gem "json"
-gem 'will_paginate', '~> 2.3.11'
+gem 'will_paginate', '~> 3.0'
 gem "acts-as-taggable-on"
 gem "awesome_print"
 gem "newrelic_rpm"
 gem 'juggernaut', '2.0.4'
-gem 'SystemTimer'
 gem 'exceptional', '2.0.12'
 gem "smtp-tls", :git => "git://github.com/ambethia/smtp-tls", :group => 'production'
-gem 'sass', '3.1.8'
+gem 'subdomain-fu', :git => "git://github.com/nhowell/subdomain-fu.git"
+gem 'thinking-sphinx', '2.0.11'
+gem 'gravtastic'
+gem 'acts_as_list'
+
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer'
+
+  gem 'uglifier', '>= 1.0.3'
+end
+
+gem 'jquery-rails'
 
 group :development do
-  gem 'ruby-debug'
+#  gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 group :test do
@@ -26,7 +40,6 @@ group :test do
   gem "machinist"
   gem "faker"
   gem "timecop"
-  gem "rcov"
 end
 
 group :cucumber do
@@ -38,6 +51,5 @@ group :cucumber do
   gem 'webrat'
   gem 'rspec', '1.3.1'
   gem 'rspec-rails', '1.3.3'
-  gem "rcov"
 end
 

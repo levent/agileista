@@ -26,7 +26,7 @@ module SprintsHelper
       result << %{<span class="hightlight">#{sprint.total_story_points} story points</span>}
     end
 
-    return result.join(" ")
+    return result.join(" ").html_safe
   end
 
   def sprint_buttons(sprint, buttons = [])

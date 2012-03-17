@@ -4,8 +4,8 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
 
   xml.title("Backlog for #{@account.name}")
   xml.subtitle ""
-  xml.link    "rel" => "self", "href" => backlog_index_url(:only_path => false)
-  xml.id      backlog_index_url(:only_path => false)
+  xml.link    "rel" => "self", "href" => backlog_url(:only_path => false)
+  xml.id      backlog_url(:only_path => false)
   # xml.updated @results.first.updated_at.strftime "%Y-%m-%dT%H:%M:%SZ" if @results.any?
   xml.author  { xml.name "Author Name" }
   @user_stories.each do |us|

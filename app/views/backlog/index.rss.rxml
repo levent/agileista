@@ -6,7 +6,7 @@ xml.rss "version" => "2.0" do
   xml.channel do
   
     xml.title("Backlog for #{@account.name}")
-    xml.link backlog_index_url(:only_path => false)
+    xml.link backlog_url(:only_path => false)
     xml.description ""
     @user_stories.each do |us|
       xml.item do

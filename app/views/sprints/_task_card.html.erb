@@ -15,9 +15,9 @@
     <%= h truncate(task_card.definition, :length => 60) %>
     <strong><%= show_assignees(task_card.developers) %></strong>
   </dd>
-  <% if defined?(sprint) && !sprint.finished? %>
+  <% if sprint && !sprint.finished? %>
     <dd class="tasks clearfix">
-    <% form_for :task, task_card, :url => user_story_task_path(:user_story_id => task_card.user_story, :id => task_card), :html => {:method => :put, :class => 'task_card_form'} do |f| %>
+    <%= form_for task_card, :url => user_story_task_path(:user_story_id => task_card.user_story, :id => task_card), :html => {:method => :put, :class => 'task_card_form'}, :remote => true do |f| %>
       <%= f.text_field(:hours, :size => 3) %>
       <%= submit_tag 'Save', :class => 'tasksavehours' %>
       <% if claim %>

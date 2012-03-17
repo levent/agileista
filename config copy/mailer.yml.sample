@@ -1,0 +1,10 @@
+production:
+  :enable_starttls_auto: true
+  :address: "smtp.gmail.com"
+  :port: 587
+  :domain: "agileista.com"
+  :authentication: "plain"
+  :user_name: "me@gmail.com"
+  :password: "xxxxxx"
+
+
