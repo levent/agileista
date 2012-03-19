@@ -27,7 +27,7 @@
           </tr>
         </tbody>
       </table>
-      <h2 class="title"><%= %{<span class="highlight">##{@user_story.id}</span> } + h(@user_story.definition) %></h2>
+      <h2 class="title"><span class="highlight"><%= @user_story.id %></span> <%= h(@user_story.definition) %></h2>
       <div class="inner">
         <%= simple_format(@user_story.description) %>
       </div>

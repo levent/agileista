@@ -18,7 +18,6 @@ class Task < ActiveRecord::Base
   scope :complete, :conditions => "hours = 0"
   
   # Similar to above, but we're using these in the user_story/show context
-  scope :done, lambda { complete.scope(:find) }
   scope :not_done, :conditions => "hours > 0 OR hours IS NULL"
   
   after_save :calculate_burndown

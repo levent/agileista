@@ -184,7 +184,7 @@ module ApplicationHelper
       result << "<div>#{checkbox} #{label}</div>"
     end
 
-    return result.join("\n")
+    return result.join("\n").html_safe
   end
 
   def confirmation_message(object, name)
@@ -192,7 +192,7 @@ module ApplicationHelper
   end
 
   def user_story_state(state)
-    %[<span class="#{state}">#{state.titleize}</span>]
+    %[<span class="#{state}">#{state.titleize}</span>].html_safe
   end
 
   def pagination_info(entries, name = "entries")

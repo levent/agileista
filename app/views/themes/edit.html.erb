@@ -5,7 +5,7 @@
     <div class="content">
       <h2 class="title">Editing theme <%= @theme.name %></h2>
       <div class="inner">
-        <% form_for :theme, @theme, :url => theme_url(@theme), :html => {:method => "put", :class => "form"} do |form| %>
+        <%= form_for :theme, @theme, :url => theme_url(@theme), :html => {:method => "put", :class => "form"} do |form| %>
           <%= render :partial => 'form', :locals => {:form => form} %>
         <% end %>
       </div>

@@ -4,17 +4,51 @@ Agileista::Application.routes.draw do
   get "/backlog/:filter" => "backlog#index"
   get "/backlog/:filter/:range" => "backlog#index"
 
-  resources :sprints, :member => { :plan => :get } do
-    resources :user_stories, :member => {:plan => :post, :unplan => :post, :reorder => :post}
+  resources :sprints do
+    member do
+      get 'plan'
+    end
+    resources :user_stories do
+      member do
+        post 'plan'
+        post 'unplan'
+        post 'reorder'
+      end
+    end
   end
 
-  resources :impediments, :member => {:resolve => :post}, :collection => {:active => :get, :resolved => :get}
-
-  resources :user_stories, :member => {:copy => :post, :create_task => :post} do
-    resources :tasks, :member => {:move_up => :post, :move_down => :post, :claim => :put}, :collection => {:create_quick => :post, :assign => :post}
+  resources :impediments do
+    member do
+      post 'resolve'
+    end
+    collection do
+      get 'active'
+      get 'resolved'
+    end
   end
 
-  resources :themes, :collection => {:sort => :post} do
+  resources :user_stories do
+    member do
+      post 'copy'
+      post 'create_task'
+    end
+    resources :tasks do
+      member do 
+        post 'move_up'
+        post 'move_down'
+        put 'claim'
+      end
+      collection do
+        post 'create_quick'
+        post 'assign'
+      end
+    end
+  end
+
+  resources :themes do
+    collection do
+      post 'sort'
+    end
     resources :user_stories
   end
 
@@ -24,6 +58,7 @@ Agileista::Application.routes.draw do
   post "/login/authenticate" => "login#authenticate"
 
   get "/backlog" => "backlog#index"
+  post "/backlog/sort" => "backlog#sort"
   get "/backlog/search" => "backlog#search"
 
 

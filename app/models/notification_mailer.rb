@@ -1,21 +1,20 @@
 class NotificationMailer < ActionMailer::Base
   include SubdomainFu::Controller
-  include ActionController::UrlWriter
   
-  def account_activation_info(user, account, controller)
+  def account_activation_info(user, account)
     @recipients  = "#{user.email}"
     @from        = EMAIL_FROM
     @sent_on     = Time.now
-    @body[:url]  = controller.url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain
+    @body[:url]  = url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain
     @body[:user] = user
     @subject     = "Welcome to Agileista!"
   end
   
-  def account_invitation(user, account, controller, password = nil)
+  def account_invitation(user, account, password = nil)
     @recipients  = "#{user.email}"
     @from        = EMAIL_FROM
     @sent_on     = Time.now
-    @body[:url]  = controller.url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain
+    @body[:url]  = url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain
     @body[:user] = user
     @body[:pass] = password
     @body[:sender] = account.account_holder
@@ -23,11 +22,11 @@ class NotificationMailer < ActionMailer::Base
     @subject     = "Welcome to Agileista!"
   end
   
-  def password_reminder(user, account, controller, password = nil)
+  def password_reminder(user, account, password = nil)
     @recipients  = "#{user.email}"
     @from        = EMAIL_FROM
     @sent_on     = Time.now
-    @body[:url]  = controller.url_for :controller => 'login', :subdomain => account.subdomain
+    @body[:url]  = url_for :controller => 'login', :subdomain => account.subdomain
     @body[:user] = user
     @body[:pass] = password
     @body[:account] = account

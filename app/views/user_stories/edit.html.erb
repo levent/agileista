@@ -1,4 +1,4 @@
-<% form_for :user_story, @user_story, :url => user_story_url(:id => @user_story, :sprint_id => params[:sprint_id], :from => params[:from]), :html => {:method => :put, :class => "form"} do |us| %>
+<%= form_for @user_story, :url => user_story_url(:id => @user_story, :sprint_id => params[:sprint_id], :from => params[:from]), :html => {:method => :put, :class => "form"} do |us| %>
 <div id="main">
   <div id="block-text" class="block">
     <%= render(:partial => "shared/navigation/backlog_secondary") %>

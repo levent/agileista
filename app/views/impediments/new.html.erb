@@ -5,7 +5,7 @@
     <div class="content">
       <h2 class="title">New Impediment</h2>
       <div class="inner">
-        <% form_for :impediment, @impediment, :url => {:action => 'create'}, :html => {:class => "form"} do |form| %>
+        <%= form_for :impediment, @impediment, :url => {:action => 'create'}, :html => {:class => "form"} do |form| %>
           <%= render :partial => 'form', :locals => {:form => form} %>
         <% end %>
       </div>

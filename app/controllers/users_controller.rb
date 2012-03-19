@@ -1,6 +1,6 @@
 class UsersController < AbstractSecurityController
 
-  ssl_allowed :new, :create, :delete, :edit, :update
+#  ssl_allowed :new, :create, :delete, :edit, :update
   before_filter :must_be_account_holder, :except => [:index, :edit, :update]
   before_filter :can_i_edit_them, :only => [:edit, :update]
 
@@ -22,7 +22,7 @@ class UsersController < AbstractSecurityController
       pass = @person.generate_temp_password
       @person.account = @account
       if @person.save
-        NotificationMailer.deliver_account_invitation(@person, @account, self, pass)
+        NotificationMailer.account_invitation(@person, @account, pass).deliver
         flash[:notice] = "Invitation sent"
         redirect_to :action => "new"
       else

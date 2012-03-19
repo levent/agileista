@@ -27,7 +27,7 @@
       <h1 class="left"><%= link_to "Agileista", :controller => "backlog" %></h1>
       <%= render :partial => 'shared/account_switcher', :locals => {:other_accounts => @other_accounts, :account => @account} %>
 
-      <% form_for :tag, :url => {:controller => :backlog, :action => 'search'}, :html => {:method => "get", :id=> "search_form", :class => "left"} do |t| %>
+      <%= form_for :tag, :url => {:controller => :backlog, :action => 'search'}, :html => {:method => "get", :id=> "search_form", :class => "left"} do |t| %>
         <%= text_field_tag 'q' %><%= submit_tag 'Search', :class => "submit" %>
       <% end %>
 

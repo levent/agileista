@@ -1,4 +1,4 @@
-<% form_for :user_story, @user_story, :url => {:action => 'create'}, :html => {:class => "form"} do |us| %>
+<%= form_for @user_story, :url => {:action => 'create'}, :html => {:class => "form"} do |us| %>
 <div id="main">
   <div id="block-text" class="block">
     <%= render(:partial => "shared/navigation/backlog_secondary") %>

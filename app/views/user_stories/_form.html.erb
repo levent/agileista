@@ -26,7 +26,7 @@
     </div>
     
     <div class="group">
-      <% if @controller.action_name == 'edit' || @controller.action_name == 'update'  %>
+      <% if params[:action] == 'edit' || params[:action] == 'update'  %>
         <%= submit_tag "Save changes to user story" %>
       <% elsif @sprint %>
         <%= submit_tag "Add to task board" %>

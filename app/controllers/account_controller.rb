@@ -1,6 +1,6 @@
 class AccountController < AbstractSecurityController
-  ssl_required :change_password, :settings
-  ssl_allowed :sort, :resend_authentication, :index
+#  ssl_required :change_password, :settings
+#  ssl_allowed :sort, :resend_authentication, :index
   before_filter :must_be_team_member, :only => [:sort]
   
   def index
@@ -39,7 +39,7 @@ class AccountController < AbstractSecurityController
     if request.post?
       @person = @account.people.find(params[:id])
       pass = @person.generate_temp_password
-      if NotificationMailer.deliver_account_invitation(@person, @account, self, pass)
+      if NotificationMailer.account_invitation(@person, @account, pass).deliver
         flash[:notice] = "Reminder sent successfully"
       else
         flash[:error] = "Reminder could not be sent"

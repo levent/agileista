@@ -32,13 +32,13 @@ namespace :account do
             p "mailing #{account.name}'s #{person.name}"
             if test_mode
               if %w(lebreeze@gmail.com levent.ali@jgp.co.uk levent@leventali.com).include?(person.email)
-                NotificationMailer.deliver_account_information(person, account)
+                NotificationMailer.account_information(person, account).deliver
                 p "sent in test mode"
               else
                 p "not sent in test mode"
               end
             else            
-              NotificationMailer.deliver_account_information(person, account)
+              NotificationMailer.account_information(person, account).deliver
               p "sent in production mode"
             end
             p "done..."

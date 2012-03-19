@@ -1,5 +1,5 @@
 class UserStoriesController < AbstractSecurityController
-  ssl_allowed
+#  ssl_allowed
   before_filter :must_be_team_member, :except => [:show, :plan, :unplan, :reorder]
   before_filter :user_story_must_exist, :only => [:update, :show, :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
   before_filter :set_sprint, :only => [:new, :show, :edit, :create, :plan, :unplan, :reorder]

@@ -1,6 +1,6 @@
 class ImpedimentsController < AbstractSecurityController
   
-  ssl_allowed :index, :new, :create, :destroy, :resolve
+#  ssl_allowed :index, :new, :create, :destroy, :resolve
   before_filter :must_be_team_member, :only => [:new, :destroy, :create, :resolve]
   before_filter :count_impediments, :only => [:index, :active, :resolved]
   

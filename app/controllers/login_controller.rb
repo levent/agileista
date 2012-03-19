@@ -51,7 +51,7 @@ class LoginController < ApplicationController
         flash[:error] = "We couldn't find a matching user"
       else
         pass = @person.generate_temp_password
-        if @person.save && NotificationMailer.deliver_password_reminder(@person, account, self, pass)
+        if @person.save && NotificationMailer.password_reminder(@person, account, pass).deliver
           flash[:notice] = "Please check your email for your new password"
           redirect_to :action => 'index' and return false
         end
