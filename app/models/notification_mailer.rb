@@ -1,20 +1,15 @@
 class NotificationMailer < ActionMailer::Base
-  include SubdomainFu::Controller
+  default :from => EMAIL_FROM
   
   def account_activation_info(user, account)
-    @recipients  = "#{user.email}"
-    @from        = EMAIL_FROM
-    @sent_on     = Time.now
-    @body[:url]  = url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain
-    @body[:user] = user
-    @subject     = "Welcome to Agileista!"
+    @url  = url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain, :host => MAIN_HOST
+    mail(:to => user.email, :subject => "Welcome to Agileista")
   end
   
   def account_invitation(user, account, password = nil)
     @recipients  = "#{user.email}"
-    @from        = EMAIL_FROM
     @sent_on     = Time.now
-    @body[:url]  = url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain
+    @body[:url]  = url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain, :host => MAIN_HOST
     @body[:user] = user
     @body[:pass] = password
     @body[:sender] = account.account_holder
@@ -24,9 +19,8 @@ class NotificationMailer < ActionMailer::Base
   
   def password_reminder(user, account, password = nil)
     @recipients  = "#{user.email}"
-    @from        = EMAIL_FROM
     @sent_on     = Time.now
-    @body[:url]  = url_for :controller => 'login', :subdomain => account.subdomain
+    @body[:url]  = url_for :controller => 'login', :subdomain => account.subdomain, :host => MAIN_HOST
     @body[:user] = user
     @body[:pass] = password
     @body[:account] = account
@@ -35,7 +29,6 @@ class NotificationMailer < ActionMailer::Base
   
   def account_information(user, account)
     @recipients       ="#{user.email}"
-    @from             = EMAIL_FROM
     @sent_on          = Time.now
     @body[:url]       = url_for :controller => 'login', :subdomain => account.subdomain, :host => AccountStuff::SIGNUP_SITE
     @body[:user]      = user
@@ -50,8 +43,7 @@ class NotificationMailer < ActionMailer::Base
     else
       @recipients = AccountStuff::TEAM_AGILEISTA
     end
-    @subject = "[AGILEISTA ADMIN] There has been a new account registration"
-    @sent_on  = Time.now
-    @body[:account] = account
+    @account = account
+    mail(:to => @recipients, :subject => "[AGILEISTA ADMIN] There has been a new account registration")
   end
 end

@@ -49,9 +49,13 @@
 
 <div id="sidebar">
   <% if @person.errors.size > 0 %>
-  <div class="block notice errors">
-    <%= error_messages_for :person, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
-  </div>
+    <div class="block notice errors">
+    <ul class="errorExplanation">
+      <% @person.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+    </div>
   <% end %>
 </div>
 

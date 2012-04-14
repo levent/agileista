@@ -32,7 +32,7 @@
 
           <% if current_user.account_holder? %>
           <div class="column right">
-          	<%= form_for @account, :url => {:action => 'settings'} do |a| %>
+          	<%= form_for @account, :url => account_settings_path do |a| %>
           		<div class="group">
           		  <label for="account_iteration_length" class="label">Sprint iteration length:</label>
                 <%= a.select :iteration_length, [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]], :include_blank => true, :class => "select" %>
@@ -55,7 +55,11 @@
 <div id="sidebar">
   <% if @account.errors.size > 0 %>
   <div class="block notice errors">
-    <%= error_messages_for :account, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
+    <ul class="errorExplanation">
+      <% @account.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
   </div>
   <% end %>
 </div>

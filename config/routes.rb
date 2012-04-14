@@ -5,6 +5,12 @@ Agileista::Application.routes.draw do
   get "/backlog/:filter/:range" => "backlog#index"
 
   post "/signup" => "signup#create"
+  get "/validate" => "signup#validate"
+  get "/ok" => "signup#ok"
+  get "/account" => "account#index"
+  put "/account/change_password" => "account#change_password"
+  put "/account/settings" => "account#settings"
+  post "/account/resend_authentication" => "account#resend_authentication"
 
   resources :sprints do
     member do
@@ -57,6 +63,7 @@ Agileista::Application.routes.draw do
   resources :users
 
   get "/login" => "login#index"
+  get "/logout" => "login#logout"
   post "/login/authenticate" => "login#authenticate"
 
   get "/backlog" => "backlog#index"

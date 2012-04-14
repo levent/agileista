@@ -36,7 +36,7 @@ class Person < ActiveRecord::Base
   
   def hash_password
     return nil unless self.password
-    self.salt = Digest::SHA1.hexdigest("#{Time.now}--#{PEOPLE_SALT}") if self.new_record? || self.salt.blank?
+    self.salt = Digest::SHA1.hexdigest("#{Time.now}--somecrazyrandomstring") if self.new_record? || self.salt.blank?
     self.hashed_password = Digest::SHA1.hexdigest("#{self.salt}--#{self.password}") if !self.hashed_password || (self.password == self.password_confirmation)
   end
   

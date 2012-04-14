@@ -6,8 +6,16 @@
       <div class="inner form">
         <div class="columns clearfix">
           <div class="column left">
-          <%= error_messages_for :person %>
-          <% form_for :person, @person, :url => {:action => 'create'}, :html => {:class => "form"} do |p| %>
+            <% if @person.errors.size > 0 %>
+              <div class="block notice errors">
+                <ul class="errorExplanation">
+                  <% @person.errors.full_messages.each do |error| %>
+                    <li><%= error %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+          <%= form_for @person, :url => {:action => 'create'}, :html => {:class => "form"} do |p| %>
             <div class="group">
               <label for="person_name" class="label">Name: </label>
               <%= p.text_field :name, :class => "text_field" %>

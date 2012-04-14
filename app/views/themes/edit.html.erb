@@ -18,7 +18,11 @@
 <div id="sidebar">
 <% if @theme.errors.size > 0 %>
   <div class="block notice errors">
-    <%= error_messages_for :theme, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
+    <ul class="errorExplanation">
+      <% @theme.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
   </div>
 <% end %>
   
