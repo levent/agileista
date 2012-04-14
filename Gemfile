@@ -16,6 +16,7 @@ gem 'subdomain-fu', :git => "git://github.com/nhowell/subdomain-fu.git"
 gem 'thinking-sphinx', '2.0.11'
 gem 'gravtastic'
 gem 'acts_as_list'
+gem 'thin'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
