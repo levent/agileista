@@ -31,6 +31,7 @@ gem 'jquery-rails'
 
 group :development do
   gem 'debugger'
+  gem 'ruby-prof'
 end
 
 group :test do

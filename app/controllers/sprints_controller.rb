@@ -10,6 +10,7 @@ class SprintsController < AbstractSecurityController
   end
   
   def show
+    @sprint = @account.sprints.includes(:user_stories => :tasks).find(params[:id])
     store_location
     @current_sprint = @sprint
     calculate_burndown_points
