@@ -67,4 +67,14 @@ Agileista::Application.configure do
   COOKIE_DOMAIN = 'agileista.com'
   EMAIL_FROM = "donotreply@agileista.com"
   MAIN_HOST = 'agileista.com'
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'agileista.com',
+    :user_name            => 'donotreply@agileista.com',
+    :password             => 'outgoing',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  }
 end

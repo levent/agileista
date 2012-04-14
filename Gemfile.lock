@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/ambethia/smtp-tls
-  revision: 8a4bf9329c73e4ef62571844ef11278cfd841f47
-  specs:
-    smtp-tls (1.1.2)
-
-GIT
   remote: git://github.com/nhowell/subdomain-fu.git
   revision: c6fbf945cf3f4ab344f9c8e0604dc5dcca9ee6cf
   specs:
@@ -196,7 +190,6 @@ DEPENDENCIES
   ruby-prof
   sass-rails (~> 3.2.3)
   shoulda
-  smtp-tls!
   subdomain-fu!
   thinking-sphinx (= 2.0.11)
   timecop
