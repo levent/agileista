@@ -8,7 +8,6 @@ gem "fastercsv"
 gem "json"
 gem 'will_paginate', '~> 3.0'
 gem "acts-as-taggable-on"
-gem "awesome_print"
 gem "newrelic_rpm"
 gem 'juggernaut', '2.0.4'
 gem 'exceptional', '2.0.12'
@@ -43,15 +42,3 @@ group :test do
   gem "faker"
   gem "timecop"
 end
-
-group :cucumber do
-  gem 'cucumber', '0.6.4'
-  gem 'cucumber-rails'
-  gem "machinist"
-  gem "faker"
-  gem 'database_cleaner', '0.5.0'
-  gem 'webrat'
-  gem 'rspec', '1.3.1'
-  gem 'rspec-rails', '1.3.3'
-end
-
