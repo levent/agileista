@@ -5,12 +5,10 @@ db/schema.rb
 db/sphinx/*
 .DS_Store
 *.sqlite3
-coverage/*
 config/database.yml
 config/*.sphinx.conf
 index/*
 *.swp
-mkmf.log
 rerun.txt
 mkmf.log
 bin/
@@ -25,4 +23,3 @@ tmp/
 *.rbc
 *.sassc
 .sass-cache
-/public/stylesheets/application.css
