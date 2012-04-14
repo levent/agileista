@@ -24,7 +24,7 @@ class AbstractSecurityController < ApplicationController
         return true
       else
         flash[:error] = 'Please log in'
-        redirect_to :controller => '/login' and return false
+        redirect_to '/login' and return false
       end
     end
   end
