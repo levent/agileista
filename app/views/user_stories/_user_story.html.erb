@@ -1,4 +1,4 @@
-<dl id="item_<%= user_story.id %>" class="user_story<%= " inprogress" if user_story.inprogress? %><%= " complete" if user_story.complete? %>" title="<%=h user_story.definition %>">
+<dl id="item_<%= user_story.id %>" class="user_story<%= " inprogress" if user_story.inprogress? %><%= " complete" if user_story.complete? %>" title="<%=h user_story.definition %>" data-story=<%= user_story.id %>>
   <dt class="clearfix">
     <%= link_to "##{user_story.id}", user_story_url(user_story) %>
     <% if defined?(sprint) %>

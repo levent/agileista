@@ -133,7 +133,7 @@ module ApplicationHelper
       end
       result << "</div>\n<!-- <<< messages -->"
 
-      return result.join("\n")
+      return result.join("\n").html_safe
     end
   end
 

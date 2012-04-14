@@ -1,14 +1,18 @@
 <div id="sidebar">
   <% if user_story.errors.size > 0 %>
   <div class="block notice errors">
-    <%= error_messages_for :user_story, :header_tag => "h4", :header_message => "Crikey!", :message => nil %>
+    <ul class="errorExplanation">
+      <% user_story.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
   </div>
   <% end %>
   
   <div id="user_story_acceptance_criteria" class="block acceptance_criteria">
     <h3>Acceptance criteria</h3>
     <ol>
-    <% us.fields_for :acceptance_criteria do |crit_form| %>
+    <%= us.fields_for :acceptance_criteria do |crit_form| %>
       <li>
         <%= crit_form.text_area :detail, :class => "text_area", :rows => 3 %>
         <% unless crit_form.object.new_record? %>
@@ -26,7 +30,7 @@
   <div id="user_story_tasks" class="block tasks">
     <h3>Tasks</h3>
     <ol>
-    <% us.fields_for :tasks do |tasks_form| %>
+    <%= us.fields_for :tasks do |tasks_form| %>
       <li>
         <%= tasks_form.label :definition, nil, :class => "label" %>
         <%= tasks_form.text_field :definition, :class => "text_field" %>

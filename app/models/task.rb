@@ -9,7 +9,7 @@ class Task < ActiveRecord::Base
   # belongs_to :developer, :foreign_key => 'developer_id', :class_name => "Person"
   
   has_many :task_developers
-  has_many :developers, :through => :task_developers, :foreign_key => 'developer_id', :class_name => "Person", :uniq => true
+  has_many :team_members, :through => :task_developers, :foreign_key => 'developer_id', :class_name => "TeamMember", :uniq => true
 
   delegate :sprint, :to => :user_story, :allow_nil => true
   
@@ -24,11 +24,11 @@ class Task < ActiveRecord::Base
   after_destroy :calculate_burndown
   
   def self.incomplete
-    all(:conditions => "hours > 0 OR hours IS NULL").select {|x| x.developers.blank?}
+    all(:conditions => "hours > 0 OR hours IS NULL").select {|x| x.team_members.blank?}
   end
   
   def self.inprogress
-    all(:conditions => "hours > 0 OR hours IS NULL").select {|x| x.developers.any?}
+    all(:conditions => "hours > 0 OR hours IS NULL").select {|x| x.team_members.any?}
   end
 
   def calculate_burndown
@@ -40,13 +40,13 @@ class Task < ActiveRecord::Base
   end
   
   def incomplete?
-    return false if developers.any?
+    return false if team_members.any?
     return true if hours.nil?
     hours.to_i > 0
   end
   
   def inprogress?
-    return false unless developers.any?
+    return false unless team_members.any?
     return true if hours.nil?
     hours.to_i > 0
   end

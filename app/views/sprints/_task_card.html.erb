@@ -13,7 +13,7 @@
   </dt>
   <dd class="definition">
     <%= h truncate(task_card.definition, :length => 60) %>
-    <strong><%= show_assignees(task_card.developers) %></strong>
+    <strong><%= show_assignees(task_card.team_members) %></strong>
   </dd>
   <% if sprint && !sprint.finished? %>
     <dd class="tasks clearfix">
@@ -21,7 +21,7 @@
       <%= f.text_field(:hours, :size => 3) %>
       <%= submit_tag 'Save', :class => 'tasksavehours' %>
       <% if claim %>
-        <% if task_card.developers.include?(current_user) %>
+        <% if task_card.team_members.include?(current_user) %>
           <%= hidden_field_tag "claimtype_#{task_card.id}", 'renounce' %>
           <%= submit_tag 'Renounce', :class => 'taskrenounce', :id => "givetake_#{task_card.id}" %>
         <% else %>

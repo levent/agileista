@@ -131,7 +131,7 @@ function setupSprintPlanning(sprint_id) {
     items: 'dl.user_story',
     connectWith: '#committed',
     receive: function(event, ui) {
-      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(4) + '/unplan', {format: 'json'}, function(data) {
+      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/unplan', {format: 'json'}, function(data) {
         if(data.ok == true) {
           $('#points_planned').html(data.points_planned + ' story points');
           $('#hours_left').html(data.hours_left + ' hours');
@@ -145,7 +145,7 @@ function setupSprintPlanning(sprint_id) {
     items: 'dl.user_story',
     connectWith: '#estimated',
     update: function(event, ui) {
-      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(5) + '/reorder', {user_stories: $(this).sortable('serialize')}, function(data) {
+      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/reorder', {user_stories: $(this).sortable('serialize')}, function(data) {
         if(data.ok == true) {
           $('#flashs').html('Sprint reordered');
         }
@@ -153,7 +153,7 @@ function setupSprintPlanning(sprint_id) {
     },
     receive: function(event, ui) {
 
-      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('id').substr(4) + '/plan', {format: 'json'}, function(data) {
+      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/plan', {format: 'json'}, function(data) {
         if(data.ok == true) {
           $('#points_planned').html(data.points_planned + ' story points');
           $('#hours_left').html(data.hours_left + ' hours');

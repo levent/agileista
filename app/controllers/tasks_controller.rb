@@ -20,11 +20,11 @@ class TasksController < AbstractSecurityController
     if task
       case params[:onto]
       when "incomplete"
-        task.developers = []
+        task.team_members = []
         task.save
         message = "#{current_user.name} renounced task ##{@user_story.id}.#{task.position}"
       when "inprogress"
-        task.developers = [current_user] unless task.developers.any?
+        task.team_members = [current_user] unless task.team_members.any?
         task.save
         message = "#{current_user.name} claimed task ##{@user_story.id}.#{task.position}"
       when "complete"
@@ -37,7 +37,7 @@ class TasksController < AbstractSecurityController
     else
       error = "You cannot move tasks across user stories"
     end
-    devs = task.developers.any? ? "<strong>#{task.developers.map(&:name).join(', ')}</strong>" : "<strong>Nobody</strong>"
+    devs = task.team_members.any? ? "<strong>#{task.team_members.map(&:name).join(', ')}</strong>" : "<strong>Nobody</strong>"
     if @user_story.inprogress?
       status = "inprogress"
     elsif @user_story.complete?
@@ -85,17 +85,17 @@ class TasksController < AbstractSecurityController
   def claim
     case params[:submit]
     when 'taskrenounce'
-      @task.developers.delete(current_user)
+      @task.team_members.delete(current_user)
       message = "#{current_user.name} renounced task ##{@user_story.id}.#{@task.position}"
     when 'taskclaim'
-      @task.developers << current_user
+      @task.team_members << current_user
       message = "#{current_user.name} claimed task ##{@user_story.id}.#{@task.position}"
     else
       message = "#{current_user.name} updated task ##{@user_story.id}.#{@task.position}"
     end
     @task.update_attributes(params[:task])
-    if @task.developers.any?
-      devs = "<strong>#{@task.developers.map(&:name).join(', ')}</strong>"
+    if @task.team_members.any?
+      devs = "<strong>#{@task.team_members.map(&:name).join(', ')}</strong>"
       @task.hours.to_i > 0 ? onto = 'inprogress' : onto = 'complete'
     else
       devs = "<strong>Nobody</strong>"
@@ -132,9 +132,9 @@ class TasksController < AbstractSecurityController
   def update_task_developers(commit, task)
     case commit
     when "Claim"
-      task.developers << current_user
+      task.team_members << current_user
     when "Renounce"
-      task.developers.delete(current_user)
+      task.team_members.delete(current_user)
     end
   end
 
