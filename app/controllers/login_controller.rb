@@ -2,6 +2,9 @@ class LoginController < ApplicationController
 #  ssl_required :index, :authenticate, :logout
   
   def index
+    logger.error("/logged in#{logged_in?}")
+    logger.error("/login#{AccountStuff::MASTER_SUBDOMAIN}")
+    logger.error("/login#{current_subdomain}")
     if AccountStuff::MASTER_SUBDOMAIN == current_subdomain
       redirect_to root_path and return false
     elsif Account.find_by_subdomain(current_subdomain).nil?
