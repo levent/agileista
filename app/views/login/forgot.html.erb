@@ -3,7 +3,7 @@
   <div class="block" id="block-login">
     <h2 class="clearfix">We'll send you a new password</h2>
     <div class="content login">
-      <%= form_tag({:action => 'forgot'}, :class => 'form login') %>
+      <%= form_tag(login_forgot_path, :method => 'post', :class => 'form login') %>
         <div class="group clearfix">
           <div class="left">
             <label for="email" class="label right">Email</label>

@@ -24,7 +24,7 @@
         <div class="group navform clearfix">
           <div class="right">
             <%= submit_tag "Login", :class => 'button' %>
-            <%= link_to 'I forgot my password', {:controller => 'login', :action => 'forgot'}, :class => 'link' %>
+            <%= link_to 'I forgot my password', login_forgot_path, :class => 'link' %>
           </div>
         </div>
       </form>

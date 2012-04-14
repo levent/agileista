@@ -63,6 +63,8 @@ Agileista::Application.routes.draw do
   resources :users
 
   get "/login" => "login#index"
+  get "/login/forgot" => "login#forgot"
+  post "/login/forgot" => "login#forgot"
   get "/logout" => "login#logout"
   post "/login/authenticate" => "login#authenticate"
 
