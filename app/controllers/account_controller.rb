@@ -1,6 +1,4 @@
 class AccountController < AbstractSecurityController
-#  ssl_required :change_password, :settings
-#  ssl_allowed :sort, :resend_authentication, :index
   before_filter :must_be_team_member, :only => [:sort]
   
   def index
@@ -39,6 +37,6 @@ class AccountController < AbstractSecurityController
     else
       flash[:error] = "Reminder could not be sent"
     end
+    redirect_to :action => 'index'
   end
-  redirect_to :action => 'settings'
 end
