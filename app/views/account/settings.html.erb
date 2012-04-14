@@ -32,7 +32,7 @@
 
           <% if current_user.account_holder? %>
           <div class="column right">
-          	<%= form_for :account, @account, :url => {:action => 'settings'} do |a| %>
+          	<%= form_for @account, :url => {:action => 'settings'} do |a| %>
           		<div class="group">
           		  <label for="account_iteration_length" class="label">Sprint iteration length:</label>
                 <%= a.select :iteration_length, [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]], :include_blank => true, :class => "select" %>

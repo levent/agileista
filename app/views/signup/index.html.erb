@@ -15,8 +15,12 @@
   <div class="block" id="block-signup">
     <h2 class="clearfix">Signup</h2>
     <div class="content signup">
-      <%= error_messages_for :account %>
-  		<%= form_tag({:action => 'create'}, :class => "form signup") %>
+    <ul class="errorExplanation">
+      <% @account.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+      <%= form_tag('/signup', :method => 'post', :class => "form signup") %>
         <div class="group clearfix">
           <div class="left">
             <label for="account_name" class="label right">Account name</label>
@@ -36,7 +40,6 @@
           </div>
         </div>
 
-			<%= error_messages_for :user %>        
         <div class="group clearfix">
           <div class="left">
             <label for="user_name" class="label right">Your name</label>
@@ -46,6 +49,11 @@
           </div>
         </div>
 
+        <ul class="errorExplanation">
+          <% @user.errors.full_messages.each do |error| %>
+            <li><%= error %></li>
+          <% end %>
+        </ul>
         <div class="group clearfix">
           <div class="left">
             <label for="user_name" class="label right">Your email</label>

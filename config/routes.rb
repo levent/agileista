@@ -4,6 +4,8 @@ Agileista::Application.routes.draw do
   get "/backlog/:filter" => "backlog#index"
   get "/backlog/:filter/:range" => "backlog#index"
 
+  post "/signup" => "signup#create"
+
   resources :sprints do
     member do
       get 'plan'

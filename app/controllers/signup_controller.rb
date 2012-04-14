@@ -9,6 +9,7 @@ class SignupController < ApplicationController
       redirect_to login_path(:subdomain => current_subdomain)
     end
     @account = Account.new
+    @user = @account.team_members.new
   end
   
   def create
