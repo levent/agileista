@@ -55,5 +55,7 @@ module Agileista
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    config.assets.append_path "app/assets/images/icons"
+    config.assets.append_path "app/assets/images/icons/16x16"
   end
 end
