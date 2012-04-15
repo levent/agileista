@@ -14,14 +14,14 @@
     <%= content_tag(:li, link_to("Export backlog as csv", backlog_url(:format => 'csv'), { :alt => "export", :title => "export" })) if params[:controller] == "backlog" %>
     <% if params[:controller] == "backlog" && params[:action] == "index" %>
       <% if cookies[:backlog] == "grid" %>
-        <li class="change_view last"><%= link_to image_tag("icons/16x16/3x3_grid_bk.png"), {:action => 'grid'} %></li>
+        <li class="change_view last"><%= link_to image_tag("icons/16x16/3x3_grid_bk.png"), backlog_grid_path %></li>
       <% else %>
-        <li class="change_view last"><%= link_to image_tag("icons/16x16/3x3_grid.png"), {:action => 'grid'} %></li>
+        <li class="change_view last"><%= link_to image_tag("icons/16x16/3x3_grid.png"), backlog_grid_path %></li>
       <% end %>
       <% if cookies[:backlog] == "list" %>
-        <li class="change_view"><%= link_to image_tag("icons/16x16/align_just_bk.png"), {:action => 'list'} %></li>
+        <li class="change_view"><%= link_to image_tag("icons/16x16/align_just_bk.png"), backlog_list_path %></li>
       <% else %>
-        <li class="change_view"><%= link_to image_tag("icons/16x16/align_just.png"), {:action => 'list'} %></li>
+        <li class="change_view"><%= link_to image_tag("icons/16x16/align_just.png"), backlog_list_path %></li>
       <% end %>
     <% end %>
   </ul>

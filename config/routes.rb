@@ -71,6 +71,8 @@ Agileista::Application.routes.draw do
   get "/backlog" => "backlog#index"
   post "/backlog/sort" => "backlog#sort"
   get "/backlog/search" => "backlog#search"
+  get "/backlog/grid" => "backlog#grid"
+  get "/backlog/list" => "backlog#list"
 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -35,6 +35,7 @@ role :db,  "fukushima", :primary => true
 namespace :deploy do
   task :restart do
     run "cd #{current_path} && bundle exec bundle exec rake assets:precompile RAILS_ENV=#{rails_env}"
+    sudo "/etc/init.d/thin restart"
   #  restart_sphinx
   #  run "touch #{release_path}/tmp/restart.txt"
   end
