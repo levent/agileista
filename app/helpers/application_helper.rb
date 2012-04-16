@@ -155,7 +155,7 @@ module ApplicationHelper
 
   def user_navigation
     result = []
-    [ {:name => "account", :url => {:controller => "account", :action => "settings"}, :match => ["account", "users"]},
+    [ {:name => "account", :url => {:controller => "account"}, :match => ["account", "users"]},
       {:name => "logout", :url => {:controller => "login", :action => "logout"}}
     ].each do |link|
       if link
