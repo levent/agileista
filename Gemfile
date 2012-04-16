@@ -10,7 +10,7 @@ gem 'will_paginate', '~> 3.0'
 gem "acts-as-taggable-on"
 gem "newrelic_rpm"
 gem 'juggernaut', '2.0.4'
-gem 'exceptional', '2.0.12'
+gem 'exceptional', '2.0.32'
 gem 'subdomain-fu', :git => "git://github.com/nhowell/subdomain-fu.git"
 gem 'thinking-sphinx', '2.0.11'
 gem 'gravtastic'
