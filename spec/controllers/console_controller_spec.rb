@@ -15,7 +15,7 @@ describe ConsoleController do
     @account = Account.new
     @person.account = @account
     session[:user] = 1
-    session[:account] = 1
+    session[:account_subdomain] = 1
     Person.stub!(:find_by_id_and_account_id).and_return(@person)
     
     get :index
@@ -27,7 +27,7 @@ describe ConsoleController do
     @account = Account.new
     @person.account = @account
     session[:user] = 1
-    session[:account] = 1
+    session[:account_subdomain] = 1
     Person.stub!(:find_by_id_and_account_id).and_return(@person)
     
     get :index

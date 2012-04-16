@@ -9,10 +9,12 @@ module AccountStuff
   
   def current_user
     begin
-      current_user = (session[:user] && session[:account]) ? Person.find_by_id_and_account_id(session[:user], session[:account]) : nil
+      session[:account_subdomain] = current_subdomain
+      account = Account.find_by_subdomain(session[:account_subdomain])
+      current_user = (session[:user] && session[:account_subdomain]) ? account.people.find(session[:user]) : nil
     rescue
       session[:user] = nil
-      session[:account] = nil
+      session[:account_subdomain] = nil
       session[:timeout] = nil
       current_user = nil
     end
@@ -20,7 +22,7 @@ module AccountStuff
   
   def do_logout
     session[:user] = nil
-    session[:account] = nil
+    session[:account_subdomain] = nil
     session[:timeout] = nil
   end
     

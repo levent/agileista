@@ -16,3 +16,4 @@
 //= require jquery.flot.min
 //= require juggernaut
 //= require main
+//= require account-switcher
