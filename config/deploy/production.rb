@@ -33,6 +33,8 @@ role :web, "fukushima"
 role :db,  "fukushima", :primary => true
 
 namespace :deploy do
+
+
   task :restart do
     run "cd #{current_path} && bundle exec bundle exec rake assets:precompile RAILS_ENV=#{rails_env}"
     # restart_sphinx
@@ -88,6 +90,15 @@ namespace :sass do
   end
 end
 
-after "deploy:update_code", :setup_symlinks, 'sass:update'
-# after "deploy:update_code", "deploy:bundle"
+task :sphinx_stop, :roles => :app do
+  thinking_sphinx.stop
+end
+
+task :sphinx_configure, :roles => :app do
+  thinking_sphinx.configure
+  thinking_sphinx.start
+end
+
+before "deploy:update_code", "sphinx_stop"
+after "deploy:update_code", :setup_symlinks, 'sass:update', "sphinx_configure"
 after "deploy", "deploy:cleanup"
