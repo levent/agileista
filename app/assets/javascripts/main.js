@@ -13,17 +13,6 @@ if($('#loading')) {
   });
 }
 
-if($('.task_card_form')) {
-  $('.task_card_form').submit(function(){ return false });
-
-  $(".taskclaim, .taskrenounce, .tasksavehours").click(function(event) {
-    $form = $(this).parent("form");
-    $.post($form.attr("action") + '/claim', $form.serialize() + '&submit=' + this.className, function(data) {
-    }, "json");
-    return false;
-  });
-}
-
 if($('#notification-bar')) {
   $(".close-bar").click(function() {
     $('#notification-bar').hide();
@@ -60,10 +49,12 @@ function set_flash_or_refresh_task_board(data) {
 
     var btn = $('#givetake_' + data.task_id);
     var btn_action = $('#claimtype_' + data.task_id);
+    var submit_type = $('#submit_type_' + data.task_id);
     if(data.onto == 'inprogress') {
       if (btn) {
         if (btn[0]) {
           btn[0].value = 'Renounce';
+          submit_type.val('taskrenounce');
           btn.addClass('taskrenounce');
           btn.removeClass('taskclaim');
         }
@@ -78,6 +69,7 @@ function set_flash_or_refresh_task_board(data) {
     } else if (data.onto == 'incomplete') {
       if (btn) {
         btn[0].value = 'Claim';
+        submit_type.val('taskclaim');
         btn.addClass('taskclaim');
         btn.removeClass('taskrenounce');
       }

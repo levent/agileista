@@ -83,7 +83,7 @@ class TasksController < AbstractSecurityController
   end
 
   def claim
-    case params[:submit]
+    case params[:submit_type]
     when 'taskrenounce'
       @task.team_members.delete(current_user)
       message = "#{current_user.name} renounced task ##{@user_story.id}.#{@task.position}"

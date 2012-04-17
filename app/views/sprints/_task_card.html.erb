@@ -17,15 +17,17 @@
   </dd>
   <% if sprint && !sprint.finished? %>
     <dd class="tasks clearfix">
-    <%= form_for task_card, :url => user_story_task_path(:user_story_id => task_card.user_story, :id => task_card), :html => {:method => :put, :class => 'task_card_form'}, :remote => true do |f| %>
+    <%= form_for task_card, :url => claim_user_story_task_path(:user_story_id => task_card.user_story, :id => task_card), :html => {:method => :put, :class => 'task_card_form'}, :remote => true do |f| %>
       <%= f.text_field(:hours, :size => 3) %>
       <%= submit_tag 'Save', :class => 'tasksavehours' %>
       <% if claim %>
         <% if task_card.team_members.include?(current_user) %>
           <%= hidden_field_tag "claimtype_#{task_card.id}", 'renounce' %>
+          <%= hidden_field_tag "submit_type", 'taskrenounce', :id => "submit_type_#{task_card.id}" %>
           <%= submit_tag 'Renounce', :class => 'taskrenounce', :id => "givetake_#{task_card.id}" %>
         <% else %>
           <%= hidden_field_tag "claimtype_#{task_card.id}", 'claim' %>
+          <%= hidden_field_tag "submit_type", 'taskclaim', :id => "submit_type_#{task_card.id}" %>
           <%= submit_tag 'Claim', :class => 'taskclaim', :id => "givetake_#{task_card.id}" %>
         <% end %>
       <% end %>
