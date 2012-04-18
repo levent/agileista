@@ -99,8 +99,8 @@ task :sphinx_configure, :roles => :app do
   thinking_sphinx.start
 end
 
-task :downcase_people, :roles => :app do
-  run "cd #{current_path} && bundle exec rake account:downcase_people RAILS_ENV=#{rails_env}"
+task :downcase_emails, :roles => :app do
+  run "cd #{release_path} && bundle exec rake account:downcase_emails RAILS_ENV=#{rails_env}"
 end
 
 before "deploy:update_code", "sphinx_stop"
@@ -108,6 +108,6 @@ after "deploy:update_code",
   :setup_symlinks,
   'deploy:migrate',
   'sass:update',
-  "sphinx_configure",
-  'downcase_people'
+  "sphinx_configure"
+#  'downcase_emails'
 after "deploy", "deploy:cleanup"
