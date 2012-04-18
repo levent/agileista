@@ -8,12 +8,13 @@ class Person < ActiveRecord::Base
   validates_length_of :password, :in => 6..16, :if => :password_required?
   validates_presence_of :name
   validates_presence_of :email
-  validates_uniqueness_of :email, :scope => :account_id
+  validates_uniqueness_of :email, :scope => :account_id, :case_sensitive => false
   belongs_to :account  
   has_many :user_stories
   
   before_create :generate_activation_code
   before_save :hash_password
+  before_save :downcase_email
   
   attr_accessor :password
   
@@ -72,5 +73,9 @@ class Person < ActiveRecord::Base
   
   def password_required?
     self.hashed_password && self.salt ? false : true
+  end
+
+  def downcase_email
+    self.email.try(:downcase!)
   end
 end

@@ -12,28 +12,18 @@
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 development:
-  adapter: mysql
+  adapter: postgresql
   database: agileista_development
-  username: root
+  username: levent
   password:
-  socket: /tmp/mysql.sock
+  pool: 5
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
 # Do not set this db to the same as development or production.
 test: &test
-  adapter: mysql
+  adapter: postgresql
   database: agileista_test
-  username: root
+  username: levent
   password:
-  socket: /tmp/mysql.sock
-
-production:
-  adapter: mysql
-  database: agileista_production
-  username: agileista
-  password: xxxxxxxxx
-  socket: /var/run/mysqld/mysqld.sock
-
-cucumber:
-  <<: *test
+  pool: 5

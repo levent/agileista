@@ -9,12 +9,10 @@ class NotificationMailer < ActionMailer::Base
   def account_invitation(user, account, password = nil)
     @recipients  = "#{user.email}"
     @sent_on     = Time.now
-    @body[:url]  = url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain, :host => MAIN_HOST
-    @body[:user] = user
-    @body[:pass] = password
-    @body[:sender] = account.account_holder
-    @body[:account] = account
-    @subject     = "Welcome to Agileista!"
+    @url  = url_for :controller => 'signup', :action => 'validate', :id => user.activation_code, :subdomain => account.subdomain, :host => MAIN_HOST
+    @pass = password
+    @sender = account.account_holder
+    mail(:to => user.email, :subject => "Welcome to Agileista!")
   end
   
   def password_reminder(user, account, password = nil)

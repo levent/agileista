@@ -1,4 +1,14 @@
 namespace :account do
+  desc "Downcase email address for postgres"
+  task :downcase_emails => :environment do
+    Person.all.each do |person|
+      if person.email.downcase != person.email
+        puts person.email
+        person.update_attribute(:email, person.email.downcase)
+      end
+    end
+  end
+
   namespace :subdomains do
     desc "Sets blank subdomains to account name conversion"
     task(:set => :environment) do

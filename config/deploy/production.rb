@@ -36,7 +36,7 @@ namespace :deploy do
 
 
   task :restart do
-    run "cd #{current_path} && bundle exec bundle exec rake assets:precompile RAILS_ENV=#{rails_env}"
+    run "cd #{current_path} && bundle exec rake assets:precompile RAILS_ENV=#{rails_env}"
     # restart_sphinx
     run "/etc/init.d/agileista restart"
   end
@@ -99,6 +99,15 @@ task :sphinx_configure, :roles => :app do
   thinking_sphinx.start
 end
 
+task :downcase_people, :roles => :app do
+  run "cd #{current_path} && bundle exec rake account:downcase_people RAILS_ENV=#{rails_env}"
+end
+
 before "deploy:update_code", "sphinx_stop"
-after "deploy:update_code", :setup_symlinks, 'sass:update', "sphinx_configure"
+after "deploy:update_code",
+  :setup_symlinks,
+  'deploy:migrate',
+  'sass:update',
+  "sphinx_configure",
+  'downcase_people'
 after "deploy", "deploy:cleanup"
