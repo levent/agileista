@@ -36,8 +36,7 @@ end
 
 group :test do
   gem 'shoulda'
-  gem "rspec", "1.3.1"
-  gem "rspec-rails", "1.3.3"
+  gem "rspec-rails", '2.9.0'
   gem "machinist"
   gem "faker"
   gem "timecop"
