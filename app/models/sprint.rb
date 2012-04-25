@@ -13,8 +13,8 @@ class Sprint < ActiveRecord::Base
 
   before_validation :calculate_end_date
 
-  scope :current, lambda { { :conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago] } }
-  scope :finished, lambda { {:conditions => ["end_at < ?", Time.now]} }
+  scope :current, lambda { { :conditions => ["start_at < ? AND end_at > ?", Date.today.beginning_of_day + 1, Date.yesterday.end_of_day - 1] } }
+  scope :finished, lambda { {:conditions => ["end_at < ?", Time.now.beginning_of_day + 1]} }
 
   def validate
     return unless start_at && end_at
