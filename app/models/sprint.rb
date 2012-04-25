@@ -54,11 +54,7 @@ class Sprint < ActiveRecord::Base
   end
 
   def hours_left
-    count = 0
-    self.user_stories.each do |us|
-      count += us.tasks.sum('hours') if us.tasks.sum('hours').class == Fixnum
-    end
-    return count
+    Task.where("user_story_id IN (?)", self.user_story_ids).sum('hours')
   end
 
   def finished?

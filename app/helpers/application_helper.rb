@@ -35,17 +35,6 @@ module ApplicationHelper
     select_day(date, options) + select_month(date, options) + select_year(date, options)
   end
 
-  def which_sprint(sprint)
-    suffix = "sprint\""
-    if sprint == @upcoming_sprint
-      return "class=\"upcoming" + suffix
-    elsif sprint == @current_sprint
-      return "class=\"current" + suffix
-    else
-      return nil
-    end
-  end
-
   def show_hours_left(hours)
     unless hours.nil?
       return pluralize(hours, 'hour') + ' left'
@@ -228,7 +217,7 @@ module ApplicationHelper
   end
 
   def current_sprint
-    @account.sprints.current.first if @account
+    @current_sprint ||= @account.sprints.current.first if @account
   end
 end
 
