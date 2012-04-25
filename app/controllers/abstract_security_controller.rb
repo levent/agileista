@@ -31,7 +31,7 @@ class AbstractSecurityController < ApplicationController
 
   def setup_account_variables
     @account = current_user.account
-    @other_accounts = Person.find_all_by_email_and_authenticated(current_user.email, 1)
+    @other_accounts = Person.where(["email = ? AND authenticated = ?", current_user.email, 1]).includes(:account)
   end
 
   def redirect_back_or(default)
