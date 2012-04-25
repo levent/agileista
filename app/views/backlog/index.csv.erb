@@ -1,11 +1,11 @@
 ID,Definition,Description,Story points,Acceptance Criteria,Position,Created at,Last modified
-<%= FasterCSV.generate(:row_sep => "\r\n") do |csv|
+<%= CSV.generate do |csv|
   @user_stories.each do |a|
     csv << [a.id,
-    a.definition,
-    a.description,
-    a.story_points,
-    a.acceptance_criteria.map(&:detail).join(";").gsub('"', "'"),
+    a.definition.strip.split.join(" "),
+    a.description.strip.split.join(" "),
+    a.story_points.to_s,
+    a.acceptance_criteria.map(&:detail).join(";").gsub('"', "'").split.join(' '),
     a.position,
     a.created_at.strftime('%d/%m/%y %T'),
     a.updated_at.strftime('%d/%m/%y %T')]
