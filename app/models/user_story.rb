@@ -22,7 +22,6 @@ class UserStory < ActiveRecord::Base
 
   validates_presence_of :definition
   validates_presence_of :account_id
-  validates_uniqueness_of :definition, :scope => :account_id
 
   has_many :tasks, :order => :position
   accepts_nested_attributes_for :tasks, :allow_destroy => true, :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
@@ -115,32 +114,17 @@ class UserStory < ActiveRecord::Base
   end
 
   def copy
-    new_us = self.clone
+    new_us = UserStory.new(:account_id => self.account_id, :definition => "#{self.definition} (copy of ##{self.id})", :description => self.description, :story_points => self.story_points)
     self.acceptance_criteria.each do |ac|
-      new_us.acceptance_criteria << AcceptanceCriterium.new(ac.attributes)
+      new_us.acceptance_criteria << AcceptanceCriterium.new(:detail => ac.detail)
     end
     self.tasks.each do |task|
-      new_us.tasks << Task.new(:hours => task.hours, :definition => task.definition) unless task.complete?
+      new_us.tasks << Task.new(:definition => task.definition, :description => task.description, :hours => task.hours)
     end
-    new_us.definition = new_us.unique_definition
-    new_us.sprint_id = nil
-    saved = new_us.save
-    new_us.move_to_top if saved
-    return saved
-  end
-
-  def unique_definition
-    return if self.valid?
-    try = 2
-    original_definition = self.definition
-    # =~ /( - \((([\d])(th|nd|st|rd)) copy\))/
-    until self.errors.on(:definition).blank? || try > 25
-      subbed_def = self.definition.gsub(/( - \((([\d]+)(th|nd|st|rd)) copy\))/, '')
-      self.definition = "#{subbed_def} - (#{($3.to_i + 1).ordinalize} copy)"
-      self.valid?
-      try += 1
+    if new_us.save!
+      new_us.move_to_top
     end
-    self.definition
+    true
   end
 end
 
