@@ -115,7 +115,6 @@ class UserStory < ActiveRecord::Base
   end
 
   def copy
-    raise "not for now"
     new_us = self.clone
     self.acceptance_criteria.each do |ac|
       new_us.acceptance_criteria << AcceptanceCriterium.new(ac.attributes)
