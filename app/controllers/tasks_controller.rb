@@ -67,14 +67,8 @@ class TasksController < AbstractSecurityController
   end
   
   def update
-    update_task_developers(params[:commit], @task)
-    if @task && @task.update_attributes(params[:task])
-      flash[:notice] = "Task saved"
-      redirect_back_or(edit_user_story_url(@user_story, :anchor => "user_story_tasks"))
-    else
-      flash[:error] = "Task couldn't be saved"
-      render :action => 'edit'
-    end
+    @task.update_attribute(:hours, params[:hours])
+    head :ok
   end
   
   def destroy
@@ -129,15 +123,6 @@ class TasksController < AbstractSecurityController
   
   private
   
-  def update_task_developers(commit, task)
-    case commit
-    when "Claim"
-      task.team_members << current_user
-    when "Renounce"
-      task.team_members.delete(current_user)
-    end
-  end
-
   def truncate(string, length = 60)
     return string if string.length <= 60
     string[0...length-3] + "..."

@@ -14,7 +14,7 @@
               <th>In progress</th>
               <th>Complete</th>
             </tr>
-            <%= render :partial => 'user_story', :collection => @sprint.user_stories.includes(:tasks => :team_members), :locals => {:sprint => @sprint, :from => 'task_board'} %>
+            <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
           </tbody>
         </table>
       </div>

@@ -18,8 +18,7 @@
   <% if sprint && !sprint.finished? %>
     <dd class="tasks clearfix">
     <%= form_for task_card, :url => claim_user_story_task_path(:user_story_id => task_card.user_story, :id => task_card), :html => {:method => :put, :class => 'task_card_form'}, :remote => true do |f| %>
-      <%= f.text_field(:hours, :size => 3) %>
-      <%= submit_tag 'Save', :class => 'tasksavehours' %>
+      <%= f.text_field(:hours, :size => 3, :class => 'task_hours', :id => "task_#{task_card.id}", 'data-task' => task_card.id, 'data-user-story' => user_story.id) %>
       <% if claim %>
         <% if task_card.team_members.include?(current_user) %>
           <%= hidden_field_tag "claimtype_#{task_card.id}", 'renounce' %>

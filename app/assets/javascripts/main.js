@@ -42,7 +42,7 @@ function set_flash_or_refresh_task_board(data) {
     column.append(task_card);
     task_card.attr('style', 'position:relative');
     $('#task_card_' + data.task_id + ' dd.definition').html(data.definition);
-    $('#task_card_' + data.task_id + ' input#task_hours')[0].value = data.hours_left;
+    $('#task_card_' + data.task_id + ' input.task_hours')[0].value = data.hours_left;
     $('#item_' + data.user_story_id).removeClass('complete');
     $('#item_' + data.user_story_id).removeClass('inprogress');
     $('#item_' + data.user_story_id).addClass(data.user_story_status);
@@ -183,6 +183,18 @@ function setupTasks(){
 }
 
 $(function() {
+  $('.task_card_form .task_hours').on('change', function() {
+    console.log('fd');
+    console.log(this);
+
+
+    $.ajax({ url: '/user_stories/' + $(this).attr('data-user-story') + '/tasks/' + $(this).attr('data-task')
+      , type: 'POST'
+      , data: { _method: 'PUT', hours: $(this).val() }
+    });
+
+
+  });
   if ($('#sidebar .acceptance_criteria').length)
     setupAcceptanceCriteria();
   
