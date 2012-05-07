@@ -47,6 +47,16 @@ class UserStory < ActiveRecord::Base
         }
     }
 
+  def status
+    if self.inprogress?
+      status = "inprogress"
+    elsif self.complete?
+      status = "complete"
+    else
+      status = ""
+    end
+  end
+
   def inprogress?
     if !tasks.blank?
       tasks.each do |task|

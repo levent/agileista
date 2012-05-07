@@ -1,0 +1,17 @@
+var task_card = $('#task_card_' + <%= @task.id %>);
+var claim_btn = task_card.find('.claim_btn');
+var renounce_btn = task_card.find('.renounce_btn');
+var container = task_card.parent();
+
+task_card.attr('style', 'position:relative');
+claim_btn.prop('disabled', true);
+renounce_btn.prop('disabled', false);
+
+<% devs = @task.team_members.any? ? @task.team_members.map(&:name).join(', ') : "Nobody" %>
+task_card.find('.assignees').html('<%= devs %>');
+
+<% if @task.hours.to_i > 0 %>
+  container.siblings('.inprogress').append(task_card);
+<% else %>
+  container.siblings('.complete').append(task_card);
+<% end %>

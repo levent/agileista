@@ -49,10 +49,11 @@ Agileista::Application.routes.draw do
         post 'move_up'
         post 'move_down'
         put 'claim'
+        put 'renounce'
+        put 'complete'
       end
       collection do
         post 'create_quick'
-        post 'assign'
       end
     end
   end

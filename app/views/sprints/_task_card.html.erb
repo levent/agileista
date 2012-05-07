@@ -1,4 +1,4 @@
-<dl id="task_card_<%= task_card.id %>" class="task_card" title="<%=h task_card.definition %>">
+<dl id="task_card_<%= task_card.id %>" class="task_card" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-user-story="<%= user_story.id %>">
   <dt class="clearfix">
     <% if current_user.is_a?(TeamMember) %>
       <strong><%= "##{user_story.id}.#{task_card.position}" %></strong>
@@ -13,23 +13,17 @@
   </dt>
   <dd class="definition">
     <%= h truncate(task_card.definition, :length => 60) %>
-    <strong><%= show_assignees(task_card.team_members) %></strong>
+    <strong class="assignees"><%= show_assignees(task_card.team_members) %></strong>
   </dd>
-  <% if sprint && !sprint.finished? %>
+  <% if sprint %>
     <dd class="tasks clearfix">
-    <%= form_for task_card, :url => claim_user_story_task_path(:user_story_id => task_card.user_story, :id => task_card), :html => {:method => :put, :class => 'task_card_form'}, :remote => true do |f| %>
-      <%= f.text_field(:hours, :size => 3, :class => 'task_hours', :id => "task_#{task_card.id}", 'data-task' => task_card.id, 'data-user-story' => user_story.id) %>
-      <% if claim %>
-        <% if task_card.team_members.include?(current_user) %>
-          <%= hidden_field_tag "claimtype_#{task_card.id}", 'renounce' %>
-          <%= hidden_field_tag "submit_type", 'taskrenounce', :id => "submit_type_#{task_card.id}" %>
-          <%= submit_tag 'Renounce', :class => 'taskrenounce', :id => "givetake_#{task_card.id}" %>
-        <% else %>
-          <%= hidden_field_tag "claimtype_#{task_card.id}", 'claim' %>
-          <%= hidden_field_tag "submit_type", 'taskclaim', :id => "submit_type_#{task_card.id}" %>
-          <%= submit_tag 'Claim', :class => 'taskclaim', :id => "givetake_#{task_card.id}" %>
-        <% end %>
-      <% end %>
+    <input class="task_hours" name="hours" size="4" type="text" value="<%= task_card.hours %>">
+    <% if task_card.team_members.include?(current_user) %>
+      <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :disabled => true, :class => 'claim_btn' %>
+      <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'renounce_btn' %>
+    <% else %>
+      <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'claim_btn' %>
+      <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :disabled => true, :class => 'renounce_btn' %>
     <% end %>
     </dd>
   <% else %>

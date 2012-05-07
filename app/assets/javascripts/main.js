@@ -29,61 +29,6 @@ function notifyUser(json, user) {
   }
 }
 
-function set_flash_or_refresh_task_board(data) {
-  if(data.error) {
-    set_flash(data.error);
-  } else {
-    if (data.hours_left == '0') {
-      var column = $('#complete_' + data.user_story_id);
-    } else {
-      var column = $('#' + data.onto + '_' + data.user_story_id);
-    }
-    var task_card = $('#' + 'task_card_' + data.task_id);
-    column.append(task_card);
-    task_card.attr('style', 'position:relative');
-    $('#task_card_' + data.task_id + ' dd.definition').html(data.definition);
-    $('#task_card_' + data.task_id + ' input.task_hours')[0].value = data.hours_left;
-    $('#item_' + data.user_story_id).removeClass('complete');
-    $('#item_' + data.user_story_id).removeClass('inprogress');
-    $('#item_' + data.user_story_id).addClass(data.user_story_status);
-
-    var btn = $('#givetake_' + data.task_id);
-    var btn_action = $('#claimtype_' + data.task_id);
-    var submit_type = $('#submit_type_' + data.task_id);
-    if(data.onto == 'inprogress') {
-      if (btn) {
-        if (btn[0]) {
-          btn[0].value = 'Renounce';
-          submit_type.val('taskrenounce');
-          btn.addClass('taskrenounce');
-          btn.removeClass('taskclaim');
-        }
-        else {
-//          $("<input type='submit' value='Renounce' name='commit' id='givetake_" + data.task_id + "5979' class='taskrenounce'>").appendTo(task_card + " form")
-
-        }
-      }
-      if(btn_action) {
-        btn_action[0].value = 'renounce';
-      }
-    } else if (data.onto == 'incomplete') {
-      if (btn) {
-        btn[0].value = 'Claim';
-        submit_type.val('taskclaim');
-        btn.addClass('taskclaim');
-        btn.removeClass('taskrenounce');
-      }
-      if (btn_action) {
-        btn_action[0].value = 'claim';
-      }
-    }
-  }
-}
-
-function set_flash(message) {
-  $('#flashs').html(message);
-}
-
 function setupTaskBoard(user_story_id) {
 
   var us_container = '#user_story_container_' + user_story_id;
@@ -92,28 +37,36 @@ function setupTaskBoard(user_story_id) {
   $("#incomplete_"+user_story_id).droppable({
     accept: us_container + ' dl.task_card',
     drop: function(event, props) {
-      $.post('/user_stories/' + user_story_id + '/tasks/assign', {task_id: props.draggable.attr('id').substr(10), onto: 'incomplete'}, function(data) {
-      }, "json");
-      return false;
+      $.ajax({
+        url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/renounce',
+        type: 'POST',
+        data: { _method: 'PUT' },
+        dataType: 'jsonp'
+      });
     }
   });
 
   $("#inprogress_"+user_story_id).droppable({
     accept: us_container + ' dl.task_card',
     drop: function(event, props) {
-      $.post('/user_stories/' + user_story_id + '/tasks/assign', {task_id: props.draggable.attr('id').substr(10), onto: 'inprogress'},  function(data) {
-      }, "json");
-
-      return false;
+      $.ajax({
+        url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/claim',
+        type: 'POST',
+        data: { _method: 'PUT' },
+        dataType: 'jsonp'
+      });
     }
   });
 
   $("#complete_"+user_story_id).droppable({
     accept: us_container + ' dl.task_card',
     drop: function(event, props) {
-      $.post('/user_stories/' + user_story_id + '/tasks/assign', {task_id: props.draggable.attr('id').substr(10), onto: 'complete'},  function(data) {
-      }, "json");
-      return false;
+      $.ajax({
+        url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/complete',
+        type: 'POST',
+        data: { _method: 'PUT' },
+        dataType: 'jsonp'
+      });
     }
   });
 }
@@ -183,17 +136,11 @@ function setupTasks(){
 }
 
 $(function() {
-  $('.task_card_form .task_hours').on('change', function() {
-    console.log('fd');
-    console.log(this);
-
-
-    $.ajax({ url: '/user_stories/' + $(this).attr('data-user-story') + '/tasks/' + $(this).attr('data-task')
+  $('.task_hours').on('change', function() {
+    $.ajax({ url: '/user_stories/' + $(this).parents('dl').attr('data-user-story') + '/tasks/' + $(this).parents('dl').attr('data-task')
       , type: 'POST'
       , data: { _method: 'PUT', hours: $(this).val() }
     });
-
-
   });
   if ($('#sidebar .acceptance_criteria').length)
     setupAcceptanceCriteria();
