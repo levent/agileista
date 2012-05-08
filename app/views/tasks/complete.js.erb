@@ -7,11 +7,11 @@ var hours_left = task_card.find('.task_hours');
 task_card.attr('style', 'position:relative');
 
 <% if @task.team_members.include?(current_user) %>
-  claim_btn.prop('disabled', true);
-  renounce_btn.prop('disabled', false);
+  claim_btn.hide();
+  renounce_btn.show();
 <% else %>
-  claim_btn.prop('disabled', false);
-  renounce_btn.prop('disabled', true);
+  claim_btn.show();
+  renounce_btn.hide();
 <% end %>
 
 hours_left.val('0');

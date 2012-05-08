@@ -102,6 +102,10 @@ dl.user_story dt a.claim, dl.task_card dt a.claim {
   right: 0;
   padding: 6px; }
 
+dl.task_card input {
+  float:left;
+}
+
 dl.user_story dt a:hover {
   color: $yellow; }
 
