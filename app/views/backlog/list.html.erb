@@ -31,9 +31,6 @@
   <%= render(:partial => "shared/footer") %>
 </div>
 <% content_for :custom_js do %>
-  <script type="text/javascript" charset="utf-8">
-    setupVelocityMarkers('<%= @velocity %>');
-  </script>
-
+  setupVelocityMarkers('<%= @velocity %>');
   <%= render :partial => 'juggernaut', :locals => {:uid => @uid} %>
 <% end %>

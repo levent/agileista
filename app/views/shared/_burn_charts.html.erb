@@ -1,6 +1,5 @@
 <div id="burnall" style="width:768px;height:268px;"></div> 
 <% content_for :custom_js do %>
-<script id="source" language="javascript" type="text/javascript"> 
 $(function () {
     var burndown = { data: <%= @flot_burndown.inspect.html_safe %>, label: "Hours remaining" };
     var burnup1 = { data: <%= @flot_burnup[0].inspect.html_safe %>, label: "Story points complete", yaxis: 2} ;
@@ -8,6 +7,5 @@ $(function () {
     
     $.plot($("#burnall"), [burndown, burnup1, burnup2 ], { xaxis: { mode: "time", minTickSize: [1, "day"] }, yaxis: { min: 0, mintickSize: 1, tickDecimals: 0, tickFormatter: function (v, axis) { return v.toFixed(axis.tickDecimals) + " hours" }}, y2axis: { tickFormatter: function (v, axis) { return v.toFixed(axis.tickDecimals) + " story points" }} });
 });
-</script> 
 <% end %>
 

@@ -15,8 +15,6 @@
 
 <% unless current_user.is_a?(Contributor) || sprint.finished? %>
   <% content_for :custom_js do %>
-  <script type="text/javascript" charset="utf-8">
     setupTaskBoard(<%= user_story.id %>);
-  </script>
   <% end %>
 <% end %>

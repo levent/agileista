@@ -26,8 +26,6 @@
 
 <% unless current_user.is_a?(Contributor) || @sprint.finished? -%>
   <% content_for :custom_js do %>
-    <script type="text/javascript" charset="utf-8">
-      setupSprintPlanning(<%= @sprint.id %>);
-    </script>
+    setupSprintPlanning(<%= @sprint.id %>);
   <% end %>
 <% end -%>

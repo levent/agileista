@@ -32,9 +32,7 @@
 
 <% unless current_user.is_a?(Contributor) -%>
   <% content_for :custom_js do %>
-    <script type="text/javascript" charset="utf-8">
-      setupThemes();
-    </script>
+    setupThemes();
   <% end %>
 <% end -%>
 

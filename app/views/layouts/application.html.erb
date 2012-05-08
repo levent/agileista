@@ -56,7 +56,10 @@
   </div>
 
   <%= render(:partial => "shared/javascripts") %>
-  <%= yield :custom_js %>
+  <script type="text/javascript" charset="utf-8">
+    <%= yield :custom_js %>
+  </script>
+
   <%= render(:partial => "shared/google_analytics") %>
 
 </div>
