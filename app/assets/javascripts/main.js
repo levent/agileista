@@ -17,7 +17,7 @@ if($('#notification-bar')) {
   $(".close-bar").click(function() {
     $('#notification-bar').hide();
   });
-}
+};
 
 function notifyUser(json, user) {
   if(user != json.performed_by) {
@@ -27,7 +27,37 @@ function notifyUser(json, user) {
       $("#notification-bar").slideUp('slow');
     }, 5000);
   }
-}
+};
+
+function updateTaskCard(container, task_card, hours, devs, who, me) {
+  console.log(devs);
+  console.log(me);
+  var claim_btn = task_card.find('.claim_btn');
+  var renounce_btn = task_card.find('.renounce_btn');
+  var hours_left = task_card.find('.task_hours');
+  task_card.attr('style', 'position:relative');
+
+  task_card.find('.assignees').html(devs.join(', '));
+
+  if(Number(hours) > 0) {
+    if(jQuery.inArray('Nobody', devs) > -1) {
+      container.siblings('.incomplete').append(task_card);
+    } else {
+      container.siblings('.inprogress').append(task_card);
+    }
+  } else {
+    container.siblings('.complete').append(task_card);
+  }
+
+  if(jQuery.inArray(me,devs) > -1) {
+    claim_btn.hide();
+    renounce_btn.show();
+  } else {
+    claim_btn.show();
+    renounce_btn.hide();
+  }
+  hours_left.val(hours);
+};
 
 function setupTaskBoard(user_story_id) {
 

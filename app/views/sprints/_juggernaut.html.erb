@@ -2,6 +2,9 @@
   var log = function(data){
   };
   var update = function(data){
+    var task_card = $('#task_card_' + data.task_id);
+    var container = task_card.parent();
+    updateTaskCard(container, task_card, data.task_hours, data.task_devs, data.performed_by, '<%= current_user.name %>');
     notifyUser(data, "<%= current_user.name %>");
   };
   
