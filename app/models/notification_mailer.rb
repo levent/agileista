@@ -18,11 +18,9 @@ class NotificationMailer < ActionMailer::Base
   def password_reminder(user, account, password = nil)
     @recipients  = "#{user.email}"
     @sent_on     = Time.now
-    @body[:url]  = url_for :controller => 'login', :subdomain => account.subdomain, :host => MAIN_HOST
-    @body[:user] = user
-    @body[:pass] = password
-    @body[:account] = account
-    @subject     = "Hey Agileista! This should help you login"
+    @url  = url_for :controller => 'login', :subdomain => account.subdomain, :host => MAIN_HOST
+    @pass = password
+    mail(:to => user.email, :subject => "Hey Agileista! This should help you login")
   end
   
   def account_information(user, account)

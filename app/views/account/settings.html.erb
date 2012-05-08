@@ -8,7 +8,7 @@
         <div class="columns clearfix">
 
           <div class="column left">
-            <%= form_tag({:action => 'change_password', :id => session[:user]}, {:class => "form"}) %>
+            <%= form_tag({:action => 'change_password'}, {:class => "form", :method => 'put'}) %>
               <div class="group">
                 <label for="old_password" class="label">Old password</label>
                 <%= password_field_tag 'old_password', nil, :class => "text_field" %>
