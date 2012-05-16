@@ -13,8 +13,8 @@ class Sprint < ActiveRecord::Base
 
   before_validation :calculate_end_date
 
-  scope :current, lambda { { :conditions => ["start_at < ? AND end_at > ?", Date.today.beginning_of_day + 1, Date.yesterday.end_of_day - 1] } }
-  scope :finished, lambda { {:conditions => ["end_at < ?", Time.now.beginning_of_day + 1]} }
+  scope :current, lambda { { :conditions => ["start_at <= ? AND end_at > ?", Date.today.beginning_of_day, Date.today.beginning_of_day] } }
+  scope :finished, lambda { {:conditions => ["end_at < ?", Time.zone.now.beginning_of_day]} }
 
   def validate
     return unless start_at && end_at
@@ -22,7 +22,7 @@ class Sprint < ActiveRecord::Base
   end
 
   def calculate_day_zero
-    return false if self.start_at <= Time.now
+    return false if self.start_at <= Time.zone.now
     @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(self.id, self.start_at.to_date)
     @burndown.hours_left = self.hours_left
     @burndown.story_points_complete = self.story_points_burned
@@ -58,15 +58,15 @@ class Sprint < ActiveRecord::Base
   end
 
   def finished?
-    self.end_at < Time.now
+    self.end_at < Time.zone.now.at_beginning_of_day
   end
 
   def upcoming?
-    self.start_at > Time.now
+    self.start_at > Time.zone.now.end_of_day
   end
 
   def current?
-    self.start_at < Time.now && self.end_at > Time.now
+    self.start_at <= Date.today.beginning_of_day && self.end_at > Date.today.beginning_of_day
   end
 
   def calculate_end_date
