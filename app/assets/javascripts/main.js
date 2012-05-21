@@ -30,8 +30,6 @@ function notifyUser(json, user) {
 };
 
 function updateTaskCard(container, task_card, hours, devs, who, me) {
-  console.log(devs);
-  console.log(me);
   var claim_btn = task_card.find('.claim_btn');
   var renounce_btn = task_card.find('.renounce_btn');
   var hours_left = task_card.find('.task_hours');
