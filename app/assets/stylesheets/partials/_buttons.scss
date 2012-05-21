@@ -7,7 +7,7 @@ $orange: #e46719;
 $blue: #184979;
 $yellow: #ffffbb;
 
-a.button:link, a.button:visited, a.button:active {
+a.button:link, a.button:visited, a.button:active, a.redbutton {
   background-color: #999999;
   color: white;
   border-radius: 3px;
@@ -22,8 +22,8 @@ h2.title a.button, h3 a.button {
   font-size: 45%;
   vertical-align: middle; }
 
-h2.title .tab a.button {
+h2.title .tab a.button, a.redbutton {
   background-color: $red; }
 
-h2.title .tab a.button:hover {
+h2.title .tab a.button:hover, a.redbutton:hover {
   background-color: #b80606; }
