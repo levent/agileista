@@ -42,13 +42,7 @@ class UserStory < ActiveRecord::Base
     }
   }
   scope :estimated, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil]
-  scope :unassigned,
-    lambda {|order|
-        {
-          :conditions => ['done = ? AND sprint_id IS ?', 0, nil],
-          :order => order, :include => [:acceptance_criteria, :person]
-        }
-    }
+  scope :unassigned, where(:done => 0, :sprint_id => nil).includes(:acceptance_criteria, :person).rank(:position)
 
   def status
     if self.inprogress?

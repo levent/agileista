@@ -1,14 +1,11 @@
 <dl id="task_card_<%= task_card.id %>" class="task_card" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-user-story="<%= user_story.id %>">
   <dt class="clearfix">
     <% if current_user.is_a?(TeamMember) %>
-      <strong><%= "##{user_story.id}.#{task_card_counter}" %></strong>
       <% if defined?(sprint) %>
-        <%= link_to 'Edit', edit_sprint_user_story_url(sprint, user_story, :anchor => "user_story_tasks"), :title => "Edit ##{user_story.id}.#{task_card_counter}", :class => "edit" unless sprint.finished? %>
+        <%= link_to 'Edit', edit_sprint_user_story_url(sprint, user_story, :anchor => "user_story_tasks"), :title => "Edit Task", :class => "edit" unless sprint.finished? %>
       <% else %>
-        <%= link_to 'Edit', edit_user_story_url(user_story, :anchor => "user_story_tasks"), :title => "Edit ##{user_story.id}.#{task_card_counter}", :class => "edit" %>
+        <%= link_to 'Edit', edit_user_story_url(user_story, :anchor => "user_story_tasks"), :title => "Edit Task", :class => "edit" %>
       <% end %>
-    <% else %>
-      <%= "##{user_story.id}.#{task_card_counter}" %>
     <% end %>
   </dt>
   <dd class="definition">

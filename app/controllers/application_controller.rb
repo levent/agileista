@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   
   # excludes DONE
   def account_user_stories
-     @user_stories = @account.user_stories.unassigned('position')
+     @user_stories = @account.user_stories.unassigned
   end
   
   def calculate_todays_burndown
