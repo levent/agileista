@@ -1,5 +1,10 @@
 class SprintElement < ActiveRecord::Base
-  acts_as_list :scope => :sprint
+
+  include RankedModel
+  ranks :sprint_position,
+    :with_same => :sprint_id,
+    :column => :position
+
   has_many :sprint_changes, :as => :auditable
   
   belongs_to :sprint

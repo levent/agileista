@@ -1,7 +1,12 @@
 class Theme < ActiveRecord::Base
+
+  # acts_as_list :scope => :account
+  include RankedModel
+  ranks :position,
+    :with_same => :account_id
+
   belongs_to :account
   validates_presence_of :name
-  acts_as_list :scope => :account
 
   has_many :themings, :foreign_key => "theme_id"
   has_many :user_stories, :through => :themings

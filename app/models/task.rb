@@ -1,5 +1,9 @@
 class Task < ActiveRecord::Base
-  acts_as_list :scope => :user_story
+  # acts_as_list :scope => :user_story
+  include RankedModel
+  ranks :order,
+    :with_same => :user_story_id,
+    :column => :position
   
   validates_presence_of :definition
   # Screws up in accepts_nested_attributes_for

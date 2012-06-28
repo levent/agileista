@@ -13,7 +13,7 @@ gem 'exceptional', '2.0.32'
 gem 'subdomain-fu', :git => "git://github.com/nhowell/subdomain-fu.git"
 gem 'thinking-sphinx', '2.0.11'
 gem 'gravtastic'
-gem 'acts_as_list'
+gem 'ranked-model'
 gem 'thin'
 
 group :assets do

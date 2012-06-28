@@ -18,7 +18,10 @@ class UserStory < ActiveRecord::Base
   has_many :acceptance_criteria
   accepts_nested_attributes_for :acceptance_criteria, :allow_destroy => true, :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
 
-  acts_as_list :scope => :account
+  include RankedModel
+  ranks :position,
+    :with_same => :account_id
+  # acts_as_list :scope => :account
 
   validates_presence_of :definition
   validates_presence_of :account_id
