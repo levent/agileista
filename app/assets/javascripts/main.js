@@ -118,7 +118,7 @@ function setupSprintPlanning(sprint_id) {
     items: 'dl.user_story',
     connectWith: '#estimated',
     update: function(event, ui) {
-      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/reorder', {user_stories: $(this).sortable('serialize')}, function(data) {
+      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/reorder', {move_to: ui.item.index() - 1}, function(data) {
         if(data.ok == true) {
           $('#flashs').html('Sprint reordered');
         }
@@ -165,7 +165,7 @@ function setupTasks(){
 
 $(function() {
   $('.task_hours').on('change', function() {
-    $.ajax({ url: '/user_stories/' + $(this).parents('dl').attr('data-user-story') + '/tasks/' + $(this).parents('dl').attr('data-task')
+    $.ajax({ url: '/user_stories/' + $(this).parents('dl').attr('data-ser-story') + '/tasks/' + $(this).parents('dl').attr('data-task')
       , type: 'POST'
       , data: { _method: 'PUT', hours: $(this).val() }
     });
@@ -181,7 +181,7 @@ $(function() {
     $('#user_stories').sortable({
       items: 'dl',
       update: function(event, ui) {
-        $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
+        $.post('/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index()}, function(data) {
           if(data.ok == true) {
             $('#flashs').html('Backlog reordered');
           }
@@ -203,7 +203,7 @@ $(function() {
       items: 'tr.user_story',
       helper: fixHelper,
       update: function(event, ui) {
-        $.post('/backlog/sort', {user_story_id: ui.item.attr('id').substr(5), user_stories: $(this).sortable('serialize')}, function(data) {
+        $.post('/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index()}, function(data) {
           if(data.ok == true) {
             $('#flashs').html('Backlog reordered');
             setupVelocityMarkers(data.velocity)

@@ -1,7 +1,7 @@
 class SprintElement < ActiveRecord::Base
 
   include RankedModel
-  ranks :sprint_position,
+  ranks :sprint,
     :with_same => :sprint_id,
     :column => :position
 

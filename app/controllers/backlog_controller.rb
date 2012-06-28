@@ -56,12 +56,8 @@ class BacklogController < AbstractSecurityController
   end
   
   def sort
-    split_by = "&item[]="
-    items = params[:user_stories].split(split_by)
-    items[0] = items[0].gsub('item[]=', '')
-    items.each_with_index do |id, index|
-      @user_stories.update_all(['position=?', index+1], ['id=?', id])
-    end
+    puts "Move to #{params[:move_to]}"
+    @user_stories.find(params[:user_story_id]).update_attribute(:backlog_order_position, params[:move_to])
     json = {
       :notification => "Backlog reordered by #{current_user.name}",
       :performed_by => current_user.name

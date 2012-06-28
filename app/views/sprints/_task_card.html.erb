@@ -1,4 +1,4 @@
-<dl id="task_card_<%= task_card.id %>" class="task_card" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-user-story="<%= user_story.id %>">
+<dl id="task_card_<%= task_card.id %>" class="task_card" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-story="<%= user_story.id %>">
   <dt class="clearfix">
     <% if current_user.is_a?(TeamMember) %>
       <% if defined?(sprint) %>

@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   
   # excludes DONE
   def account_user_stories
-     @user_stories = @account.user_stories.unassigned
+     @user_stories = @account.user_stories.unassigned.rank(:backlog_order)
   end
   
   def calculate_todays_burndown

@@ -7,7 +7,7 @@
       <div id="user_stories" class="clearfix">
 
         <table class="table">
-          <tbody>
+          <thead>
             <tr>
               <th class="state">State</th>
               <th class="id">ID</th>
@@ -16,6 +16,8 @@
               <th class="stakholder">Stakeholder</th>
               <th class="actions last"></th>
             </tr>
+          </thead>
+          <tbody>
             <%= render :partial => "/user_stories/user_story_row", :collection => @user_stories %>
             <% reset_cycle("user_stories")%>
           </tbody>

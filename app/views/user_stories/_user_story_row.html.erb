@@ -1,4 +1,4 @@
-<tr id="item_<%= user_story_row.id %>" class="<%= cycle('odd', 'even', :name => "user_stories") %> user_story">
+<tr id="item_<%= user_story_row.id %>" class="<%= cycle('odd', 'even', :name => "user_stories") %> user_story" data-story="<%= user_story_row.id %>">
   <td class="state"><%= user_story_state(user_story_row.state).html_safe %></td>
   <td class="id"><%= link_to user_story_row.id, show_link(user_story_row) %></td>
   <td class="definition"><%= parse_definition(user_story_row.definition).html_safe %></td>
@@ -6,4 +6,3 @@
   <td class="stakeholder"><%= show_stakeholder(user_story_row) %></td>
   <td class="actions"><%= link_to 'Show', show_link(user_story_row), :class => "button" %> <%= link_to 'Edit', edit_link(user_story_row), :class => "button" if current_user.is_a?(TeamMember) %></td>
 </tr>
-<tr>

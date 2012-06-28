@@ -19,8 +19,10 @@ class UserStory < ActiveRecord::Base
   accepts_nested_attributes_for :acceptance_criteria, :allow_destroy => true, :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
 
   include RankedModel
-  ranks :position,
-    :with_same => :account_id
+  ranks :backlog_order,
+    :with_same => :account_id,
+    :column => :position,
+    :scope => :unassigned
   # acts_as_list :scope => :account
 
   validates_presence_of :definition
@@ -42,7 +44,7 @@ class UserStory < ActiveRecord::Base
     }
   }
   scope :estimated, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil]
-  scope :unassigned, where(:done => 0, :sprint_id => nil).includes(:acceptance_criteria, :person).rank(:position)
+  scope :unassigned, where(:done => 0, :sprint_id => nil).includes(:acceptance_criteria, :person)
 
   def status
     if self.inprogress?

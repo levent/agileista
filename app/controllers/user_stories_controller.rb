@@ -105,12 +105,8 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def reorder
-    split_by = "&item[]="
-    items = params[:user_stories].split(split_by)
-    items[0] = items[0].gsub('item[]=', '')
-    items.each_with_index do |id, index|
-      @sprint.sprint_elements.update_all(['position=?', index+1], ['user_story_id=?', id])
-    end
+    sprint_element = @sprint.sprint_elements.where(:user_story_id => params[:id]).first
+    sprint_element.update_attribute(:sprint_position, params[:move_to])
     render :json => {:ok => true}.to_json
   end
   
