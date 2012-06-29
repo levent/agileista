@@ -32,15 +32,16 @@ class UserStoriesController < AbstractSecurityController
     @user_story.account = @account
     @user_story.person = current_user
     @user_story.sprint = @sprint
+    
+    if params[:commit] == "Add at start of backlog"
+      @user_story.backlog_order_position = :first
+    else
+      @user_story.backlog_order_position = :last
+    end
+
     if @user_story.save
       @account.tag(@user_story, :with => params[:tags], :on => :tags)
       assign_additional_themes
-      
-      if params[:commit] == "Add at start of backlog"
-        @user_story.move_to_top
-      else
-        @user_story.move_to_bottom
-      end
       
       if params[:commit] == "Add to task board"
         SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)

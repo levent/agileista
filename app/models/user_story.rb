@@ -130,10 +130,8 @@ class UserStory < ActiveRecord::Base
     self.tasks.each do |task|
       new_us.tasks << Task.new(:definition => task.definition, :description => task.description, :hours => task.hours)
     end
-    if new_us.save!
-      new_us.move_to_top
-    end
-    true
+    new_us.backlog_order_position = :first
+    new_us.save!
   end
 end
 
