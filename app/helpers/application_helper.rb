@@ -74,13 +74,6 @@ module ApplicationHelper
     end
   end
 
-  # Create a link to a tag’s view page.
-  # this could easily be different in your application, depending on how you structure your tag searches,
-  # but it seems smart to include it here as my tag cloud code depends on it. Change the tag_item_url in
-  def tag_item_url(name)
-    "/backlog/search/#{name}"
-  end
-
   def complete?(user_story)
     return ' class="uscomplete"' if user_story.complete?
   end
