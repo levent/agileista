@@ -26,8 +26,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-
 group :development do
   gem 'debugger'
   gem 'ruby-prof'

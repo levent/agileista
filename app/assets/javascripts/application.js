@@ -10,9 +10,9 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
+//= require jquery-1.7.2
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery-ui-1.8.18
 //= require jquery.flot.min
 //= require juggernaut
 //= require main
