@@ -11,7 +11,6 @@
   <!--[if IE]><link href="/stylesheets/ie.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
 
   <!-- %= stylesheet_link_tag    "application", :media => "all" % -->
-  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tag %>
 </head>
 <body id="agileista" class="<%= page_signature %>">
@@ -56,13 +55,14 @@
   </div>
 
   <%= render(:partial => "shared/javascripts") %>
-  <script type="text/javascript" charset="utf-8">
-    <%= yield :custom_js %>
-  </script>
 
   <%= render(:partial => "shared/google_analytics") %>
 
 </div>
+  <%= javascript_include_tag "application" %>
+  <script type="text/javascript" charset="utf-8">
+    <%= yield :custom_js %>
+  </script>
 </body>
 </html>
 
