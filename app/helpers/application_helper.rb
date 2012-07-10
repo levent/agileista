@@ -23,7 +23,7 @@ module ApplicationHelper
     options = {:unit => "story point"}.merge(opts)
     points = points.nil? ? "?" : points
 
-    return pluralize(points, options[:unit])
+    pluralize(points, options[:unit])
   end
 
   def show_story_points_remaining(points)

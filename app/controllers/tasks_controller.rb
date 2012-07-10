@@ -18,7 +18,7 @@ class TasksController < AbstractSecurityController
     @task.team_members.delete(current_user)
     @task.save
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
-    json = { :notification => "#{current_user.name} renounced task of ##{@user_story.id}", :performed_by => current_user.name, :action => 'renounce', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs }
+    json = { :notification => "#{current_user.name} renounced task of ##{@user_story.id}", :performed_by => current_user.name, :action => 'renounce', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     Juggernaut.publish(uid, json)
   end
@@ -27,7 +27,7 @@ class TasksController < AbstractSecurityController
     @task.team_members << current_user
     @task.save
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
-    json = { :notification => "#{current_user.name} claimed task of ##{@user_story.id}", :performed_by => current_user.name, :action => 'claim', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs }
+    json = { :notification => "#{current_user.name} claimed task of ##{@user_story.id}", :performed_by => current_user.name, :action => 'claim', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     Juggernaut.publish(uid, json)
   end
@@ -35,7 +35,7 @@ class TasksController < AbstractSecurityController
   def complete
     @task.update_attribute(:hours, 0)
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
-    json = { :notification => "#{current_user.name} completed task of ##{@user_story.id}", :performed_by => current_user.name, :action => 'complete', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs }
+    json = { :notification => "#{current_user.name} completed task of ##{@user_story.id}", :performed_by => current_user.name, :action => 'complete', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     Juggernaut.publish(uid, json)
   end
@@ -43,7 +43,7 @@ class TasksController < AbstractSecurityController
   def update
     @task.update_attribute(:hours, params[:hours])
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
-    json = { :notification => "#{current_user.name} updated task of ##{@user_story.id}", :performed_by => current_user.name, :action => 'update', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs }
+    json = { :notification => "#{current_user.name} updated task of ##{@user_story.id}", :performed_by => current_user.name, :action => 'update', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     Juggernaut.publish(uid, json)
   end

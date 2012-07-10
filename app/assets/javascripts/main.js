@@ -99,6 +99,21 @@ function setupTaskBoard(user_story_id) {
   });
 }
 
+function setupTaskBoardStats() {
+  var current_total = $("#current_total").html();
+  var complete_stories = $(".user_story.complete .points");
+  var complete_points = $.map(complete_stories, function(element) {
+    return(Number($(element).html()));
+  });
+  var sum_complete = 0;
+  $.each(complete_points, function(){
+    sum_complete += parseFloat(this) || 0;
+  });
+  $("#current_complete").html(sum_complete);
+  var current_percentage = (Math.round((sum_complete / current_total) * 100));
+  $("#current_percentage").html(current_percentage + '%');
+}
+
 function setupSprintPlanning(sprint_id) {
   $('#estimated').sortable({
     items: 'dl.user_story',
@@ -165,7 +180,7 @@ function setupTasks(){
 
 $(function() {
   $('.task_hours').on('change', function() {
-    $.ajax({ url: '/user_stories/' + $(this).parents('dl').attr('data-ser-story') + '/tasks/' + $(this).parents('dl').attr('data-task')
+    $.ajax({ url: '/user_stories/' + $(this).parents('dl').attr('data-story') + '/tasks/' + $(this).parents('dl').attr('data-task')
       , type: 'POST'
       , data: { _method: 'PUT', hours: $(this).val() }
     });
