@@ -81,7 +81,7 @@ class UserStoriesController < AbstractSecurityController
   
   def plan
     @user_story.sprint = @sprint
-    @user_story.save
+    @user_story.save!
     SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
     points_planned = @sprint.user_stories.sum('story_points')
     hours_left = @sprint.hours_left
@@ -90,7 +90,8 @@ class UserStoriesController < AbstractSecurityController
   
   def unplan
     @user_story.sprint = nil
-    @user_story.save
+    @user_story.backlog_order_position = :first
+    @user_story.save!
     SprintElement.destroy_all("sprint_id = #{@sprint.id} AND user_story_id = #{@user_story.id}")
     respond_to do |format|
       format.html {
