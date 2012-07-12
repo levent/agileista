@@ -33,6 +33,6 @@
   <%= render(:partial => "shared/footer") %>
 </div>
 <% content_for :custom_js do %>
-  setupVelocityMarkers('<%= @velocity %>');
+  Agileista.setupVelocityMarkers('<%= @velocity %>');
   <%= render :partial => 'juggernaut', :locals => {:uid => @uid} %>
 <% end %>

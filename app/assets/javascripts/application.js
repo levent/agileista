@@ -15,5 +15,5 @@
 //= require jquery-ui-1.8.18
 //= require jquery.flot.min
 //= require juggernaut
+//= require agileista
 //= require main
-//= require account-switcher

@@ -13,12 +13,6 @@ if($('#loading')) {
   });
 }
 
-if($('#notification-bar')) {
-  $(".close-bar").click(function() {
-    $('#notification-bar').hide();
-  });
-};
-
 function notifyUser(json, user) {
   if(user != json.performed_by) {
     $('#notification-bar').html(json.notification);
@@ -166,18 +160,6 @@ function setupThemes(){
   });
 }
 
-function setupAcceptanceCriteria(){
-  $('.add_nested_criterium').click(function() {
-    add_new_item('#sidebar .acceptance_criteria ol li:last');
-  });
-}
-
-function setupTasks(){
-  $('.add_nested_task').click(function() {
-    add_new_item('#sidebar .tasks ol li:last');
-  });
-}
-
 $(function() {
   $('.task_hours').on('change', function() {
     $.ajax({ url: '/user_stories/' + $(this).parents('dl').attr('data-story') + '/tasks/' + $(this).parents('dl').attr('data-task')
@@ -185,11 +167,6 @@ $(function() {
       , data: { _method: 'PUT', hours: $(this).val() }
     });
   });
-  if ($('#sidebar .acceptance_criteria').length)
-    setupAcceptanceCriteria();
-  
-  if ($('#sidebar .tasks').length)
-    setupTasks();
 
   if ($('#user_stories dl').length > 0 && (window.location.pathname.indexOf('stale') === -1)) {
 
@@ -205,7 +182,7 @@ $(function() {
     });
   }
 
-// Return a helper with preserved width of cells
+  // Return a helper with preserved width of cells
   var fixHelper = function(e, ui) {
     ui.children().each(function() {
       $(this).width($(this).width());
@@ -228,47 +205,4 @@ $(function() {
     });
 
   }
-});
-
-function add_new_item(element) {
-  var e = $(element);
-  var tag = e.get(0).tagName.toLowerCase();
-  
-  e.after(
-    $('<'+tag+'>'+'</'+tag+'>').append(e.html().replace(/\d+(?=\_)|\d+(?=\])/g, function(match) {return parseInt(match)+1;}))
-  );
-}
-
-function setupVelocityMarkers(velocity) {
-  if(!(velocity === '') && window.location.pathname.indexOf('stale') === -1){
-    $('.release_marker').removeClass('release_marker');
-    var user_stories = $('tr.user_story');
-    var tally = 0;
-    $.each(user_stories, function(index, story) {
-      var story_points = parseInt($(story).children('td.points').text());
-      if(!isNaN(story_points)){
-        tally += story_points;
-      }
-      if(tally > velocity) {
-        if(story_points > velocity)
-      $(story).addClass('warning');
-    $(story).addClass('release_marker');
-    tally = story_points;
-      }
-
-    });
-  }
-}
-
-$(document).ready(function(){
-  $("#togglecomplete").click(function(el) {
-    var link = $(el.target);
-    if(link.text() === "hide complete stories") {
-      $('.user_story.complete').parents('tr').hide();
-      link.text('show complete stories');
-    } else {
-      $('.user_story.complete').parents('tr').show();
-      link.text('hide complete stories');
-    }
-  });
 });
