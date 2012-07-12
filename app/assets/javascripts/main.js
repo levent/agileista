@@ -15,7 +15,7 @@ if($('#loading')) {
 
 function notifyUser(json, user) {
   if(user != json.performed_by) {
-    $('#notification-bar').html(json.notification);
+    $('#notification-bar').append(json.notification);
     $('#notification-bar').slideDown('slow');
     setTimeout(function() {
       $("#notification-bar").slideUp('slow');
