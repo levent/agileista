@@ -7,8 +7,7 @@ class BacklogController < AbstractSecurityController
 
   def index
     store_location
-    @story_points = 0
-    @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
+    load_story_points
     @velocity = @account.average_velocity
     @uid = Digest::SHA1.hexdigest("backlog#{@account.id}")
     if params[:filter] == 'stale'
@@ -78,4 +77,12 @@ class BacklogController < AbstractSecurityController
     end
   end
 
+  def load_story_points
+    @story_points = REDIS.get("story_points_#{@account.id}")
+    unless @story_points
+      @story_points = 0
+      @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
+      REDIS.set("story_points_#{@account.id}", @story_points)
+    end
+  end
 end

@@ -37,6 +37,8 @@ class UserStory < ActiveRecord::Base
   belongs_to :sprint
   belongs_to :person
 
+  after_save :expire_story_points
+
   scope :stale,
     lambda { |range|
     { 
@@ -132,6 +134,12 @@ class UserStory < ActiveRecord::Base
     end
     new_us.backlog_order_position = :first
     new_us.save!
+  end
+
+  private
+
+  def expire_story_points
+    REDIS.del("story_points_#{self.account.id}")
   end
 end
 

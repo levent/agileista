@@ -74,6 +74,7 @@ GEM
     gravtastic (3.2.6)
     highline (1.6.11)
     hike (1.2.1)
+    hiredis (0.4.5)
     i18n (0.6.0)
     journey (1.0.4)
     json (1.7.4)
@@ -126,7 +127,7 @@ GEM
       activerecord (>= 3.0.3)
     rdoc (3.12)
       json (~> 1.4)
-    redis (2.2.2)
+    redis (3.0.1)
     riddle (1.5.1)
     rspec (2.9.0)
       rspec-core (~> 2.9.0)
@@ -188,6 +189,7 @@ DEPENDENCIES
   exceptional (= 2.0.32)
   faker
   gravtastic
+  hiredis (= 0.4.5)
   json
   juggernaut (= 2.0.4)
   machinist
@@ -196,6 +198,7 @@ DEPENDENCIES
   pg
   rails (= 3.2.7)
   ranked-model
+  redis (= 3.0.1)
   rspec-rails (= 2.9.0)
   ruby-prof
   sass-rails (~> 3.2.3)

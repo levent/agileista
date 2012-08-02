@@ -15,6 +15,8 @@ gem 'subdomain-fu', :git => "git://github.com/nhowell/subdomain-fu.git"
 gem 'thinking-sphinx', '2.0.11'
 gem 'gravtastic'
 gem 'ranked-model'
+gem "hiredis", "0.4.5"
+gem "redis", "3.0.1", :require => ["redis/connection/hiredis", "redis"]
 gem 'thin'
 
 group :assets do
