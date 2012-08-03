@@ -3,6 +3,7 @@
     <%= render(:partial => "shared/navigation/sprints_secondary") %>
 
     <div class="content">
+      <%= render :partial => "shared/velocity_chart", :locals => {:flot_points => @flot_points} %>
       <% unless @sprints.blank? %>
         <h2 class="title">Total: <strong class="hightlight"><%= @sprints.size %></strong>. Finished: <strong class="hightlight"><%= @sprints.finished.size %></strong>. Average velocity: <strong class="hightlight"><%= average_velocity(@account) %></strong>.</h2>
         <div class="inner">
