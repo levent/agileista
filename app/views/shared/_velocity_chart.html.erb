@@ -1,8 +1,9 @@
 <div id="velocity_chart" style="width:100%;height:200px;"></div> 
 <% content_for :custom_js do %>
 $(function () {
+  var average = {shadowSize: 0,  data: [[<%= @sprints.finished.first.end_at.to_time.to_i * 1000 %>, <%= @velocity %>], [<%= @sprints.finished.last.end_at.to_time.to_i * 1000 %>, <%= @velocity %>]] , label: "Average Velocity" };
   var velocity = {shadowSize: 0, color: "#7A1818", data: <%= @sprints.finished.map{ |s| [s.end_at.to_time.to_i * 1000, s.calculated_velocity] }.inspect.html_safe %>, label: "Velocity" };
-  $.plot($("#velocity_chart"), [velocity], {xaxis: {mode: "time"}});
+  $.plot($("#velocity_chart"), [velocity, average], {xaxis: {mode: "time"}});
 });
 <% end %>
 

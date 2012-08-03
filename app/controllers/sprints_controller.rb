@@ -7,6 +7,7 @@ class SprintsController < AbstractSecurityController
   
   def index
     @sprints = @account.sprints
+    @velocity = @account.average_velocity
   end
   
   def show
