@@ -26,7 +26,7 @@ class Account < ActiveRecord::Base
 
   def average_velocity
     return if sprints.finished.empty?
-    sprints.finished[0..9].map {|s| s.calculated_velocity}.sum / sprints.finished[0..9].count
+    sprints.finished[0..19].map {|s| s.calculated_velocity}.sum / sprints.finished[0..19].count
   end
 
   def authenticate(email, password)

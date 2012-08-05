@@ -8,6 +8,7 @@ class SprintsController < AbstractSecurityController
   def index
     @sprints = @account.sprints
     @velocity = @account.average_velocity
+    @cint_lo, @cint_hi = Velocity.confidence_interval(@sprints.finished[0..19].map(&:calculated_velocity))
   end
   
   def show

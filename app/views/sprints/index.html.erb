@@ -6,6 +6,7 @@
       <%= render :partial => "shared/velocity_chart", :locals => {:flot_points => @flot_points} %>
       <% unless @sprints.blank? %>
         <h2 class="title">Total: <strong class="hightlight"><%= @sprints.size %></strong>. Finished: <strong class="hightlight"><%= @sprints.finished.size %></strong>. Average velocity: <strong class="hightlight"><%= average_velocity(@account) %></strong>.</h2>
+        <p>90% likelihood velocity be between <%= @cint_lo %> and <%= @cint_hi %>.</p>
         <div class="inner">
           <table class="table">
             <tbody>
