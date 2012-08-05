@@ -1,112 +1,32 @@
-
-# This file is copied to ~/spec when you run 'ruby script/generate rspec'
-# from the project root directory.
+# This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
-require 'spec/autorun'
-require 'spec/rails'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+require 'rspec/autorun'
 
-# Uncomment the next line to use webrat's matchers
-#require 'webrat/integrations/rspec-rails'
+# Requires supporting ruby files with custom matchers and macros, etc,
+# in spec/support/ and its subdirectories.
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-# Requires supporting files with custom matchers and macros, etc,
-# in ./support/ and its subdirectories.
-Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
-
-require File.expand_path(File.join(File.dirname(__FILE__),'..','features','support', 'blueprints'))
-
-Spec::Runner.configure do |config|
-  # If you're not using ActiveRecord you should remove these
-  # lines, delete config/database.yml and disable :active_record
-  # in your config/boot.rb
-  config.use_transactional_fixtures = true
-  config.use_instantiated_fixtures  = false
-  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-
-
-  config.before(:all)    { Sham.reset(:before_all)  }
-  config.before(:each)   { Sham.reset(:before_each) }
-  # == Fixtures
+RSpec.configure do |config|
+  # ## Mock Framework
   #
-  # You can declare fixtures for each example_group like this:
-  #   describe "...." do
-  #     fixtures :table_a, :table_b
-  #
-  # Alternatively, if you prefer to declare them only once, you can
-  # do so right here. Just uncomment the next line and replace the fixture
-  # names with your fixtures.
-  #
-  # config.global_fixtures = :table_a, :table_b
-  #
-  # If you declare global fixtures, be aware that they will be declared
-  # for all of your examples, even those that don't use them.
-  #
-  # You can also declare which fixtures to use (for example fixtures for test/fixtures):
-  #
-  # config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-  #
-  # == Mock Framework
-  #
-  # RSpec uses it's own mocking framework by default. If you prefer to
-  # use mocha, flexmock or RR, uncomment the appropriate line:
+  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
   #
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
-  #
-  # == Notes
-  #
-  # For more information take a look at Spec::Runner::Configuration and Spec::Runner
-  def block_should_be_yielded_to
-    observer = mock(:block)
-    observer.should_receive(:to_be_yielded_to)
-    Proc.new do
-      observer.to_be_yielded_to
-    end
-  end
 
-  def block_should_not_be_yielded_to
-    observer = mock(:block)
-    observer.should_not_receive(:yielded)
-    Proc.new do
-      observer.yielded
-    end
-  end
+  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  def stub_login_and_account_setup
-    @person = TeamMember.new
-    @account = Account.new
-    @person.account = @account
-    session[:user] = 1
-    session[:account] = 1
-    Person.stub!(:find_by_id_and_account_id).and_return(@person)
-  end
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, remove the following line or assign false
+  # instead of true.
+  config.use_transactional_fixtures = true
 
-  def stub_login_and_account_setup_properly
-    @account = Account.make
-    @person = @account.account_holder
-    @person.account = @account
-    session[:user] = @person.id
-    session[:account] = @account.id
-    Person.stub!(:find_by_id_and_account_id).and_return(@person)
-  end
-
-  def stub_count_impediments
-    controller.stub!(:count_impediments)
-  end
-
-  def stub_iteration_length
-    controller.stub!(:iteration_length_must_be_specified)
-  end
-
-  def stub_sprint
-    @sprint = Sprint.new(:name => "Sprint A")
-    @sprint.id = 1
-    @sprint.start_at = 1.weeks.ago
-    @sprint.end_at = 1.weeks.from_now
-
-    sweeper = mock_model(SprintAuditSweeper)
-    sweeper.stub!(:update)
-    SprintElement.instance_variable_set(:@observer_peers, [sweeper])
-  end
+  # If true, the base class of anonymous controllers will be inferred
+  # automatically. This will be the default behavior in future versions of
+  # rspec-rails.
+  config.infer_base_class_for_anonymous_controllers = false
 end

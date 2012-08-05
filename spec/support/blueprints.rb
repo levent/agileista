@@ -1,36 +1,29 @@
 require 'machinist/active_record'
-require 'sham'
 require 'faker'
-
-Sham.name  { Faker::Name.name }
-Sham.sentence { Faker::Lorem.sentence }
-Sham.email { Faker::Internet.email }
-Sham.subdomain { Faker::Internet.domain_word }
-
 
 Account.blueprint do
   account_holder  { TeamMember.make }
-  name { Sham.name }
-  subdomain   { Sham.subdomain }
+  name { Faker::Name.name }
+  subdomain   { Faker::Internet.domain_word }
   iteration_length { 2 }
 end
 
 TeamMember.blueprint do
-  name {Sham.name}
-  email {Sham.email}
+  name {Faker::Name.name}
+  email {Faker::Internet.email}
   password { "password" }
   password_confirmation { "password" }
 end
 
 Contributor.blueprint do
-  name {Sham.name}
-  email {Sham.email}
+  name {Faker::Name.name}
+  email {Faker::Internet.email}
   password { "password" }
   password_confirmation { "password" }
 end
 
 Sprint.blueprint do
-  name { Sham.name }
+  name { Faker::Name.name }
   start_at { 1.weeks.ago }
   end_at { 1.weeks.from_now }
   account { Account.make }
@@ -42,19 +35,19 @@ Burndown.blueprint do
 end
 
 Theme.blueprint do
-  name { Sham.name }
+  name { Faker::Name.name }
 end
 
 UserStory.blueprint do
   account { Account.make }
-  definition { Sham.sentence }
+  definition { Faker::Lorem.sentence }
 end
 
 Task.blueprint do
-  definition { Sham.sentence }
+  definition { Faker::Lorem.sentence }
   hours { rand(12) }
 end
 
 AcceptanceCriterium.blueprint do
-  detail { Sham.sentence }
+  detail { Faker::Lorem.sentence }
 end

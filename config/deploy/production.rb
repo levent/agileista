@@ -56,12 +56,6 @@ namespace :deploy do
     run "/etc/init.d/agileista restart"
   end
 
-  # task :bundle do
-  #   # run("cd #{release_path}; bundle install #{release_path}/gems/")
-  #   run("cd #{release_path}; bundle install --without development cucumber test --path=.gem/")
-  # end
-  
-  
   task :stop do
   #  run "touch #{release_path}/tmp/restart.txt"
   end

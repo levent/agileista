@@ -214,35 +214,5 @@ describe UserStory do
       UserStory.incomplete_tasks.should == [@task_a, @task_b]
     end
   end
-  
-  describe "#unique_definition" do
-    it "should add nth copy onto copy of orginal until valid or 25 attempts (which is case in this test)" do
-      @us.stub!(:valid?).and_return(false)
-      @us.errors.stub!(:on).and_return('false')
-      @us.definition = "Some user story for me to test"
-      @us.unique_definition.should == "Some user story for me to test - (24th copy)"
-    end
-    
-    describe "with another user story of same name" do
-      it "should create 1st copy" do
-        @us.definition = "Some user story for me to test"
-        @us.account_id = 100
-        @us.save.should be_true
-        @us2 = @us.clone
-        @us2.valid?.should be_false
-        @us2.unique_definition.should == "Some user story for me to test - (1st copy)"
-      end
-    end
-    
-    describe "with another copy of user story" do
-      it "should create 15th copy" do
-        @us.definition = "Some user story for me to test - (14th copy)"
-        @us.account_id = 100
-        @us.save.should be_true
-        @us2 = @us.clone
-        @us2.valid?.should be_false
-        @us2.unique_definition.should == "Some user story for me to test - (15th copy)"
-      end
-    end
-  end
+
 end
