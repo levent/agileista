@@ -18,6 +18,7 @@ gem 'ranked-model'
 gem "hiredis", "0.4.5"
 gem "redis", "3.0.1", :require => ["redis/connection/hiredis", "redis"]
 gem 'thin'
+gem 'oink'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
