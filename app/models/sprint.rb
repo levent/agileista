@@ -15,6 +15,7 @@ class Sprint < ActiveRecord::Base
 
   scope :current, lambda { { :conditions => ["start_at <= ? AND end_at > ?", Date.today.beginning_of_day, Date.today.beginning_of_day] } }
   scope :finished, lambda { {:conditions => ["end_at < ?", Time.zone.now.beginning_of_day]} }
+  scope :statistically_significant, lambda { |account| {:conditions => ["end_at > ?", Velocity.stats_significant_since(account)] } }
 
   def validate
     return unless start_at && end_at

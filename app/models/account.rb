@@ -19,14 +19,14 @@ class Account < ActiveRecord::Base
   before_validation :make_fields_lowercase
 
   def median_velocity
-    return if sprints.finished.empty?
-    sorted = sprints.finished.map {|s| s.calculated_velocity}.sort
+    return if sprints.finished.statistically_significant(self).empty?
+    sorted = sprints.finished.statistically_significant(self).map {|s| s.calculated_velocity}.sort
     (sorted[sorted.length/2] + sorted[(sorted.length + 1) / 2]) / 2
   end
 
   def average_velocity
-    return if sprints.finished.empty?
-    sprints.finished[0..19].map {|s| s.calculated_velocity}.sum / sprints.finished[0..19].count
+    return if sprints.finished.statistically_significant(self).empty?
+    sprints.finished.statistically_significant(self).map {|s| s.calculated_velocity}.sum / sprints.finished.statistically_significant(self).count
   end
 
   def authenticate(email, password)

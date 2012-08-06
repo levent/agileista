@@ -13,6 +13,7 @@
     <% end %>
     <% if current_user.is_a?(TeamMember) && sprint.finished? %>
       <%= link_to 'Manage', plan_sprint_url(sprint), :class => 'button' %>
+      <%= link_to 'Calc stats from here', set_stats_sprint_url(sprint), :method => 'post', :class => (@stats_since_sprint.to_i == sprint.id ? 'redbutton' : 'button') if current_user.account_holder? %>
     <% end%>
 </td>
 </tr>

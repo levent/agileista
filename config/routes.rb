@@ -21,6 +21,9 @@ Agileista::Application.routes.draw do
     member do
       get 'plan'
     end
+    member do
+      post 'set_stats'
+    end
     resources :user_stories do
       member do
         post 'plan'

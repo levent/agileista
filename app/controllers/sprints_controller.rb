@@ -1,14 +1,16 @@
 require 'csv'
 class SprintsController < AbstractSecurityController
 
+  before_filter :must_be_account_holder, :only => [:set_stats]
   before_filter :must_be_team_member, :only => [:plan, :new, :edit, :update, :create, :destroy]
   before_filter :iteration_length_must_be_specified
-  before_filter :sprint_must_exist, :only => [:show, :edit, :plan, :update, :destroy]
+  before_filter :sprint_must_exist, :only => [:show, :edit, :plan, :update, :destroy, :set_stats]
   
   def index
     @sprints = @account.sprints
     @velocity = @account.average_velocity
-    @cint_lo, @cint_hi = Velocity.confidence_interval(@sprints.finished[0..19].map(&:calculated_velocity))
+    @cint_lo, @cint_hi = Velocity.confidence_interval(@sprints.finished.statistically_significant(@account).map(&:calculated_velocity))
+    @stats_since_sprint = Velocity.stats_significant_since_sprint_id(@account)
   end
   
   def show
@@ -30,6 +32,12 @@ class SprintsController < AbstractSecurityController
         end
       end
     end
+  end
+
+  def set_stats
+    REDIS.set("stats_since_#{@account.id}:sprint_id", @sprint.id)
+    REDIS.set("stats_since_#{@account.id}", @sprint.start_at)
+    redirect_to sprints_path
   end
   
   def new
