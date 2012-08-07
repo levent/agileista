@@ -1,11 +1,11 @@
 <div id="burnall" style="width:96%;height:268px;"></div> 
 <% content_for :custom_js do %>
 $(function () {
-    var burndown = { data: <%= @flot_burndown.inspect.html_safe %>, label: "Hours remaining" };
-    var burnup1 = { data: <%= @flot_burnup[0].inspect.html_safe %>, label: "Story points complete", yaxis: 2} ;
-    var burnup2 = { data: <%= @flot_burnup[1].inspect.html_safe %>, label: "Story points planned", yaxis: 2} ;
+var burndown = { data: <%= @flot_burndown.inspect.html_safe %>, label: "Hours remaining" };
+    var burnup1 = { data: <%= @flot_burnup[0].inspect.html_safe %>, label: "Story points complete", yaxis: 2 } ;
+    var burnup2 = { data: <%= @flot_burnup[1].inspect.html_safe %>, label: "Story points planned", yaxis: 2 } ;
     
-    $.plot($("#burnall"), [burndown, burnup1, burnup2 ], { xaxis: { mode: "time", minTickSize: [1, "day"] }, yaxis: { min: 0, mintickSize: 1, tickDecimals: 0, tickFormatter: function (v, axis) { return v.toFixed(axis.tickDecimals) + " hours" }}, y2axis: { tickFormatter: function (v, axis) { return v.toFixed(axis.tickDecimals) + " story points" }} });
+    $.plot($("#burnall"), [burndown, burnup1, burnup2 ], { series: {lines: {show: true}, points: {show: true} }, xaxis: { mode: "time", minTickSize: [1, "day"] }, yaxis: { min: 0, mintickSize: 1, tickDecimals: 0, tickFormatter: function (v, axis) { return v.toFixed(axis.tickDecimals) + " hours" }}, y2axis: { tickFormatter: function (v, axis) { return v.toFixed(axis.tickDecimals) + " story points" }} });
 });
 <% end %>
 
