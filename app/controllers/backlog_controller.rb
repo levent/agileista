@@ -78,11 +78,11 @@ class BacklogController < AbstractSecurityController
   end
 
   def load_story_points
-    @story_points = REDIS.get("story_points_#{@account.id}")
+    @story_points = REDIS.get("account:#{@account.id}:story_points")
     unless @story_points
       @story_points = 0
       @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
-      REDIS.set("story_points_#{@account.id}", @story_points)
+      REDIS.set("account:#{@account.id}:story_points", @story_points)
     end
   end
 end

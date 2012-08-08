@@ -1,11 +1,11 @@
 class Velocity
 
   def self.stats_significant_since(account)
-    since = REDIS.get("stats_since_#{account.id}") || account.sprints.finished.last.start_at
+    since = REDIS.get("account:#{account.id}:stats_since") || account.sprints.finished.last.start_at
   end
 
   def self.stats_significant_since_sprint_id(account)
-    REDIS.get("stats_since_#{account.id}:sprint_id")
+    REDIS.get("account:#{account.id}:stats_since:sprint_id")
   end
 
   def self.confidence_interval(story_points = [])

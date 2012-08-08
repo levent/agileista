@@ -139,7 +139,7 @@ class UserStory < ActiveRecord::Base
   private
 
   def expire_story_points
-    REDIS.del("story_points_#{self.account.id}")
+    REDIS.del("account:#{self.account.id}:story_points")
   end
 end
 

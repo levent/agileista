@@ -35,8 +35,8 @@ class SprintsController < AbstractSecurityController
   end
 
   def set_stats
-    REDIS.set("stats_since_#{@account.id}:sprint_id", @sprint.id)
-    REDIS.set("stats_since_#{@account.id}", @sprint.start_at)
+    REDIS.set("account:#{@account.id}:stats_since:sprint_id", @sprint.id)
+    REDIS.set("account:#{@account.id}:stats_since", @sprint.start_at)
     redirect_to sprints_path
   end
   
