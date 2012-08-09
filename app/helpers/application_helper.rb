@@ -91,6 +91,7 @@ module ApplicationHelper
     result = [params_hash[:controller], params_hash[:action]]
 
     result << "backlog" if ["user_stories"].include?(params_hash[:controller])
+    result << "planning" if (params_hash[:controller] == "sprints" && params_hash[:action] != "show")
     result << "authenticated" if current_user
     result << "contributor" if current_user.is_a?(Contributor)
     result << "task_board" if current_sprint && (params_hash[:controller] == "sprints" && params_hash[:action] == "show" && params_hash[:id].to_i == current_sprint.id)
@@ -123,7 +124,7 @@ module ApplicationHelper
     result = []
     [ {:name => "backlog", :url => {:controller => "backlog"}},
       {:name => "themes", :url => themes_url},
-      {:name => "sprints", :url => sprints_url},
+      {:name => "sprints", :url => sprints_url, :match => "planning"},
       {:name => "impediments", :url => impediments_url, :class => unresolved_impediment_indicator(@account)},
       ({:name => "task board", :url => sprint_url(current_sprint), :match => "task_board"} if current_sprint)
     ].each do |link|
