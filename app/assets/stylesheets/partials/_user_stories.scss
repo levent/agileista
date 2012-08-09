@@ -14,7 +14,7 @@ $yellow: #ffffbb;
 
 dl.user_story, dl.task_card {
   background-color: transparent;
-  color: black;
+  color: #112;
   float: left;
   line-height: 1.1;
   margin: 0 2% 15px 0;
@@ -116,7 +116,7 @@ dl.user_story dt a.edit:hover {
   background-color: rgba(38, 38, 38, 0.5); }
 
 dl.user_story dt .points {
-  color: black;
+  color: #112;
   display: block;
   float: right;
   font-size: 0.8em;
