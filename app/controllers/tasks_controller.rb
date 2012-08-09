@@ -41,7 +41,7 @@ class TasksController < AbstractSecurityController
   end
   
   def update
-    @task.update_attribute(:hours, params[:hours])
+    @task.update_attributes({:hours => params[:hours]})
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
     json = { :notification => "#{current_user.name} updated task of ##{@user_story.id}", :performed_by => current_user.name, :action => 'update', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")

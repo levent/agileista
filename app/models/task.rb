@@ -6,6 +6,7 @@ class Task < ActiveRecord::Base
     :column => :position
   
   validates_presence_of :definition
+  validates_presence_of :hours
   # Screws up in accepts_nested_attributes_for
   # validates_uniqueness_of :definition, :scope => :user_story_id
   
