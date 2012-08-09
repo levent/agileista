@@ -50,7 +50,7 @@ hr {
 #sidebar h3 {
   background: #7a1818;
   color: white;
-  border-bottom: 10px solid #262626; }
+  border-bottom: 10px solid $dgrey; }
 
 .main-navigation li {
   padding-left: 15px; }
@@ -78,10 +78,10 @@ hr {
   color: white; }
 
 .main-navigation {
-  background: #262626; }
+  background: $dgrey; }
 
 .main-navigation li {
-  background: #262626;
+  background: $dgrey;
   margin-right: 0; }
 
 .main-navigation li.active {
@@ -95,41 +95,41 @@ hr {
   background: #470e0e; }
 
 .main-navigation li.active a:link, .main-navigation li.active a:visited, .main-navigation li.active a:hover, .main-navigation li.active a:active {
-  color: #262626; }
+  color: $dgrey; }
 
 .secondary-navigation {
   background: #7a1818;
-  border-bottom-color: #262626; }
+  border-bottom-color: $dgrey; }
 
 .secondary-navigation li.active, .secondary-navigation li.active a:hover {
-  background-color: #262626; }
+  background-color: $dgrey; }
 
 .secondary-navigation li.change_view {
   float: right; }
 
 #footer .block {
   color: white;
-  background: #262626; }
+  background: $dgrey; }
 
 #footer .block p {
   margin: 0;
   padding: 10px; }
 
 .pagination span.current {
-  background: #262626;
+  background: $dgrey;
   color: white;
-  border-color: #262626; }
+  border-color: $dgrey; }
 
 .pagination a {
-  color: #262626;
-  border-color: #262626; }
+  color: $dgrey;
+  border-color: $dgrey; }
 
 .pagination a:hover {
   color: white;
-  background: #262626; }
+  background: $dgrey; }
 
 .table th {
-  background: #262626;
+  background: $dgrey;
   color: white; }
 
 .table td {
@@ -137,13 +137,13 @@ hr {
 
 .form input.text_field, .form textarea.text_area {
   width: 100%;
-  border: 1px solid #262626; }
+  border: 1px solid $dgrey; }
 
 .form input.button {
   background: #eeeeee;
-  color: #262626;
+  color: $dgrey;
   padding: 2px 5px;
-  border: 1px solid #262626;
+  border: 1px solid $dgrey;
   cursor: pointer; }
 
 .form .description {
@@ -152,14 +152,13 @@ hr {
   font-size: 0.9em; }
 
 .flash .message {
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
   text-align: center;
-  margin: 0 auto 15px; }
+  margin: 0;
+  padding: 4px; }
 
 .flash .message p {
-  margin: 8px; }
+  margin: 8px;
+  padding: 4px; }
 
 .flash .error {
   border: 1px solid #ffbbbb;

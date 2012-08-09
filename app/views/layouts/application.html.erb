@@ -17,36 +17,31 @@
   <div id="notification-bar"><a href="#" data-target="#notification-bar" class="close-bar">×</a></div>
 <div id="container">
 
-  <!-- HEADER >>> -->
-  <div id="header" class="clearfix">
-  <% if logged_in? && @account -%>
-    <div class="clearfix">
-      <h1 class="left"><%= link_to "Agileista", :controller => "backlog" %></h1>
+  <header class="main-header clearfix">
+    <% if logged_in? && @account -%>
       <%= render :partial => 'shared/account_switcher', :locals => {:other_accounts => @other_accounts, :account => @account} %>
-
-      <%= form_for :tag, :url => {:controller => :backlog, :action => 'search'}, :html => {:method => "get", :id=> "search_form", :class => "left"} do |t| %>
+      <nav class="main-nav">
+        <%= main_navigation %>
+      </nav>
+      <%= form_for :tag, :url => {:controller => :backlog, :action => 'search'}, :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
         <%= text_field_tag 'q' %><%= submit_tag 'Search', :class => "submit" %>
       <% end %>
+      <nav class="user-nav">
+        <%= user_navigation %>
+      </nav>
+      <%= link_to(image_tag(current_user.gravatar_url(:rating => 'G', :size => 40, :secure => true)), edit_user_url(current_user), :id => "main-gravatar") %>
+    <% end -%>
+  </header>
 
-      <%= link_to(image_tag(current_user.gravatar_url(:rating => 'G', :size => 40, :secure => true)), edit_user_url(current_user), :class => "gravatar right") %>
-      <%= flash_messages("p") %>
-    </div>
-    <div id="user-navigation" class="clearfix main-navigation">
-      <%= user_navigation.html_safe %>
-    </div>
+  <%= flash_messages("p") %>
 
-    <div class="clearfix main-navigation">
-      <%= main_navigation.html_safe %>
-    </div>
-
-  <% else %>
-    <div class="clearfix">
-      <h1>Welcome to Agileista</h1>
-      <%= flash_messages("p") %>
+  <% unless logged_in? && @account -%>
+    <div id="header" class="clearfix">
+      <div class="clearfix">
+        <h1>Welcome to Agileista</h1>
+      </div>
     </div>
   <% end -%>
-  </div>
-  <!-- <<< header -->
 
   <div class="c"></div>
 
