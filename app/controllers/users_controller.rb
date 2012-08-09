@@ -32,7 +32,7 @@ class UsersController < AbstractSecurityController
     end
   end
 
-  def delete
+  def destroy
     if request.post?
       @person = @account.people.find(params[:id])
       redirect_to :controller => 'account', :action => 'settings' and flash[:error] = "You cannot delete the account holder" and return false if @person == current_user

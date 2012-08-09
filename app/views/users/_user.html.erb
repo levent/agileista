@@ -5,8 +5,8 @@
   <td class="date"><%= user.type %></td>
 	<td class="actions">
     <%= link_to 'Inactive', {:controller => 'account', :action => 'resend_authentication', :id => user}, :class => "button", :method => :post if !user.authenticated? && current_user.account_holder? %>
-    <%= link_to 'Edit', {:controller => 'users', :action => 'edit', :id => user}, :class => "button" if current_user.account_holder? || user == current_user %>
-    <%= link_to 'Delete', {:controller => 'users', :action => 'delete', :id => user}, :class => "button", :method => :post, :confirm => "Are you sure?" if current_user.can_delete_users? || current_user.account_holder? %>
+    <%= link_to 'Edit', {:controller => 'users', :action => 'edit', :id => user.id}, :class => "button" if current_user.account_holder? || user == current_user %>
+    <%= link_to 'Delete', {:controller => 'users', :action => 'destroy', :id => user.id}, :class => "button", :method => :post, :confirm => "Are you sure?" if current_user.can_delete_users? || current_user.account_holder? %>
   </td>
 </tr>
 
