@@ -96,7 +96,7 @@ describe ImpedimentsController do
     end
 
     it "should NOT destroy an impediment if reported by someone else" do
-      @impediment = Impediment.new(:team_member => TeamMember.new)
+      @impediment = Impediment.new(:team_member => Person.new)
       @account.impediments.should_receive(:find).with('89').and_return(@impediment)
       @impediment.should_not_receive(:destroy)
       delete :destroy, :id => '89'

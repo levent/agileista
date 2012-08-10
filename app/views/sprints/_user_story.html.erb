@@ -13,7 +13,7 @@
   </td>
 </tr>
 
-<% unless current_user.is_a?(Contributor) || sprint.finished? %>
+<% unless sprint.finished? %>
   <% content_for :custom_js do %>
     setupTaskBoard(<%= user_story.id %>);
   <% end %>

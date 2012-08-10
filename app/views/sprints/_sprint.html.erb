@@ -7,11 +7,11 @@
   <td class="date"><%= show_date(sprint.end_at) %></td>
   <td class="actions">
     <%= link_to 'Show', sprint_url(sprint), :class => 'button' %>
-    <% if current_user.is_a?(TeamMember) && !sprint.finished? %>
+    <% if !sprint.finished? %>
 		  <%= link_to 'Edit', edit_sprint_url(sprint), :class => 'button' %>
 		  <%= link_to 'Plan', plan_sprint_url(sprint), :class => 'button' %>
     <% end %>
-    <% if current_user.is_a?(TeamMember) && sprint.finished? %>
+    <% if sprint.finished? %>
       <%= link_to 'Manage', plan_sprint_url(sprint), :class => 'button' %>
       <%= link_to 'Calc stats from here', set_stats_sprint_url(sprint), :method => 'post', :class => (@stats_since_sprint.to_i == sprint.id ? 'redbutton' : 'button') if current_user.account_holder? %>
     <% end%>

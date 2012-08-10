@@ -6,7 +6,7 @@
         <div class="inner">
           <div class="flash">
             <div class="message notice">
-              <p>There are no team members or contributors for this project. <%= link_to "Create the first user", new_user_url if current_user.is_a?(TeamMember) %>.</p>
+              <p>There are no people on this project. <%= link_to "Create the first user", new_user_url %>.</p>
             </div>
           </div>
         </div>
@@ -19,8 +19,8 @@
               <tr>
                 <th class="id">Gravatar</th>
                 <th class="description">Name</th>
+                <th class="description">Email</th>
                 <th class="date">Created</th>
-                <th class="date">Type of user</th>
                 <th class="actions last"></th>
               </tr>
               <%= render :partial => "user", :collection => @users %>

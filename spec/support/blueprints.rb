@@ -2,20 +2,13 @@ require 'machinist/active_record'
 require 'faker'
 
 Account.blueprint do
-  account_holder  { TeamMember.make }
+  account_holder  { Person.make }
   name { Faker::Name.name }
   subdomain   { Faker::Internet.domain_word }
   iteration_length { 2 }
 end
 
-TeamMember.blueprint do
-  name {Faker::Name.name}
-  email {Faker::Internet.email}
-  password { "password" }
-  password_confirmation { "password" }
-end
-
-Contributor.blueprint do
+Person.blueprint do
   name {Faker::Name.name}
   email {Faker::Internet.email}
   password { "password" }

@@ -12,7 +12,7 @@ module SprintsHelper
   def sprint_header(sprint, options = {})
     options = {:buttons => []}.merge(options)
 
-    if options[:buttons].any? && current_user.is_a?(TeamMember) && !sprint.finished?
+    if options[:buttons].any? && !sprint.finished?
       buttons = sprint_buttons(sprint, options[:buttons])
       result = [%{<span class="tab">#{sprint.name} #{buttons}</span>}]
     else
@@ -55,7 +55,7 @@ module SprintsHelper
   def user_story_actions(sprint, user_story)
     result = [link_to("Show", sprint_user_story_url(@sprint, user_story), :class => "button")]
 
-    if current_user.is_a?(TeamMember) && !user_story.complete?
+    if !user_story.complete?
       result << link_to("Copy", copy_user_story_url(user_story), :method => :post, :class => "button")
       result << link_to("Remove", unplan_sprint_user_story_url(sprint, user_story), :method => :post, :class => "button")
     end
@@ -66,7 +66,7 @@ module SprintsHelper
   def task_actions(user_story, task)
     result = [link_to("Show", user_story_task_url(user_story, task), :class => "button")]
 
-    if current_user.is_a?(TeamMember) && !user_story.complete?
+    if !user_story.complete?
       result << link_to("Edit", edit_user_story_task_url(user_story, task), :class => "button")
     end
 

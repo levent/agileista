@@ -12,10 +12,10 @@ describe UsersController do
     end
     
     it "should set temp password and email it" # do
-     #      @it = TeamMember.new
+     #      @it = Person.new
      #      @it.stub!(:account=)
      #      @it.stub!(:valid?).and_return(true)
-     #      TeamMember.should_receive(:new).and_return(@it)
+     #      Person.should_receive(:new).and_return(@it)
      #      @it.should_receive(:generate_temp_password).and_return('tempass')
      #      NotificationMailer.should_receive(:deliver_account_invitation).with(@it, nil, 'tempass', controller)
      #      post :create, :person => {:name => 'name', :email => 'email@example.com'}, :type => 'team_member'
@@ -30,8 +30,7 @@ describe UsersController do
     
     it "should return all the account users and render a list" do
       controller.stub!(:current_user).and_return(@person)
-      team_member = TeamMember.make(:account => @account)
-      contributor = Contributor.make(:account => @account)
+      team_member = Person.make(:account => @account)
       get :index
       assigns(:users).should include(team_member)
       assigns(:users).should include(contributor)

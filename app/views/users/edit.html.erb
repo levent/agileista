@@ -23,22 +23,6 @@
       		    <%= submit_tag "Save" %> or <%= link_to "cancel", users_url %>
       		  </div>
       		</div>
-
-          <div class="column right">
-            <% unless @person.account_holder? %>
-        		<div class="group">
-        		  <label class="label">User type</label>
-        		  <div>
-        		    <input type="radio" name="type" id="team_member" value="team_member" class="checkbox"<%= ' checked="checked"' if @person.class == TeamMember %> />
-        		    <label for="team_member" class="radio">Team member</label>
-        		  </div>
-        		  <div>
-        		    <input type="radio" name="type" id="contributor" value="contributor" class="checkbox"<%= ' checked="checked"' if @person.class == Contributor %> />
-        			  <label for="contributor" class="radio">Contributor</label>
-        			 </div>
-        	  </div>
-        		<% end %>
-          </div>
         </div>
       	<% end %>
       </div>

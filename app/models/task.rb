@@ -14,7 +14,7 @@ class Task < ActiveRecord::Base
   # belongs_to :developer, :foreign_key => 'developer_id', :class_name => "Person"
   
   has_many :task_developers
-  has_many :team_members, :through => :task_developers, :foreign_key => 'developer_id', :class_name => "TeamMember", :uniq => true
+  has_many :team_members, :through => :task_developers, :foreign_key => 'developer_id', :class_name => "Person", :uniq => true
 
   delegate :sprint, :to => :user_story, :allow_nil => true
   

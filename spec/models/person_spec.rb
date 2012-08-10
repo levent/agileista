@@ -17,9 +17,9 @@ describe Person do
 
   it "should have unique email addresses per account" do
     account = Account.make
-    person1 = TeamMember.make(:account => account)
-    person2 = TeamMember.make(:email => person1.email)
-    lambda { TeamMember.make(:account => account, :email => person1.email) }.should raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email has already been taken")
+    person1 = Person.make(:account => account)
+    person2 = Person.make(:email => person1.email)
+    lambda { Person.make(:account => account, :email => person1.email) }.should raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email has already been taken")
   end
 
   describe "#validate_account" do

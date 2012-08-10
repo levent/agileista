@@ -24,7 +24,7 @@
   <%= render(:partial => "shared/footer") %>
 </div>
 
-<% unless current_user.is_a?(Contributor) || @sprint.finished? -%>
+<% unless @sprint.finished? -%>
   <% content_for :custom_js do %>
     setupSprintPlanning(<%= @sprint.id %>);
   <% end %>

@@ -42,7 +42,7 @@
   <%= render :partial => 'show_tasks', :locals => {:user_story => @user_story} %>
 </div>
 
-<% unless current_user.is_a?(Contributor) || params[:order] -%>
+<% unless params[:order] -%>
   <script type="text/javascript">
     setupBacklog();
   </script>

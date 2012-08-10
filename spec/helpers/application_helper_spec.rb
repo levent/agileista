@@ -24,9 +24,9 @@ describe ApplicationHelper do
     end
     
     it "should show the names of assigned developers" do
-      team_member1 = TeamMember.make
-      team_member2 = TeamMember.make
-      team_member3 = TeamMember.make
+      team_member1 = Person.make
+      team_member2 = Person.make
+      team_member3 = Person.make
       @task.developers = [team_member3, team_member2, team_member1]
       @it.show_assignees(@task.developers).should == "#{team_member3.name}, #{team_member2.name}, #{team_member1.name}"
     end
@@ -116,11 +116,6 @@ describe ApplicationHelper do
     it "should display authenticated if user is logged in" do
       @it.stub!(:current_user).and_return(true)
       @it.page_signature(@params).should include("authenticated")
-    end
-
-    it "should display contributed if user is a contributor" do
-      @it.stub!(:current_user).and_return(Contributor.new)
-      @it.page_signature(@params).should include("contributor")
     end
 
     describe "if we're viewing a sprint" do

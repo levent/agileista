@@ -2,8 +2,7 @@ class Account < ActiveRecord::Base
   acts_as_tagger
   
   has_many :people, :order => 'name', :dependent => :destroy
-  has_many :team_members, :order => 'name', :dependent => :destroy
-  has_many :contributors, :order => 'name', :dependent => :destroy
+  has_many :team_members, :order => 'name', :dependent => :destroy, :class_name => "Person"
   has_many :sprints, :order => 'start_at DESC', :dependent => :destroy
   has_many :user_stories, :order => :position, :dependent => :destroy
   has_many :impediments, :order => 'resolved_at, created_at DESC', :dependent => :destroy

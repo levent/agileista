@@ -30,9 +30,6 @@
 </div>
 <% end %>
 
-<% unless current_user.is_a?(Contributor) -%>
-  <% content_for :custom_js do %>
-    setupThemes();
-  <% end %>
-<% end -%>
-
+<% content_for :custom_js do %>
+  setupThemes();
+<% end %>

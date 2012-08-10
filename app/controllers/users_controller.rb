@@ -14,11 +14,7 @@ class UsersController < AbstractSecurityController
 
   def create
     if request.post?
-      if params[:type] == "team_member"
-        @person = TeamMember.new(params[:person])
-      else
-        @person = Contributor.new(params[:person])
-      end
+      @person = Person.new(params[:person])
       pass = @person.generate_temp_password
       @person.account = @account
       if @person.save
@@ -50,11 +46,6 @@ class UsersController < AbstractSecurityController
 
   def update
     unless (@person == current_user) || (@person.account_holder?)
-      if params[:type] == "team_member"
-        @person.type = "TeamMember"
-      else
-        @person.type = "Contributor"
-      end
       @person.save
     end
     if @person.update_attributes(params[:person])

@@ -1,8 +1,8 @@
 <tr class="<%= user.authenticated? ? "active" : "inactive" %><%= " account_holder" if user.account_holder? %>">
 	<td class="id"><%= image_tag user.gravatar_url(:rating => 'G', :size => 25) %></td>
   <td class="description"><%= user.name %></td>
+  <td class="email"><%= user.email %></td>
   <td class="date"><%= show_date(user.created_at) %></td>
-  <td class="date"><%= user.type %></td>
 	<td class="actions">
     <%= link_to 'Inactive', {:controller => 'account', :action => 'resend_authentication', :id => user}, :class => "button", :method => :post if !user.authenticated? && current_user.account_holder? %>
     <%= link_to 'Edit', {:controller => 'users', :action => 'edit', :id => user.id}, :class => "button" if current_user.account_holder? || user == current_user %>

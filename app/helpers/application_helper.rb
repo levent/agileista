@@ -93,7 +93,6 @@ module ApplicationHelper
     result << "backlog" if ["user_stories"].include?(params_hash[:controller])
     result << "planning" if (params_hash[:controller] == "sprints" && params_hash[:action] != "show")
     result << "authenticated" if current_user
-    result << "contributor" if current_user.is_a?(Contributor)
     result << "task_board" if current_sprint && (params_hash[:controller] == "sprints" && params_hash[:action] == "show" && params_hash[:id].to_i == current_sprint.id)
 
     return result.join(" ")
@@ -150,11 +149,7 @@ module ApplicationHelper
   end
 
   def add_user_story
-    if current_user.is_a?(Contributor)
-      link_to "Add user story", :controller => 'user_stories', :action => "add"
-    elsif current_user.is_a?(TeamMember)
-      link_to "Add user story", :controller => 'user_stories', :action => "new"
-    end
+    link_to "Add user story", :controller => 'user_stories', :action => "new"
   end
 
   def display_themes(account, current_themes)

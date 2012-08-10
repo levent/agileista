@@ -16,7 +16,7 @@ describe Task do
       @task1 = Task.make(:hours => 100)
       @task2 = Task.make(:hours => 1)
       @task3 = Task.make(:hours => 14)
-      @task3.developers = [TeamMember.make]
+      @task3.developers = [Person.make]
       @task4 = Task.make(:hours => 0)
     end
     
@@ -68,8 +68,8 @@ describe Task do
     
     it "should return an array of developers assigned to this task" do
       @task.developers.should be_blank
-      @team_member1 = TeamMember.make
-      @team_member2 = TeamMember.make
+      @team_member1 = Person.make
+      @team_member2 = Person.make
       @task.developers << @team_member1
       @task.developers << @team_member2
       @task.developers.should == [@team_member1, @team_member2]

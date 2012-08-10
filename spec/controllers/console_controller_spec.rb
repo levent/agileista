@@ -11,7 +11,7 @@ describe ConsoleController do
   end
   
   it "should remain if you are levent" do
-    @person = TeamMember.new(:email => 'lebreeze@gmail.com')
+    @person = Person.new(:email => 'lebreeze@gmail.com')
     @account = Account.new
     @person.account = @account
     session[:user] = 1
@@ -23,7 +23,7 @@ describe ConsoleController do
   end
   
   it "should remain if you are eben" do
-    @person = TeamMember.new(:email => 'lebreeze@gmail.com')
+    @person = Person.new(:email => 'lebreeze@gmail.com')
     @account = Account.new
     @person.account = @account
     session[:user] = 1

@@ -26,7 +26,6 @@
     <p><%= link_to 'Add another', '#acceptance_criterium', :class => "add_nested_criterium", :rel => "acceptance_criteria" %></p>
   </div>
  
-  <% if current_user.is_a?(TeamMember) %>
   <div id="user_story_tasks" class="block tasks">
     <h3>Tasks</h3>
     <ol>
@@ -48,6 +47,5 @@
     <% end %>
     <p><%= link_to 'Add another', '#tasks', :class => "add_nested_task", :rel => "tasks" %></p>
   </div>
-  <% end %>
 
 </div>

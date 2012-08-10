@@ -61,13 +61,13 @@ describe SprintsHelper do
     end
 
     it "should not display buttons by default" do
-      @it.stub!(:current_user).and_return(TeamMember.new)
+      @it.stub!(:current_user).and_return(Person.new)
       response = @it.sprint_header(@sprint)
       response.should_not have_tag('a.button')
     end
 
-    it "should display the buttons which we're passing only if current_user is a TeamMember and sprint is not finished" do
-      @it.stub!(:current_user).and_return(TeamMember.new)
+    it "should display the buttons which we're passing only if current_user is a Person and sprint is not finished" do
+      @it.stub!(:current_user).and_return(Person.new)
       @sprint.stub!(:finished?).and_return(false)
       @it.sprint_header(@sprint, :buttons => [:edit, :plan, :add_story]).should have_tag('span.tab', /Sprint A/) do
         with_tag('a.button:nth-of-type(1)', "Edit")

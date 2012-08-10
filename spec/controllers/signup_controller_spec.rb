@@ -16,7 +16,7 @@ describe SignupController do
     
     it "should email team agileista" do
       account = Account.new
-      user = TeamMember.new
+      user = Person.new
       Account.stub!(:new).and_return(account)
       account.stub!(:save).and_return(true)
       account.stub!(:valid?).and_return(true)
