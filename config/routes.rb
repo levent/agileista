@@ -33,16 +33,6 @@ Agileista::Application.routes.draw do
     end
   end
 
-  resources :impediments do
-    member do
-      post 'resolve'
-    end
-    collection do
-      get 'active'
-      get 'resolved'
-    end
-  end
-
   resources :user_stories do
     member do
       post 'copy'

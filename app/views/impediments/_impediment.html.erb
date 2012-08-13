@@ -1,8 +1,0 @@
-<tr<%= impediment_complete?(impediment) %>>
-  <td class="description"><%= h impediment.description %></td>
-	<td class="reporter"><%= impediment.person ? impediment.person.name : "User unknown" %></td>
-	<td><%= time_ago_in_words(impediment.created_at) %> ago</td>
-	<td><%= show_resolved_at(impediment) %></td>
-	<td class="actions"><%= link_to 'Delete', impediment_url(impediment), :method => :delete, :class => "button" if impediment.person == current_user && impediment.resolved_at == nil %></td>
-</tr>
-

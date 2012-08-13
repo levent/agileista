@@ -8,7 +8,6 @@ describe Account do
   it {should have_many(:contributors).dependent(:destroy)}
   it {should have_many(:sprints).dependent(:destroy)}
   it {should have_many(:user_stories).dependent(:destroy)}
-  it {should have_many(:impediments).dependent(:destroy)}
   it {should have_many(:themes).dependent(:destroy)}
 
   it {should belong_to(:account_holder)}

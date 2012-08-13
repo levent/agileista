@@ -124,7 +124,6 @@ module ApplicationHelper
     [ {:name => "backlog", :url => {:controller => "backlog"}},
       {:name => "themes", :url => themes_url},
       {:name => "sprints", :url => sprints_url, :match => "planning"},
-      {:name => "impediments", :url => impediments_url, :class => unresolved_impediment_indicator(@account)},
       ({:name => "task board", :url => sprint_url(current_sprint), :match => "task_board"} if current_sprint)
     ].each do |link|
       if link
@@ -199,10 +198,6 @@ module ApplicationHelper
     else
       page_signature.include?(match)
     end
-  end
-
-  def unresolved_impediment_indicator(account)
-    account.impediments.unresolved.blank? ? "resolved" : "unresolved"
   end
 
   def current_sprint

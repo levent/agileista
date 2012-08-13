@@ -160,7 +160,6 @@ describe ApplicationHelper do
 
   describe "#main_navigation" do
     before(:each) do
-      @it.stub!(:unresolved_impediment_indicator).and_return("resolved")
       @it.stub!(:current_user).and_return(true)
       @account = Account.new
     end
@@ -170,13 +169,7 @@ describe ApplicationHelper do
         with_tag("li.backlog a", "Backlog")
         with_tag("li.themes a", "Themes")
         with_tag("li.sprints a", "Sprints")
-        with_tag("li.impediments a.resolved", "Impediments")
       end
-    end
-
-    it "should mark the impediments link as unresolved" do
-      @it.stub!(:unresolved_impediment_indicator).and_return("unresolved")
-      @it.main_navigation.should have_tag("a.unresolved", "Impediments")
     end
 
     it "should include a task board link if there is a current sprint" do
