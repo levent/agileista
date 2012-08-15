@@ -49,9 +49,15 @@ role :db,  "bigapple", :primary => true
 
 namespace :deploy do
 
-
   task :restart do
     run_locally "bundle exec rake assets:precompile RAILS_ENV=#{rails_env} RACKSPACE_USERNAME=#{ENV['RACKSPACE_USERNAME']} RACKSPACE_API_KEY=#{ENV['RACKSPACE_API_KEY']} FOG_DIRECTORY=agileista_#{rails_env}"
+
+    # Ensure assets folder exists on app servers
+    run "mkdir -p #{release_path}/public/assets"
+
+    # Put new manifest onto all the app servers
+    upload "public/assets/manifest.yml", "#{release_path}/public/assets/manifest.yml", :via => :scp
+
     # restart_sphinx
     run "/etc/init.d/agileista restart"
   end
