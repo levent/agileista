@@ -6,7 +6,7 @@ set :deploy_via, :remote_cache
 # set :deploy_via, :copy
 # set :copy_cache, true
 # set :copy_exclude, [".git"]
-set :branch, "master"
+set :branch, "asset_sync"
 set :scm_verbose, true
 set :keep_releases,       5
 # set :deploy_via, :export
@@ -51,7 +51,7 @@ namespace :deploy do
 
 
   task :restart do
-    run "cd #{current_path} && bundle exec rake assets:precompile RAILS_ENV=#{rails_env}"
+    run_locally "bundle exec rake assets:precompile RAILS_ENV=#{rails_env} RACKSPACE_USERNAME=#{ENV['RACKSPACE_USERNAME']} RACKSPACE_API_KEY=#{ENV['RACKSPACE_API_KEY']} FOG_DIRECTORY=agileista_#{rails_env}"
     # restart_sphinx
     run "/etc/init.d/agileista restart"
   end
