@@ -8,6 +8,8 @@ if defined?(AssetSync)
     # config.rackspace_auth_url = "lon.auth.api.rackspacecloud.com"
     config.fog_directory = ENV['FOG_DIRECTORY']
 
+    config.existing_remote_files = "delete"
+
     # Increase upload performance by configuring your region
     # config.fog_region = 'eu-west-1'
     #
