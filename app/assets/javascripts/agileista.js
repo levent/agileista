@@ -52,12 +52,12 @@ var Agileista = (function(){
 
       $("#togglecomplete").click(function(el) {
         var link = $(el.target);
-        if(link.text() === "hide complete stories") {
+        if(link.text() === "hide completed stories") {
           $('.user_story.complete').parents('tr').hide();
           link.text('show complete stories');
         } else {
           $('.user_story.complete').parents('tr').show();
-          link.text('hide complete stories');
+          link.text('hide completed stories');
         }
       });
 

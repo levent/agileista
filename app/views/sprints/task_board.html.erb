@@ -12,7 +12,7 @@
               <th>User story</th>
               <th>Incomplete</th>
               <th>In progress</th>
-              <th>Complete <%= link_to 'hide complete stories', '#', :id => 'togglecomplete', :class => 'redbutton' %></th>
+              <th>Complete <%= link_to 'hide completed stories', '#', :id => 'togglecomplete', :class => 'redbutton' %></th>
             </tr>
             <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
           </tbody>
