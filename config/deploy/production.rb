@@ -56,7 +56,7 @@ namespace :deploy do
     run "mkdir -p #{release_path}/public/assets"
 
     # Put new manifest onto all the app servers
-    upload "public/assets/manifest.yml", "#{release_path}/public/assets/manifest.yml", :via => :scp
+    top.upload("public/assets/manifest.yml", "#{release_path}/public/assets/manifest.yml", :via => :scp)
 
     # restart_sphinx
     run "/etc/init.d/agileista restart"
