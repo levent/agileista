@@ -54,7 +54,7 @@ var Agileista = (function(){
         var link = $(el.target);
         if(link.text() === "hide completed stories") {
           $('.user_story.complete').parents('tr').hide();
-          link.text('show complete stories');
+          link.text('show completed stories');
         } else {
           $('.user_story.complete').parents('tr').show();
           link.text('hide completed stories');
