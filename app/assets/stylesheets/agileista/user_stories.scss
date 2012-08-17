@@ -160,14 +160,17 @@ dl.user_story dd.tasks a:hover {
 
 .state span, .cardstate span {
   padding: 2px 5px;
-  line-height: 1.2em; }
+  line-height: 1.2em;
+  -webkit-font-smoothing: antialiased;
+  font-weight: bold;
+}
 
 .cardstate span {
   color: white;
-  font-weight: bold;
   position: absolute;
   bottom: 0;
-  right: 0; }
+  right: 0;
+}
 
 #estimated {
   dl.user_story dd.tasks {
