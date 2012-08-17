@@ -1,4 +1,4 @@
-<div id="velocity_chart" style="width:76%;height:200px;"></div> 
+<div id="velocity_chart" style="width:76%;height:200px;" class="chart"></div> 
 <% content_for :custom_js do %>
 $(function () {
   var average = {shadowSize: 0, data: [[<%= @sprints.finished.statistically_significant(@account).first.end_at.to_time.to_i * 1000 %>, <%= @velocity %>], [<%= @sprints.finished.statistically_significant(@account).last.end_at.to_time.to_i * 1000 %>, <%= @velocity %>]] , label: "Average Velocity" };
