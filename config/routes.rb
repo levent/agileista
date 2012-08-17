@@ -1,6 +1,7 @@
 Agileista::Application.routes.draw do
   # resources :backlog, :controller => 'backlog', :collection => {:feed => :get, :search => :get, :sprint => :get, :sort => :post, :grid => :get, :list => :get}, :except => [:show]
 
+  get "/console" => "console#index"
   get "/health" => "health#index"
   post "/backlog/sort" => "backlog#sort"
   get "/backlog/search" => "backlog#search"
