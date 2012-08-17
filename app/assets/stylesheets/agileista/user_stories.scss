@@ -92,7 +92,20 @@ dl.user_story dt a.claim, dl.task_card dt a.claim {
   right: 0;
   padding: 6px; }
 
-dl.task_card input {
+dl.task_card input[type='text'] {
+  float: right;
+  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 0.25em;
+  border: 1px solid $medium_grey;
+  padding: .2em;
+  min-width: 4em;
+  text-align: right;
+}
+
+dl.task_card input[type='submit'] {
   float:left;
 }
 
