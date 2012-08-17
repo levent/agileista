@@ -50,7 +50,7 @@ hr {
 #sidebar h3 {
   background: $dred;
   color: white;
-  border-bottom: 10px solid $dgrey; }
+  }
 
 .main-navigation li {
   padding-left: 15px; }
@@ -99,7 +99,7 @@ hr {
 
 .secondary-navigation {
   background: $dred;
-  border-bottom-color: $dgrey; }
+}
 
 .secondary-navigation li.active, .secondary-navigation li.active a:hover {
   background-color: $dgrey; }
