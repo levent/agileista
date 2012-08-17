@@ -49,7 +49,7 @@ dl.user_story dt, dl.task_card dt {
   position: relative; }
 
 dl.user_story dt {
-  background-color: #999999;
+  background-color: $medium_grey;
   border-radius-topleft: 5px;
   border-radius-topright: 5px;
   -moz-border-radius-topleft: 5px;
@@ -139,7 +139,7 @@ dl.user_story.inprogress dd.story {
   background-color: $yellow; }
 
 dl.user_story dd.tasks {
-  background-color: #999999;
+  background-color: $medium_grey;
   border-radius-bottomleft: 5px;
   border-radius-bottomright: 5px;
   -moz-border-radius-bottomleft: 5px;
