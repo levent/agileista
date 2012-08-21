@@ -1,6 +1,5 @@
 class TasksController < AbstractSecurityController
   
-  before_filter :must_be_team_member
   before_filter :set_user_story, :only => [:edit, :update, :destroy, :create_quick, :assign, :claim, :renounce, :complete]
   before_filter :set_task, :only => [:edit, :update, :destroy, :claim, :renounce, :complete]
   

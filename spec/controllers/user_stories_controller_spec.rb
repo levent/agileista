@@ -9,7 +9,6 @@ describe UserStoriesController do
   describe "#destroy" do
     before(:each) do
       stub_login_and_account_setup
-      controller.stub!(:must_be_team_member)
     end
     
     it "should get user_story first" do

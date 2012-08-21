@@ -55,10 +55,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def must_be_team_member
-    true
-  end
-  
   def must_be_account_holder
     current_user.account_holder? ? true : (redirect_to backlog_url and return false)
   end

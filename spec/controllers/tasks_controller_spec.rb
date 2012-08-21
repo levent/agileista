@@ -16,18 +16,10 @@ describe TasksController do
       @task = Task.new
     end
     
-    TasksController.instance_methods(false).each do |action|
-      it "should only allow team members on '#{action}" do
-        controller.should_receive(:must_be_team_member).and_raise(ActiveRecord::RecordNotFound)
-        lambda {get action.to_sym}.should raise_error(ActiveRecord::RecordNotFound)
-      end
-    end
-    
     # Still some legacy actions
     # TasksController.instance_methods(false).each do |action|
     %w(edit update destroy create_quick assign).each do |action|
       it "should set_user_story on '#{action}'" do
-        controller.stub!(:must_be_team_member).and_return(true)
         controller.should_receive(:set_user_story).and_raise(ActiveRecord::RecordNotFound)
         lambda {get action.to_sym}.should raise_error(ActiveRecord::RecordNotFound)
       end
@@ -35,7 +27,6 @@ describe TasksController do
     
     %w(edit update destroy).each do |action|
       it "should set_task on '#{action}'" do
-        controller.stub!(:must_be_team_member).and_return(true)
         controller.stub!(:set_user_story).and_return(@user_story)
         controller.should_receive(:set_task).and_raise("whoa")
         lambda {get action.to_sym}.should raise_error("whoa")

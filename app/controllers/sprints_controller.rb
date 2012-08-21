@@ -2,7 +2,6 @@ require 'csv'
 class SprintsController < AbstractSecurityController
 
   before_filter :must_be_account_holder, :only => [:set_stats]
-  before_filter :must_be_team_member, :only => [:plan, :new, :edit, :update, :create, :destroy]
   before_filter :iteration_length_must_be_specified
   before_filter :sprint_must_exist, :only => [:show, :edit, :plan, :update, :destroy, :set_stats]
 

@@ -2,7 +2,6 @@ require 'csv'
 class BacklogController < AbstractSecurityController
   # ssl_required :feed
   # ssl_allowed :index, :sort, :search
-  before_filter :must_be_team_member, :only => ['sort']
   before_filter :account_user_stories ,:only => ['index', 'export', 'feed', 'sort']
 
   def index

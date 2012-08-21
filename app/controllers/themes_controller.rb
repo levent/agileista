@@ -1,5 +1,4 @@
 class ThemesController < AbstractSecurityController
-  before_filter :must_be_team_member, :except => [:index]
 
   def index
     store_location
