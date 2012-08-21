@@ -28,8 +28,8 @@ module AccountStuff
     session[:user] = nil
     session[:account_subdomain] = nil
     session[:timeout] = nil
-    account = Account.find_by_subdomain(current_subdomain)
-    if params[:key]
+    if params[:key] && params[:key].length > 10
+      account = Account.find_by_subdomain(current_subdomain)
       account.people.find_by_api_key_and_authenticated_and_activation_code(params[:key], 1, nil)
     else
       nil

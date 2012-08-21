@@ -23,9 +23,9 @@ class UserStoriesController < AbstractSecurityController
   end
   
   def show
-    store_location
     respond_to do |format|
       format.html {
+        store_location
         redirect_to sprint_user_story_url(@user_story.sprint_id, @user_story) if @user_story.sprint && !params[:sprint_id]
       }
       format.json {

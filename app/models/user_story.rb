@@ -52,6 +52,10 @@ class UserStory < ActiveRecord::Base
     super(options.merge(:only => [:definition, :description, :done, :stakeholder, :story_points, :updated_at, :created_at]))
   end
 
+  def stakeholder
+    super.blank? ? person.try(:name) : super
+  end
+
   def status
     if self.inprogress?
       status = "inprogress"
