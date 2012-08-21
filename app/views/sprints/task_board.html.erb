@@ -14,6 +14,9 @@
               <th>In progress</th>
               <th>Complete <%= link_to 'hide completed stories', '#', :id => 'togglecomplete', :class => 'redbutton' %></th>
             </tr>
+            <tr id="completed_user_stories_hidden" style="display:none">
+              <td colspan="4">Completed user stories are hidden...</td>
+            </tr>
             <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
           </tbody>
         </table>

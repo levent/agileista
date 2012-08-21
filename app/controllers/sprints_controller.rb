@@ -5,14 +5,14 @@ class SprintsController < AbstractSecurityController
   before_filter :must_be_team_member, :only => [:plan, :new, :edit, :update, :create, :destroy]
   before_filter :iteration_length_must_be_specified
   before_filter :sprint_must_exist, :only => [:show, :edit, :plan, :update, :destroy, :set_stats]
-  
+
   def index
     @sprints = @account.sprints
     @velocity = @account.average_velocity
     @cint_lo, @cint_hi = Velocity.confidence_interval(@sprints.finished.statistically_significant(@account).map(&:calculated_velocity))
     @stats_since_sprint = Velocity.stats_significant_since_sprint_id(@account)
   end
-  
+
   def show
     @sprint = @account.sprints.includes(:user_stories => :tasks).find(params[:id])
     store_location
@@ -39,11 +39,11 @@ class SprintsController < AbstractSecurityController
     REDIS.set("account:#{@account.id}:stats_since", @sprint.start_at)
     redirect_to sprints_path
   end
-  
+
   def new
     @sprint = @account.sprints.new
   end
-  
+
   def create
     @sprint = @account.sprints.new(params[:sprint])
     set_start_at
