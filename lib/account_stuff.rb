@@ -34,6 +34,8 @@ module AccountStuff
     else
       nil
     end
+  rescue
+    nil
   end
   
   def do_logout
