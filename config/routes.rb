@@ -15,6 +15,7 @@ Agileista::Application.routes.draw do
   get "/ok" => "signup#ok"
   get "/account" => "account#index"
   put "/account/change_password" => "account#change_password"
+  post "/account/generate_api_key" => "account#generate_api_key"
   put "/account/settings" => "account#settings"
   post "/account/resend_authentication" => "account#resend_authentication"
 

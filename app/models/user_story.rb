@@ -48,6 +48,10 @@ class UserStory < ActiveRecord::Base
   scope :estimated, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil]
   scope :unassigned, where(:done => 0, :sprint_id => nil).includes(:acceptance_criteria, :person)
 
+  def to_json(options = {})
+    super(options.merge(:only => [:definition, :description, :done, :stakeholder, :story_points, :updated_at, :created_at]))
+  end
+
   def status
     if self.inprogress?
       status = "inprogress"

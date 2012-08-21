@@ -30,19 +30,27 @@
             </form>
           </div>
 
-          <% if current_user.account_holder? %>
           <div class="column right">
-          	<%= form_for @account, :url => account_settings_path do |a| %>
-          		<div class="group">
-          		  <label for="account_iteration_length" class="label">Sprint iteration length:</label>
-                <%= a.select :iteration_length, [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]], :include_blank => true, :class => "select" %>
-              </div>
+            <% if current_user.account_holder? %>
+              <%= form_for @account, :url => account_settings_path do |a| %>
+                <div class="group">
+                  <label for="account_iteration_length" class="label">Sprint iteration length:</label>
+                  <%= a.select :iteration_length, [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]], :include_blank => true, :class => "select" %>
+                </div>
+                <div class="group">
+                  <%= submit_tag "Change iteration length" %>
+                </div>
+              <% end %>
+            <% end %>
+            <%= form_tag({:action => 'generate_api_key'}, {:class => 'form'}) %>
+              <label class="label">Api Key:</label>
               <div class="group">
-          		  <%= submit_tag "Change iteration length" %>
-          		</div>
-          	<% end %>
+                <p><%= current_user.api_key || "No api key" %></p>
+              </div>
+              <%= submit_tag "Generate api key" %>
+
+            </form>
           </div>
-          <% end %>
 
         </div>
       </div>

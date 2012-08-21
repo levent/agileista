@@ -8,7 +8,7 @@ module AccountStuff
   protected
   
   def current_user
-    @current_user ||= login_to_subdomain
+    @current_user ||= login_to_subdomain || login_to_api
   end
 
   def login_to_subdomain
@@ -21,6 +21,18 @@ module AccountStuff
       session[:account_subdomain] = nil
       session[:timeout] = nil
       @current_user = nil
+    end
+  end
+
+  def login_to_api
+    session[:user] = nil
+    session[:account_subdomain] = nil
+    session[:timeout] = nil
+    account = Account.find_by_subdomain(current_subdomain)
+    if params[:key]
+      account.people.find_by_api_key_and_authenticated_and_activation_code(params[:key], 1, nil)
+    else
+      nil
     end
   end
   

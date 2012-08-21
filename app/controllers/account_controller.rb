@@ -1,6 +1,4 @@
 class AccountController < AbstractSecurityController
-  before_filter :must_be_team_member, :only => [:sort]
-  
   def index
     render :action => 'settings'
   end
@@ -37,6 +35,11 @@ class AccountController < AbstractSecurityController
     else
       flash[:error] = "Reminder could not be sent"
     end
+    redirect_to account_path
+  end
+
+  def generate_api_key
+    current_user.update_attribute(:api_key, Digest::SHA256.hexdigest("#{Time.now}---#{rand(10000)}"))
     redirect_to account_path
   end
 end
