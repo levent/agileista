@@ -37,7 +37,7 @@
         <%= tasks_form.text_area :description, :class => "text_area", :rows => 3 %>
         <%= tasks_form.label :hours, nil, :class => "label" %>
         <%= tasks_form.text_field :hours, :class => "text_field" %>
-        <% unless tasks_form.object.new_record? || tasks_form.object.complete? %>
+        <% unless tasks_form.object.new_record? %>
           <span class="remove">
             <%= tasks_form.check_box '_destroy' %>
             <%= tasks_form.label '_destroy', 'Remove' %>
