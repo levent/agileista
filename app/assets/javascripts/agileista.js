@@ -76,6 +76,14 @@ var Agileista = (function(){
           window.location = '/user_stories/new';
         }
       });
+
+      $(document).jkey('?', function() {
+        $('#keyboard-help').show();
+      });
+
+      $(document).jkey('esc', function() {
+        $('#keyboard-help').hide();
+      });
     };
 
     init();
