@@ -6,8 +6,7 @@ html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 10
 html, button, input, select, textarea { font-family: Helvetica, sans-serif; color: #222; }
 body { width: 100%; max-width: 1140px; margin: 0 auto; font-size: 1em; line-height: 1.4; background-color: white; padding: 1em; }
 
-
-.main h1 {color: #7A1818;}
+.main h1 {color: #184979;}
 article {border-top: 1px solid #ecefef;}
 
 .method { padding: 0.2em 0.4em; color: white; }
