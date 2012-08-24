@@ -71,7 +71,11 @@ var Agileista = (function(){
         addNewItem('#sidebar .tasks ol li:last');
       });
 
-
+      $(document).jkey('c',function(){
+        if (window.location.pathname !== '/user_stories/new') {
+          window.location = '/user_stories/new';
+        }
+      });
     };
 
     init();
