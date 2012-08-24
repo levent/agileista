@@ -19,16 +19,22 @@ class SprintsController < AbstractSecurityController
     calculate_burndown_points
     @uid = Digest::SHA1.hexdigest("exclusiveshit#{@sprint.id}")
     respond_to do |format|
-      if @sprint && @sprint.current?
-        calculate_todays_burndown
-        calculate_tomorrows_burndown
-        format.html {render :action => 'task_board'}
-      else
-        calculate_end_burndown if @sprint.finished?
-        format.html
-        format.csv do
-          render_csv("sprint_#{@sprint.id}_#{Time.now.strftime('%Y%m%d%H%M')}")
+      format.html {
+        if @sprint && @sprint.current?
+          calculate_todays_burndown
+          calculate_tomorrows_burndown
+          format.html {render :action => 'task_board'}
+        else
+          calculate_end_burndown if @sprint.finished?
+          format.html
         end
+      }
+      format.csv do
+        render_csv("sprint_#{@sprint.id}_#{Time.now.strftime('%Y%m%d%H%M')}")
+      end
+      format.json do
+        render :json => @sprint
+
       end
     end
   end

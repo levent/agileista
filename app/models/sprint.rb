@@ -17,6 +17,18 @@ class Sprint < ActiveRecord::Base
   scope :finished, lambda { {:conditions => ["end_at < ?", Time.zone.now.beginning_of_day]} }
   scope :statistically_significant, lambda { |account| {:conditions => ["end_at > ?", Velocity.stats_significant_since(account)] } }
 
+  def as_json(options = {})
+    super(options.merge(:only => [:name, :goal, :start_at, :end_at, :created_at, :updated_at, :velocity], :methods => [:user_stories]))
+  end
+
+  def to_json(options = {})
+    super(options.merge(:only => [:name, :goal, :start_at, :end_at, :created_at, :updated_at, :velocity], :methods => [:user_stories]))
+  end
+
+  def user_stories_json
+    user_stories_json = user_stories.collect(&:as_json)
+  end
+
   def validate
     return unless start_at && end_at
     errors.add(:start_at, "and end at must be different") if self.start_at >= self.end_at
