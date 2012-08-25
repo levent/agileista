@@ -71,18 +71,25 @@ var Agileista = (function(){
         addNewItem('#sidebar .tasks ol li:last');
       });
 
-      $(document).jkey('c',function(){
-        if (window.location.pathname !== '/user_stories/new') {
+      $(document).jkey('c', true, function(key){
+        if ((window.location.pathname !== '/user_stories/new') && ($("input:focus").length === 0) && $("textarea:focus").length === 0) {
           window.location = '/user_stories/new';
         }
       });
 
-      $(document).jkey('?', function() {
-        $('#keyboard-help').show();
+      $(document).jkey('?', true, function(key) {
+        console.log(key);
+        console.log($('input:focus').length);
+        console.log($('textarea:focus').length);
+        if(($('input:focus').length === 0) && ($('textarea:focus').length === 0)){
+          $('#keyboard-help').show();
+        }
       });
 
-      $(document).jkey('esc', function() {
-        $('#keyboard-help').hide();
+      $(document).jkey('esc', true, function(key) {
+        if(($('input:focus').length === 0) && ($('textarea:focus').length === 0)){
+          $('#keyboard-help').hide();
+        }
       });
     };
 
