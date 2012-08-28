@@ -23,10 +23,9 @@ class SprintsController < AbstractSecurityController
         if @sprint && @sprint.current?
           calculate_todays_burndown
           calculate_tomorrows_burndown
-          format.html {render :action => 'task_board'}
+          render :action => 'task_board'
         else
           calculate_end_burndown if @sprint.finished?
-          format.html
         end
       }
       format.csv do
@@ -34,7 +33,6 @@ class SprintsController < AbstractSecurityController
       end
       format.json do
         render :json => @sprint
-
       end
     end
   end
