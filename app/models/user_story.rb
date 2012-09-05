@@ -38,6 +38,7 @@ class UserStory < ActiveRecord::Base
   belongs_to :person
 
   after_save :expire_story_points
+  after_destroy :expire_story_points
 
   scope :stale,
     lambda { |range|
