@@ -83,7 +83,7 @@ class BacklogController < AbstractSecurityController
     unless @story_points
       @story_points = 0
       @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
-      REDIS.set("account:#{@account.id}:story_points:#{ns}", @story_points) if cached
+      REDIS.set("account:#{@account.id}:story_points", @story_points) if cached
     end
   end
 end
