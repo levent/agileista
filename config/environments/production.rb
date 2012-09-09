@@ -43,7 +43,7 @@ Agileista::Application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "https://c3458723.ssl.cf0.rackcdn.com"
+  config.action_controller.asset_host = "https://87c0c9966c9c4a18d257-84175818bbc2d5f796203944a0730572.ssl.cf2.rackcdn.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
