@@ -19,6 +19,18 @@ var Agileista = (function(){
       }
     },
 
+    toggleCompletedStories = function(link) {
+      if(link.text() === "hide completed stories") {
+        $('.user_story.complete').parents('tr').hide();
+        $('#completed_user_stories_hidden').show();
+        link.text('show completed stories');
+      } else {
+        $('.user_story.complete').parents('tr').show();
+        $('#completed_user_stories_hidden').hide();
+        link.text('hide completed stories');
+      }
+    },
+
     setupVelocityMarkers = function(velocity) {
       if(!(velocity === '') && window.location.pathname.indexOf('stale') === -1){
         $('.release_marker').removeClass('release_marker');
@@ -52,15 +64,7 @@ var Agileista = (function(){
 
       $("#togglecomplete").click(function(el) {
         var link = $(el.target);
-        if(link.text() === "hide completed stories") {
-          $('.user_story.complete').parents('tr').hide();
-          $('#completed_user_stories_hidden').show();
-          link.text('show completed stories');
-        } else {
-          $('.user_story.complete').parents('tr').show();
-          $('#completed_user_stories_hidden').hide();
-          link.text('hide completed stories');
-        }
+        toggleCompletedStories(link);
       });
 
       $('.add_nested_criterium').click(function() {
@@ -96,8 +100,9 @@ var Agileista = (function(){
     init();
 
     return {
-        switchAccount : switchAccount,
- setupVelocityMarkers : setupVelocityMarkers
+          switchAccount : switchAccount,
+ toggleCompletedStories : toggleCompletedStories,
+   setupVelocityMarkers : setupVelocityMarkers
     };
 
 })();
