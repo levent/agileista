@@ -1,8 +1,8 @@
-AGILEISTA
-=========
+[![Build Status](https://magnum.travis-ci.com/levent/agileista.png?token=oLucmZFzPxy8fyrknDiS)](http://magnum.travis-ci.com/levent/agileista)
 
-KNOWN ISSUES
-------------
+## AGILEISTA
+
+### KNOWN ISSUES
 
  * If Juggernaut is down the taskboard js doesn't trigger so cards don't snap into place
  * Task Board not all cases are covered such as appropriate buttons / links appearing depending on state change
@@ -14,15 +14,13 @@ KNOWN ISSUES
  * No Documentation
  * No in app assistance etc.
 
-Workflow
---------
+### Workflow
 
 I like to work in the develop or feature branches and then merge and deploy master so master is always deployable
 
 We losely base our work on [http://nvie.com/posts/a-successful-git-branching-model/](http://nvie.com/posts/a-successful-git-branching-model/)
 
-Editing CSS
------------
+### Editing CSS
 
 The guy who built the initial layout chose less and watchr.
 
@@ -31,8 +29,7 @@ To ensure the css files are compiled start the following before editing the less
  1. cd public/stylesheets/
  2. watchr less.watchr
 
-Contact
--------
+### Contact
 
 Email: [levent@purebreeze.com](mailto:levent@purebreeze.com)
 
