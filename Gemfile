@@ -32,7 +32,6 @@ group :assets do
 end
 
 group :development do
-  gem 'debugger'
   gem 'ruby-prof'
   gem 'capistrano'
   gem 'capistrano-ext'
