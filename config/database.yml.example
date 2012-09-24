@@ -24,6 +24,4 @@ development:
 test: &test
   adapter: postgresql
   database: agileista_test
-  username: levent
-  password:
-  pool: 5
+  username: postgres
