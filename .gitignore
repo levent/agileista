@@ -1,7 +1,6 @@
 .rvmrc
 .bundle/
 log
-db/schema.rb
 db/sphinx/*
 .DS_Store
 *.sqlite3
