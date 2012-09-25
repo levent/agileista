@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821141736) do
+ActiveRecord::Schema.define(:version => 20101008225925) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
