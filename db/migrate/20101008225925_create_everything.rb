@@ -1,4 +1,4 @@
-class AddStoryPointsCompleteToBurndown < ActiveRecord::Migration
+class CreateEverything < ActiveRecord::Migration
   def self.up
     create_table "acceptance_criteria", :force => true do |t|
       t.string  "detail"
