@@ -47,18 +47,6 @@ ActiveRecord::Schema.define(:version => 20120821141736) do
   add_index "burndowns", ["sprint_id", "created_on"], :name => "index_burndowns_on_sprint_id_and_created_on"
   add_index "burndowns", ["sprint_id"], :name => "index_burndowns_on_sprint_id"
 
-  create_table "chores", :force => true do |t|
-    t.integer  "account_id"
-    t.string   "description"
-    t.boolean  "done",        :default => false
-    t.datetime "done_at"
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-  end
-
-  add_index "chores", ["account_id", "done", "created_at"], :name => "index_chores_on_account_id_and_done_and_created_at"
-  add_index "chores", ["account_id"], :name => "index_chores_on_account_id"
-
   create_table "people", :force => true do |t|
     t.string   "name"
     t.string   "email"
