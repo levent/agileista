@@ -10,7 +10,7 @@ describe NotificationMailer do
   describe "new_account_on_agileista" do
     before(:each) do
       @account = Account.new(:subdomain => 'subdomain', :name => "woot")
-      @email = NotificationMailer.deliver_new_account_on_agileista(@account)
+      @email = NotificationMailer.new_account_on_agileista(@account).deliver
     end
   
     it "should be sent to team agileista" do
