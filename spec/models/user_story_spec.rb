@@ -3,39 +3,11 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe UserStory do
   
   before(:each) do
-    @us = UserStory.new
+    @account = Account.make!
+    @us = UserStory.make!(:account => @account)
     @task_a = Task.new
     @task_b = Task.new
     @task_c = Task.new
-  end
-  
-  describe "named_scopes" do
-    describe "estimated" do
-      it "should get all estimated user stories" do
-        expected_options = { :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil] }
-        assert_equal expected_options, UserStory.estimated.proxy_options
-      end
-    end
-    
-    describe "unassigned" do
-      it "should get all unassigned user stories" do
-        expected_options = { :conditions => ['done = ? AND sprint_id IS ?', 0, nil], :order => 'position', :include => [:acceptance_criteria, :person] }
-        assert_equal expected_options, UserStory.unassigned('position').proxy_options
-        
-        expected_options = { :conditions => ['done = ? AND sprint_id IS ?', 0, nil], :order => 'story_points', :include => [:acceptance_criteria, :person] }
-        assert_equal expected_options, UserStory.unassigned('story_points').proxy_options
-      end
-    end
-
-    describe "#stale" do
-      it "should get all stale user_stories" do
-        Time.freeze do
-          expected_options = { :conditions => ['done = ? AND updated_at < ?', 0, 1.month.ago] }
-          assert_equal expected_options, UserStory.stale(1.month.ago).proxy_options
-        end
-      end
-
-    end
   end
   
   describe "in general" do
@@ -99,10 +71,9 @@ describe UserStory do
   
   describe "total hours remaining on tasks" do
     it "should tell you how many hours are left on the tasks assigned to the story" do
-      user_story = UserStory.make
-      task1 = Task.make(:user_story => user_story, :hours => 200)
-      task2 = Task.make(:user_story => user_story, :hours => 65)
-      user_story.total_hours.should == 265
+      task1 = Task.make!(:user_story => @us, :hours => 200)
+      task2 = Task.make!(:user_story => @us, :hours => 65)
+      @us.total_hours.should == 265
     end
   end
   
@@ -161,23 +132,14 @@ describe UserStory do
       @us.copy
       UserStory.count.should == count + 1
     end
-    
-    it "should create a unique definition each time" do
-      @us.copy
-      UserStory.find(:all).last.definition.should == "definition - (1st copy)"
-      @us.copy
-      UserStory.find(:all).last.definition.should == "definition - (2nd copy)"
-      @us.copy
-      UserStory.find(:all).last.definition.should == "definition - (3rd copy)"
-    end
 
-    it "should copy acceptance criteria and incomplete tasks" do
-      task1 = @us.tasks.make(:hours => 6)
-      task2 = @us.tasks.make(:hours => 0)
+    it "should copy acceptance criteria and tasks" do
+      task1 = @us.tasks.make!(:hours => 6)
+      task2 = @us.tasks.make!(:hours => 0)
       2.times { @us.acceptance_criteria.create(:detail => "It should work") }
       @us.copy
       us = UserStory.last
-      us.should have(1).tasks
+      us.should have(2).tasks
       us.should have(2).acceptance_criteria
     end
   end
