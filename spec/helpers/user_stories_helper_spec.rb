@@ -4,7 +4,7 @@ describe UserStoriesHelper do
   include UserStoriesHelper
 
   before(:each) do
-    @it = self
+    @it = helper
     @us = UserStory.new
   end
 
@@ -41,22 +41,22 @@ describe UserStoriesHelper do
   describe "#parse_definition" do
     it "should convert tags" do
       @us.definition = "[PO] As a user I wanna go home"
-      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D">[PO]</a> As a user I wanna go home'.html_safe
+      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a> As a user I wanna go home'.html_safe
     end
 
     it "should convert multiple tags" do
       @us.definition = "[PO] [BUG] As a user I wanna go home"
-      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D">[PO]</a> <a href="/backlog/search?q=%5BBUG%5D">[BUG]</a> As a user I wanna go home'.html_safe
+      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a> <a href="/backlog/search?q=%5BBUG%5D" class="tagged">[BUG]</a> As a user I wanna go home'.html_safe
     end
 
     it "should convert multiple joined tags" do
       @us.definition = "[PO][BUG] As a user I wanna go home"
-      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D">[PO]</a><a href="/backlog/search?q=%5BBUG%5D">[BUG]</a> As a user I wanna go home'.html_safe
+      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a><a href="/backlog/search?q=%5BBUG%5D" class="tagged">[BUG]</a> As a user I wanna go home'.html_safe
     end
 
     it "should handle duplicate tags" do
       @us.definition = "[PO][PO] As a user I wanna go home"
-      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D">[PO]</a><a href="/backlog/search?q=%5BPO%5D">[PO]</a> As a user I wanna go home'.html_safe
+      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a><a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a> As a user I wanna go home'.html_safe
     end
 
     it "should not convert non tagged definitions" do
@@ -66,7 +66,7 @@ describe UserStoriesHelper do
 
     it "should handle escaping other dodgy tags" do
       @us.definition = "[PO] As a user I wanna go <title>home</title>"
-      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D">[PO]</a> As a user I wanna go &lt;title&gt;home&lt;/title&gt;'.html_safe
+      @it.parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a> As a user I wanna go &lt;title&gt;home&lt;/title&gt;'.html_safe
     end
   end
 end
