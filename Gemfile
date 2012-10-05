@@ -32,12 +32,14 @@ group :assets do
 end
 
 group :development do
+  gem 'debugger'
   gem 'ruby-prof'
   gem 'capistrano'
   gem 'capistrano-ext'
 end
 
 group :test do
+  gem 'poltergeist'
   gem 'shoulda-matchers'
   gem "rspec-rails", '2.11.0'
   gem "machinist"
