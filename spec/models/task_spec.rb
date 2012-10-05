@@ -6,20 +6,15 @@ describe Task do
     @task = Task.new
   end
 
-  it "should touch the story when changes are made" do
-    task = Task.make(:hours => 0, :user_story => UserStory.make)
-    lambda {task.update_attribute(:hours, 10)}.should change(task.user_story, :updated_at)
-  end
-  
   describe "named_scopes" do
     before(:each) do
-      @task1 = Task.make(:hours => 100)
-      @task2 = Task.make(:hours => 1)
-      @task3 = Task.make(:hours => 14)
-      @task3.developers = [Person.make]
-      @task4 = Task.make(:hours => 0)
+      @task1 = Task.make!(:hours => 100)
+      @task2 = Task.make!(:hours => 1)
+      @task3 = Task.make!(:hours => 14)
+      @task3.team_members = [Person.make!]
+      @task4 = Task.make!(:hours => 0)
     end
-    
+
     describe "incomplete" do
       it "should get all incomplete tasks" do
         Task.incomplete.should include(@task1)
@@ -28,7 +23,7 @@ describe Task do
         Task.incomplete.should_not include(@task4)
       end
     end
-    
+
     describe "inprogress" do
       it "should get all inprogress tasks" do
         Task.inprogress.should include(@task3)
@@ -37,49 +32,39 @@ describe Task do
         Task.inprogress.should_not include(@task4)
       end
     end
-    
+
     describe "complete" do
       it "should get all complete tasks" do
         Task.complete.should include(@task4)
-        expected_options = { :conditions => "hours = 0" }
-        assert_equal expected_options, Task.complete.proxy_options
       end
     end
-    
-    describe "done" do
-      it "should get all done tasks" do
-        expected_options = { :conditions => "hours = 0" }
-        assert_equal expected_options, Task.done.proxy_options
-      end
-    end
-    
+
     describe "not_done" do
       it "should get all not done tasks" do
-        expected_options = { :conditions => "hours > 0 OR hours IS NULL" }
-        assert_equal expected_options, Task.not_done.proxy_options
+        Task.not_done.should include(@task1, @task2, @task3)
       end
     end
   end
   
-  context "developers" do
+  context "#team_members" do
     before(:each) do
       @task = Task.make
     end
     
-    it "should return an array of developers assigned to this task" do
-      @task.developers.should be_blank
+    it "should return an array of team_members assigned to this task" do
+      @task.team_members.should be_blank
       @team_member1 = Person.make
       @team_member2 = Person.make
-      @task.developers << @team_member1
-      @task.developers << @team_member2
-      @task.developers.should == [@team_member1, @team_member2]
+      @task.team_members << @team_member1
+      @task.team_members << @team_member2
+      @task.team_members.should == [@team_member1, @team_member2]
     end
   end
 
   describe "incomplete?" do
-    it "should be false if any developers are assigned" do
+    it "should be false if any team_members are assigned" do
       @task = Task.new
-      @task.stub!(:developers).and_return(["a developer"])
+      @task.stub!(:team_members).and_return(["a developer"])
       @task.should_not be_incomplete
     end
 
@@ -100,24 +85,24 @@ describe Task do
   end
 
   describe "inprogress?" do
-    it "should be true if any developers and hours left" do
+    it "should be true if any team_members and hours left" do
       @task = Task.new(:hours => 1)
-      @task.stub!(:developers).and_return(["a developer"])
+      @task.stub!(:team_members).and_return(["a developer"])
       @task.should be_inprogress
     end
 
-    it "should be true if any developers and nil hours left" do
+    it "should be true if any team_members and nil hours left" do
       @task = Task.new(:hours => nil)
-      @task.stub!(:developers).and_return(["a developer"])
+      @task.stub!(:team_members).and_return(["a developer"])
       @task.should be_inprogress
     end
 
-    it "should be false if no developers and hours left" do
+    it "should be false if no team_members and hours left" do
       @task = Task.new(:hours => 1)
       @task.should_not be_inprogress
     end
 
-    it "should be false if no developers and nil hours left" do
+    it "should be false if no team_members and nil hours left" do
       @task = Task.new(:hours => nil)
       @task.should_not be_inprogress
     end
