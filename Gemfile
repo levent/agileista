@@ -2,7 +2,6 @@ source :rubygems
 
 gem 'rails', '3.2.8'
 
-# gem "mysql2"
 gem 'pg'
 gem "json"
 gem 'will_paginate', '~> 3.0'
@@ -12,7 +11,7 @@ gem "newrelic-redis", "1.3.2"
 gem 'juggernaut', '2.0.4'
 gem 'exceptional', '2.0.32'
 gem 'subdomain-fu', :git => "git://github.com/nhowell/subdomain-fu.git"
-gem 'thinking-sphinx', '2.0.11'
+gem 'thinking-sphinx', '2.0.13'
 gem 'gravtastic'
 gem 'ranked-model'
 gem "hiredis", "0.4.5"
