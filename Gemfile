@@ -39,7 +39,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
-  gem "rspec-rails", '2.9.0'
+  gem "rspec-rails", '2.11.0'
   gem "machinist"
   gem "faker"
   gem "timecop"
