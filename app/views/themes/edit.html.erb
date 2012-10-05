@@ -30,7 +30,7 @@
     <h3>User stories in this theme</h3>
     <ul class="navigation">
       <% @theme.user_stories[0..4].each do |user_story| %>
-      <li><%= link_to %{<span class="highlight">##{user_story.id}</span> }.html_safe + h(user_story.definition), user_story_url(user_story) %></li>
+      <li><%= link_to %{<span class="hightlight">##{user_story.id}</span> }.html_safe + h(user_story.definition), user_story_url(user_story) %></li>
       <% end %>
       <li><%= link_to "VIEW ALL", themes_url(:anchor => @theme.name.gsub(/\W/, "")) %></li>
     </ul>

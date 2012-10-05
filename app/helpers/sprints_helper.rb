@@ -18,8 +18,8 @@ module SprintsHelper
     else
       result = [%{<span class="tab">#{sprint.name}</span>}]
     end
-    result << %{<span class="highlight">#{show_date(sprint.start_at)} to #{show_date(sprint.end_at)}</span>}
-    result << %{<span class="highlight"><strong id="current_complete"></strong> out of <strong id="current_total">#{sprint.total_story_points}</strong> story points completed (<strong id="current_percentage"></strong>)</span>} unless sprint.user_stories.blank?
+    result << %{<span class="hightlight">#{show_date(sprint.start_at)} to #{show_date(sprint.end_at)}</span>}
+    result << %{<span class="hightlight"><strong id="current_complete"></strong> out of <strong id="current_total">#{sprint.total_story_points}</strong> story points completed (<strong id="current_percentage"></strong>)</span>} unless sprint.user_stories.blank?
 
     return result.join(" ").html_safe
   end
