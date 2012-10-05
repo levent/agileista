@@ -1,6 +1,6 @@
 <h2 class="title" id="<%= theme.name.gsub(/\W/, "") %>">
   <span class="tab"><%= "#{theme.position}. #{theme.name}" %> <%= link_to("Edit", edit_theme_url(theme), :class => "button") %></span>
-  <span class="hightlight"><strong><%= show_story_points(theme.story_points_left, :unit => "") %></strong> out of <strong><%= show_story_points(theme.story_points, :unit => "") %></strong> story points to be done</span>
+  <span class="highlight"><strong><%= show_story_points(theme.story_points_left, :unit => "") %></strong> out of <strong><%= show_story_points(theme.story_points, :unit => "") %></strong> story points to be done</span>
 </h2>
 
 <div class="inner">

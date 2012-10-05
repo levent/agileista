@@ -3,7 +3,7 @@
     <%= render(:partial => "shared/navigation/backlog_secondary") %>
 
     <div class="content">
-      <h2 class="title">Unassigned Backlog: <strong class="hightlight"><%= pluralize(@user_stories.length, "user story") %></strong> worth <strong class="hightlight"><%= show_story_points(@story_points ||= nil) %></strong> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
+      <h2 class="title">Unassigned Backlog: <strong class="highlight"><%= pluralize(@user_stories.length, "user story") %></strong> worth <strong class="highlight"><%= show_story_points(@story_points ||= nil) %></strong> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
       <% if params[:filter] == 'stale' %>
         <h2>Only showing stale user stories (at least <%= time_ago_in_words(@how_stale) %> old)</h2>
       <% end %>

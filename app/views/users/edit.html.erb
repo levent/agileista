@@ -3,7 +3,7 @@
     <%= render(:partial => "shared/navigation/account_secondary") %>
 
     <div class="content">
-      <h2 class="title">Editing <strong class="hightlight"><%= @person.name %>'s</strong> details</h2>
+      <h2 class="title">Editing <strong class="highlight"><%= @person.name %>'s</strong> details</h2>
       <div class="inner">
         <%= form_for @person, :url => user_url(@person), :html => {:method => :put, :class => "form"} do |p| %>
         <div class="columns clearfix">

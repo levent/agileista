@@ -4,7 +4,7 @@
     <%= render(:partial => "shared/navigation/backlog_secondary") %>
 
     <div class="content">
-      <h2 class="title"><%= @sprint ? "Editing user story ##{@user_story.id} for #{@sprint.name} sprint" : "Editing user story ##{@user_story.id}" %> <span class="hightlight">Created on <%= show_date(@user_story.created_at) %> <%= show_user(@user_story) %></span></h2>
+      <h2 class="title"><%= @sprint ? "Editing user story ##{@user_story.id} for #{@sprint.name} sprint" : "Editing user story ##{@user_story.id}" %> <span class="highlight">Created on <%= show_date(@user_story.created_at) %> <%= show_user(@user_story) %></span></h2>
       <div class="inner">
         <%= render :partial => 'form', :locals => {:account => @account, :us => us, :user_story => @user_story, :tags => @tags, :sprint => @sprint} %>
       </div>

@@ -3,7 +3,7 @@
     <%= render(:partial => "shared/navigation/backlog_secondary") %>
 
     <div class="content">
-      <h2 class="title">Unassigned Backlog: <strong class="hightlight"><%= pluralize(@user_stories.length, "user story") %></strong> worth <strong class="hightlight"><%= show_story_points(@story_points ||= nil) %></strong> <span class="small">(Average velocity: <strong class="hightlight"><%= average_velocity(@account) %></strong>)</span> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
+      <h2 class="title">Unassigned Backlog: <strong class="highlight"><%= pluralize(@user_stories.length, "user story") %></strong> worth <strong class="highlight"><%= show_story_points(@story_points ||= nil) %></strong> <span class="small">(Average velocity: <strong class="highlight"><%= average_velocity(@account) %></strong>)</span> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
       <div id="user_stories" class="clearfix">
 
         <table class="table">

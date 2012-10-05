@@ -5,7 +5,7 @@
     <div class="content">
       <%= render :partial => "shared/velocity_chart", :locals => {:flot_points => @flot_points} %>
       <% unless @sprints.blank? %>
-        <h2 class="title">Total: <strong class="hightlight"><%= @sprints.size %></strong>. Finished: <strong class="hightlight"><%= @sprints.finished.size %></strong>. Average velocity: <strong class="hightlight"><%= average_velocity(@account) %></strong>*</h2>
+        <h2 class="title">Total: <strong class="highlight"><%= @sprints.size %></strong>. Finished: <strong class="highlight"><%= @sprints.finished.size %></strong>. Average velocity: <strong class="highlight"><%= average_velocity(@account) %></strong>*</h2>
         <p><strong>90%</strong> likelihood velocity will be between <%= @cint_lo %> and <%= @cint_hi %>*<br>*stats based on sprints since <strong><%= show_date(Velocity.stats_significant_since(@account).to_time) %></strong></p>
         <div class="inner">
           <table class="table">
