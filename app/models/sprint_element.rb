@@ -6,13 +6,13 @@ class SprintElement < ActiveRecord::Base
     :column => :position
 
   has_many :sprint_changes, :as => :auditable
-  
+
   belongs_to :sprint
   belongs_to :user_story
-  
+
   after_save :calculate_burndown
   after_destroy :calculate_burndown
-  
+
   def calculate_burndown
     if self.sprint
       self.sprint.reload

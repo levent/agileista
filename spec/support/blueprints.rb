@@ -44,3 +44,8 @@ end
 AcceptanceCriterium.blueprint do
   detail { Faker::Lorem.sentence }
 end
+
+SprintElement.blueprint do
+  user_story { UserStory.make }
+  sprint { Sprint.make }
+end

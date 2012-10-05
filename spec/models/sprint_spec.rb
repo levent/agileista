@@ -6,7 +6,7 @@ describe Sprint do
     @it = Sprint.new
     
     # stub out sweepers
-    sweeper = mock_model(SprintAuditSweeper)
+    sweeper = mock(SprintAuditSweeper)
     sweeper.stub!(:update)
     SprintElement.instance_variable_set(:@observer_peers, [sweeper])
   end
@@ -27,14 +27,14 @@ describe Sprint do
   context "auto setting end time" do
     it "should set it on save based on account's iteration length" do
       start = 1.day.from_now
-      account = Account.make(:iteration_length => 1)
+      account = Account.make!(:iteration_length => 1)
       sprint = Sprint.create!(:name => "Disco dance prep", :account => account, :start_at => start)
       account.iteration_length.weeks.from_now(1.day.ago(start)).end_of_day.should == sprint.end_at
     end
     
     it "should set it to end of day on subsequent saves" do
       start = 19.days.from_now
-      account = Account.make(:iteration_length => 1)
+      account = Account.make!(:iteration_length => 1)
       sprint = Sprint.create!(:name => "Disco dance prep", :account => account, :start_at => start)
       finish = account.iteration_length.weeks.from_now(1.day.ago(start))
       initial_finish = sprint.end_at
@@ -121,41 +121,21 @@ describe Sprint do
   describe "#destroy" do
     describe "with user stories" do
       before(:each) do
-        @it.name = "Alpha"
-        @it.start_at = 1.months.ago
-        @it.end_at = 1.months.from_now
-        @it.account_id = 8
-        @it.save!
-        @us1 = @it.user_stories.new(:definition => 'As a wabbit I would like a carrot', :account_id => 8)
-        @us2 = @it.user_stories.new(:definition => 'As a carrot I would like to avoid wabbits', :account_id => 8)
-        @us1.save!
-        @us2.save!
-        se = SprintElement.new(:user_story => @us1, :sprint => @it)
-        se.save!
-        se = SprintElement.new(:user_story => @us2, :sprint => @it)
-        se.save!
+        @account = Account.make!
+        @sprint = Sprint.make!(:account => @account)
+        @user_story = UserStory.make!(:account => @account, :sprint => @sprint)
+        @sprint_element = SprintElement.make!(:sprint => @sprint, :user_story => @user_story)
       end
-      
+
       it "should remove sprint_id reference" do
-        UserStory.find_all_by_sprint_id(@it.id).length.should == 2
-        @it.destroy
-        UserStory.find_all_by_sprint_id(@it.id).should be_blank
+        UserStory.find_all_by_sprint_id(@sprint.id).should_not be_blank
+        @sprint_element.sprint.destroy
+        UserStory.find_all_by_sprint_id(@sprint.id).should be_blank
       end
-      
+
       it "should remove sprint_elements" do
-        SprintElement.count.should == 2
-        @it.destroy
+        @sprint_element.sprint.destroy
         SprintElement.count.should == 0
-      end
-    end
-  end
-  
-  describe "named_scope(s)" do
-    describe "current" do
-      it "should correctly generate conditions for current sprint" do
-        Timecop.freeze do
-          Sprint.current.proxy_options.should == {:conditions => ["start_at < ? AND end_at > ?", Time.now, 1.days.ago]}
-        end
       end
     end
   end
