@@ -7,19 +7,16 @@ describe Person do
     @it = Person.new
   end
 
-  # validates_confirmation_of :password
-  # validates_length_of :password, :in => 6..16, :if => :password_required?
   it { should validate_presence_of :name }
   it { should validate_presence_of :email }
-  # validates_uniqueness_of :email, :scope => :account_id
   it { should belong_to :account }
   it { should have_many :user_stories }
 
   it "should have unique email addresses per account" do
-    account = Account.make
-    person1 = Person.make(:account => account)
-    person2 = Person.make(:email => person1.email)
-    lambda { Person.make(:account => account, :email => person1.email) }.should raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email has already been taken")
+    account = Account.make!
+    person1 = Person.make!(:account => account)
+    person2 = Person.make!(:email => person1.email)
+    lambda { Person.make!(:account => account, :email => person1.email) }.should raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email has already been taken")
   end
 
   describe "#validate_account" do
@@ -63,7 +60,7 @@ describe Person do
     
     it "should require a password of min length 6" do
       @it.save.should be_false
-      @it.errors.on(:password).should == 'is too short (minimum is 6 characters)'
+      @it.errors[:password].should include('is too short (minimum is 6 characters)')
     end
     
     it "should require a password only if none is set" do
