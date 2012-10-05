@@ -9,8 +9,8 @@ describe Theme do
       @account = Account.make!
       @theme = Theme.make!
       @us1 = UserStory.make!(:story_points => 13, :themes => [@theme], :account => @account)
-      @us2 = UserStory.make!(:story_points => nil, :themes => [@theme], :tasks => [Task.make], :account => @account)
-      @us3 = UserStory.make!(:story_points => 8, :themes => [@theme], :tasks => [Task.make], :account => @account)
+      @us2 = UserStory.make!(:story_points => nil, :themes => [@theme], :tasks => [Task.make!], :account => @account)
+      @us3 = UserStory.make!(:story_points => 8, :themes => [@theme], :tasks => [Task.make!], :account => @account)
     end
 
     it "should tell you how many story points are left to complete" do

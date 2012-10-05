@@ -3,7 +3,7 @@ source :rubygems
 gem 'rails', '3.2.8'
 
 gem 'pg'
-gem "json"
+gem 'yajl-ruby'
 gem 'will_paginate', '~> 3.0'
 gem "acts-as-taggable-on"
 gem "newrelic_rpm", "3.4.1"
