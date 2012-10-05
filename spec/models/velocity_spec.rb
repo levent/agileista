@@ -8,8 +8,10 @@ describe Velocity do
     end
 
     it "should return the correct interval" do
-      Velocity.confidence_interval([17, 18, 20, 20, 21, 23, 23, 27]).should ==
-        ["18", "23"]
+      ci = Velocity.confidence_interval([17, 18, 20, 20, 21, 23, 23, 27])
+      ci.first.to_i.should == 18
+      ci.last.to_i.should == 23
+      ci.size.should == 2
     end
   end
 end
