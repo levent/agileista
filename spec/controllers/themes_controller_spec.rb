@@ -55,29 +55,4 @@ describe ThemesController do
     end
   end
   
-  describe "route recognition" do
-    it "should generate params from GET /themes correctly" do
-      params_from(:get, '/themes/new').should == {:controller => 'themes', :action => 'new'}
-    end
-
-    it "should generate params from GET /themes correctly" do
-      params_from(:get, '/themes').should == {:controller => 'themes', :action => 'index'}
-    end
-    
-    it "should generate params from POST /themes correctly" do
-      params_from(:post, '/themes').should == {:controller => 'themes', :action => 'create'}
-    end
-    
-    it "should generate params from POST /themes/sort correctly" do
-      params_from(:post, '/themes/sort').should == {:controller => 'themes', :action => 'sort'}
-    end
-    
-    it "should generate params from PUT /themes/8 correctly" do
-      params_from(:put, '/themes/8').should == {:controller => 'themes', :action => 'update', :id => '8'}
-    end
-    
-    it "should generate params from DELETE /themes/7 correctly" do
-      params_from(:delete, '/themes/7').should == {:controller => 'themes', :action => 'destroy', :id => '7'}
-    end
-  end
 end

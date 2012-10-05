@@ -113,37 +113,4 @@ describe TasksController do
     end
   end
 
-  describe "route recognition" do
-    it "should generate params from POST /tasks correctly" do
-      params_from(:post, '/user_stories/8/tasks').should == {:controller => 'tasks', :action => 'create', :user_story_id => '8'}
-    end
-    
-    it "should generate params from GET /tasks correctly" do
-      params_from(:get, '/user_stories/8/tasks').should == {:controller => 'tasks', :action => 'index', :user_story_id => '8'}
-    end
-    
-    it "should generate params from PUT /tasks/7/claim correctly" do
-      params_from(:put, '/user_stories/8/tasks/7/claim').should == {:controller => 'tasks', :action => 'claim', :id => '7', :user_story_id => '8'}
-    end
-    
-    it "should generate params from POST /tasks/7/move_up correctly" do
-      params_from(:post, '/user_stories/8/tasks/7/move_up').should == {:controller => 'tasks', :action => 'move_up', :id => '7', :user_story_id => '8'}
-    end
-    
-    it "should generate params from POST /tasks/7/move_down correctly" do
-      params_from(:post, '/user_stories/8/tasks/7/move_down').should == {:controller => 'tasks', :action => 'move_down', :id => '7', :user_story_id => '8'}
-    end
-    
-    it "should generate params from DELETE /tasks/7 correctly" do
-      params_from(:delete, '/user_stories/8/tasks/7').should == {:controller => 'tasks', :action => 'destroy', :id => '7', :user_story_id => '8'}
-    end
-    
-    it "should generate params from POST /tasks/create_quick" do
-      params_from(:post, '/user_stories/8/tasks/create_quick').should == {:controller => 'tasks', :action => 'create_quick', :user_story_id => '8'}
-    end
-    
-    it "should generate params from POST /tasks/assign correctly" do
-      params_from(:post, '/user_stories/9/tasks/assign').should == {:controller => 'tasks', :action => 'assign', :user_story_id => '9'}
-    end
-  end
 end

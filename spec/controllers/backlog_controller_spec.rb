@@ -27,10 +27,6 @@ describe BacklogController do
   end
 
   describe "index#stale" do
-    it "should be routed by /backlog/stale" do
-      params_from(:get, '/backlog/stale').should == {:controller => 'backlog', :action => 'index', :filter => 'stale'}
-    end
-
     it "should filter out the recent stories" do
       stub_login_and_account_setup
       @account.user_stories.make
