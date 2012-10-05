@@ -43,7 +43,7 @@ describe SprintsHelper do
     end
 
     it "should display the date if asked to" do
-      @it.sprint_header(@sprint, :show_date? => true).should include('<span class="highlight">START to END</span>')
+      @it.sprint_header(@sprint, :show_date? => true).should include('<span class="hightlight">START to END</span>')
     end
 
     it "should display the buttons which we're passing only if current_user is a Person and sprint is not finished" do

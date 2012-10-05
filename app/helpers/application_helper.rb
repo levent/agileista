@@ -9,10 +9,10 @@ module ApplicationHelper
     here == there ? "selected=\"selected\"" : ""
   end
 
-  def show_stakeholder(user_story, show_creator = true)
+  def show_stakeholder(user_story)
     if !user_story.stakeholder.blank?
       return "#{user_story.stakeholder}"
-    elsif user_story.person && show_creator
+    elsif user_story.person
       "#{user_story.person.name}"
     else
       return "Unknown"
