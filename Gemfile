@@ -38,6 +38,7 @@ group :development do
 end
 
 group :test do
+  gem 'simplecov', :require => false
   gem 'poltergeist'
   gem 'shoulda-matchers'
   gem "rspec-rails", '2.11.0'

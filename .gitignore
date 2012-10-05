@@ -15,7 +15,7 @@ gems/*
 !gems/cache
 !gems/dirs
 .bundle/config
-coverage.data
+coverage
 config/mailer.yml
 vendor/bundle
 tmp/
