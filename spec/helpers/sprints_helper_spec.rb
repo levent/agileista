@@ -5,8 +5,9 @@ describe SprintsHelper do
   include SprintsHelper
 
   before(:each) do
-    @it = self
-    stub_sprint
+    @it = helper
+    @account = Account.make!
+    @sprint = Sprint.make!(:account => @account)
   end
 
   describe "#identify_key_sprint" do
@@ -38,42 +39,20 @@ describe SprintsHelper do
 
     it "should display the sprint name" do
       result = @it.sprint_header(@sprint)
-      result.should have_tag('span.tab', "Sprint A")
-      result.should_not have_tag('span.hightlight', "START to END.")
+      result.should include("<span class=\"tab\">#{@sprint.name}</span>")
     end
 
     it "should display the date if asked to" do
-      @it.sprint_header(@sprint, :show_date? => true).should have_tag('span.hightlight', "START to END")
-    end
-
-    it "should display number of allocated sp if asked to" do
-      user_story = UserStory.make
-      user_story.sprint = @sprint
-      user_story.story_points = 18
-      user_story.save!
-      @sprint.account = Account.make
-
-      SprintElement.create!(:user_story => user_story, :sprint => @sprint)
-      @it.sprint_header(@sprint, :show_story_points? => true).should have_tag('span.hightlight', /0 out of 18 story points completed/) do
-        with_tag('strong', "0")
-        with_tag('strong', "18")
-      end
-    end
-
-    it "should not display buttons by default" do
-      @it.stub!(:current_user).and_return(Person.new)
-      response = @it.sprint_header(@sprint)
-      response.should_not have_tag('a.button')
+      @it.sprint_header(@sprint, :show_date? => true).should include('<span class="highlight">START to END</span>')
     end
 
     it "should display the buttons which we're passing only if current_user is a Person and sprint is not finished" do
       @it.stub!(:current_user).and_return(Person.new)
       @sprint.stub!(:finished?).and_return(false)
-      @it.sprint_header(@sprint, :buttons => [:edit, :plan, :add_story]).should have_tag('span.tab', /Sprint A/) do
-        with_tag('a.button:nth-of-type(1)', "Edit")
-        with_tag('a.button:nth-of-type(2)', "Plan")
-        with_tag('a.button:nth-of-type(3)', "Add story")
-      end
+      result = @it.sprint_header(@sprint, :buttons => [:edit, :plan, :add_story])
+      result.should include("<a href=\"http://test.host/sprints/#{@sprint.id}/edit\" class=\"button\">Edit</a>")
+      result.should include("<a href=\"http://test.host/sprints/#{@sprint.id}/edit\" class=\"button\">Plan</a>")
+      result.should include("<a href=\"http://test.host/sprints/#{@sprint.id}/user_stories/new\" class=\"button\">Add story</a>")
     end
 
   end
