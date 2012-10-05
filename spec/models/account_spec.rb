@@ -5,7 +5,6 @@ describe Account do
 
   it {should have_many(:people).dependent(:destroy)}
   it {should have_many(:team_members).dependent(:destroy)}
-  it {should have_many(:contributors).dependent(:destroy)}
   it {should have_many(:sprints).dependent(:destroy)}
   it {should have_many(:user_stories).dependent(:destroy)}
   it {should have_many(:themes).dependent(:destroy)}
@@ -52,8 +51,8 @@ describe Account do
   end
 
   context "velocity calculations" do
-    before(:each) do
-      @account = Account.make
+    before do
+      @account = Account.make!
     end
 
     describe "#average_velocity" do
@@ -63,11 +62,11 @@ describe Account do
       end
 
       it "should return the average velocity" do
-        @account.sprints.make(:end_at => 1.week.ago, :start_at => 2.weeks.ago, :velocity => 1)
-        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
-        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
-        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
-        @account.sprints.make(:end_at => 3.week.ago, :start_at => 4.weeks.ago, :velocity => 22)
+        Sprint.make!(:account => @account, :end_at => 1.week.ago, :start_at => 2.weeks.ago, :velocity => 1)
+        Sprint.make!(:account => @account, :end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        Sprint.make!(:account => @account, :end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        Sprint.make!(:account => @account, :end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        Sprint.make!(:account => @account, :end_at => 3.week.ago, :start_at => 4.weeks.ago, :velocity => 22)
         @account.average_velocity.should == 23
       end
     end
@@ -78,11 +77,11 @@ describe Account do
       end
 
       it "should return the median velocity" do
-        @account.sprints.make(:end_at => 1.week.ago, :start_at => 2.weeks.ago, :velocity => 1)
-        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
-        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
-        @account.sprints.make(:end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
-        @account.sprints.make(:end_at => 3.week.ago, :start_at => 4.weeks.ago, :velocity => 22)
+        Sprint.make!(:account => @account, :end_at => 1.week.ago, :start_at => 2.weeks.ago, :velocity => 1)
+        Sprint.make!(:account => @account, :end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        Sprint.make!(:account => @account, :end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        Sprint.make!(:account => @account, :end_at => 2.week.ago, :start_at => 3.weeks.ago, :velocity => 32)
+        Sprint.make!(:account => @account, :end_at => 3.week.ago, :start_at => 4.weeks.ago, :velocity => 22)
         @account.median_velocity.should == 32
       end
     end

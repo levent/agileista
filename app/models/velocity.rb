@@ -1,7 +1,7 @@
 class Velocity
 
   def self.stats_significant_since(account)
-    since = REDIS.get("account:#{account.id}:stats_since") || account.sprints.finished.last.start_at
+    since = REDIS.get("account:#{account.id}:stats_since") || account.sprints.finished.last.try(:start_at) || Time.now
   end
 
   def self.stats_significant_since_sprint_id(account)
