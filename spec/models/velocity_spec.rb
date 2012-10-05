@@ -9,7 +9,7 @@ describe Velocity do
 
     it "should return the correct interval" do
       Velocity.confidence_interval([17, 18, 20, 20, 21, 23, 23, 27]).should ==
-        "fds"
+        ["18", "23"]
     end
   end
 end
