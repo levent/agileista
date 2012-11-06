@@ -138,7 +138,7 @@ class UserStory < ActiveRecord::Base
   end
 
   def copy
-    new_us = UserStory.new(:account_id => self.account_id, :definition => "#{self.definition} (copy of ##{self.id})", :description => self.description, :story_points => self.story_points)
+    new_us = UserStory.new(:account_id => self.account_id, :definition => self.definition, :description => self.description, :story_points => self.story_points)
     self.acceptance_criteria.each do |ac|
       new_us.acceptance_criteria << AcceptanceCriterium.new(:detail => ac.detail)
     end

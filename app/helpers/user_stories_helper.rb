@@ -61,10 +61,6 @@ module UserStoriesHelper
       link = link_to m, backlog_search_path(:q => m), :class => 'tagged'
       definition.gsub!(m, link).html_safe
     end
-    definition.scan(/copy of \#(\d+)/).each do |m|
-      link = link_to "copy of ##{$1}", user_story_path(:id => $1)
-      definition.gsub!("copy of ##{$1}", link).html_safe
-    end
     definition
   end
 end
