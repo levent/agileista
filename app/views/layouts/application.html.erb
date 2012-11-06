@@ -37,7 +37,7 @@
       <nav class="user-nav">
         <%= user_navigation %>
       </nav>
-      <%= link_to(image_tag(current_user.gravatar_url(:rating => 'G', :size => 40, :secure => true)), edit_user_url(current_user), :id => "main-gravatar") %>
+      <%= link_to(image_tag(current_user.gravatar_url(:rating => 'G', :size => 40, :secure => true, :default => asset_path('default_avatar.png'))), edit_user_url(current_user), :id => "main-gravatar") %>
     <% end -%>
   </header>
 
