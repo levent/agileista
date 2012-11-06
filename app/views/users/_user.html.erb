@@ -1,5 +1,5 @@
 <tr class="<%= user.authenticated? ? "active" : "inactive" %><%= " account_holder" if user.account_holder? %>">
-  <td class="id"><%= image_tag user.gravatar_url(:rating => 'G', :size => 25, :default => asset_path('default_avatar.png')) %></td>
+  <td class="id"><%= image_tag user.gravatar_url(:rating => 'G', :size => 40, :default => asset_path('default_avatar.png')) %></td>
   <td class="description"><%= user.name %></td>
   <td class="email"><%= user.email %></td>
   <td class="date"><%= show_date(user.created_at) %></td>
