@@ -52,11 +52,11 @@ module ApplicationHelper
   end
 
   def show_date(date)
-    return date.strftime("%d %B %Y")
+    date.strftime("%d %B %Y")
   end
 
   def show_date_and_time(date)
-    return date.strftime("%d %b %y %H:%M %p")
+    date.strftime("%d %b %y %H:%M %p")
   end
 
   # Tag cloud styler
