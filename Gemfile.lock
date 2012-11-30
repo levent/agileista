@@ -165,7 +165,7 @@ GEM
       activerecord (>= 3.0.3)
     rdoc (3.12)
       json (~> 1.4)
-    redis (3.0.1)
+    redis (3.0.2)
     riddle (1.5.3)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
@@ -248,7 +248,7 @@ DEPENDENCIES
   poltergeist
   rails (= 3.2.9)
   ranked-model
-  redis (= 3.0.1)
+  redis (= 3.0.2)
   rspec-rails (= 2.11.0)
   ruby-prof
   sass-rails (~> 3.2.3)

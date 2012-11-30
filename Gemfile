@@ -15,7 +15,7 @@ gem 'thinking-sphinx', '2.0.13'
 gem 'gravtastic'
 gem 'ranked-model'
 gem "hiredis", "0.4.5"
-gem "redis", "3.0.1", :require => ["redis/connection/hiredis", "redis"]
+gem "redis", "3.0.2", :require => ["redis/connection/hiredis", "redis"]
 gem 'thin'
 
 group :assets do
