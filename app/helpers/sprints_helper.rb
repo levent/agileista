@@ -42,25 +42,5 @@ module SprintsHelper
     "#{velocity} #{options[:unit]}"
   end
 
-  def user_story_actions(sprint, user_story)
-    result = [link_to("Show", sprint_user_story_url(@sprint, user_story), :class => "button")]
-
-    if !user_story.complete?
-      result << link_to("Copy", copy_user_story_url(user_story), :method => :post, :class => "button")
-      result << link_to("Remove", unplan_sprint_user_story_url(sprint, user_story), :method => :post, :class => "button")
-    end
-
-    return result.join(" ")
-  end
-
-  def task_actions(user_story, task)
-    result = [link_to("Show", user_story_task_url(user_story, task), :class => "button")]
-
-    if !user_story.complete?
-      result << link_to("Edit", edit_user_story_task_url(user_story, task), :class => "button")
-    end
-
-    return result.join(" ")
-  end
 end
 
