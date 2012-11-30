@@ -6,7 +6,7 @@ gem 'pg'
 gem 'yajl-ruby'
 gem 'will_paginate', '~> 3.0'
 gem "acts-as-taggable-on"
-gem "newrelic_rpm", "3.4.1"
+gem "newrelic_rpm"
 gem "newrelic-redis", "1.3.2"
 gem 'juggernaut', '2.0.4'
 gem 'exceptional', '2.0.33'
