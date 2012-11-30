@@ -9,7 +9,7 @@ class SprintsController < AbstractSecurityController
     @sprints = @account.sprints
     @velocity = @account.average_velocity
     @cint_lo, @cint_hi = Velocity.confidence_interval(@sprints.finished.statistically_significant(@account).map(&:calculated_velocity))
-    @stats_since_sprint = Velocity.stats_significant_since_sprint_id(@account)
+    @stats_since_sprint = Velocity.stats_significant_since_sprint_id(@account.id)
   end
 
   def show

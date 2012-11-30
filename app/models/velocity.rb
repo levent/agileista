@@ -4,8 +4,8 @@ class Velocity
     since = REDIS.get("account:#{account.id}:stats_since") || account.sprints.finished.last.try(:start_at) || Time.now
   end
 
-  def self.stats_significant_since_sprint_id(account)
-    REDIS.get("account:#{account.id}:stats_since:sprint_id")
+  def self.stats_significant_since_sprint_id(account_id)
+    REDIS.get("account:#{account_id}:stats_since:sprint_id")
   end
 
   def self.confidence_interval(story_points = [])

@@ -14,4 +14,11 @@ describe Velocity do
       ci.size.should == 2
     end
   end
+
+  describe ".stats_significant_since_sprint_id" do
+    it "should check Redis for first significant sprint" do
+      REDIS.should_receive(:get).with("account:19:stats_since:sprint_id")
+      Velocity.stats_significant_since_sprint_id(19)
+    end
+  end
 end
