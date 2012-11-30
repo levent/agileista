@@ -55,9 +55,6 @@ Agileista::Application.routes.draw do
   end
 
   resources :themes do
-    collection do
-      post 'sort'
-    end
     resources :user_stories
   end
 
