@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 
 gem 'pg'
 gem 'yajl-ruby'
