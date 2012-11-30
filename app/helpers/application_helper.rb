@@ -1,10 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
-  def iphone_user_agent?
-    request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile\/.+Safari)/]
-  end
-
   def account_switcher_selected(here, there)
     here == there ? "selected=\"selected\"" : ""
   end
@@ -26,23 +22,6 @@ module ApplicationHelper
     pluralize(points, options[:unit])
   end
 
-  def show_story_points_remaining(points)
-    return points.nil? ? "" : "(#{points} remaining)"
-  end
-
-
-  def select_date(date = Date.today, options = {})
-    select_day(date, options) + select_month(date, options) + select_year(date, options)
-  end
-
-  def show_hours_left(hours)
-    unless hours.nil?
-      return pluralize(hours, 'hour') + ' left'
-    else
-      return "Undefined"
-    end
-  end
-  
   def show_assignees(developers)
     if developers.any?
       return developers.map(&:name).join(', ')
@@ -57,21 +36,6 @@ module ApplicationHelper
 
   def show_date_and_time(date)
     date.strftime("%d %b %y %H:%M %p")
-  end
-
-  # Tag cloud styler
-  def build_tag_cloud(tag_cloud, style_list)
-    max, min = 0, 0
-    tag_cloud.each do |tag|
-    max = tag.popularity.to_i if tag.popularity.to_i > max
-    min = tag.popularity.to_i if tag.popularity.to_i < min
-  end
-
-  divisor = ((max - min) / style_list.size) + 1
-
-  tag_cloud.each do |tag|
-    yield tag.name, style_list[(tag.popularity.to_i - min) / divisor]
-    end
   end
 
   def complete?(user_story)

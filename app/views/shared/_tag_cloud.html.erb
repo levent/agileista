@@ -1,7 +1,0 @@
-<% if tag_cloud.length > 0 %>
-<% build_tag_cloud(tag_cloud, %w(cloud1 cloud2 cloud3 cloud4 cloud5 cloud6 cloud7 cloud8 cloud9)) do |tag, cloud_class| %>
-<%= link_to h("#{tag}"), {:controller => 'backlog', :action => 'search_tags', :tag => tag}, { :class => "#{cloud_class} ", :style => "margin: .15em", :method => :post } %>
-<% end %>
-<% else %>No tags found.
-
-<% end %>
