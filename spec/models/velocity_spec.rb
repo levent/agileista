@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe Velocity do
 
-  describe "confidence_interval" do
+  describe ".confidence_interval" do
+    before do
+      REDIS.flushdb
+    end
+
     it "should require at least five values" do
       Velocity.confidence_interval([1,2,3,4]).should be_nil
     end
@@ -21,4 +25,5 @@ describe Velocity do
       Velocity.stats_significant_since_sprint_id(19)
     end
   end
+
 end

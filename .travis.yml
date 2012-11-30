@@ -10,6 +10,8 @@ script:
  - RAILS_ENV=test bundle exec rake db:migrate
  - bundle exec rake db:test:prepare
  - bundle exec rspec spec/
+services:
+ - redis-server
 notifications:
   email:
     - lebreeze@gmail.com
