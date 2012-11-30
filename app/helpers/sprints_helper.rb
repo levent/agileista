@@ -42,16 +42,6 @@ module SprintsHelper
     "#{velocity} #{options[:unit]}"
   end
 
-  def state(item)
-    if item.complete?
-      "Complete"
-    elsif item.inprogress?
-      "In play"
-    else
-      "Incomplete"
-    end
-  end
-
   def user_story_actions(sprint, user_story)
     result = [link_to("Show", sprint_user_story_url(@sprint, user_story), :class => "button")]
 
