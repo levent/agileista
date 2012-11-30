@@ -10,27 +10,12 @@ module UserStoriesHelper
     end
   end
 
-  def show_tags(tags)
-    if tags.blank?
-      "No tags"
-    else
-      result = []
-      tags.each do |tag|
-        result << link_to(tag[:name], {:controller => 'backlog', :action => 'search', :q => tag[:name]}, :method => :post)
-      end
-    end
-  end
-
   def show_user(user_story)
     if user_story.person
       return "by #{user_story.person.name}"
     else
       return "by Unknown"
     end
-  end
-
-  def show_completeness(bool)
-    bool ? "Complete" : "Incomplete"
   end
 
   def user_story_status(user_story)
