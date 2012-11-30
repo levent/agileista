@@ -33,7 +33,7 @@ class SprintElement < ActiveRecord::Base
   end
   
   def audit_update(person)
-    SprintChange.create(:kind => "update", :sprint_id => self.sprint_id, :auditable => self.user_story, :major => self.sprint.current?, :details => "User story changed by #{person.name}", :person => person, :changes => self.send(:changed_attributes))
+    SprintChange.create(:kind => "update", :sprint_id => self.sprint_id, :auditable => self.user_story, :major => self.sprint.current?, :details => "User story changed by #{person.name}", :person => person, :changes_description => self.send(:changed_attributes))
   rescue NoMethodError => e
     Rails.logger.warn("[AUDIT FAIL]: SprintElement update #{self.inspect}")
   end
