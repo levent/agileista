@@ -114,7 +114,7 @@ class UserStoriesController < AbstractSecurityController
   
   def reorder
     sprint_element = @sprint.sprint_elements.where(:user_story_id => params[:id]).first
-    sprint_element.update_attribute(:sprint_position, params[:move_to])
+    sprint_element.update_attribute(:sprint_position, params[:move_to]) if sprint_element
     render :json => {:ok => true}.to_json
   end
   

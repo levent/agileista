@@ -78,7 +78,7 @@ GEM
     diff-lcs (1.1.3)
     erubis (2.7.0)
     eventmachine (1.0.0)
-    exceptional (2.0.32)
+    exceptional (2.0.33)
       rack
     excon (0.16.0)
     execjs (1.3.0)
@@ -236,7 +236,7 @@ DEPENDENCIES
   capistrano-ext
   coffee-rails (~> 3.2.1)
   debugger
-  exceptional (= 2.0.32)
+  exceptional (= 2.0.33)
   faker
   gravtastic
   hiredis (= 0.4.5)
