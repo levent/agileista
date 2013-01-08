@@ -40,7 +40,7 @@ group :test do
   gem 'simplecov', :require => false
   gem 'poltergeist'
   gem 'shoulda-matchers'
-  gem "rspec-rails", '2.12.0'
+  gem "rspec-rails", '2.12.1'
   gem "machinist"
   gem "faker"
   gem "timecop"
