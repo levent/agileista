@@ -7,9 +7,9 @@ before_script:
  - cp config/database.yml.example config/database.yml
  - psql -c 'create database agileista_test;' -U postgres
 script:
- - RAILS_ENV=test bundle exec rake db:migrate
- - bundle exec rake db:test:prepare
- - bundle exec rspec spec/
+ - "RAILS_ENV=test bundle exec rake db:migrate 2>&1 >/dev/null"
+ - "bundle exec rake db:test:prepare"
+ - "bundle exec rspec spec"
 services:
  - redis-server
 notifications:
