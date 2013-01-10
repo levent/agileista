@@ -27,36 +27,6 @@ namespace :account do
         end
       end
     end
-    
-    desc "Informs all users on the new url structure"
-    task(:notify => :environment) do
-      test_mode = true
-      if ENV['TEST_MODE'].nil?
-        test_mode = true
-      else
-        test_mode = false
-      end
-      Account.all.each do |account|
-        account.people.each do |person|
-          if person.authenticated?
-            p "mailing #{account.name}'s #{person.name}"
-            if test_mode
-              if %w(lebreeze@gmail.com levent.ali@jgp.co.uk levent@leventali.com).include?(person.email)
-                NotificationMailer.account_information(person, account).deliver
-                p "sent in test mode"
-              else
-                p "not sent in test mode"
-              end
-            else            
-              NotificationMailer.account_information(person, account).deliver
-              p "sent in production mode"
-            end
-            p "done..."
-            puts
-            puts
-          end
-        end
-      end
-    end
+
   end
 end
