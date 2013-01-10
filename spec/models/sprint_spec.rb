@@ -1,16 +1,16 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Sprint do
-  
+
   before(:each) do
     @it = Sprint.new
-    
+
     # stub out sweepers
     sweeper = mock(SprintAuditSweeper)
     sweeper.stub!(:update)
     SprintElement.instance_variable_set(:@observer_peers, [sweeper])
   end
-  
+
   it { should have_many(:sprint_changes)}
   it { should have_many(:sprint_elements).dependent(:delete_all) }
   it { should have_many(:user_stories) }
@@ -31,7 +31,7 @@ describe Sprint do
       sprint = Sprint.create!(:name => "Disco dance prep", :account => account, :start_at => start)
       account.iteration_length.weeks.from_now(1.day.ago(start)).end_of_day.should == sprint.end_at
     end
-    
+
     it "should set it to end of day on subsequent saves" do
       start = 19.days.from_now
       account = Account.make!(:iteration_length => 1)
@@ -75,6 +75,15 @@ describe Sprint do
     it "should return the total story points for all the complete user stories" do
       @sprint.calculated_velocity.should == 56
       @sprint.velocity.should == 56
+    end
+  end
+
+  describe "#validate" do
+    it "should require start and end to be in right order" do
+      @it.start_at = 1.day.from_now
+      @it.end_at = 1.day.ago
+      @it.validate
+      @it.errors[:start_at].should include("and end at must be different")
     end
   end
 
