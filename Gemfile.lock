@@ -68,6 +68,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    colorize (0.5.8)
     columnize (0.3.6)
     daemons (1.1.9)
     debugger (1.2.3)
@@ -104,6 +105,7 @@ GEM
     gravtastic (3.2.6)
     highline (1.6.15)
     hike (1.2.1)
+    hirb (0.7.0)
     hiredis (0.4.5)
     http_parser.rb (0.5.3)
     i18n (0.6.1)
@@ -203,6 +205,10 @@ GEM
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
+    simplecov-console (0.1.0)
+      colorize
+      hirb
+      simplecov
     simplecov-html (0.7.1)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -260,7 +266,8 @@ DEPENDENCIES
   ruby-prof
   sass-rails (~> 3.2.3)
   shoulda-matchers
-  simplecov
+  simplecov (= 0.7.1)
+  simplecov-console
   subdomain-fu!
   thin
   thinking-sphinx (= 2.0.13)
