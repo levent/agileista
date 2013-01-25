@@ -15,7 +15,6 @@
 //= require jquery-ui-1.8.18
 //= require jquery.flot
 //= require jquery.flot.resize
-//= require jquery.jkey
 //= require juggernaut
 //= require agileista
 //= require main
