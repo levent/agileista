@@ -28,11 +28,13 @@
             <span class="icon-bar"></span>
           </a>
 
-
-        <%= form_for :tag, :url => {:controller => :backlog, :action => 'search'}, :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
-          <%= text_field_tag 'q' %><%= submit_tag 'Search', :class => "submit" %>
-        <% end %>
-
+          <div class="row">
+            <div class="span12">
+              <%= form_for :tag, :url => {:controller => :backlog, :action => 'search'}, :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
+                <%= text_field_tag 'q' %><%= submit_tag 'Search', :class => "submit" %>
+              <% end %>
+            </div>
+          </div>
 
           <%= render :partial => 'shared/account_switcher', :locals => {:other_accounts => @other_accounts, :account => @account} %>
           <div class="nav-collapse collapse">
@@ -54,9 +56,8 @@
     </div>
   <% end -%>
 
-  <div class="container-fluid">
-
-    <div class="row-fluid">
+  <div class="container">
+    <div class="row">
       <div class="span12">
         <%= yield %>
       </div>

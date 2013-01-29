@@ -1,92 +1,84 @@
-<div id="info">
-  <h2>Agileista is online collaboration for remote Scrum teams</h2>
-  <ul>
-    <li>Backlog management</li>
-    <li>Sprint planning</li>
-    <li>Impediment logging</li>
-    <li>Velocity calculations and horizon planning</li>
-    <li>Realtime task board updates</li>
-    <li>Support for pair programming</li>
-    <li>Sprint burnup and burndowns</li>
-  </ul>
-</div>
+<div class="row">
+  <div class="span6">
 
-<div id="box">
-  <div class="block" id="block-signup">
-    <h2 class="clearfix">Signup</h2>
-    <div class="content signup">
+    <h1>Signup</h1>
+
     <ul class="errorExplanation">
       <% @account.errors.full_messages.each do |error| %>
         <li><%= error %></li>
       <% end %>
     </ul>
-      <%= form_tag('/signup', :method => 'post', :class => "form signup") %>
-        <div class="group clearfix">
-          <div class="left">
-            <label for="account_name" class="label right">Account name</label>
 
-          </div>
-          <div class="right">
-            <%= text_field :account, :name, :class => "text_field" %>
+    <%= form_tag('/signup', :method => 'post', :class => "form-horizontal") %>
+      <div class="control-group">
+        <label for="user_name" class="control-label">Your name</label>
+        <div class="controls">
+          <%= text_field :user, :name, :required => true %>
+        </div>
+      </div>
+
+      <ul class="errorExplanation">
+        <% @user.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+
+      <div class="control-group">
+        <label for="user_email" class="control-label">Your email</label>
+        <div class="controls">
+          <%= text_field :user, :email, :required => true %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="user_password" class="control-label">Password</label>
+        <div class="controls">
+          <%= password_field :user, :password, :required => true %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="user_password_confirmation" class="control-label">Confirm your password</label>
+        <div class="controls">
+          <%= password_field :user, :password_confirmation, :required => true %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="account_name" class="control-label">Account name</label>
+
+        <div class="controls">
+          <%= text_field :account, :name, :required => true %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label for="account_subdomain" class="control-label">Site address</label>
+        <div class="controls">
+          <div class="input-append">
+            <%= text_field :account, :subdomain, :required => true %>
+            <span class="add-on">.<%= AccountStuff::DOMAIN %></span>
           </div>
         </div>
+      </div>
 
-        <div class="group clearfix">
-          <div class="left">
-            <label for="account_subdomain" class="label right">Site address</label>
-          </div>
-          <div class="right">
-            <%= text_field :account, :subdomain, :class => 'nowrap' %>.<%= AccountStuff::DOMAIN %>
-          </div>
-        </div>
 
-        <div class="group clearfix">
-          <div class="left">
-            <label for="user_name" class="label right">Your name</label>
-          </div>
-          <div class="right">
-            <%= text_field :user, :name %>
-          </div>
+      <div class="control-group">
+        <div class="controls">
+          <%= button_tag "Create account", :class => 'btn btn-info' %>
         </div>
-
-        <ul class="errorExplanation">
-          <% @user.errors.full_messages.each do |error| %>
-            <li><%= error %></li>
-          <% end %>
-        </ul>
-        <div class="group clearfix">
-          <div class="left">
-            <label for="user_email" class="label right">Your email</label>
-          </div>
-          <div class="right">
-            <%= text_field :user, :email %>
-          </div>
-        </div>
-
-        <div class="group clearfix">
-          <div class="left">
-            <label for="user_password" class="label right">Password</label>
-          </div>
-          <div class="right">
-            <%= password_field :user, :password %>
-          </div>
-        </div>
-
-        <div class="group clearfix">
-          <div class="left">
-            <label for="user_password_confirmation" class="label right">Confirm your password</label>
-          </div>
-          <div class="right">
-            <%= password_field :user, :password_confirmation %>
-          </div>
-        </div>
-
-        <div class="group navform clearfix">
-          <div class="right">
-            <%= submit_tag "Create account", :class => 'button' %>
-          </div>
-        </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
+  <div class="span6">
+    <ul>
+      <li class="lead">Backlog management</li>
+      <li class="lead">Sprint planning</li>
+      <li class="lead">Impediment logging</li>
+      <li class="lead">Velocity calculations and horizon planning</li>
+      <li class="lead">Realtime task board updates</li>
+      <li class="lead">Pair programming support</li>
+      <li class="lead">Sprint burnup and burndowns</li>
+    </ul>
+  </div><!--/span-->
 </div>

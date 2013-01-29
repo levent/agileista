@@ -1,5 +1,5 @@
 class SignupController < ApplicationController
-#  ssl_required :index, :ok, :create, :validate
+  layout 'fixed'
 
   def index
     logger.error("/signup#{AccountStuff::MASTER_SUBDOMAIN}")

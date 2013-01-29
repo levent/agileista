@@ -18,8 +18,15 @@ module ApplicationHelper
   def show_story_points(points, opts = {})
     options = {:unit => "story point"}.merge(opts)
     points = points.nil? ? "?" : points
+    output = pluralize(points, options[:unit])
 
-    pluralize(points, options[:unit])
+    if options[:badge]
+      content_tag :span, :class => 'badge' do
+        output
+      end
+    else
+      output
+    end
   end
 
   def show_assignees(developers)
@@ -95,7 +102,7 @@ module ApplicationHelper
       end
     end
 
-    content_tag(:ul, result.join("").html_safe)
+    content_tag(:ul, result.join("").html_safe, :class => 'nav')
   end
 
   def user_navigation
@@ -108,7 +115,7 @@ module ApplicationHelper
       end
     end
 
-    return content_tag(:ul, result.join("").html_safe)
+    return content_tag(:ul, result.join("").html_safe, :class => 'nav pull-right')
   end
 
   def add_user_story
@@ -133,7 +140,13 @@ module ApplicationHelper
   end
 
   def user_story_state(state)
-    %[<span class="#{state}">#{state.titleize}</span>].html_safe
+    mapping = {
+      :clarify => '',
+      :criteria => 'label-warning',
+      :estimate => 'label-info',
+      :plan => 'label-success'
+    }
+    %[<span class="label #{mapping[state.to_sym]}">#{state.titleize}</span>].html_safe
   end
 
   def pagination_info(entries, name = "entries")

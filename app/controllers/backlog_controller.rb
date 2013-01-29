@@ -17,11 +17,8 @@ class BacklogController < AbstractSecurityController
     end
     respond_to do |format|
       format.html do
-        cookies[:backlog] ||= "list"
         if @account.user_stories.blank?
           render :action => 'get_started' 
-        elsif cookies[:backlog] == "list"
-          render :action => 'list'
         end
       end
       format.csv do

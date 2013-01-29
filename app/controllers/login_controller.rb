@@ -1,5 +1,5 @@
 class LoginController < ApplicationController
-#  ssl_required :index, :authenticate, :logout
+  layout 'fixed'
   
   def index
     if AccountStuff::MASTER_SUBDOMAIN == current_subdomain

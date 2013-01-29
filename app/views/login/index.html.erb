@@ -1,34 +1,12 @@
-<div id="box">
-  <div class="block" id="block-login">
-    <h2 class="clearfix">Login<%= create_new_account? %></h2>
-    <div class="content login">
-      <%= form_tag({:action => 'authenticate'}, :class => 'form login') %>
-        <div class="group clearfix">
-          <div class="left">
-            <label for="email" class="label right">Email</label>
-          </div>
-          <div class="right">
-            <%= text_field_tag "email", params[:email], :class => 'text_field' %>
-          </div>
-        </div>
+<div class="row">
+  <div class="span4 offset4">
+    <%= form_tag({:action => 'authenticate'}, :class => 'form-signin') %>
+      <h2>Please login</h2>
+      <%= text_field_tag "email", params[:email], :class => 'input-block-level', :placeholder => 'Email address' %>
 
-        <div class="group clearfix">
-          <div class="left">
-            <label for="password" class="label right">Password</label>
-          </div>
-          <div class="right">
-            <%= password_field_tag "password", nil, :class => 'text_field' %>
-          </div>
-        </div>
-
-        <div class="group navform clearfix">
-          <div class="right">
-            <%= submit_tag "Login", :class => 'button' %>
-            <%= link_to 'I forgot my password', login_forgot_path, :class => 'link' %>
-          </div>
-        </div>
-      </form>
-    </div>
+      <%= password_field_tag "password", nil, :class => 'input-block-level', :placeholder => 'Password' %>
+      <%= button_tag "Login", :class => 'btn btn-large btn-info' %>
+      <%= link_to 'I forgot my password', login_forgot_path %>
+    </form>
   </div>
 </div>
-
