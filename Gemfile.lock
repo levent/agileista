@@ -41,6 +41,8 @@ GEM
     asset_sync (0.5.3)
       activemodel
       fog
+    bootstrap-sass (2.2.2.0)
+      sass (~> 3.2)
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
@@ -245,6 +247,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on
   asset_sync
+  bootstrap-sass (~> 2.2.2.0)
   capistrano
   capistrano-ext
   coffee-rails (~> 3.2.1)
