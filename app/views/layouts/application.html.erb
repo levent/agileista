@@ -80,6 +80,7 @@
 
 </div>
   <%= javascript_include_tag "application" %>
+  <script src="<%= "#{request.protocol}#{request.host}:8080" %>/application.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript" charset="utf-8">
     <%= yield :custom_js %>
   </script>
