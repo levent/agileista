@@ -4,8 +4,12 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
   SimpleCov::Formatter::Console,
 ]
-SimpleCov.start 'rails'
-SimpleCov.minimum_coverage 57
+SimpleCov.start 'rails' do
+  add_filter "/vendor/"
+  add_filter '.gem/'
+  add_filter '/lib/tasks/'
+  minimum_coverage 57
+end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
