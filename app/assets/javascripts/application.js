@@ -12,6 +12,7 @@
 //
 //= require jquery-1.7.2
 //= require jquery_ujs
+//= require foundation
 //= require jquery-ui-1.8.18
 //= require jquery.flot
 //= require jquery.flot.resize

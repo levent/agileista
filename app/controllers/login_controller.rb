@@ -1,6 +1,4 @@
 class LoginController < ApplicationController
-  layout 'fixed'
-  
   def index
     if AccountStuff::MASTER_SUBDOMAIN == current_subdomain
       redirect_to root_path and return false

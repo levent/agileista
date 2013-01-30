@@ -5,5 +5,5 @@
   <td class="points"><%= show_story_points(user_story_row.story_points, :unit => "", :badge => true) %></td>
   <td class="stakeholder"><%= show_stakeholder(user_story_row) %></td>
   <td class="when"><%= user_story_row.created_at.strftime("%d/%m/%y") %></td>
-  <td><%= link_to 'Edit', edit_link(user_story_row), :class => "button" %></td>
+  <td><%= link_to 'Edit', edit_link(user_story_row), :class => "tiny button" %></td>
 </tr>

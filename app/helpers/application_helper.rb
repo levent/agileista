@@ -21,7 +21,7 @@ module ApplicationHelper
     output = pluralize(points, options[:unit])
 
     if options[:badge]
-      content_tag :span, :class => 'badge' do
+      content_tag :span, :class => 'label round secondary' do
         output
       end
     else
@@ -142,9 +142,9 @@ module ApplicationHelper
   def user_story_state(state)
     mapping = {
       :clarify => '',
-      :criteria => 'label-warning',
-      :estimate => 'label-info',
-      :plan => 'label-success'
+      :criteria => 'alert',
+      :estimate => 'secondary',
+      :plan => 'success'
     }
     %[<span class="label #{mapping[state.to_sym]}">#{state.titleize}</span>].html_safe
   end
