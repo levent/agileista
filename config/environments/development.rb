@@ -34,6 +34,7 @@ Agileista::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
   COOKIE_DOMAIN = 'agileista.local'
   EMAIL_FROM = "donotreply@agileista.local"
   MAIN_HOST = 'agileista.local'

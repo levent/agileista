@@ -10,10 +10,9 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery-1.7.2
+//= require jquery
+//= require jquery-ui
 //= require jquery_ujs
-//= require foundation
-//= require jquery-ui-1.8.18
 //= require jquery.flot
 //= require jquery.flot.resize
 //= require agileista
