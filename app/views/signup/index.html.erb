@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span6">
+  <div class="six columns">
 
     <h1>Signup</h1>
 
@@ -10,75 +10,90 @@
     </ul>
 
     <%= form_tag('/signup', :method => 'post', :class => "form-horizontal") %>
-      <div class="control-group">
-        <label for="user_name" class="control-label">Your name</label>
-        <div class="controls">
-          <%= text_field :user, :name, :required => true %>
-        </div>
-      </div>
-
       <ul class="errorExplanation">
         <% @user.errors.full_messages.each do |error| %>
           <li><%= error %></li>
         <% end %>
       </ul>
 
-      <div class="control-group">
-        <label for="user_email" class="control-label">Your email</label>
-        <div class="controls">
-          <%= text_field :user, :email, :required => true %>
+      <div class="row">
+        <div class="two mobile-one columns">
+          <label for="user_name" class="right inline">Your name:</label>
+        </div>
+        <div class="ten mobile-three columns">
+          <%= text_field :user, :name, :class => "eight" %>
         </div>
       </div>
 
-      <div class="control-group">
-        <label for="user_password" class="control-label">Password</label>
-        <div class="controls">
-          <%= password_field :user, :password, :required => true %>
+      <div class="row">
+        <div class="two mobile-one columns">
+          <label for="user_email" class="inline right">Your email:</label>
+        </div>
+        <div class="ten mobile-three columns">
+          <%= text_field :user, :email, :class => 'eight' %>
         </div>
       </div>
 
-      <div class="control-group">
-        <label for="user_password_confirmation" class="control-label">Confirm your password</label>
-        <div class="controls">
-          <%= password_field :user, :password_confirmation, :required => true %>
+      <div class="row">
+        <div class="two mobile-one columns">
+          <label for="user_password" class="inline right">Password:</label>
+        </div>
+        <div class="ten mobile-three columns">
+          <%= password_field :user, :password, :class => 'eight' %>
         </div>
       </div>
 
-      <div class="control-group">
-        <label for="account_name" class="control-label">Account name</label>
-
-        <div class="controls">
-          <%= text_field :account, :name, :required => true %>
+      <div class="row">
+        <div class="two mobile-one columns">
+          <label for="user_password_confirmation" class="inline right">Confirm passphrase:</label>
+        </div>
+        <div class="ten mobile-three columns">
+          <%= password_field :user, :password_confirmation, :class => 'eight' %>
         </div>
       </div>
 
-      <div class="control-group">
-        <label for="account_subdomain" class="control-label">Site address</label>
-        <div class="controls">
-          <div class="input-append">
-            <%= text_field :account, :subdomain, :required => true %>
-            <span class="add-on">.<%= AccountStuff::DOMAIN %></span>
+      <div class="row">
+        <div class="two mobile-one columns">
+          <label for="account_name" class="inline right">Account name:</label>
+        </div>
+
+        <div class="ten mobile-three columns">
+          <%= text_field :account, :name, :class => 'eight' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="twelve columns">
+          <div class="two mobile-one columns">
+            <label for="account_subdomain" class="inline right">Site address:</label>
+          </div>
+          <div class="row collapse">
+            <div class="six mobile-three columns">
+              <%= text_field :account, :subdomain, :class => '' %>
+            </div>
+            <div class="four mobile-one columns">
+              <span class="postfix">.<%= AccountStuff::DOMAIN %></span>
+            </div>
           </div>
         </div>
       </div>
 
-
-      <div class="control-group">
-        <div class="controls">
-          <%= button_tag "Create account", :class => 'btn btn-info' %>
+      <div class="row">
+        <div class="ten columns offset-by-two">
+          <%= button_tag "Create account", :class => 'button large' %>
         </div>
       </div>
     </form>
   </div>
-  <div class="span6">
+  <div class="six columns">
     <ul>
-      <li class="lead">Backlog management</li>
-      <li class="lead">Sprint planning</li>
-      <li class="lead">Impediment logging</li>
-      <li class="lead">Velocity calculations and horizon planning</li>
-      <li class="lead">Realtime task board updates</li>
-      <li class="lead">Pair programming support</li>
-      <li class="lead">Sprint burnup and burndowns</li>
+      <li>Backlog management</li>
+      <li>Sprint planning</li>
+      <li>Impediment logging</li>
+      <li>Velocity calculations and horizon planning</li>
+      <li>Realtime task board updates</li>
+      <li>Pair programming support</li>
+      <li>Sprint burnup and burndowns</li>
     </ul>
   </div><!--/span-->
 </div>

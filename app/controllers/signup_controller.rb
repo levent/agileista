@@ -1,6 +1,4 @@
 class SignupController < ApplicationController
-  layout 'fixed'
-
   def index
     logger.error("/signup#{AccountStuff::MASTER_SUBDOMAIN}")
     logger.error("/signup#{current_subdomain}")
