@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="six columns">
+  <div class="six columns offset-by-one">
 
     <h1>Signup</h1>
 
@@ -9,83 +9,36 @@
       <% end %>
     </ul>
 
-    <%= form_tag('/signup', :method => 'post', :class => "form-horizontal") %>
-      <ul class="errorExplanation">
-        <% @user.errors.full_messages.each do |error| %>
-          <li><%= error %></li>
-        <% end %>
-      </ul>
 
-      <div class="row">
-        <div class="two mobile-one columns">
-          <label for="user_name" class="right inline">Your name:</label>
-        </div>
-        <div class="ten mobile-three columns">
-          <%= text_field :user, :name, :class => "eight" %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="two mobile-one columns">
-          <label for="user_email" class="inline right">Your email:</label>
-        </div>
-        <div class="ten mobile-three columns">
-          <%= text_field :user, :email, :class => 'eight' %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="two mobile-one columns">
-          <label for="user_password" class="inline right">Password:</label>
-        </div>
-        <div class="ten mobile-three columns">
-          <%= password_field :user, :password, :class => 'eight' %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="two mobile-one columns">
-          <label for="user_password_confirmation" class="inline right">Confirm passphrase:</label>
-        </div>
-        <div class="ten mobile-three columns">
-          <%= password_field :user, :password_confirmation, :class => 'eight' %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="two mobile-one columns">
-          <label for="account_name" class="inline right">Account name:</label>
-        </div>
-
-        <div class="ten mobile-three columns">
-          <%= text_field :account, :name, :class => 'eight' %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="twelve columns">
-          <div class="two mobile-one columns">
-            <label for="account_subdomain" class="inline right">Site address:</label>
-          </div>
-          <div class="row collapse">
-            <div class="six mobile-three columns">
-              <%= text_field :account, :subdomain, :class => '' %>
+    <%= simple_form_for @account, :url => signup_path, :method => :post do |a| %>
+      <fieldset>
+        <div class="row">
+          <div class="eight columns">
+            <%= a.simple_fields_for :team_members do |p| %>
+              <%= p.input :name, label: 'Your full name' %>
+              <%= p.input :email, label: 'Your email' %>
+              <%= p.input :password, label: 'Passphrase' %>
+              <%= p.input :password_confirmation, label: 'Confirm passphrase' %>
+            <% end %>
+            <%= a.input :name, label: 'Account name' %>
+            <%= a.label :subdomain, 'Site address' %>
+            <div class="row collapse">
+              <div class="nine mobile-three columns">
+                <%= a.input :subdomain, label: false %>
+              </div>
+              <div class="three mobile-one columns">
+                <span class="postfix">.<%= AccountStuff::DOMAIN %></span>
+              </div>
             </div>
-            <div class="four mobile-one columns">
-              <span class="postfix">.<%= AccountStuff::DOMAIN %></span>
-            </div>
+            <%= button_tag "Create account", :class => 'button large' %>
           </div>
         </div>
-      </div>
+      </fieldset>
+    <% end %>
 
-      <div class="row">
-        <div class="ten columns offset-by-two">
-          <%= button_tag "Create account", :class => 'button large' %>
-        </div>
-      </div>
-    </form>
   </div>
-  <div class="six columns">
+
+  <div class="four columns">
     <ul>
       <li>Backlog management</li>
       <li>Sprint planning</li>
@@ -95,5 +48,5 @@
       <li>Pair programming support</li>
       <li>Sprint burnup and burndowns</li>
     </ul>
-  </div><!--/span-->
+  </div>
 </div>

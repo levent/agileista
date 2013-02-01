@@ -8,19 +8,16 @@ class SignupController < ApplicationController
       redirect_to login_path(:subdomain => current_subdomain)
     end
     @account = Account.new
-    @user = @account.team_members.new
+    @account.team_members.build
   end
   
   def create
     redirect_to :controller => 'signup', :action => 'index' and return false if reserved_subdomain?(params[:account])
     @account = Account.new(params[:account])
-    @user = @account.team_members.new(params[:user])
-    @account.account_holder = @user
-    if @account.valid? && @user.valid? && @account.save # only save if valid!
-      @user.account = @account
-      @user.save
-      @account.save
-      NotificationMailer.account_activation_info(@user, @account).deliver
+    user = @account.team_members.first
+    @account.account_holder = user
+    if @account.save # only save if valid!
+      NotificationMailer.account_activation_info(user, @account).deliver
       NotificationMailer.new_account_on_agileista(@account).deliver
       flash[:notice] = "Account created.. please check your email to validate your account"
       redirect_to :action => 'ok', :subdomain => @account.subdomain

@@ -9,7 +9,7 @@ class Person < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :email
   validates_uniqueness_of :email, :scope => :account_id, :case_sensitive => false
-  belongs_to :account  
+  belongs_to :account
   has_many :user_stories
   has_many :task_developers, :foreign_key => "developer_id"
   has_many :tasks, :through => :task_developers

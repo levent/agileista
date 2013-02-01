@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require foundation
 //= require jquery.flot
 //= require jquery.flot.resize
 //= require agileista

@@ -16,6 +16,7 @@ gem 'gravtastic'
 gem 'ranked-model'
 gem "hiredis", "0.4.5"
 gem "redis", "3.0.2", :require => ["redis/connection/hiredis", "redis"]
+gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git', :branch => 'v2.1'
 gem 'thin'
 
 group :assets do

@@ -1,17 +1,15 @@
 <nav class="top-bar">
+  <% if logged_in? && @account %>
+
   <ul>
     <!-- Title Area -->
     <li class="name">
       <h1>
-        <a href="#">
-          Agileista
-        </a>
+        <%= link_to "Agileista", root_path %>
       </h1>
     </li>
     <li class="toggle-topbar"><a href="#"></a></li>
   </ul>
-
-  <% if logged_in? && @account %>
 
   <section>
     <!-- Left Nav Section -->
@@ -43,7 +41,6 @@
 
     <!-- Right Nav Section -->
     <ul class="right">
-      <li class="divider show-for-medium-and-up"></li>
       <li class="has-dropdown">
         <%= link_to(current_user.name, edit_user_url(current_user)) %>
         <ul class="dropdown">
@@ -56,6 +53,17 @@
       </li>
     </ul>
   </section>
+
+  <% else %>
+
+  <ul>
+    <!-- Title Area -->
+    <li class="name">
+      <h1>
+        <%= link_to "Agileista", root_path %>
+      </h1>
+    </li>
+  </ul>
 
   <% end %>
 

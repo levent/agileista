@@ -10,11 +10,14 @@ class Account < ActiveRecord::Base
   belongs_to :account_holder, :class_name => "Person", :foreign_key => 'account_holder_id'
   
   validates_presence_of :name
+  validates_presence_of :subdomain
   validates_uniqueness_of :name, :case_sensitive => false
   validates_uniqueness_of :subdomain, :case_sensitive => false
   validates_format_of :subdomain, :with => /^[A-Za-z]+[-A-Za-z0-9]*[A-Za-z0-9]+$/, :message => "may only contain numbers and letters"
   
   before_validation :make_fields_lowercase
+
+  accepts_nested_attributes_for :team_members
 
   def median_velocity
     return if sprints.finished.statistically_significant(self).empty?
