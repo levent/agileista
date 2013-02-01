@@ -106,6 +106,7 @@ function setupTaskBoardStats() {
   $("#current_complete").html(sum_complete);
   var current_percentage = (Math.round((sum_complete / current_total) * 100));
   $("#current_percentage").html(current_percentage + '%');
+  $("#progress-bar .meter").css('width', current_percentage + '%');
 }
 
 function setupSprintPlanning(sprint_id) {
