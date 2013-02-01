@@ -1,31 +1,22 @@
-<div id="main" class="wide">
-  <div class="block">
+<%= render :partial => "shared/burn_charts", :locals => {:flot_points => @flot_points} %>
+<h2 class="title"><%= sprint_header(@sprint) %> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
 
-    <div class="content">
-      <%= render :partial => "shared/burn_charts", :locals => {:flot_points => @flot_points} %>
-      <h2 class="title"><%= sprint_header(@sprint, :buttons => [:add_story]) %> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
-
-      <div class="inner">
-        <table class="table">
-          <tbody>
-            <tr>
-              <th>User story</th>
-              <th>Incomplete</th>
-              <th>In progress</th>
-              <th>Complete <%= link_to 'hide completed stories', '#', :id => 'togglecomplete', :class => 'redbutton' %></th>
-            </tr>
-            <tr id="completed_user_stories_hidden" style="display:none">
-              <td colspan="4">Completed user stories are hidden...</td>
-            </tr>
-            <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-  <%= render(:partial => "shared/footer") %>
-</div>
+<table class="twelve bland">
+  <thead>
+    <tr>
+      <th class="three">User story</th>
+      <th class="three">Incomplete</th>
+      <th class="three">In progress</th>
+      <th class="three">Complete <%= link_to 'hide completed stories', '#', :id => 'togglecomplete', :class => 'redbutton' %></th>
+    </tr>
+  </thead>
+    <tr id="completed_user_stories_hidden" style="display:none">
+      <td colspan="4">Completed user stories are hidden...</td>
+    </tr>
+  <tbody>
+    <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
+  </tbody>
+</table>
 
 <% content_for :custom_js do %>
   setupTaskBoardStats();

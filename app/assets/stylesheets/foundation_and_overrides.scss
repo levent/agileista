@@ -244,3 +244,7 @@ $rowWidth: 96%;
 // http://www.modularscale.com by Tim Brown
 // https://github.com/scottkellum/modular-scale by scottkellum
 @import 'foundation';
+
+table.bland tbody tr:nth-child(even) {
+  background: none;
+}

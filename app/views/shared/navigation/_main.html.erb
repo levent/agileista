@@ -28,13 +28,20 @@
         <%= link_to "Themes", themes_path %>
       </li>
       <li class="divider"></li>
-      <li>
+      <li class="has-dropdown">
         <%= link_to "Sprints", sprints_path %>
+        <ul class="dropdown">
+          <li><%= link_to("Add sprint", new_sprint_path) %></li>
+          <li><%= link_to "View all sprints", sprints_path %></li>
+        </ul>
       </li>
       <li class="divider"></li>
       <% if current_sprint %>
-        <li>
+        <li class="has-dropdown">
           <%= link_to "Task Board", sprint_path(current_sprint) %>
+          <ul class="dropdown">
+            <li><%= link_to("Add story into current sprint", new_sprint_user_story_url(current_sprint)) %></li>
+          </ul>
         </li>
       <% end %>
     </ul>

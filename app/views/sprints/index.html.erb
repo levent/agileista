@@ -1,39 +1,31 @@
-<div id="main" class="wide">
-  <div class="block">
-    <%= render(:partial => "shared/navigation/sprints_secondary") %>
-
-    <div class="content">
-      <%= render :partial => "shared/velocity_chart", :locals => {:flot_points => @flot_points} %>
-      <% unless @sprints.blank? %>
-        <h2 class="title">Total: <strong class="hightlight"><%= @sprints.size %></strong>. Finished: <strong class="hightlight"><%= @sprints.finished.size %></strong>. Average velocity: <strong class="hightlight"><%= average_velocity(@account) %></strong>*</h2>
-        <p><strong>90%</strong> likelihood velocity will be between <%= @cint_lo %> and <%= @cint_hi %>*<br>*stats based on sprints since <strong><%= show_date(Velocity.stats_significant_since(@account).to_time) %></strong></p>
-        <div class="inner">
-          <table class="table">
-            <tbody>
-              <tr>
-              <th class="first">Name</th>
-              <th class="description">Description</th>
-              <th class="points">Points</th>
-              <th class="points">Velocity</th>
-              <th class="date">From</th>
-              <th class="date">To</th>
-              <th class="actions last"></th>
-            </tr>
-            <%= render @sprints %>
-            </tbody>
-          </table>
-        </div>
-      <% else %>
-        <div class="inner">
-          <div class="flash">
-            <div class="message notice">
-              <p>There are no sprints for this project, <%= link_to "create your first sprint", new_sprint_url %>.</p>
-            </div>
-          </div>
-        </div>
-      <% end %>
+<%= render :partial => "shared/velocity_chart", :locals => {:flot_points => @flot_points} %>
+<% unless @sprints.blank? %>
+  <h2><small>Total:</small> <%= @sprints.size %>. <small>Finished:</small> <%= @sprints.finished.size %>. <small>Average velocity:</small> <%= average_velocity(@account) %>*</h2>
+  <p><strong>90%</strong> likelihood velocity will be between <%= @cint_lo %> and <%= @cint_hi %>*<br>*stats based on sprints since <strong><%= show_date(Velocity.stats_significant_since(@account).to_time) %></strong></p>
+  <div class="inner">
+    <table class="twelve">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Points</th>
+          <th>Velocity</th>
+          <th>From</th>
+          <th>To</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @sprints %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div class="inner">
+    <div class="flash">
+      <div class="message notice">
+        <p>There are no sprints for this project, <%= link_to "create your first sprint", new_sprint_url %>.</p>
+      </div>
     </div>
   </div>
-  <%= render(:partial => "shared/footer") %>
-</div>
-
+<% end %>

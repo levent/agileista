@@ -6,14 +6,14 @@
   <td class="date"><%= show_date(sprint.start_at) %></td>
   <td class="date"><%= show_date(sprint.end_at) %></td>
   <td class="actions">
-    <%= link_to 'Show', sprint_url(sprint), :class => 'button' %>
+    <%= link_to 'Show', sprint_url(sprint), :class => 'button tiny' %>
     <% if !sprint.finished? %>
-		  <%= link_to 'Edit', edit_sprint_url(sprint), :class => 'button' %>
-		  <%= link_to 'Plan', plan_sprint_url(sprint), :class => 'button' %>
+		  <%= link_to 'Edit', edit_sprint_url(sprint), :class => 'button tiny' %>
+		  <%= link_to 'Plan', plan_sprint_url(sprint), :class => 'button tiny' %>
     <% end %>
     <% if sprint.finished? %>
-      <%= link_to 'Manage', plan_sprint_url(sprint), :class => 'button' %>
-      <%= link_to 'Calc stats from here', set_stats_sprint_url(sprint), :method => 'post', :class => (@stats_since_sprint.to_i == sprint.id ? 'redbutton' : 'button') if current_user.account_holder? %>
+      <%= link_to 'Manage', plan_sprint_url(sprint), :class => 'button tiny' %>
+      <%= link_to 'Calc stats from here', set_stats_sprint_url(sprint), :method => 'post', :class => (@stats_since_sprint.to_i == sprint.id ? 'alert button tiny' : 'button tiny') if current_user.account_holder? %>
     <% end%>
 </td>
 </tr>

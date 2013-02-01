@@ -1,4 +1,4 @@
-<dl id="task_card_<%= task_card.id %>" class="task_card" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-story="<%= user_story.id %>">
+<dl id="task_card_<%= task_card.id %>" class="panel task_card" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-story="<%= user_story.id %>">
   <dt class="clearfix">
     <% if defined?(sprint) %>
       <%= link_to 'Edit', edit_sprint_user_story_url(sprint, user_story, :anchor => "user_story_tasks"), :title => "Edit Task", :class => "edit" unless sprint.finished? %>
