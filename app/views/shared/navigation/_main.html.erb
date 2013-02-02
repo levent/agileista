@@ -36,7 +36,8 @@
         <li class="has-dropdown">
           <%= link_to "Task Board", sprint_path(current_sprint) %>
           <ul class="dropdown">
-            <li><%= link_to("Add story to current sprint", new_sprint_user_story_url(current_sprint)) %></li>
+            <li><%= link_to "Add story to current sprint", new_sprint_user_story_url(current_sprint) %></li>
+            <li><%= link_to "View task board", sprint_path(current_sprint) %>
           </ul>
         </li>
       <% end %>

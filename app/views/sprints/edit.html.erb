@@ -1,27 +1,2 @@
-<div id="main">
-  <div id="block-text" class="block">
-    <%= render(:partial => "shared/navigation/sprints_secondary") %>
-
-    <div class="content">
-      <h2 class="title">Editing sprint <%= @sprint.name %></h2>
-      <div class="inner">
-        <%= form_for @sprint, :url => sprint_url(@sprint), :html => {:method => "put", :class => "form"} do |form| %>
-          <%= render :partial => 'form', :locals => {:form => form} %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<% if @sprint.errors.size > 0 %>
-<div id="sidebar">
-  <div class="block notice errors">
-    <ul class="errorExplanation">
-      <% @sprint.errors.full_messages.each do |error| %>
-        <li><%= error %></li>
-      <% end %>
-    </ul>
-  </div>
-</div>
-<% end %>
-
+<h2>Edit Sprint</h2>
+<%= render :partial => 'form' %>
