@@ -1,44 +1,6 @@
-<div id="main">
-  <div class="block">
-    <%= render(:partial => "shared/navigation/account_secondary") %>
-
-    <div class="content">
-      <h2 class="title">Editing <strong class="hightlight"><%= @person.name %>'s</strong> details</h2>
-      <div class="inner">
-        <%= form_for @person, :url => user_url(@person), :html => {:method => :put, :class => "form"} do |p| %>
-        <div class="columns clearfix">
-
-          <div class="column left">
-        		<div class="group">
-        		  <%= p.label :name, nil, :class => "label" %>
-        		  <%= p.text_field :name, :class => "text_field" %>
-        		</div>
-
-        		<div class="group">
-        		  <%= p.label :email, nil, :class => "label" %>
-        		  <%= p.text_field :email, :class => "text_field" %>
-        		</div>
-
-        		<div class="group">
-      		    <%= submit_tag "Save" %> or <%= link_to "cancel", users_url %>
-      		  </div>
-      		</div>
-        </div>
-      	<% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="sidebar">
-  <% if @person.errors.size > 0 %>
-    <div class="block notice errors">
-    <ul class="errorExplanation">
-      <% @person.errors.full_messages.each do |error| %>
-        <li><%= error %></li>
-      <% end %>
-    </ul>
-    </div>
-  <% end %>
-</div>
-
+<h2>Editing <%= @person.name %>'s details</h2>
+<%= simple_form_for @person, url: users_url(@person), method: :put do |f| %>
+  <%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.button :submit, "Save changes" %>
+<% end %>
