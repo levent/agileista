@@ -1,8 +1,9 @@
 class AccountController < AbstractSecurityController
   def index
+    @user = current_user
     render :action => 'settings'
   end
-  
+
   def settings
     if @account.update_attributes(params[:account])
       flash[:notice] = "Settings saved"
@@ -14,8 +15,8 @@ class AccountController < AbstractSecurityController
 
   def change_password
     @user = current_user
-    if @account.authenticate(current_user.email, params[:old_password])
-      if @user.update_attributes(:password => params[:new_password], :password_confirmation => params[:new_password_confirmation])
+    if @account.authenticate(current_user.email, params[:person].delete(:old_password))
+      if @user.update_attributes(:password => params[:person][:password], :password_confirmation => params[:person][:password_confirmation])
         flash[:notice] = "Password changed successfully"
         redirect_to root_path
       else

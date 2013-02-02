@@ -1,74 +1,26 @@
-<div id="main">
-  <div class="block">
-    <%= render(:partial => "shared/navigation/account_secondary") %>
+<h2>Account Settings</h2>
+<div class="row">
+  <div class="columns four">
+    <%= simple_form_for @user, url: account_change_password_path, method: :put do |f| %>
+      <%= f.input :old_password %>
+      <%= f.input :password %>
+      <%= f.input :password_confirmation %>
+      <%= f.button :submit, "Change password" %>
+    <% end %>
+  </div>
 
-    <div class="content">
-      <h2 class="title">Account settings</h2>
-      <div class="inner form">
-        <div class="columns clearfix">
+  <div class="columns four end">
+    <%= simple_form_for @account, url: account_settings_path do |f| %>
+      <p><%= f.input :iteration_length, as: :select, collection: [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]] %></p>
+      <%= f.button :submit, "Set iteration length" %>
+    <% end %>
 
-          <div class="column left">
-            <%= form_tag({:action => 'change_password'}, {:class => "form", :method => 'put'}) %>
-              <div class="group">
-                <label for="old_password" class="label">Old password</label>
-                <%= password_field_tag 'old_password', nil, :class => "text_field" %>
-              </div>
+    <hr>
 
-              <div class="group">
-                <label for="new_password" class="label">New password</label>
-                <%= password_field_tag 'new_password', nil, :class => "text_field" %>
-              </div>
-
-              <div class="group">
-                <label for="new_password_confirmation" class="label">Confirm new password</label>
-                <%= password_field_tag 'new_password_confirmation', nil, :class => "text_field" %>
-              </div>
-
-              <div class="group">
-                <%= submit_tag 'Change password' %>
-              </div>
-            </form>
-          </div>
-
-          <div class="column right">
-            <% if current_user.account_holder? %>
-              <%= form_for @account, :url => account_settings_path do |a| %>
-                <div class="group">
-                  <label for="account_iteration_length" class="label">Sprint iteration length:</label>
-                  <%= a.select :iteration_length, [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]], :include_blank => true, :class => "select" %>
-                </div>
-                <div class="group">
-                  <%= submit_tag "Change iteration length" %>
-                </div>
-              <% end %>
-            <% end %>
-            <%= form_tag({:action => 'generate_api_key'}, {:class => 'form'}) %>
-              <label class="label">Api Key:</label>
-              <div class="group">
-                <p><%= current_user.api_key || "No api key" %></p>
-              </div>
-              <%= submit_tag "Generate api key" %>
-
-            </form>
-          </div>
-
-        </div>
-      </div>
-    </div>
+    <%= form_tag({:action => 'generate_api_key'}, {:class => 'form'}) %>
+      <label>Api Key</label>
+      <p><%= current_user.api_key || "No api key" %></p>
+      <%= button_tag "Generate api key", :class => 'button' %>
+    </form>
   </div>
 </div>
-
-<% if current_user.account_holder? %>
-<div id="sidebar">
-  <% if @account.errors.size > 0 %>
-  <div class="block notice errors">
-    <ul class="errorExplanation">
-      <% @account.errors.full_messages.each do |error| %>
-        <li><%= error %></li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
-</div>
-<% end %>
-

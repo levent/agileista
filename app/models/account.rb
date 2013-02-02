@@ -32,11 +32,11 @@ class Account < ActiveRecord::Base
 
   def authenticate(email, password)
     person = self.people.find_by_email_and_authenticated_and_activation_code(email.try(:downcase), 1, nil)
-    return nil unless person
+    return false unless person
     if person.hashed_password == person.encrypt(password)
-      return person
+      person
     else
-      return nil
+      false
     end
   end
   
