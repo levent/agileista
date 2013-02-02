@@ -2,7 +2,6 @@
   <div class="row">
     <div class="eight columns">
       <%= f.input :name %>
-      <%= f.input :goal, input_html: { rows: 6 } %>
       <% default = @account.sprints.any? ? @account.sprints.first.end_at : nil %>
       <div class="row">
         <div class="four columns">
@@ -18,6 +17,8 @@
         </div>
         <div class="four columns"></div>
       </div>
+      <hr>
+      <%= f.input :goal, input_html: { rows: 6 } %>
     </div>
   </div>
 <% end %>

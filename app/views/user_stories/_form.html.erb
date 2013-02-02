@@ -35,12 +35,14 @@
       </ol>
       <p><%= link_to 'Add another', '#acceptance_criterium', :class => "add_nested_criterium", :rel => "acceptance_criteria" %></p>
 
+      <hr>
+
       <h3>Tasks</h3>
       <ol id="tasks">
         <%= f.simple_fields_for :tasks do |tf| %>
           <li>
           <%= tf.input :definition %>
-          <%= tf.input :description %>
+          <%= tf.input :description, input_html: {rows: 5} %>
           <%= tf.input :hours %>
           <% unless tf.object.new_record? %>
             <span class="remove">

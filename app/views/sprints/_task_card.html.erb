@@ -14,11 +14,11 @@
     <dd class="tasks clearfix">
     <input class="task_hours" size="3" name="hours" type="text" value="<%= task_card.hours %>">
     <% if task_card.team_members.include?(current_user) %>
-      <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :style => "display:none;", :class => 'claim_btn' %>
-      <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'renounce_btn' %>
+      <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :style => "display:none;", :class => 'button small claim_btn' %>
+      <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'button small renounce_btn' %>
     <% else %>
-      <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'claim_btn' %>
-      <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :style => "display:none;", :class => 'renounce_btn' %>
+      <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'button small claim_btn' %>
+      <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :style => "display:none;", :class => 'button small renounce_btn' %>
     <% end %>
     </dd>
   <% else %>
