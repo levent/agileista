@@ -1,20 +1,4 @@
-<%= form_for @user_story, :url => {:action => 'create'}, :html => {:class => "form"} do |us| %>
-<div id="main">
-  <div id="block-text" class="block">
-    <%= render(:partial => "shared/navigation/backlog_secondary") %>
-
-    <div class="content">
-      <h2 class="title"><%= @sprint ? "New user story for #{@sprint.name} sprint" : "New user story" %></h2>
-      <div class="inner">
-        <%= render :partial => 'form', :locals => {:account => @account, :us => us, :user_story => @user_story, :tags => @tags, :sprint => @sprint} %>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<%= render(:partial => "sidebar", :locals => {:user_story => @user_story, :acceptance_criteria => @user_story.acceptance_criteria, :us => us}) %>
-<% end %>
+<%= render :partial => 'form' %>
 
 <% content_for :custom_js do %>
   $(function(){

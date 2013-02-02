@@ -1,58 +1,59 @@
-<div class="columns clearfix">
+<%= simple_form_for @user_story do |f| %>
+  <div class="row">
 
-  <div class="column left">
-    <div class="group">
-      <%= us.label :definition, nil, :class => "label" %>
-      <%= us.text_area :definition, :class => "text_area", :rows => 5 %>
-      <span class="description">e.g. <strong class="hightlight">As a</strong> client <strong class="hightlight">I want</strong> reset forgotten password functionality <strong class="hightlight">so that</strong> ...</span>
-    </div>
-    
-    <div class="group">
-      <%= us.label :stakeholder, nil, :class => "label" %>
-      <%= us.text_field :stakeholder, :class => "text_field" %>
-    </div>
-    
-    <div class="developers">
-      <div class="group">
-        <%= us.label :story_points, nil, :class => "label" %>
-        <%= us.text_field :story_points, :class => "text_field" %>
-      </div>
-      <div class="group">
-        <div>
-          <%= us.check_box :cannot_be_estimated, :class => "checkbox" %>
-          <%= us.label :cannot_be_estimated, nil, :class => "checkbox" %>
+    <div class="seven columns">
+      <h2>New User Story</h2>
+      <%= f.input :definition, input_html: {rows: 5} %>
+      <div class="row">
+        <div class="five columns">
+          <%= f.input :story_points %>
+        </div>
+        <div class="five columns">
+          <%= f.input :stakeholder %>
+        </div>
+        <div class="two columns">
+          <%= f.label :cannot_be_estimated %>
+          <%= f.input :cannot_be_estimated, as: :boolean, label: false %>
         </div>
       </div>
+      <%= f.input :description, label: "Notes" %>
+      <%= f.button :submit, class: 'large' %>
     </div>
-    
-    <div class="group">
-      <% if params[:action] == 'edit' || params[:action] == 'update'  %>
-        <%= submit_tag "Save changes to user story" %>
-      <% elsif @sprint %>
-        <%= submit_tag "Add to task board" %>
-      <% else %>
-        <%= submit_tag "Add at start of backlog" %>
-        <%= submit_tag "Add at end of backlog" %>
-      <% end %> or <%= link_to "cancel", :controller => "backlog" %>
+
+    <div class="four columns">
+      <h3>Acceptance Criteria</h3>
+      <ol id="acceptance-criteria">
+        <%= f.simple_fields_for :acceptance_criteria do |ac| %>
+          <li>
+          <%= ac.input :detail %>
+          <% unless ac.object.new_record? %>
+            <span class="remove">
+              <%= ac.input '_destroy', label: "Remove", as: :boolean %>
+            </span>
+          <% end %>
+          </li>
+        <% end %>
+      </ol>
+      <p><%= link_to 'Add another', '#acceptance_criterium', :class => "add_nested_criterium", :rel => "acceptance_criteria" %></p>
+
+      <h3>Tasks</h3>
+      <ol id="tasks">
+        <%= f.simple_fields_for :tasks do |tf| %>
+          <li>
+          <%= tf.input :definition %>
+          <%= tf.input :description %>
+          <%= tf.input :hours %>
+          <% unless tf.object.new_record? %>
+            <span class="remove">
+              <%= tf.input '_destroy', label: "Remove", as: :boolean %>
+            </span>
+          <% end %>
+          </li>
+        <% end %>
+      </ol>
+      <p><%= link_to 'Add another', '#tasks', :class => "add_nested_task", :rel => "tasks" %></p>
     </div>
+
   </div>
-
-  <div class="column right">
-    <div class="group">
-      <%= us.label :description, "Notes", :class => "label" %>
-      <%= us.text_area :description, :class => "text_area", :rows => 5 %>
-      <span class="description">Useful information for the developer that will work on this user story</span>
-    </div> 
-
-    <div class="group columns clearfix">
-      <label class="label">Themes:</label>
-      <%= display_themes(account, user_story.themes) %>
-    </div>
-
-    <div class="group">
-      <label for="additional_theme" class="label">New theme</label>
-      <input type="text" id="additional_theme" name="additional_theme" class="text_field" />
-    </div>
-  </div>
-</div>
+<% end %>
 

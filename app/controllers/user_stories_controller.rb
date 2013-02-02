@@ -1,10 +1,10 @@
 class UserStoriesController < AbstractSecurityController
-#  ssl_allowed
+
   before_filter :user_story_must_exist, :only => [:update, :show, :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
   before_filter :set_sprint, :only => [:new, :show, :edit, :create, :plan, :unplan, :reorder]
   before_filter :set_additional_themes, :only => [:create, :update]
   before_filter :load_theme, :only => [:new]
-  
+
   def copy
     if @user_story.copy
       flash[:notice] = "User story copied and added to backlog"
@@ -13,14 +13,14 @@ class UserStoriesController < AbstractSecurityController
     end
     redirect_to :back
   end
-  
+
   def new
     @user_story = UserStory.new
     @user_story.themes << @theme if @theme
     @user_story.acceptance_criteria.build
     @user_story.tasks.build
   end
-  
+
   def show
     respond_to do |format|
       format.html {
@@ -32,45 +32,39 @@ class UserStoriesController < AbstractSecurityController
       }
     end
   end
-  
+
   def create
     @user_story = UserStory.new(params[:user_story])
     @user_story.account = @account
     @user_story.person = current_user
     @user_story.sprint = @sprint
-    
-    if params[:commit] == "Add at start of backlog"
-      @user_story.backlog_order_position = :first
-    else
-      @user_story.backlog_order_position = :last
-    end
+
+    @user_story.backlog_order_position = :first
 
     if @user_story.save
       @account.tag(@user_story, :with => params[:tags], :on => :tags)
       assign_additional_themes
-      
-      if params[:commit] == "Add to task board"
+
+      if @sprint
         SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
-        flash[:notice] = "User story added successfully"
         redirect_to sprint_url(@sprint)
       else
-        flash[:notice] = "User story created successfully"
         redirect_to backlog_path
       end
+
     else
-      flash[:error] = "There were errors creating the user story"
       @user_story.acceptance_criteria.build
       @user_story.tasks.build
       render :action => 'new'
     end
   end
-  
+
   def edit
     @tags = @user_story.tags.map(&:name).join(' ')
     @user_story.acceptance_criteria.build
     @user_story.tasks.build
   end
-  
+
   def update
     if @user_story.update_attributes(params[:user_story])
       @account.tag(@user_story, :with => params[:tags], :on => :tags)

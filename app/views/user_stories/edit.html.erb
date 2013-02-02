@@ -1,16 +1,1 @@
-<%= form_for @user_story, :url => user_story_url(:id => @user_story, :sprint_id => params[:sprint_id], :from => params[:from]), :html => {:method => :put, :class => "form"} do |us| %>
-<div id="main">
-  <div id="block-text" class="block">
-    <%= render(:partial => "shared/navigation/backlog_secondary") %>
-
-    <div class="content">
-      <h2 class="title"><%= @sprint ? "Editing user story ##{@user_story.id} for #{@sprint.name} sprint" : "Editing user story ##{@user_story.id}" %> <span class="hightlight">Created on <%= show_date(@user_story.created_at) %> <%= show_user(@user_story) %></span></h2>
-      <div class="inner">
-        <%= render :partial => 'form', :locals => {:account => @account, :us => us, :user_story => @user_story, :tags => @tags, :sprint => @sprint} %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<%= render(:partial => "sidebar", :locals => {:user_story => @user_story, :acceptance_criteria => @user_story.acceptance_criteria, :us => us}) %>
-<% end %>
+<%= render :partial => 'form' %>

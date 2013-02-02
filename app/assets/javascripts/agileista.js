@@ -68,11 +68,11 @@ var Agileista = (function(){
       });
 
       $('.add_nested_criterium').click(function() {
-        addNewItem('#sidebar .acceptance_criteria ol li:last');
+        addNewItem('ol#acceptance-criteria li:last');
       });
 
       $('.add_nested_task').click(function() {
-        addNewItem('#sidebar .tasks ol li:last');
+        addNewItem('ol#tasks li:last');
       });
 
       // $(document).jkey('c', true, function(key){
