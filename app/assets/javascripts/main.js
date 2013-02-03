@@ -54,10 +54,10 @@ function updateTaskCard(container, task_card, hours, devs, who, me) {
 function setupTaskBoard(user_story_id) {
 
   var us_container = '#user_story_container_' + user_story_id;
-  $(us_container).find('dl.task_card').draggable({delay: 100, zIndex: 100});
+  $(us_container).find('div.task_card').draggable({delay: 100, zIndex: 100});
 
   $("#incomplete_"+user_story_id).droppable({
-    accept: us_container + ' dl.task_card',
+    accept: us_container + ' div.task_card',
     drop: function(event, props) {
       $.ajax({
         url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/renounce',
@@ -69,7 +69,7 @@ function setupTaskBoard(user_story_id) {
   });
 
   $("#inprogress_"+user_story_id).droppable({
-    accept: us_container + ' dl.task_card',
+    accept: us_container + ' div.task_card',
     drop: function(event, props) {
       $.ajax({
         url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/claim',
@@ -81,7 +81,7 @@ function setupTaskBoard(user_story_id) {
   });
 
   $("#complete_"+user_story_id).droppable({
-    accept: us_container + ' dl.task_card',
+    accept: us_container + ' div.task_card',
     drop: function(event, props) {
       $.ajax({
         url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/complete',
@@ -111,7 +111,7 @@ function setupTaskBoardStats() {
 
 function setupSprintPlanning(sprint_id) {
   $('#estimated').sortable({
-    items: 'dl.user_story',
+    items: 'div.user_story',
     connectWith: '#committed',
     receive: function(event, ui) {
       $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/unplan', {format: 'json'}, function(data) {
@@ -125,7 +125,7 @@ function setupSprintPlanning(sprint_id) {
   });
 
   $('#committed').sortable({
-    items: 'dl.user_story',
+    items: 'div.user_story',
     connectWith: '#estimated',
     update: function(event, ui) {
       $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/reorder', {move_to: ui.item.index() - 1}, function(data) {
@@ -163,16 +163,16 @@ function setupThemes(){
 
 $(function() {
   $('.task_hours').on('change', function() {
-    $.ajax({ url: '/user_stories/' + $(this).parents('dl').attr('data-story') + '/tasks/' + $(this).parents('dl').attr('data-task')
+    $.ajax({ url: '/user_stories/' + $(this).parents('div').attr('data-story') + '/tasks/' + $(this).parents('div').attr('data-task')
       , type: 'POST'
       , data: { _method: 'PUT', hours: $(this).val() }
     });
   });
 
-  if ($('#user_stories dl').length > 0 && (window.location.pathname.indexOf('stale') === -1)) {
+  if ($('#user_stories div').length > 0 && (window.location.pathname.indexOf('stale') === -1)) {
 
     $('#user_stories').sortable({
-      items: 'dl',
+      items: 'div',
       update: function(event, ui) {
         $.post('/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index()}, function(data) {
           if(data.ok == true) {

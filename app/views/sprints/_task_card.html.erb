@@ -1,27 +1,18 @@
-<dl id="task_card_<%= task_card.id %>" class="panel task_card" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-story="<%= user_story.id %>">
-  <dt class="clearfix">
-    <% if defined?(sprint) %>
-      <%= link_to 'Edit', edit_sprint_user_story_url(sprint, user_story, :anchor => "user_story_tasks"), :title => "Edit Task", :class => "edit" unless sprint.finished? %>
-    <% else %>
-      <%= link_to 'Edit', edit_user_story_url(user_story, :anchor => "user_story_tasks"), :title => "Edit Task", :class => "edit" %>
-    <% end %>
-  </dt>
-  <dd class="definition">
-    <%= h truncate(task_card.definition, :length => 60) %>
-    <strong class="assignees"><%= show_assignees(task_card.team_members) %></strong>
-  </dd>
+<div id="task_card_<%= task_card.id %>" class="alert-box secondary left six task_card" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-story="<%= user_story.id %>">
+  <p><%= h truncate(task_card.definition, :length => 60) %> <strong class="assignees"><%= show_assignees(task_card.team_members) %></strong></p>
   <% if sprint %>
-    <dd class="tasks clearfix">
     <input class="task_hours" size="3" name="hours" type="text" value="<%= task_card.hours %>">
     <% if task_card.team_members.include?(current_user) %>
-      <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :style => "display:none;", :class => 'success button small claim_btn' %>
-      <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'alert button small renounce_btn' %>
+      <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :style => "display:none;", :class => 'success button small claim_btn' %> <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'alert button small renounce_btn' %>
     <% else %>
-      <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'success button small claim_btn' %>
-      <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :style => "display:none;", :class => 'alert button small renounce_btn' %>
+      <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'success button small claim_btn' %> <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :style => "display:none;", :class => 'alert button small renounce_btn' %>
     <% end %>
-    </dd>
   <% else %>
-    <dd class="tasks clearfix"><%= pluralize(task_card.hours, "hours") %> remaining</dd>
+    <p><%= pluralize(task_card.hours, "hours") %> remaining</p>
   <% end %>
-</dl>
+  <% if defined?(sprint) %>
+    <%= link_to 'Edit', edit_sprint_user_story_url(sprint, user_story, :anchor => "user_story_tasks"), :title => "Edit Task", :class => "edit" unless sprint.finished? %>
+  <% else %>
+    <%= link_to 'Edit', edit_user_story_url(user_story, :anchor => "user_story_tasks"), :title => "Edit Task", :class => "edit" %>
+  <% end %>
+</div>
