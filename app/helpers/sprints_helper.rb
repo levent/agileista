@@ -12,7 +12,6 @@ module SprintsHelper
   def sprint_header(sprint, options = {})
     result = [%{#{sprint.name}}]
     result << %{<small>#{show_date(sprint.start_at)} to #{show_date(sprint.end_at)}</small>}
-    result << %{<span id="current_complete"></span> <small>out of</small> <span id="current_total">#{sprint.total_story_points}</span> <small>story points completed (<span id="current_percentage"></span>)</small>} unless sprint.user_stories.blank?
 
     return result.join(" ").html_safe
   end

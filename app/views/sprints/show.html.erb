@@ -1,6 +1,16 @@
 <%= render :partial => "shared/burn_charts", :locals => {:flot_points => @flot_points} %>
 <h2><%= sprint_header(@sprint) %></h2>
-<table class="table">
+<div class="row">
+  <div class="eight columns">
+    <div class="progress twelve radius" id="progress-bar">
+      <span class="meter"></span>
+    </div>
+  </div>
+  <div class="four columns end">
+    <p><strong><span id="current_complete"></span>/<span id="current_total"><%= @sprint.total_story_points %></span> story points completed (<span id="current_percentage"></span>)</strong></p>
+  </div>
+</div>
+<table class="twelve bland">
   <thead>
     <tr>
       <th>User story</th>
