@@ -27,11 +27,11 @@ $rowWidth: 96%;
 // Font Settings
 
 // $fontSmoothing: antialiased;
-$headerFontFamily: "Open Sans", sans-serif;
+$headerFontFamily: "proxima-nova", "Helvetica Neue", helvetica, arial, sans-serif;
 // $headerFontWeight: bold;
 // $headerFontStyle: normal;
 // $headerFontColor: #222;
-// $bodyFontFamily: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$bodyFontFamily: "proxima-nova", "Helvetica Neue", helvetica, arial, sans-serif;
 // $bodyFontWeight: normal;
 // $bodyFontStyle: normal;
 // $bodyFontColor: $txtColor;
@@ -238,7 +238,7 @@ $headerFontFamily: "Open Sans", sans-serif;
 // Modular Scale Settings
 
 // $ratio: $golden; // THIS IS DEFAULT IN MODULAR-SCALE
-$baseFontSize: 13px;
+$baseFontSize: 14px;
 // $importantModNum: 44px;
 // $base-size: $baseFontSize $importantModNum;
 // Produced the following list of values: 14, 17, 23, 27, 37, 44, 59, 71, 95, 115;
