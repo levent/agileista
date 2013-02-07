@@ -54,10 +54,10 @@ function updateTaskCard(container, task_card, hours, devs, who, me) {
 function setupTaskBoard(user_story_id) {
 
   var us_container = '#user_story_container_' + user_story_id;
-  $(us_container).find('div.task_card').draggable({delay: 100, zIndex: 100});
+  $(us_container).find('div.task-card').draggable({delay: 100, zIndex: 100});
 
   $("#incomplete_"+user_story_id).droppable({
-    accept: us_container + ' div.task_card',
+    accept: us_container + ' div.task-card',
     drop: function(event, props) {
       $.ajax({
         url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/renounce',
@@ -69,7 +69,7 @@ function setupTaskBoard(user_story_id) {
   });
 
   $("#inprogress_"+user_story_id).droppable({
-    accept: us_container + ' div.task_card',
+    accept: us_container + ' div.task-card',
     drop: function(event, props) {
       $.ajax({
         url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/claim',
@@ -81,7 +81,7 @@ function setupTaskBoard(user_story_id) {
   });
 
   $("#complete_"+user_story_id).droppable({
-    accept: us_container + ' div.task_card',
+    accept: us_container + ' div.task-card',
     drop: function(event, props) {
       $.ajax({
         url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/complete',
@@ -163,7 +163,7 @@ function setupThemes(){
 
 $(function() {
   $('.task_hours').on('change', function() {
-    $.ajax({ url: '/user_stories/' + $(this).parents('div').attr('data-story') + '/tasks/' + $(this).parents('div').attr('data-task')
+    $.ajax({ url: '/user_stories/' + $(this).parents('div[data-story]').attr('data-story') + '/tasks/' + $(this).parents('div[data-story]').attr('data-task')
       , type: 'POST'
       , data: { _method: 'PUT', hours: $(this).val() }
     });
@@ -190,7 +190,21 @@ $(function() {
     });
     return ui;
   };
-  
+
+  if ($('#backlog-items').length > 0 && (window.location.pathname.indexOf('stale') === -1)) {
+    $('#backlog-items').sortable({
+      items: '> div',
+      update: function(event, ui) {
+        $.post('/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index()}, function(data) {
+          if(data.ok == true) {
+            $('#flashs').html('Backlog reordered');
+            Agileista.setupVelocityMarkers(data.velocity)
+          }
+        }, "json");
+      }
+    });
+
+  }
   if ($('#user_stories tr.user_story').length > 0 && (window.location.pathname.indexOf('stale') === -1)) {
     $('#user_stories').sortable({
       items: 'tr.user_story',

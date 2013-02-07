@@ -249,3 +249,15 @@ $baseFontSize: 14px;
 table.bland tbody tr:nth-child(even) {
   background: none;
 }
+hr.narrow {
+  margin: 11px 0 10px;
+}
+
+.task-card {
+  margin: 0 10px 0 0;
+  padding: 10px;
+}
+
+div.ui-droppable {
+  min-height:200px;
+}

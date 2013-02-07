@@ -1,14 +1,13 @@
-<div id="item_<%= user_story.id %>" class="panel radius <%= ['user_story', user_story.status].join(' ') %>" title="<%=h user_story.definition %>" data-story=<%= user_story.id %>>
-  <p>
-    <%= link_to "##{user_story.id}", user_story_url(user_story) %>
-    <% if defined?(sprint) %>
-      <%= link_to 'Edit', edit_sprint_user_story_url(sprint, user_story, :from => local_assigns[:from]), :title => "Edit ##{user_story.id}", :class => "edit" if !sprint.finished? %>
-    <% else %>
-      <%= link_to 'Edit', edit_user_story_url(user_story, :from => local_assigns[:from]), :title => "Edit ##{user_story.id}", :class => "edit" %>
-    <% end %>
-    <span class="points highlight"><%= show_story_points(user_story.story_points, :unit => "") %></span>
-  </p>
-  <p><%= h truncate(user_story.definition, :length => 90) %> <span class="cardstate"><%= user_story_state(user_story.state) %></span></p>
-  <% if local_assigns[:tasks] %><dd class="tasks clearfix"><%= link_to 'Add tasks', edit_sprint_user_story_url(sprint, user_story, :anchor => "user_story_tasks", :from => local_assigns[:from]), :title => "Add tasks" %> <%= link_to 'Auto task', create_quick_user_story_tasks_path(:user_story_id => user_story), :method => :post, :title => 'Auto task', :class => "right" if user_story.tasks.blank? %></dd><% end %>
-  <% if local_assigns[:copy] %><dd class="tasks clearfix"><%= link_to 'Copy to backlog', copy_user_story_url(user_story, :anchor => "user_story_tasks", :from => local_assigns[:from]), :method => :post, :title => "Copy to backlog" %></dd><% end %>
+<div class="row" class="backlog-item" data-story=<%= user_story.id %>>
+  <hr class="narrow">
+  <a href="/user_stories/<%= user_story.id %>/edit">
+    <div class="one columns">
+      <div class="row">
+        <div class="six columns"><%= user_story_state(user_story.state) %></div>
+        <div class="six columns"><span class="label round"><%= user_story.id %></span></div>
+      </div>
+    </div>
+    <div class="ten columns"><%= user_story.definition %></div>
+    <div class="one columns"><span class="label secondary round"><%= show_story_points(user_story.story_points, :unit => "") %></span></div>
+  </a>
 </div>

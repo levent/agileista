@@ -146,7 +146,7 @@ module ApplicationHelper
       :estimate => 'secondary',
       :plan => 'success'
     }
-    %[<span class="label #{mapping[state.to_sym]}">#{state.titleize}</span>].html_safe
+    %[<span class="label #{mapping[state.to_sym]} fixed-width-label">#{state.titleize}</span>].html_safe
   end
 
   def pagination_info(entries, name = "entries")

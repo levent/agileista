@@ -11,22 +11,27 @@
   </div>
 </div>
 
-<table class="twelve bland">
-  <thead>
-    <tr>
-      <th class="three">User story</th>
-      <th class="three">Incomplete</th>
-      <th class="three">In progress</th>
-      <th class="three">Complete <%= link_to 'hide completed stories', '#', :id => 'togglecomplete', :class => 'redbutton' %></th>
-    </tr>
-  </thead>
-    <tr id="completed_user_stories_hidden" style="display:none">
-      <td colspan="4">Completed user stories are hidden...</td>
-    </tr>
-  <tbody>
+<div class="row">
+  <div class="columns twelve">
+
+    <div class="row">
+      <div class="three columns">
+        <h3>User story</h3>
+      </div>
+      <div class="two columns offset-by-one">
+        <h3>Incomplete</h3>
+      </div>
+      <div class="two columns offset-by-one">
+        <h3>In progress</h3>
+      </div>
+      <div class="two columns offset-by-one">
+        <h3>Complete story</h3>
+      </div>
+    </div>
+
     <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
-  </tbody>
-</table>
+  </div>
+</div>
 
 <% content_for :custom_js do %>
   setupTaskBoardStats();

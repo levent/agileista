@@ -1,24 +1,11 @@
 <h2><small>Unassigned Backlog:</small> <%= pluralize(@user_stories.length, "user story") %> <small>worth</small> <%= show_story_points(@story_points ||= nil) %></strong> <small>(Average velocity: <%= average_velocity(@account) %></strong>)</span> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
-<div id="user_stories">
 
-  <table class="table twelve">
-    <thead>
-      <tr>
-        <th>State</th>
-        <th>ID</th>
-        <th>Description</th>
-        <th>Points</th>
-        <th>Stakeholder</th>
-        <th>Written</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render :partial => "/user_stories/user_story_row", :collection => @user_stories %>
-      <% reset_cycle("user_stories")%>
-    </tbody>
-  </table>
+<div class="row">
+  <div class="columns twelve" id="backlog-items">
+    <%= render @user_stories %>
+  </div>
 </div>
+
 <% content_for :custom_js do %>
   Agileista.setupVelocityMarkers('<%= @velocity %>');
   <%= render :partial => 'juggernaut', :locals => {:uid => @uid} %>
