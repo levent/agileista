@@ -45,6 +45,13 @@
 
     <!-- Right Nav Section -->
     <ul class="right">
+      <li class="has-button search">
+      <%= form_for :tag, :url => backlog_search_path, :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
+        <%= text_field_tag 'q' %>
+        <%= button_tag 'Search', :class => "submit secondary button" %>
+      <% end %>
+      </li>
+      <li class="divider"></li>
       <li class="has-dropdown">
         <%= link_to(current_user.name, edit_user_url(current_user)) %>
         <ul class="dropdown">
