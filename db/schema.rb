@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101008225925) do
+ActiveRecord::Schema.define(:version => 20130208140437) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(:version => 20101008225925) do
   create_table "tasks", :force => true do |t|
     t.string  "definition"
     t.text    "description"
-    t.integer "hours"
+    t.integer "hours",         :default => 1
     t.integer "position"
     t.integer "developer_id"
     t.integer "user_story_id"

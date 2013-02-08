@@ -1,16 +1,16 @@
 <%= simple_form_for @user_story do |f| %>
   <div class="row">
 
-    <div class="seven columns">
+    <div class="fourteen columns">
       <%= f.input :definition, input_html: {rows: 5, placeholder: 'As a user I want blink tags around key navigation items so I can find them quicker...'} %>
       <div class="row">
-        <div class="five columns">
+        <div class="ten columns">
           <%= f.input :story_points, input_html: { placeholder: '0, 1, 3, 5, 8, 13, 20 ...' } %>
         </div>
-        <div class="five columns">
+        <div class="ten columns">
           <%= f.input :stakeholder %>
         </div>
-        <div class="two columns">
+        <div class="four columns">
           <%= f.label :cannot_be_estimated %>
           <%= f.input :cannot_be_estimated, as: :boolean, label: false %>
         </div>
@@ -19,7 +19,7 @@
       <%= f.button :submit, class: 'large' %>
     </div>
 
-    <div class="four columns">
+    <div class="eight columns">
       <h3>Acceptance Criteria</h3>
       <ol id="acceptance-criteria">
         <%= f.simple_fields_for :acceptance_criteria do |ac| %>
@@ -43,7 +43,6 @@
           <li>
           <%= tf.input :definition %>
           <%= tf.input :description, input_html: {rows: 5} %>
-          <%= tf.input :hours %>
           <% unless tf.object.new_record? %>
             <span class="remove">
               <%= tf.input '_destroy', label: "Remove", as: :boolean %>

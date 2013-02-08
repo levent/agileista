@@ -1,40 +1,30 @@
 <div id="task_card_<%= task_card.id %>" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-story="<%= user_story.id %>" class="row alert-box task-card secondary">
-  <div class="row">
-    <div class="ten columns">
-      <%= task_card.definition %>
-      <div class="row">
-        <div class="twelve columns">
-          <p class="assignees"><%= show_assignees(task_card.team_members) %></p>
+  <div class="twentyfour columns">
+
+    <div class="row">
+
+      <div class="eighteen columns">
+        <%= task_card.definition %>
+        <div class="row">
+          <div class="twentyfour columns">
+            <p class="assignees"><%= show_assignees(task_card.team_members) %></p>
+          </div>
         </div>
+      </div>
+
+      <div class="six end columns">
+        <% if sprint %>
+          <% if task_card.team_members.include?(current_user) %>
+            <%= link_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'success button tiny claim_btn hide-override' %>
+            <%= link_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'alert button tiny renounce_btn' %>
+          <% else %>
+            <%= link_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'success button tiny claim_btn' %>
+            <%= link_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'alert button tiny renounce_btn hide-override' %>
+          <% end %>
+        <% end %>
       </div>
 
     </div>
 
-    <div class="two columns">
-      <!-- hours form -->
-      <% if sprint %>
-        <input class="task_hours" size="3" name="hours" type="text" value="<%= task_card.hours %>">
-      <% else %>
-        <%= pluralize(task_card.hours, "hours") %> remaining
-      <% end %>
-      <!-- END hours form -->
-
-    </div>
   </div>
-
-
-
-  <div class="row">
-    <div class="twelve columns">
-
-      <% if sprint %>
-        <% if task_card.team_members.include?(current_user) %>
-          <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :style => "display:none;", :class => 'success button tiny claim_btn' %> <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'alert button tiny renounce_btn' %>
-        <% else %>
-          <%= button_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'success button tiny claim_btn' %> <%= button_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :style => "display:none;", :class => 'alert button tiny renounce_btn' %>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-
 </div>

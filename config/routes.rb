@@ -40,16 +40,13 @@ Agileista::Application.routes.draw do
       post 'copy'
       post 'create_task'
     end
-    resources :tasks do
+    resources :tasks, :except => [:edit, :update] do
       member do 
         post 'move_up'
         post 'move_down'
         put 'claim'
         put 'renounce'
         put 'complete'
-      end
-      collection do
-        post 'create_quick'
       end
     end
   end

@@ -26,7 +26,6 @@ function notifyUser(json, user) {
 function updateTaskCard(container, task_card, hours, devs, who, me) {
   var claim_btn = task_card.find('.claim_btn');
   var renounce_btn = task_card.find('.renounce_btn');
-  var hours_left = task_card.find('.task_hours');
   task_card.attr('style', 'position:relative');
 
   task_card.find('.assignees').html(devs.join(', '));
@@ -48,7 +47,6 @@ function updateTaskCard(container, task_card, hours, devs, who, me) {
     claim_btn.show();
     renounce_btn.hide();
   }
-  hours_left.val(hours);
 };
 
 function setupTaskBoard(user_story_id) {
