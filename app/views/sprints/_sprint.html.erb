@@ -8,8 +8,8 @@
   <td class="actions">
     <%= link_to 'Show', sprint_url(sprint), :class => 'button tiny' %>
     <% if !sprint.finished? %>
-		  <%= link_to 'Edit', edit_sprint_url(sprint), :class => 'button tiny' %>
-		  <%= link_to 'Plan', plan_sprint_url(sprint), :class => 'button tiny' %>
+      <%= link_to 'Edit', edit_sprint_url(sprint), :class => 'button tiny' %>
+      <%= link_to 'Plan', plan_sprint_url(sprint), :class => 'button tiny' %>
     <% end %>
     <% if sprint.finished? %>
       <%= link_to 'Manage', plan_sprint_url(sprint), :class => 'button tiny' %>
