@@ -3,7 +3,7 @@
   <h2><small>Total:</small> <%= @sprints.size %>. <small>Finished:</small> <%= @sprints.finished.size %>. <small>Average velocity:</small> <%= average_velocity(@account) %>*</h2>
   <p><strong>90%</strong> likelihood velocity will be between <%= @cint_lo %> and <%= @cint_hi %>*<br>*stats based on sprints since <strong><%= show_date(Velocity.stats_significant_since(@account).to_time) %></strong></p>
   <div class="inner">
-    <table class="twelve">
+    <table class="twentyfour">
       <thead>
         <tr>
           <th>Name</th>

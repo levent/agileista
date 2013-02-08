@@ -7,7 +7,7 @@
 
 $rowWidth: 96%;
 // $columnGutter: 30px;
-// $totalColumns: 12;
+$totalColumns: 24;
 // $mobileTotalColumns: 4;
 // $blockGridElements: 12; // Highest number of block grid elements, Maximum of 24 supported
 
@@ -260,4 +260,10 @@ hr.narrow {
 
 div.ui-droppable {
   min-height:200px;
+}
+
+.backlog-item {
+  cursor: move;
+  padding: 11px 0 10px;
+  border-top: 1px solid $secondaryColor;
 }

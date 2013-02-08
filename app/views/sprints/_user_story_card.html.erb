@@ -1,13 +1,13 @@
-<div class="row alert-box secondary" class="backlog-item" data-story=<%= user_story.id %>>
-  <div class="twelve columns">
+<div class="row alert-box secondary backlog-item" data-status="<%= user_story.status %>" data-story="<%= user_story.id %>">
+  <div class="twentyfour columns">
     <div class="row">
       <p>
         <%= user_story_state(user_story.state) %>
         <span class="label round"><%= user_story.id %></span>
-        <span class="label secondary round"><%= show_story_points(user_story.story_points, :unit => "") %></span>
+        <span class="label secondary round points"><%= show_story_points(user_story.story_points, :unit => "") %></span>
       </p>
       <p>
-        <%= user_story.definition %>
+        <%= link_to user_story.definition, edit_user_story_path(user_story) %>
       </p>
     </div>
   </div>

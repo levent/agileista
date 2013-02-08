@@ -5,8 +5,8 @@ var update = function(data){
   var container = task_card.parent();
   updateTaskCard(container, task_card, data.task_hours, data.task_devs, data.performed_by, '<%= current_user.name %>');
   notifyUser(data, "<%= current_user.name %>");
-  var us_card = $('#item_' + data.user_story_id);
-  us_card.attr('class', data.user_story_status + ' user_story');
+  var us_card = $('div[data-story="' + data.user_story_id + '"]');
+  us_card.attr('data-status', data.user_story_status);
   setupTaskBoardStats();
 };
 

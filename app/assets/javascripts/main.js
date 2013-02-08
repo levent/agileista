@@ -41,11 +41,11 @@ function updateTaskCard(container, task_card, hours, devs, who, me) {
   }
 
   if(jQuery.inArray(me,devs) > -1) {
-    claim_btn.hide();
-    renounce_btn.show();
+    claim_btn.addClass('hide-override');
+    renounce_btn.removeClass('hide-override');
   } else {
-    claim_btn.show();
-    renounce_btn.hide();
+    claim_btn.removeClass('hide-override');
+    renounce_btn.addClass('hide-override');
   }
 };
 
@@ -93,7 +93,7 @@ function setupTaskBoard(user_story_id) {
 
 function setupTaskBoardStats() {
   var current_total = $("#current_total").html();
-  var complete_stories = $(".user_story.complete .points");
+  var complete_stories = $('.backlog-item[data-status="complete"] .points');
   var complete_points = $.map(complete_stories, function(element) {
     return(Number($(element).html()));
   });
@@ -109,7 +109,7 @@ function setupTaskBoardStats() {
 
 function setupSprintPlanning(sprint_id) {
   $('#estimated').sortable({
-    items: 'div.user_story',
+    items: 'div.backlog-item',
     connectWith: '#committed',
     receive: function(event, ui) {
       $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/unplan', {format: 'json'}, function(data) {
@@ -123,7 +123,7 @@ function setupSprintPlanning(sprint_id) {
   });
 
   $('#committed').sortable({
-    items: 'div.user_story',
+    items: 'div.backlog-item',
     connectWith: '#estimated',
     update: function(event, ui) {
       $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/reorder', {move_to: ui.item.index() - 1}, function(data) {
