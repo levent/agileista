@@ -1,10 +1,14 @@
 <div class="row backlog-item" data-story=<%= user_story.id %> title="<%= user_story.definition %>">
   <div class="four columns">
-    <div class="row">
-      <div class="twelve columns"><%= user_story_state(user_story.state) %></div>
-      <div class="twelve columns"><span class="label round"><%= user_story.id %></span></div>
-    </div>
+    <%= link_to edit_user_story_path(user_story) do %>
+      <div class="row">
+        <div class="twelve columns"><%= user_story_state(user_story.state) %></div>
+        <div class="twelve columns"><span class="label round"><%= user_story.id %></span></div>
+      </div>
+    <% end %>
   </div>
-  <div class="eighteen columns"><%= link_to truncate(user_story.definition, :length => 80), edit_user_story_path(user_story) %></div>
-  <div class="two columns"><span class="label secondary round"><%= show_story_points(user_story.story_points, :unit => "") %></span></div>
+  <div class="eighteen columns"><%= parse_definition(user_story.definition).html_safe %></div>
+  <%= link_to edit_user_story_path(user_story) do %>
+    <div class="two columns"><span class="label secondary round"><%= show_story_points(user_story.story_points, :unit => "") %></span></div>
+  <% end %>
 </div>
