@@ -14,7 +14,7 @@
         </div>
 
         <div class="six end columns">
-          <% if sprint %>
+          <% unless sprint.finished? %>
             <% if task_card.team_members.include?(current_user) %>
               <%= link_to 'Claim', claim_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'success button tiny claim_btn hide-override' %>
               <%= link_to 'Renounce', renounce_user_story_task_path(user_story.id, task_card.id), :method => 'put', :remote => true, :class => 'alert button tiny renounce_btn' %>

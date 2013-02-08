@@ -23,9 +23,8 @@ class SprintsController < AbstractSecurityController
         if @sprint && @sprint.current?
           calculate_todays_burndown
           calculate_tomorrows_burndown
-          render :action => 'task_board'
-        else
-          calculate_end_burndown if @sprint.finished?
+        elsif @sprint.finished?
+          calculate_end_burndown
         end
       }
       format.json do

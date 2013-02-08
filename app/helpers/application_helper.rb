@@ -58,38 +58,6 @@ module ApplicationHelper
     return ' class="usclaimed"' if user_story.inprogress?
   end
 
-  def page_signature(params_hash = params)
-    result = [params_hash[:controller], params_hash[:action]]
-
-    result << "backlog" if ["user_stories"].include?(params_hash[:controller])
-    result << "planning" if (params_hash[:controller] == "sprints" && params_hash[:action] != "show")
-    result << "authenticated" if current_user
-    result << "task_board" if current_sprint && (params_hash[:controller] == "sprints" && params_hash[:action] == "show" && params_hash[:id].to_i == current_sprint.id)
-
-    return result.join(" ")
-  end
-
-  def create_new_account?
-    return ' <span class="new_account"' + link_to('Create a new account', {:controller => 'signup'}) + '</span>' if current_subdomain == AccountStuff::MASTER_SUBDOMAIN
-  end
-
-  def flash_messages(wrapper = "h3")
-    messages = []
-    messages << "notice" if flash[:notice]
-    messages << "error" if flash[:error]
-
-    if messages.size > 0
-      result = []
-      result << %{<!-- flash messages >>> -->\n<div class="flash">}
-      messages.each do |message|
-        result << content_tag(wrapper.to_sym, flash[message.to_sym], :class => "message #{message}")
-      end
-      result << "</div>\n<!-- <<< messages -->"
-
-      return result.join("\n").html_safe
-    end
-  end
-
   def main_navigation
     result = []
     [ {:name => "backlog", :url => {:controller => "backlog"}},

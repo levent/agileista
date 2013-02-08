@@ -1,30 +1,40 @@
 <%= render :partial => "shared/burn_charts", :locals => {:flot_points => @flot_points} %>
-<h2><%= sprint_header(@sprint) %></h2>
+<h2 class="title"><%= sprint_header(@sprint) %> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
 <div class="row">
-  <div class="eight columns">
+  <div class="sixteen columns">
     <div class="progress twentyfour radius" id="progress-bar">
       <span class="meter"></span>
     </div>
   </div>
-  <div class="four columns end">
+  <div class="eight columns end">
     <p><strong><span id="current_complete"></span>/<span id="current_total"><%= @sprint.total_story_points %></span> story points completed (<span id="current_percentage"></span>)</strong></p>
   </div>
 </div>
-<table class="twentyfour bland">
-  <thead>
-    <tr>
-      <th>User story</th>
-      <th>Incomplete</th>
-      <th>In progress</th>
-      <th>Complete</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'sprints'} %>
-  </tbody>
-</table>
+
+<div class="row">
+  <div class="columns twentyfour">
+
+    <div class="row">
+      <div class="three columns">
+        <h3>User story</h3>
+      </div>
+      <div class="six columns offset-by-one">
+        <h3>Incomplete</h3>
+      </div>
+      <div class="six columns offset-by-one">
+        <h3>In progress</h3>
+      </div>
+      <div class="six columns offset-by-one">
+        <h3>Complete story</h3>
+      </div>
+    </div>
+
+    <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
+  </div>
+</div>
+
 <% content_for :custom_js do %>
   setupTaskBoardStats();
-  <%= render :partial => 'juggernaut', :locals => {:uid => @uid} %>
+  <%= render :partial => 'juggernaut', :locals => {:uid => @uid} unless @sprint.finished? %>
 <% end %>
 
