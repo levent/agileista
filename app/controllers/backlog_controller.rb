@@ -1,4 +1,3 @@
-require 'csv'
 class BacklogController < AbstractSecurityController
   # ssl_required :feed
   # ssl_allowed :index, :sort, :search
@@ -22,7 +21,7 @@ class BacklogController < AbstractSecurityController
         end
       end
       format.csv do
-        render_csv("current_backlog_#{Time.now.strftime('%Y%m%d%H%M')}")
+        render text: @user_stories.to_csv
       end
     end
   end
@@ -53,7 +52,6 @@ class BacklogController < AbstractSecurityController
   end
   
   def sort
-    puts "Move to #{params[:move_to]}"
     @user_stories.find(params[:user_story_id]).update_attribute(:backlog_order_position, params[:move_to])
     json = {
       :notification => "Backlog reordered by #{current_user.name}",

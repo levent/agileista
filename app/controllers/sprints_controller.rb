@@ -28,9 +28,6 @@ class SprintsController < AbstractSecurityController
           calculate_end_burndown if @sprint.finished?
         end
       }
-      format.csv do
-        render_csv("sprint_#{@sprint.id}_#{Time.now.strftime('%Y%m%d%H%M')}")
-      end
       format.json do
         render :json => @sprint
       end

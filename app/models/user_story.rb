@@ -1,3 +1,4 @@
+require 'csv'
 class UserStory < ActiveRecord::Base
   define_index do
     indexes tags.name, :as => :tag_string
@@ -42,7 +43,7 @@ class UserStory < ActiveRecord::Base
 
   scope :stale,
     lambda { |range|
-    { 
+    {
       :conditions => ['done = ? AND updated_at < ?', 0, range]
     }
   }
@@ -55,6 +56,15 @@ class UserStory < ActiveRecord::Base
 
   def to_json(options = {})
     super(options.merge(:only => [:definition, :description, :done, :stakeholder, :story_points, :updated_at, :created_at]))
+  end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << columns = [:id, :definition, :description, :done, :stakeholder, :story_points, :updated_at, :created_at].map(&:to_s)
+      all.each do |product|
+        csv << product.attributes.values_at(*columns)
+      end
+    end
   end
 
   def stakeholder
