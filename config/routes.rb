@@ -55,7 +55,7 @@ Agileista::Application.routes.draw do
     resources :user_stories
   end
 
-  resources :users
+  resources :people
 
   get "/login" => "login#index"
   get "/login/forgot" => "login#forgot"

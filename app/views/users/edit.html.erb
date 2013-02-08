@@ -1,6 +1,0 @@
-<h2>Editing <%= @person.name %>'s details</h2>
-<%= simple_form_for @person, url: users_url(@person), method: :put do |f| %>
-  <%= f.input :name %>
-  <%= f.input :email %>
-  <%= f.button :submit, "Save changes" %>
-<% end %>
