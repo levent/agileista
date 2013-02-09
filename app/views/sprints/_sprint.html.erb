@@ -1,20 +1,18 @@
-<tr class="<%= cycle('odd', 'even') + identify_key_sprint(sprint) %>">
-  <td class="name"><%= link_to h(sprint.name), sprint_url(sprint) %></td>
-  <td class="description"><%= h sprint.goal %></td>
-  <td class="points"><%= sprint.total_story_points %></td>
-  <td class="points"><%= sprint.calculated_velocity %></td>
-  <td class="date"><%= show_date(sprint.start_at) %></td>
-  <td class="date"><%= show_date(sprint.end_at) %></td>
-  <td class="actions">
+<tr>
+  <td class="<%= 'highlight' if @stats_since_sprint.to_i == sprint.id %>"><%= link_to sprint.name, sprint_url(sprint) %></td>
+  <td><%= sprint.goal %></td>
+  <td><%= sprint.total_story_points %></td>
+  <td><%= sprint.calculated_velocity %></td>
+  <td><%= show_date(sprint.start_at) %></td>
+  <td><%= show_date(sprint.end_at) %></td>
+  <td>
     <%= link_to 'Show', sprint_url(sprint), :class => 'button tiny' %>
     <% if !sprint.finished? %>
       <%= link_to 'Edit', edit_sprint_url(sprint), :class => 'button tiny' %>
       <%= link_to 'Plan', plan_sprint_url(sprint), :class => 'button tiny' %>
     <% end %>
-    <% if sprint.finished? %>
-      <%= link_to 'Manage', plan_sprint_url(sprint), :class => 'button tiny' %>
+    <% if current_user.account_holder? && sprint.finished? %>
       <%= link_to 'Calc stats from here', set_stats_sprint_url(sprint), :method => 'post', :class => (@stats_since_sprint.to_i == sprint.id ? 'alert button tiny' : 'button tiny') if current_user.account_holder? %>
     <% end%>
-</td>
+  </td>
 </tr>
-
