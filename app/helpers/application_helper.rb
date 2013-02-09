@@ -17,11 +17,15 @@ module ApplicationHelper
 
   def show_story_points(points, opts = {})
     options = {:unit => "story point"}.merge(opts)
-    points = points.nil? ? "?" : points
+    css_class = ['label', 'round', 'points']
+    if points.nil?
+      points = '?'
+      css_class << 'secondary'
+    end
     output = pluralize(points, options[:unit])
 
     if options[:badge]
-      content_tag :span, :class => 'label round secondary' do
+      content_tag :span, :class => css_class.join(' ') do
         output
       end
     else

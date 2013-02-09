@@ -4,10 +4,11 @@ var Agileista = (function(){
     // private methods
     addNewItem = function(element) {
       var e = $(element);
+      console.log(e.attr('class'));
       var tag = e.get(0).tagName.toLowerCase();
 
       e.after(
-        $('<'+tag+'>'+'</'+tag+'>').append(e.html().replace(/\d+(?=\_)|\d+(?=\])/g, function(match) {return parseInt(match)+1;}))
+        $('<'+tag+' class="' + e.attr('class') + '">'+'</'+tag+'>').append(e.html().replace(/\d+(?=\_)|\d+(?=\])/g, function(match) {return parseInt(match)+1;}))
         );
     },
 
@@ -33,21 +34,20 @@ var Agileista = (function(){
 
     setupVelocityMarkers = function(velocity) {
       if(!(velocity === '') && window.location.pathname.indexOf('stale') === -1){
-        $('.release_marker').removeClass('release_marker');
-        var user_stories = $('tr.user_story');
+        $('.release-marker').removeClass('release-marker');
+        var user_stories = $('.backlog-item');
         var tally = 0;
         $.each(user_stories, function(index, story) {
-          var story_points = parseInt($(story).children('td.points').text());
+          var story_points = parseInt($(story).find('.points').text());
           if(!isNaN(story_points)){
             tally += story_points;
           }
           if(tally > velocity) {
             if(story_points > velocity)
-          $(story).addClass('warning');
-        $(story).addClass('release_marker');
-        tally = story_points;
+              $(story).addClass('warning');
+            $(story).addClass('release-marker');
+            tally = story_points;
           }
-
         });
       }
     },
@@ -74,27 +74,6 @@ var Agileista = (function(){
       $('.add_nested_task').click(function() {
         addNewItem('ol#tasks li:last');
       });
-
-      // $(document).jkey('c', true, function(key){
-      //   if ((window.location.pathname !== '/user_stories/new') && ($("input:focus").length === 0) && $("textarea:focus").length === 0) {
-      //     window.location = '/user_stories/new';
-      //   }
-      // });
-
-      // $(document).jkey('?', true, function(key) {
-      //   console.log(key);
-      //   console.log($('input:focus').length);
-      //   console.log($('textarea:focus').length);
-      //   if(($('input:focus').length === 0) && ($('textarea:focus').length === 0)){
-      //     $('#keyboard-help').show();
-      //   }
-      // });
-
-      // $(document).jkey('esc', true, function(key) {
-      //   if(($('input:focus').length === 0) && ($('textarea:focus').length === 0)){
-      //     $('#keyboard-help').hide();
-      //   }
-      // });
     };
 
     init();

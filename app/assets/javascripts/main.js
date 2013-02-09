@@ -203,19 +203,4 @@ $(function() {
     });
 
   }
-  if ($('#user_stories tr.user_story').length > 0 && (window.location.pathname.indexOf('stale') === -1)) {
-    $('#user_stories').sortable({
-      items: 'tr.user_story',
-      helper: fixHelper,
-      update: function(event, ui) {
-        $.post('/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index()}, function(data) {
-          if(data.ok == true) {
-            $('#flashs').html('Backlog reordered');
-            Agileista.setupVelocityMarkers(data.velocity)
-          }
-        }, "json");
-      }
-    });
-
-  }
 });

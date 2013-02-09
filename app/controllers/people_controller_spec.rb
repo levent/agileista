@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
-describe UsersController do
+describe PeopleController do
   it "should be an abstract_security_controller" do
     controller.is_a?(AbstractSecurityController).should be_true
   end
