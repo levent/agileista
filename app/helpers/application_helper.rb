@@ -1,6 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def current_user
+    current_person
+  end
+
   def account_switcher_selected(here, there)
     here == there ? "selected=\"selected\"" : ""
   end

@@ -1,8 +1,13 @@
 class AbstractSecurityController < ApplicationController
   cache_sweeper :sprint_audit_sweeper
-  before_filter :must_be_logged_in
+  before_filter :authenticate_person!
+  before_filter :set_account
   
   private
+
+  def set_account
+    @account = Account.find_by_subdomain(current_subdomain)
+  end
   
   def must_be_logged_in
     case request.format
