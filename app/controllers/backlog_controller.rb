@@ -44,7 +44,7 @@ class BacklogController < AbstractSecurityController
     store_location
     if params[:q]
       raise ArgumentError unless @account.id
-      @user_stories = UserStory.search("#{params[:q]}", {:with => {:account_id => @account.id}, :limit => 1000, :per_page => 20, :page => params[:page]})
+      @user_stories = UserStory.search("#{params[:q]}", {:with => {:account_id => @account.id}}).page(params[:page])
     else
       flash[:notice] = "No user stories found"
       redirect_to :action => 'index' and return false

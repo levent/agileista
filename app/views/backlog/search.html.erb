@@ -1,38 +1,20 @@
-<div id="main" class="wide">
-  <div class="block">
-    <%= render(:partial => "shared/navigation/backlog_secondary") %>
+<h2><%= pagination_info(@user_stories, "user story").html_safe %> <%= "found for '<strong>#{params[:q]}</strong>'".html_safe if params[:q] %><%= "tagged with '<strong>#{params[:tag]}</strong>'".html_safe if params[:tag] %>.</h2>
 
-    <div class="content">
-      <h2 class="title"><%= pagination_info(@user_stories, "user story").html_safe %> <%= "found for '<strong>#{params[:q]}</strong>'".html_safe if params[:q] %><%= "tagged with '<strong>#{params[:tag]}</strong>'".html_safe if params[:tag] %>.</h2>
+<% unless @user_stories.blank? %>
 
-      <div class="inner">
-        <% unless @user_stories.blank? %>
-          <table class="table">
-            <tbody>
-              <tr>
-                <th class="state first">State</th>
-                <th class="id">ID</th>
-                <th class="description">Description</th>
-                <th class="points">Points</th>
-                <th>Stakeholder</th>
-                <th class="actions last"></th>
-              </tr>
-              <%= render :partial => "themes/user_story", :collection => @user_stories %>
-            </tbody>
-          </table>
-          <div class="actions-bar clearfix">
-            <div class="pagination"><%= will_paginate @user_stories, :params => {:q => params[:q]} %></div>
-          </div>
-        <% else %>
-          <div class="flash">
-            <div class="message notice">
-              <p>No user stories were found for your query.<p>
-            </div>
-          </div>
-        <% end %>
-      </div>
+  <div class="row">
+    <div class="columns twentyfour" id="backlog-items">
+      <%= render @user_stories %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="columns ten">
+      <p><%= will_paginate @user_stories %></p>
     </div>
   </div>
 
-</div>
+<% else %>
 
+  <p>No stories found<p>
+
+<% end %>
