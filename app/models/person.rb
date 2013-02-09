@@ -1,28 +1,47 @@
 require 'digest/sha1'
 
 class Person < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :confirmable, authentication_keys: [:email, :account_id]
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
   include Gravtastic
   gravtastic
-  
-  validates_confirmation_of :password
-  validates_length_of :password, :in => 6..16, :if => :password_required?
+
   validates_presence_of :name
   validates_presence_of :email
   validates_uniqueness_of :email, :scope => :account_id, :case_sensitive => false
-  belongs_to :account  
+  belongs_to :account
   has_many :user_stories
   has_many :task_developers, :foreign_key => "developer_id"
   has_many :tasks, :through => :task_developers
-  
+
   before_create :generate_activation_code
-  before_save :hash_password
   before_save :downcase_email
-  
-  attr_accessor :password
-  
+
   scope :active, :conditions => {:authenticated => true}
   scope :inactive, :conditions => {:authenticated => false}
-  
+
+  def valid_password?(password)
+    if self.hashed_password.present?
+      if self.hashed_password == self.encrypt(password)
+        self.password = password
+        self.hashed_password = nil
+        self.confirm!
+        self.save!
+        return true
+      else
+        return false
+      end
+    else
+      super
+    end
+  end
+
   def validate_account
     self.authenticated = 1
     self.activation_code = nil

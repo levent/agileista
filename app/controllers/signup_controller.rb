@@ -4,7 +4,7 @@ class SignupController < ApplicationController
   def index
     logger.error("/signup#{AccountStuff::MASTER_SUBDOMAIN}")
     logger.error("/signup#{current_subdomain}")
-    if logged_in?
+    if person_signed_in?
       redirect_to :controller => 'backlog', :subdomain => current_subdomain and return false
     elsif AccountStuff::MASTER_SUBDOMAIN != current_subdomain
       redirect_to login_path(:subdomain => current_subdomain)

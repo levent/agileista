@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101008225925) do
+ActiveRecord::Schema.define(:version => 20130209135757) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -51,17 +51,34 @@ ActiveRecord::Schema.define(:version => 20101008225925) do
     t.string   "name"
     t.string   "email"
     t.integer  "account_id"
-    t.integer  "authenticated",                 :default => 0
+    t.integer  "authenticated",                        :default => 0
     t.string   "activation_code"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "old_type"
-    t.string   "hashed_password", :limit => 40
-    t.string   "salt",            :limit => 40
+    t.string   "hashed_password",        :limit => 40
+    t.string   "salt",                   :limit => 40
     t.string   "api_key"
+    t.string   "encrypted_password",                   :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                        :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.string   "authentication_token"
   end
 
   add_index "people", ["account_id", "api_key", "authenticated", "activation_code"], :name => "by_api_key"
+  add_index "people", ["authentication_token"], :name => "index_people_on_authentication_token", :unique => true
+  add_index "people", ["email", "account_id"], :name => "index_people_on_email_and_account_id", :unique => true
+  add_index "people", ["reset_password_token", "account_id"], :name => "index_people_on_reset_password_token_and_account_id", :unique => true
 
   create_table "sprint_changes", :force => true do |t|
     t.integer  "auditable_id"

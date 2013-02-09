@@ -1,6 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def current_user
+    current_person
+  end
+
   def account_switcher_selected(here, there)
     here == there ? "selected=\"selected\"" : ""
   end
@@ -56,7 +60,7 @@ module ApplicationHelper
 
     result << "backlog" if ["user_stories"].include?(params_hash[:controller])
     result << "planning" if (params_hash[:controller] == "sprints" && params_hash[:action] != "show")
-    result << "authenticated" if current_user
+    result << "authenticated" if current_person
     result << "task_board" if current_sprint && (params_hash[:controller] == "sprints" && params_hash[:action] == "show" && params_hash[:id].to_i == current_sprint.id)
 
     return result.join(" ")
@@ -70,6 +74,7 @@ module ApplicationHelper
     messages = []
     messages << "notice" if flash[:notice]
     messages << "error" if flash[:error]
+    messages << "alert" if flash[:alert]
 
     if messages.size > 0
       result = []
@@ -100,9 +105,7 @@ module ApplicationHelper
 
   def user_navigation
     result = []
-    [ {:name => "account", :url => {:controller => "account"}, :match => ["account", "users"]},
-      {:name => "logout", :url => {:controller => "login", :action => "logout"}}
-    ].each do |link|
+    [ {:name => "account", :url => {:controller => "account"}, :match => ["account", "users"]} ].each do |link|
       if link
         result << build_link(link)
       end

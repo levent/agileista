@@ -16,6 +16,7 @@ gem 'gravtastic'
 gem 'ranked-model'
 gem "hiredis", "0.4.5"
 gem "redis", "3.0.2", :require => ["redis/connection/hiredis", "redis"]
+gem 'devise'
 gem 'thin'
 
 group :assets do
