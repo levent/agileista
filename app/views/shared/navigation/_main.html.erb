@@ -1,5 +1,5 @@
 <nav class="top-bar">
-  <% if logged_in? && @account %>
+  <% if person_signed_in? && @account %>
 
   <ul>
     <!-- Title Area -->
@@ -60,7 +60,7 @@
           <li><%= link_to "Settings", account_path %></li>
           <li><%= link_to "Users", people_path %></li>
           <li class="divider"></li>
-          <li><%= link_to "Logout", logout_path %></li>
+          <li><%= link_to('Logout', destroy_person_session_path, :method => :delete) %></li>
         </ul>
       </li>
     </ul>

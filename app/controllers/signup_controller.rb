@@ -5,17 +5,15 @@ class SignupController < ApplicationController
     if person_signed_in?
       redirect_to :controller => 'backlog', :subdomain => current_subdomain and return false
     elsif AccountStuff::MASTER_SUBDOMAIN != current_subdomain
-      redirect_to login_path(:subdomain => current_subdomain)
+      redirect_to new_person_session_path(:subdomain => current_subdomain)
     end
     @account = Account.new
     @account.team_members.build
   end
-  
+
   def create
     redirect_to :controller => 'signup', :action => 'index' and return false if reserved_subdomain?(params[:account])
     @account = Account.new(params[:account])
-    user = @account.team_members.first
-    @account.account_holder = user
     if @account.save # only save if valid!
       NotificationMailer.account_activation_info(user, @account).deliver
       NotificationMailer.new_account_on_agileista(@account).deliver
@@ -24,12 +22,12 @@ class SignupController < ApplicationController
     else
       # flash[:error] = "Oh oh!"
       render :action => 'index'
-    end    
+    end
   end
-  
+
   def ok
   end
-  
+
   def validate
     @user = Person.find_by_activation_code(params[:id])
     redirect_to :action => "index" and return false if @user.nil?
@@ -38,9 +36,9 @@ class SignupController < ApplicationController
       redirect_to :controller => "login", :action => "index", :subdomain => current_subdomain
     end
   end
-  
+
   protected
-  
+
   def reserved_subdomain?(account_params)
     if account_params[:subdomain] && AccountStuff::RESERVED_SUBDOMAINS.include?(account_params[:subdomain])
       return true

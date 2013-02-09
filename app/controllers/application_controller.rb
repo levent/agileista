@@ -1,8 +1,16 @@
 class ApplicationController < ActionController::Base
   force_ssl
   protect_from_forgery
+  before_filter :set_account
 
   protected
+
+  def set_account
+    @account = Account.find_by_subdomain(current_subdomain)
+    if @account.nil? && current_subdomain != (AccountStuff::MASTER_SUBDOMAIN || request.path != signup_path)
+      redirect_to signup_url(:subdomain => AccountStuff::MASTER_SUBDOMAIN) 
+    end
+  end
 
   def ssl_required?
     return false if (local_request? || ['development', 'test'].include?(Rails.env))

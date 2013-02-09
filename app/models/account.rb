@@ -14,10 +14,19 @@ class Account < ActiveRecord::Base
   validates_uniqueness_of :name, :case_sensitive => false
   validates_uniqueness_of :subdomain, :case_sensitive => false
   validates_format_of :subdomain, :with => /^[A-Za-z]+[-A-Za-z0-9]*[A-Za-z0-9]+$/, :message => "may only contain numbers and letters"
-  
+  after_create :invite_account_holder
   before_validation :make_fields_lowercase
 
-  accepts_nested_attributes_for :team_members
+  attr_accessor :account_holder_email
+
+  def invite_account_holder
+    debugger
+    puts 'debugger'
+    generated_password = Devise.friendly_token.first(6)
+    user = Person.create(:email => self.account_holder_email,
+                        :password => generated_password)
+    RegistrationMailer.welcome(user, generated_password).deliver
+  end
 
   def median_velocity
     return if sprints.finished.statistically_significant(self).empty?

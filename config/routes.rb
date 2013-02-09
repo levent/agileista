@@ -1,5 +1,5 @@
 Agileista::Application.routes.draw do
-  devise_for :people, :controllers => {:sessions => "sessions"}
+  devise_for :people
 
   # resources :backlog, :controller => 'backlog', :collection => {:feed => :get, :search => :get, :sprint => :get, :sort => :post, :grid => :get, :list => :get}, :except => [:show]
 
@@ -12,6 +12,7 @@ Agileista::Application.routes.draw do
   get "/backlog/:filter" => "backlog#index"
   get "/backlog/:filter/:range" => "backlog#index"
 
+  get '/signup' => 'signup#index'
   post "/signup" => "signup#create"
   get "/validate" => "signup#validate"
   get "/ok" => "signup#ok"

@@ -8,11 +8,11 @@ class Person < ActiveRecord::Base
          :confirmable, authentication_keys: [:email, :account_id]
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   include Gravtastic
   gravtastic
 
-  validates_presence_of :name
+#  validates_presence_of :name
   validates_presence_of :email
   validates_uniqueness_of :email, :scope => :account_id, :case_sensitive => false
   belongs_to :account
