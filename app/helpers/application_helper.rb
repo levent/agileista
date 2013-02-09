@@ -62,38 +62,6 @@ module ApplicationHelper
     return ' class="usclaimed"' if user_story.inprogress?
   end
 
-  def main_navigation
-    result = []
-    [ {:name => "backlog", :url => {:controller => "backlog"}},
-      {:name => "themes", :url => themes_url},
-      {:name => "sprints", :url => sprints_url, :match => "planning"},
-      ({:name => "task board", :url => sprint_url(current_sprint), :match => "task_board"} if current_sprint)
-    ].each do |link|
-      if link
-        result << build_link(link)
-      end
-    end
-
-    content_tag(:ul, result.join("").html_safe, :class => 'nav')
-  end
-
-  def user_navigation
-    result = []
-    [ {:name => "account", :url => {:controller => "account"}, :match => ["account", "users"]},
-      {:name => "logout", :url => {:controller => "login", :action => "logout"}}
-    ].each do |link|
-      if link
-        result << build_link(link)
-      end
-    end
-
-    return content_tag(:ul, result.join("").html_safe, :class => 'nav pull-right')
-  end
-
-  def add_user_story
-    link_to "Add user story", :controller => 'user_stories', :action => "new"
-  end
-
   def display_themes(account, current_themes)
     result = []
 
