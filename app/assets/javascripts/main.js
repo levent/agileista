@@ -49,7 +49,7 @@ function updateTaskCard(container, task_card, hours, devs, who, me) {
   }
 };
 
-function setupTaskBoard(user_story_id) {
+function setupTaskBoard(project_id, user_story_id) {
 
   var us_container = '#user_story_container_' + user_story_id;
   $(us_container).find('div.task-card').draggable({delay: 100, zIndex: 100});
@@ -58,7 +58,7 @@ function setupTaskBoard(user_story_id) {
     accept: us_container + ' div.task-card',
     drop: function(event, props) {
       $.ajax({
-        url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/renounce',
+        url: '/projects/' + project_id + '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/renounce',
         type: 'POST',
         data: { _method: 'PUT' },
         dataType: 'jsonp'
@@ -70,7 +70,7 @@ function setupTaskBoard(user_story_id) {
     accept: us_container + ' div.task-card',
     drop: function(event, props) {
       $.ajax({
-        url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/claim',
+        url: '/projects/' + project_id + '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/claim',
         type: 'POST',
         data: { _method: 'PUT' },
         dataType: 'jsonp'
@@ -82,7 +82,7 @@ function setupTaskBoard(user_story_id) {
     accept: us_container + ' div.task-card',
     drop: function(event, props) {
       $.ajax({
-        url: '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/complete',
+        url: '/projects/' + project_id + '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/complete',
         type: 'POST',
         data: { _method: 'PUT' },
         dataType: 'jsonp'
@@ -107,12 +107,12 @@ function setupTaskBoardStats() {
   $("#progress-bar .meter").css('width', current_percentage + '%');
 }
 
-function setupSprintPlanning(sprint_id) {
+function setupSprintPlanning(project_id, sprint_id) {
   $('#estimated').sortable({
     items: 'div.backlog-item',
     connectWith: '#committed',
     receive: function(event, ui) {
-      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/unplan', {format: 'json'}, function(data) {
+      $.post('/projects/' + project_id + '/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/unplan', {format: 'json'}, function(data) {
         if(data.ok == true) {
           $('#points_planned').html(data.points_planned + ' story points');
           $('#hours_left').html(data.hours_left + ' hours');
@@ -126,15 +126,14 @@ function setupSprintPlanning(sprint_id) {
     items: 'div.backlog-item',
     connectWith: '#estimated',
     update: function(event, ui) {
-      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/reorder', {move_to: ui.item.index() - 1}, function(data) {
+      $.post('/projects/' + project_id + '/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/reorder', {move_to: ui.item.index() - 1}, function(data) {
         if(data.ok == true) {
           $('#flashs').html('Sprint reordered');
         }
       }, "json");
     },
     receive: function(event, ui) {
-
-      $.post('/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/plan', {format: 'json'}, function(data) {
+      $.post('/projects/' + project_id + '/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/plan', {format: 'json'}, function(data) {
         if(data.ok == true) {
           $('#points_planned').html(data.points_planned + ' story points');
           $('#hours_left').html(data.hours_left + ' hours');
@@ -160,26 +159,6 @@ function setupThemes(){
 }
 
 $(function() {
-  $('.task_hours').on('change', function() {
-    $.ajax({ url: '/user_stories/' + $(this).parents('div[data-story]').attr('data-story') + '/tasks/' + $(this).parents('div[data-story]').attr('data-task')
-      , type: 'POST'
-      , data: { _method: 'PUT', hours: $(this).val() }
-    });
-  });
-
-  if ($('#user_stories div').length > 0 && (window.location.pathname.indexOf('stale') === -1)) {
-
-    $('#user_stories').sortable({
-      items: 'div',
-      update: function(event, ui) {
-        $.post('/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index()}, function(data) {
-          if(data.ok == true) {
-            $('#flashs').html('Backlog reordered');
-          }
-        }, "json");
-      }
-    });
-  }
 
   // Return a helper with preserved width of cells
   var fixHelper = function(e, ui) {
@@ -193,7 +172,8 @@ $(function() {
     $('#backlog-items').sortable({
       items: '> div',
       update: function(event, ui) {
-        $.post('/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index()}, function(data) {
+      project_id = $(this).attr('data-project');
+        $.post('/projects/' + project_id + '/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index()}, function(data) {
           if(data.ok == true) {
             $('#flashs').html('Backlog reordered');
             Agileista.setupVelocityMarkers(data.velocity)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130209135757) do
+ActiveRecord::Schema.define(:version => 20130210223527) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(:version => 20130209135757) do
   add_index "burndowns", ["sprint_id", "created_on"], :name => "index_burndowns_on_sprint_id_and_created_on"
   add_index "burndowns", ["sprint_id"], :name => "index_burndowns_on_sprint_id"
 
+  create_table "invitations", :force => true do |t|
+    t.string   "email"
+    t.integer  "project_id"
+    t.integer  "sent_count", :default => 0
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "invitations", ["email", "project_id"], :name => "index_invitations_on_email_and_project_id", :unique => true
+
   create_table "people", :force => true do |t|
     t.string   "name"
     t.string   "email"
@@ -76,9 +86,16 @@ ActiveRecord::Schema.define(:version => 20130209135757) do
   end
 
   add_index "people", ["account_id", "api_key", "authenticated", "activation_code"], :name => "by_api_key"
-  add_index "people", ["authentication_token"], :name => "index_people_on_authentication_token", :unique => true
-  add_index "people", ["email", "account_id"], :name => "index_people_on_email_and_account_id", :unique => true
-  add_index "people", ["reset_password_token", "account_id"], :name => "index_people_on_reset_password_token_and_account_id", :unique => true
+
+  create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.integer  "iteration_length"
+    t.integer  "velocity"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "projects", ["name"], :name => "index_projects_on_name", :unique => true
 
   create_table "sprint_changes", :force => true do |t|
     t.integer  "auditable_id"
@@ -111,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20130209135757) do
     t.text     "goal"
     t.string   "name"
     t.integer  "velocity"
+    t.integer  "project_id"
   end
 
   create_table "taggings", :force => true do |t|
@@ -153,6 +171,14 @@ ActiveRecord::Schema.define(:version => 20130209135757) do
 
   add_index "tasks", ["user_story_id"], :name => "index_tasks_on_user_story_id"
 
+  create_table "team_members", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "project_id"
+    t.boolean  "scrum_master", :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
   create_table "themes", :force => true do |t|
     t.string  "name",        :default => "", :null => false
     t.integer "account_id"
@@ -185,6 +211,7 @@ ActiveRecord::Schema.define(:version => 20130209135757) do
     t.integer  "cannot_be_estimated", :default => 0
     t.string   "stakeholder",         :default => ""
     t.boolean  "delta",               :default => false
+    t.integer  "project_id"
   end
 
 end

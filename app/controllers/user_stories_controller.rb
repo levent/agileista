@@ -1,9 +1,7 @@
 class UserStoriesController < AbstractSecurityController
 
   before_filter :user_story_must_exist, :only => [:update, :show, :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
-  before_filter :set_sprint, :only => [:new, :show, :edit, :create, :plan, :unplan, :reorder]
-  before_filter :set_additional_themes, :only => [:create, :update]
-  before_filter :load_theme, :only => [:new]
+  before_filter :set_sprint, :only => [:plan, :unplan, :reorder]
 
   def copy
     if @user_story.copy
@@ -115,24 +113,14 @@ class UserStoriesController < AbstractSecurityController
     end
     redirect_back_or(backlog_url)
   end
-  
+
   protected
-  
+
   def set_sprint
-    @sprint ||= @account.sprints.find(params[:sprint_id]) if params[:sprint_id]
+    @sprint = @project.sprints.find(params[:sprint_id])
   end
-  
-  def set_additional_themes
-    unless params[:additional_theme].blank?
-      @additional_theme = @account.themes.find_or_create_by_name(params[:additional_theme])
-    end
-  end
-  
+
   def assign_additional_themes
     @user_story.themes << @additional_theme if @additional_theme
-  end
-  
-  def load_theme
-    @theme = @account.themes.find(params[:theme_id]) if params[:theme_id]
   end
 end

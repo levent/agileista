@@ -1,9 +1,13 @@
 class ApplicationController < ActionController::Base
   force_ssl
   protect_from_forgery
-  before_filter :set_account
+  before_filter :set_project
 
   protected
+
+  def set_project
+    @project = current_person.projects.find(params[:project_id]) if params[:project_id]
+  end
 
   def set_account
     @account = Account.find_by_subdomain(current_subdomain)
@@ -18,20 +22,20 @@ class ApplicationController < ActionController::Base
   end
 
   def user_story_must_exist
-    @user_story = @account.user_stories.find(params[:id])
+    @user_story = @project.user_stories.find(params[:id])
   end
 
   def sprint_must_exist
     begin
-      @sprint = @account.sprints.find(params[:id])
+      @sprint = @project.sprints.find(params[:id])
     rescue
       flash[:error] = "No such sprint"
-      redirect_to sprints_path and return false
+      redirect_to project_sprints_path(@project) and return false
     end
   end
 
   def set_user_story
-    @user_story = @account.user_stories.find(params[:user_story_id])
+    @user_story = @project.user_stories.find(params[:user_story_id])
   end
 
   def set_task
@@ -44,12 +48,12 @@ class ApplicationController < ActionController::Base
   end
 
   def must_be_account_holder
-    current_user.account_holder? ? true : (redirect_to backlog_url and return false)
+    current_person.scrum_master_for?(@project) ? true : (redirect_to backlog_url and return false)
   end
 
   # excludes DONE
-  def account_user_stories
-    @user_stories = @account.user_stories.unassigned.rank(:backlog_order)
+  def project_user_stories
+    @user_stories = @project.user_stories.unassigned.rank(:backlog_order)
   end
 
   def calculate_todays_burndown

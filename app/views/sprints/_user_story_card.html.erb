@@ -7,7 +7,7 @@
         <span class="label secondary round points"><%= show_story_points(user_story.story_points, :unit => "") %></span>
       </p>
       <p>
-        <%= link_to user_story.definition, edit_user_story_path(user_story) %>
+        <%= link_to user_story.definition, edit_project_user_story_path(@project, user_story) %>
       </p>
     </div>
   </div>

@@ -2,7 +2,7 @@
 <% unless @sprints.blank? %>
   <div class="row">
     <div class="columns fourteen">
-      <h2><small>Total:</small> <%= @sprints.size %>. <small>Finished:</small> <%= @sprints.finished.size %>. <small>Average velocity:</small> <%= average_velocity(@account) %></h2>
+      <h2><small>Total:</small> <%= @sprints.size %>. <small>Finished:</small> <%= @sprints.finished.size %>. <small>Average velocity:</small> <%= average_velocity(@project) %></h2>
     </div>
     <div class="columns ten end">
     </div>
@@ -28,7 +28,7 @@
       <%= render @sprints %>
     </tbody>
   </table>
-  <p><span class="highlight">*stats based on sprints since <strong><%= show_date(Velocity.stats_significant_since(@account).to_time) %></strong></span></p>
+  <p><span class="highlight">*stats based on sprints since <strong><%= show_date(Velocity.stats_significant_since(@project).to_time) %></strong></span></p>
 <% else %>
-  <p>There are no sprints for this project, <%= link_to "create your first sprint", new_sprint_url %>.</p>
+  <p>There are no sprints for this project, <%= link_to "create your first sprint", new_project_sprint_path(@project) %>.</p>
 <% end %>

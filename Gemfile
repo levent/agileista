@@ -10,7 +10,6 @@ gem "newrelic_rpm"
 gem "newrelic-redis", "1.3.2"
 gem 'juggernaut', '2.1.1'
 gem 'exceptional', '2.0.33'
-gem 'subdomain-fu', :git => "git://github.com/nhowell/subdomain-fu.git"
 gem 'thinking-sphinx', '2.0.13'
 gem 'gravtastic'
 gem 'ranked-model'

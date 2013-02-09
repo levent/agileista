@@ -1,12 +1,12 @@
-<tr class="<%= person.authenticated? ? "active" : "inactive" %><%= " account_holder" if person.account_holder? %>">
+<tr class="<%= person.authenticated? ? "active" : "inactive" %><%= " account_holder" if person.scrum_master_for?(@project) %>">
   <td><%= image_tag person.gravatar_url(:rating => 'G', :size => 40, :default => asset_path('default_avatar.png')) %></td>
   <td><%= person.name %></td>
   <td><%= link_to person.email, "mailto:#{person.email}" %></td>
   <td><%= show_date(person.created_at) %></td>
 	<td>
-    <%= link_to 'Inactive', {:controller => 'account', :action => 'resend_authentication', :id => person}, :class => "tiny button success", :method => :post if !person.authenticated? && current_user.account_holder? %>
-    <%= link_to 'Edit', edit_person_path(person), :class => "tiny button" if current_user.account_holder? || person == current_user %>
-    <%= link_to 'Delete', person_path(person), :class => "tiny button alert", :method => :delete, :confirm => "Are you sure?" if current_user.can_delete_users? || current_user.account_holder? %>
+    <%= link_to 'Inactive', {:controller => 'account', :action => 'resend_authentication', :id => person}, :class => "tiny button success", :method => :post if !person.authenticated? && current_user.scrum_master_for?(@project) %>
+    <%= link_to 'Edit', edit_person_path(person), :class => "tiny button" if current_user.scrum_master_for?(@project) || person == current_user %>
+    <%= link_to 'Delete', person_path(person), :class => "tiny button alert", :method => :delete, :confirm => "Are you sure?" if current_user.scrum_master_for?(@project) %>
   </td>
 </tr>
 

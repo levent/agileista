@@ -1,4 +1,3 @@
-require 'csv'
 class SprintsController < AbstractSecurityController
 
   before_filter :must_be_account_holder, :only => [:set_stats]
@@ -6,14 +5,14 @@ class SprintsController < AbstractSecurityController
   before_filter :sprint_must_exist, :only => [:show, :edit, :plan, :update, :destroy, :set_stats]
 
   def index
-    @sprints = @account.sprints
-    @velocity = @account.average_velocity
-    @cint_lo, @cint_hi = Velocity.confidence_interval(@sprints.finished.statistically_significant(@account).map(&:calculated_velocity))
-    @stats_since_sprint = Velocity.stats_significant_since_sprint_id(@account.id)
+    @sprints = @project.sprints
+    @velocity = @project.average_velocity
+    @cint_lo, @cint_hi = Velocity.confidence_interval(@sprints.finished.statistically_significant(@project).map(&:calculated_velocity))
+    @stats_since_sprint = Velocity.stats_significant_since_sprint_id(@project.id)
   end
 
   def show
-    @sprint = @account.sprints.includes(:user_stories => :tasks).find(params[:id])
+    @sprint = @project.sprints.includes(:user_stories => :tasks).find(params[:id])
     store_location
     @current_sprint = @sprint
     calculate_burndown_points
@@ -34,21 +33,21 @@ class SprintsController < AbstractSecurityController
   end
 
   def set_stats
-    REDIS.set("account:#{@account.id}:stats_since:sprint_id", @sprint.id)
-    REDIS.set("account:#{@account.id}:stats_since", @sprint.start_at)
-    redirect_to sprints_path
+    REDIS.set("project:#{@project.id}:stats_since:sprint_id", @sprint.id)
+    REDIS.set("project:#{@project.id}:stats_since", @sprint.start_at)
+    redirect_to project_sprints_path(@project)
   end
 
   def new
-    @sprint = @account.sprints.new
+    @sprint = @project.sprints.new
   end
 
   def create
-    @sprint = @account.sprints.new(params[:sprint])
+    @sprint = @project.sprints.new(params[:sprint])
     set_start_at
     if @sprint.save
       flash[:notice] = "Sprint saved"
-      redirect_to sprints_path
+      redirect_to project_sprints_path(@project)
     else
       flash[:error] = "Sprint couldn't be saved"
       render :action => 'new'
@@ -61,7 +60,7 @@ class SprintsController < AbstractSecurityController
   def update
     if @sprint && @sprint.update_attributes(params[:sprint])
       flash[:notice] = "Sprint saved"
-      redirect_back_or(sprints_path)
+      redirect_back_or(project_sprints_path(@project))
     else
       flash[:error] = "Sprint couldn't be saved"
       render :action => 'edit'
@@ -84,7 +83,7 @@ class SprintsController < AbstractSecurityController
   private 
   
   def iteration_length_must_be_specified
-    if @account.iteration_length.blank?
+    if @project.iteration_length.blank?
       flash[:notice] = "Please specify an iteration length first"
       redirect_to :controller => 'account', :action => 'settings'
       return false 

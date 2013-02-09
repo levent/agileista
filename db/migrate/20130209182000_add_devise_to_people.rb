@@ -37,11 +37,13 @@ class AddDeviseToPeople < ActiveRecord::Migration
       # t.timestamps
     end
 
-    add_index :people, [:email, :account_id],                :unique => true
-    add_index :people, [:reset_password_token, :account_id], :unique => true
+    #TODO: 
+    #add_index :people, :email,                :unique => true
+    #add_index :people, :reset_password_token, :unique => true
+    #add_index :people, :authentication_token, :unique => true
+
     # add_index :people, :confirmation_token,   :unique => true
     # add_index :people, :unlock_token,         :unique => true
-    add_index :people, :authentication_token, :unique => true
   end
 
   def self.down

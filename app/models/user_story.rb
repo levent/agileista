@@ -1,14 +1,14 @@
 require 'csv'
 class UserStory < ActiveRecord::Base
-  define_index do
-    indexes tags.name, :as => :tag_string
-    indexes definition
-    indexes description
-    indexes [stakeholder, person.name], :as => :responsible
-    has account(:id), :as => :account_id
-    where "done = 0 AND sprint_id IS NULL"
-    set_property :delta => true
-  end
+#  define_index do
+#    indexes tags.name, :as => :tag_string
+#    indexes definition
+#    indexes description
+#    indexes [stakeholder, person.name], :as => :responsible
+#    has account(:id), :as => :account_id
+#    where "done = 0 AND sprint_id IS NULL"
+#    set_property :delta => true
+#  end
 
   acts_as_taggable_on :tags
 
@@ -28,10 +28,12 @@ class UserStory < ActiveRecord::Base
 
   validates_presence_of :definition
   validates_presence_of :account_id
+  validates_presence_of :project_id
 
   has_many :tasks, :order => :position
   accepts_nested_attributes_for :tasks, :allow_destroy => true, :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
   belongs_to :account
+  belongs_to :project
 
   # This is only used (sprint_id field) to indicate whether a user story is planned or not (that's all it seems)
   #  Please see action > estimated_account_user_stories

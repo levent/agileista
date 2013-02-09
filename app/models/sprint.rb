@@ -7,7 +7,8 @@ class Sprint < ActiveRecord::Base
   has_many :audits, :class_name => "SprintChange"
 
   belongs_to :account
-  validates_presence_of :account_id
+  belongs_to :project
+  validates_presence_of :project_id
   validates_presence_of :start_at, :end_at
   validates_presence_of :name
 
@@ -85,8 +86,8 @@ class Sprint < ActiveRecord::Base
   def calculate_end_date
     if self.end_at
       self.end_at = self.end_at.end_of_day
-    elsif self.account
-      self.end_at = self.account.iteration_length.to_i.weeks.from_now(1.day.ago(start_at)).end_of_day
+    elsif self.project
+      self.end_at = self.project.iteration_length.to_i.weeks.from_now(1.day.ago(start_at)).end_of_day
     end
   end
 

@@ -1,6 +1,11 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def scrum_master?
+    return false unless @project && current_person
+    current_person.scrum_master_for?(@project)
+  end
+
   def current_user
     current_person
   end
@@ -122,7 +127,7 @@ module ApplicationHelper
   end
 
   def current_sprint
-    @current_sprint ||= @account.sprints.current.first if @account
+    @current_sprint ||= @project.sprints.current.first if @project
   end
 end
 

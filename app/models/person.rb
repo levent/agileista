@@ -3,22 +3,24 @@ require 'digest/sha1'
 class Person < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, authentication_keys: [:email, :account_id]
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable,
+         :validatable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   include Gravtastic
   gravtastic
 
-#  validates_presence_of :name
+  validates_presence_of :name
   validates_presence_of :email
   validates_uniqueness_of :email, :scope => :account_id, :case_sensitive => false
   belongs_to :account
   has_many :user_stories
   has_many :task_developers, :foreign_key => "developer_id"
   has_many :tasks, :through => :task_developers
+  has_many :team_members
+  has_many :projects, :through => :team_members, :order => 'name', :dependent => :destroy
 
   before_create :generate_activation_code
   before_save :downcase_email
@@ -72,15 +74,11 @@ class Person < ActiveRecord::Base
     self.password_confirmation = pass
     return pass
   end
-  
-  def account_holder?
-    self == self.account.account_holder
+
+  def scrum_master_for?(project)
+    project.team_members.where('scrum_master = ?', true).map(&:person).include?(self)
   end
-  
-  def can_delete_users?
-    account_holder?
-  end
-  
+
   protected
   
   def generate_activation_code

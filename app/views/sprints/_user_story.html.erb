@@ -17,6 +17,6 @@
 
 <% unless sprint.finished? %>
   <% content_for :custom_js do %>
-    setupTaskBoard(<%= user_story.id %>);
+    setupTaskBoard(<%= @project.id %>, <%= user_story.id %>);
   <% end %>
 <% end %>

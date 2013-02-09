@@ -1,9 +1,9 @@
 <div class="row">
   <div class="twentyfour columns">
-    <% if current_user.account_holder? %>
-      <p><%= link_to("Add user", new_person_path) %></p>
+    <% if current_user.scrum_master_for?(@project) %>
+      <p><%= link_to("Invite user", new_project_invitation_path, :class => 'button') %></p>
     <% end %>
-    <% if @people.blank?%>
+    <% if @people.blank? %>
       <p>There are no people on this project. <%= link_to "Create the first user", new_user_url %>.</p>
     <% else %>
       <h2>Users</h2>
@@ -24,8 +24,26 @@
           <tr>
             <td colspan="2"><%= pluralize(@people.active.count, 'active user') %></td>
             <td colspan="3"><%= pluralize(@people.inactive.count, 'inactive user') %></td>
+          </tr>
         </tfoot>
       </table>
     <% end %>
+  </div>
+</div>
+
+<h2>Pending invitations</h2>
+<div class="row">
+  <div class="twelve columns">
+    <table class="twentyfour">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Sent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @invitations %>
+      </tbody>
+    </table>
   </div>
 </div>

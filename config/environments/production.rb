@@ -77,4 +77,6 @@ Agileista::Application.configure do
     :password             => 'outgoing',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
+
+  config.action_mailer.default_url_options = { :host => 'app.agileista.com' }
 end

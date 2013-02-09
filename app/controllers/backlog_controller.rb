@@ -1,12 +1,10 @@
 class BacklogController < AbstractSecurityController
-  # ssl_required :feed
-  # ssl_allowed :index, :sort, :search
-  before_filter :account_user_stories ,:only => ['index', 'export', 'feed', 'sort']
+  before_filter :project_user_stories ,:only => ['index', 'export', 'feed', 'sort']
 
   def index
     store_location
-    @velocity = @account.average_velocity
-    @uid = Digest::SHA1.hexdigest("backlog#{@account.id}")
+    @velocity = @project.average_velocity
+    @uid = Digest::SHA1.hexdigest("backlog#{@project.id}")
     if params[:filter] == 'stale'
       @how_stale = calculate_staleness(params[:t])
       @user_stories = @user_stories.stale(@how_stale)
@@ -16,7 +14,7 @@ class BacklogController < AbstractSecurityController
     end
     respond_to do |format|
       format.html do
-        if @account.user_stories.blank?
+        if @project.user_stories.blank?
           render :action => 'get_started' 
         end
       end
@@ -54,12 +52,12 @@ class BacklogController < AbstractSecurityController
   def sort
     @user_stories.find(params[:user_story_id]).update_attribute(:backlog_order_position, params[:move_to])
     json = {
-      :notification => "Backlog reordered by #{current_user.name}",
-      :performed_by => current_user.name
+      :notification => "Backlog reordered by #{current_person.name}",
+      :performed_by => current_person.name
     }
-    uid = Digest::SHA1.hexdigest("backlog#{@account.id}")
+    uid = Digest::SHA1.hexdigest("backlog#{@project.id}")
     Juggernaut.publish(uid, json)
-    render :json => {:ok => true, :velocity => @account.average_velocity}.to_json
+    render :json => {:ok => true, :velocity => @project.average_velocity}.to_json
   end
   
   private
@@ -74,11 +72,11 @@ class BacklogController < AbstractSecurityController
   end
 
   def load_story_points(cached = true)
-    @story_points = REDIS.get("account:#{@account.id}:story_points") if cached
+    @story_points = REDIS.get("project:#{@project.id}:story_points") if cached
     unless @story_points
       @story_points = 0
       @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
-      REDIS.set("account:#{@account.id}:story_points", @story_points) if cached
+      REDIS.set("project:#{@project.id}:story_points", @story_points) if cached
     end
   end
 end

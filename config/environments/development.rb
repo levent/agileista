@@ -38,4 +38,5 @@ Agileista::Application.configure do
   COOKIE_DOMAIN = 'agileista.local'
   EMAIL_FROM = "donotreply@agileista.local"
   MAIN_HOST = 'agileista.local'
+  config.action_mailer.default_url_options = { :host => 'app.agileista.local:3000' }
 end

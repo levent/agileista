@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="columns six end">
+    <h2>Account Settings</h2>
+    <%= simple_form_for @project do |f| %>
+      <p><%= f.input :iteration_length, as: :select, collection: [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]] %></p>
+      <%= f.button :submit, "Set iteration length" %>
+    <% end %>
+
+    <hr>
+
+    <%= form_tag({:controller => 'account', :action => 'generate_api_key'}, {:class => 'form'}) %>
+      <label>Api Key</label>
+      <p><%= current_user.api_key || "No api key" %></p>
+      <%= button_tag "Generate api key", :class => 'button' %>
+    </form>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 class AbstractSecurityController < ApplicationController
   cache_sweeper :sprint_audit_sweeper
-  before_filter :authenticate_person!
+  prepend_before_filter :authenticate_person!
 
   private
 

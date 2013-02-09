@@ -24,26 +24,10 @@ module UserStoriesHelper
     return "OK"
   end
 
-  def show_link(user_story)
-    if user_story.sprint
-      sprint_user_story_url(user_story.sprint, user_story)
-    else
-      user_story_url(user_story)
-    end
-  end
-
-  def edit_link(user_story)
-    if user_story.sprint
-      edit_sprint_user_story_url(user_story.sprint, user_story)
-    else
-      edit_user_story_url(user_story)
-    end
-  end
-
   def parse_definition(definition)
     definition = html_escape(definition)
     definition.scan(/\[\w+\]/).uniq.each do |m|
-      link = link_to m, backlog_search_path(:q => m), :class => 'tagged'
+      link = link_to m, search_project_backlog_index_path(@project, :q => m), :class => 'tagged'
       definition.gsub!(m, link).html_safe
     end
     definition

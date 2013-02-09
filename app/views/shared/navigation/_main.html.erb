@@ -1,5 +1,5 @@
 <nav class="top-bar">
-  <% if person_signed_in? && @account %>
+  <% if person_signed_in? && @project %>
 
   <ul>
     <!-- Title Area -->
@@ -16,29 +16,25 @@
     <ul class="left">
       <li class="divider"></li>
       <li class="has-dropdown">
-        <%= link_to "Backlog", backlog_path %>
+        <%= link_to "Backlog", project_backlog_index_path(@project) %>
         <ul class="dropdown">
-          <li><%= link_to "Add user story", new_user_story_path %></li>
-          <li><%= link_to "View all stories", backlog_path %></li>
-          <li><%= link_to "Export CSV", backlog_url(:format => 'csv') %></li>
+          <li><%= link_to "Add user story", new_project_user_story_path(@project) %></li>
+          <li><%= link_to "View all stories", project_backlog_index_path(@project) %></li>
+          <li><%= link_to "Export CSV", project_backlog_index_path(@project, :format => 'csv') %></li>
         </ul>
       </li>
       <li class="divider"></li>
       <li class="has-dropdown">
-        <%= link_to "Sprints", sprints_path %>
+        <%= link_to "Sprints", project_sprints_path(@project) %>
         <ul class="dropdown">
-          <li><%= link_to("Add sprint", new_sprint_path) %></li>
-          <li><%= link_to "View all sprints", sprints_path %></li>
+          <li><%= link_to("Add sprint", new_project_sprint_path(@project)) %></li>
+          <li><%= link_to "View all sprints", project_sprints_path(@project) %></li>
         </ul>
       </li>
       <li class="divider"></li>
       <% if current_sprint %>
-        <li class="has-dropdown">
-          <%= link_to "Task Board", sprint_path(current_sprint) %>
-          <ul class="dropdown">
-            <li><%= link_to "Add story to current sprint", new_sprint_user_story_url(current_sprint) %></li>
-            <li><%= link_to "View task board", sprint_path(current_sprint) %>
-          </ul>
+        <li>
+          <%= link_to "Task Board", project_sprint_path(@project, current_sprint) %>
         </li>
       <% end %>
     </ul>
@@ -46,19 +42,28 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <li class="has-button search">
-      <%= form_for :tag, :url => backlog_search_path, :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
+      <%= form_for :tag, :url => search_project_backlog_index_path(@project), :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
         <%= text_field_tag 'q' %>
         <%= button_tag 'Search', :class => "submit secondary button" %>
       <% end %>
       </li>
       <li class="divider"></li>
       <li class="has-dropdown">
-        <%= link_to(current_user.name, edit_person_path(current_user)) %>
+        <%= link_to @project.name.humanize, projects_path %>
+        <ul class="dropdown">
+          <% current_person.projects.each do |project| %>
+            <li><%= link_to project.name.humanize, project_backlog_index_path(project) %></li>
+          <% end %>
+        </ul>
+      </li>
+      <li class="divider"></li>
+      <li class="has-dropdown">
+        <%= link_to(current_user.name, edit_person_registration_path) %>
         <ul class="dropdown">
           <li><label>Account</label></li>
-          <li><%= link_to "Edit profile", edit_person_path(current_user) %></li>
-          <li><%= link_to "Settings", account_path %></li>
-          <li><%= link_to "Users", people_path %></li>
+          <li><%= link_to "Edit profile", edit_person_registration_path %></li>
+          <li><%= link_to "Settings", edit_project_path(@project) %></li>
+          <li><%= link_to "Users", project_people_path(@project) %></li>
           <li class="divider"></li>
           <li><%= link_to('Logout', destroy_person_session_path, :method => :delete) %></li>
         </ul>

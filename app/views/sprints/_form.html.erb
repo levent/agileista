@@ -1,16 +1,16 @@
-<%= simple_form_for @sprint do |f| %>
+<%= simple_form_for [@project, @sprint] do |f| %>
   <div class="row">
     <div class="sixteen columns">
       <%= f.input :name %>
-      <% default = @account.sprints.any? ? @account.sprints.first.end_at : nil %>
+      <% default = @project.sprints.any? ? @project.sprints.first.end_at : nil %>
       <div class="row">
         <div class="eight columns">
           <%= f.input :start_at, as: :date, order: [:day, :month, :year], default: 1.day.from_now(default), input_html: { class: 'eight columns' } %>
         </div>
         <div class="eight columns">
-          <% if @account && @sprint.new_record? %>
+          <% if @project && @sprint.new_record? %>
             <%= f.label :end_at, "Ends in" %>
-            <%= pluralize(@account.iteration_length, "week") %>
+            <%= pluralize(@project.iteration_length, "week") %>
           <% else %>
             <%= f.input :end_at, as: :date, order: [:day, :month, :year], input_html: { class: 'eight columns' } %>
           <% end %>
@@ -19,7 +19,7 @@
       </div>
       <hr>
       <%= f.input :goal, input_html: { rows: 6 } %>
-      <%= f.submit %>
+      <%= f.button :submit %>
     </div>
   </div>
 <% end %>
