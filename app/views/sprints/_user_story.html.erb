@@ -1,6 +1,6 @@
 <hr>
 
-<div class="row" id="user_story_container_<%= user_story.id %>">
+<div class="row user-story" id="user_story_container_<%= user_story.id %>">
   <div class="three columns">
     <%= render :partial => 'sprints/user_story_card', :locals => {:sprint => sprint, :user_story => user_story, :tasks => true} %>
   </div>
