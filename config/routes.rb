@@ -15,6 +15,7 @@ Agileista::Application.routes.draw do
   post "/account/generate_api_key" => "account#generate_api_key"
 
   resources :projects do
+    resources :team_members
     resources :invitations
     resources :backlog do
       collection do
