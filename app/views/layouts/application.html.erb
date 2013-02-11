@@ -26,6 +26,13 @@
   <%= render :partial => 'shared/navigation/main' -%>
   <div class="row">
     <div class="twentyfour columns">
+
+      <% if flash[:alert] %>
+        <div class="alert-box alert">
+          <%= flash[:alert] %><a href="" class="close">&times;</a>
+        </div>
+      <% end %>
+
       <% if flash[:error] %>
         <div class="alert-box alert">
           <%= flash[:error] %><a href="" class="close">&times;</a>
