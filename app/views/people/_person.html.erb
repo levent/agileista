@@ -1,10 +1,10 @@
-<tr class="<%= person.authenticated? ? "active" : "inactive" %><%= " account_holder" if person.scrum_master_for?(@project) %>">
+<tr>
   <td><%= image_tag person.gravatar_url(:rating => 'G', :size => 40, :default => asset_path('default_avatar.png')) %></td>
   <td><%= person.name %></td>
   <td><%= link_to person.email, "mailto:#{person.email}" %></td>
   <td><%= show_date(person.created_at) %></td>
 	<td>
-    <%= link_to 'Remove from project', project_team_member_path(@project, person), :class => "tiny button alert", :method => :delete, :confirm => "Are you sure?" if current_user.scrum_master_for?(@project) %>
+    <%= link_to 'Remove from project', project_team_member_path(@project, person), :class => "tiny button alert", :method => :delete, :confirm => "Are you sure?" if current_user.scrum_master_for?(@project) && person != current_person %>
   </td>
 </tr>
 

@@ -22,12 +22,6 @@ class Person < ActiveRecord::Base
   has_many :team_members
   has_many :projects, :through => :team_members, :order => 'name', :dependent => :destroy
 
-  before_create :generate_activation_code
-  before_save :downcase_email
-
-  scope :active, :conditions => {:authenticated => true}
-  scope :inactive, :conditions => {:authenticated => false}
-
   def valid_password?(password)
     if self.hashed_password.present?
       if self.hashed_password == self.encrypt(password)
@@ -81,15 +75,7 @@ class Person < ActiveRecord::Base
 
   protected
   
-  def generate_activation_code
-    self.activation_code = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{self.email}--")
-  end
-  
   def password_required?
     self.hashed_password && self.salt ? false : true
-  end
-
-  def downcase_email
-    self.email.try(:downcase!)
   end
 end

@@ -22,8 +22,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="2"><%= pluralize(@people.active.count, 'active user') %></td>
-            <td colspan="3"><%= pluralize(@people.inactive.count, 'inactive user') %></td>
+            <td colspan="5"><%= pluralize(@people.count, 'active user') %></td>
           </tr>
         </tfoot>
       </table>
@@ -39,6 +38,7 @@
         <tr>
           <th>Email</th>
           <th>Sent</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
