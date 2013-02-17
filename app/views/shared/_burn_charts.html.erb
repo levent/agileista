@@ -1,7 +1,7 @@
 <div id="burnall" style="width:76%;height:268px;" class="chart"></div> 
 <% content_for :custom_js do %>
 $(function () {
-var burndown = { data: <%= @flot_burndown.inspect.html_safe %>, label: "Hours remaining" };
+var burndown = { data: <%= @flot_burndown.inspect.html_safe %>, label: "Tasks remaining" };
     var burnup1 = { data: <%= @flot_burnup[0].inspect.html_safe %>, label: "Story points complete", yaxis: 2 } ;
     var burnup2 = { data: <%= @flot_burnup[1].inspect.html_safe %>, label: "Story points planned", yaxis: 2 } ;
     

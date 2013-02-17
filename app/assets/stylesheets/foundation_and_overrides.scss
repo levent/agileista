@@ -253,7 +253,7 @@ hr.narrow {
   margin: 11px 0 10px;
 }
 
-div.ui-droppable {
+div#estimated, div#committed, div.ui-droppable {
   min-height:200px;
 }
 
@@ -265,7 +265,6 @@ div.ui-droppable {
 
 .release-marker {
   border-top: 1px solid $alertColor;
-
 }
 
 .row.user-story {
