@@ -42,7 +42,6 @@ Agileista::Application.routes.draw do
     resources :user_stories do
       member do
         post 'copy'
-        post 'create_task'
       end
 
       resources :tasks, :except => [:edit, :update] do

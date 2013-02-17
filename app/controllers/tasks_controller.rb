@@ -1,7 +1,11 @@
 class TasksController < AbstractSecurityController
 
-  before_filter :set_user_story, :only => [:destroy, :assign, :claim, :renounce, :complete]
-  before_filter :set_task, :only => [:destroy, :claim, :renounce, :complete]
+  before_filter :set_user_story
+  before_filter :set_task, :except => [:create]
+
+  def create
+    @task = @user_story.tasks.create!(params[:task])
+  end
 
   def renounce
     @task.team_members.delete(current_person)

@@ -1,8 +1,7 @@
-<hr>
-
 <div class="row user-story" id="user_story_container_<%= user_story.id %>">
   <div class="three columns">
     <%= render :partial => 'sprints/user_story_card', :locals => {:sprint => sprint, :user_story => user_story, :tasks => true} %>
+    <%= render :partial => 'sprints/new_task_card', :locals => {:sprint => sprint, :user_story => user_story, :tasks => true} %>
   </div>
   <div class="six columns offset-by-one tasks incomplete" id="incomplete_<%= user_story.id %>">
     <%= render :partial => 'sprints/task_card', :collection => user_story.tasks.rank(:order).incomplete, :locals => {:sprint => sprint, :user_story => user_story, :claim => true} %>

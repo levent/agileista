@@ -1,0 +1,2 @@
+var content = "<%= escape_javascript render :partial => 'sprints/task_card', :locals => {:sprint => @user_story.sprint, :user_story => @user_story, :task_card => @task } %>";
+$(content).appendTo($('#incomplete_<%= @user_story.id %>'));
