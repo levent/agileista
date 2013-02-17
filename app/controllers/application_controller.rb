@@ -16,6 +16,9 @@ class ApplicationController < ActionController::Base
 
   def set_project
     @project = current_person.projects.find(params[:project_id]) if params[:project_id]
+  rescue ActiveRecord::RecordNotFound
+    flash[:error] = "No such project"
+    redirect_to root_path
   end
 
   def set_account

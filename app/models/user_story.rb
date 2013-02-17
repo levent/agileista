@@ -1,14 +1,15 @@
 require 'csv'
 class UserStory < ActiveRecord::Base
-#  define_index do
-#    indexes tags.name, :as => :tag_string
-#    indexes definition
-#    indexes description
-#    indexes [stakeholder, person.name], :as => :responsible
-#    has account(:id), :as => :account_id
-#    where "done = 0 AND sprint_id IS NULL"
-#    set_property :delta => true
-#  end
+
+  define_index do
+    indexes tags.name, :as => :tag_string
+    indexes definition
+    indexes description
+    indexes [stakeholder, person.name], :as => :responsible
+    has account(:id), :as => :account_id
+    where "done = 0 AND sprint_id IS NULL"
+    set_property :delta => true
+  end
 
   acts_as_taggable_on :tags
 
