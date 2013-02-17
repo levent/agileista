@@ -6,7 +6,7 @@ class UserStory < ActiveRecord::Base
     indexes definition
     indexes description
     indexes [stakeholder, person.name], :as => :responsible
-    has account(:id), :as => :account_id
+    has project(:id), :as => :project_id
     where "done = 0 AND sprint_id IS NULL"
     set_property :delta => true
   end
