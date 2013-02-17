@@ -27,7 +27,6 @@ class UserStory < ActiveRecord::Base
   # acts_as_list :scope => :account
 
   validates_presence_of :definition
-  validates_presence_of :account_id
   validates_presence_of :project_id
 
   has_many :tasks, :order => :position
@@ -138,14 +137,16 @@ class UserStory < ActiveRecord::Base
   def total_hours
     self.tasks.sum('hours')
   end
-  
+
   def state
     if self.cannot_be_estimated?
-      return "clarify"
+      'clarify'
+    elsif self.acceptance_criteria.blank?
+      'criteria'
     elsif self.story_points.blank?
-      return self.acceptance_criteria.blank? ? "criteria" : "estimate"
+      'estimate'
     else
-      return "plan"
+      'plan'
     end
   end
 
@@ -164,7 +165,7 @@ class UserStory < ActiveRecord::Base
   private
 
   def expire_story_points
-    REDIS.del("account:#{self.account.id}:story_points")
+    REDIS.del("project:#{self.project.id}:story_points")
   end
 end
 

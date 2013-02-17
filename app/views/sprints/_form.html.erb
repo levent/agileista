@@ -2,7 +2,7 @@
   <div class="row">
     <div class="sixteen columns">
       <%= f.input :name %>
-      <% default = @project.sprints.any? ? @project.sprints.first.end_at : nil %>
+      <% default = @project.sprints.any? && !@project.sprints.first.end_at.nil? ? @project.sprints.first.end_at : Time.now %>
       <div class="row">
         <div class="eight columns">
           <%= f.input :start_at, as: :date, order: [:day, :month, :year], default: 1.day.from_now(default), input_html: { class: 'eight columns' } %>

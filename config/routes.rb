@@ -17,7 +17,7 @@ Agileista::Application.routes.draw do
   resources :projects do
     resources :team_members
     resources :invitations
-    resources :backlog do
+    resources :backlog, :only => 'index' do
       collection do
         get 'search'
         post 'sort'

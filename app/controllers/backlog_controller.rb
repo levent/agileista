@@ -14,28 +14,11 @@ class BacklogController < AbstractSecurityController
     end
     respond_to do |format|
       format.html do
-        if @project.user_stories.blank?
-          render :action => 'get_started' 
-        end
       end
       format.csv do
         render text: @user_stories.to_csv
       end
     end
-  end
-
-  def grid
-    cookies[:backlog] = 'grid'
-    redirect_to backlog_url
-  end
-
-  def list
-    cookies[:backlog] = 'list'
-    redirect_to backlog_url
-  end
-  
-  def feed
-    render :layout => false
   end
   
   def search

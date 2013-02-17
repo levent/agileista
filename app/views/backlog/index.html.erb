@@ -5,6 +5,19 @@
     <%= render @user_stories %>
   </div>
 </div>
+<hr>
+<div class="row">
+  <div class="columns twentyfour" id="backlog-items" data-project="<%= @project.id %>">
+    <p><span class="label">Clarify</span> Cannot be estimated</p>
+    <p><span class="label alert">Criteria</span> Acceptance criteria required</p>
+    <p><span class="label secondary">Estimate</span> Needs estimation</p>
+    <p><span class="label success">Plan</span> Ready to plan</p>
+  </div>
+</div>
+
+<% if @user_stories.empty? %>
+  <p><%= link_to 'Create your first user story', new_project_user_story_path(@project) %></p>
+<% end %>
 
 <% content_for :custom_js do %>
   Agileista.setupVelocityMarkers('<%= @velocity %>');

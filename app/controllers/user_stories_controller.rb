@@ -14,7 +14,6 @@ class UserStoriesController < AbstractSecurityController
 
   def new
     @user_story = UserStory.new
-    @user_story.themes << @theme if @theme
     @user_story.acceptance_criteria.build
     @user_story.tasks.build
   end
@@ -28,22 +27,19 @@ class UserStoriesController < AbstractSecurityController
   end
 
   def create
-    @user_story = UserStory.new(params[:user_story])
+    @user_story = @project.user_stories.new(params[:user_story])
     @user_story.account = @account
-    @user_story.person = current_user
+    @user_story.person = current_person
     @user_story.sprint = @sprint
 
     @user_story.backlog_order_position = :first
 
     if @user_story.save
-      @account.tag(@user_story, :with => params[:tags], :on => :tags)
-      assign_additional_themes
-
       if @sprint
         SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
-        redirect_to sprint_url(@sprint)
+        redirect_to project_sprint_path(@project, @sprint)
       else
-        redirect_to backlog_path
+        redirect_to project_backlog_index_path(@project)
       end
 
     else
@@ -61,8 +57,6 @@ class UserStoriesController < AbstractSecurityController
 
   def update
     if @user_story.update_attributes(params[:user_story])
-      @account.tag(@user_story, :with => params[:tags], :on => :tags)
-      assign_additional_themes
       flash[:notice] = "User story updated successfully"
     else
       flash[:error] = "User story couldn't be updated"
@@ -70,7 +64,7 @@ class UserStoriesController < AbstractSecurityController
       @user_story.tasks.build
       render :action => 'edit' and return false
     end
-    redirect_back_or(backlog_url)
+    redirect_back_or(project_backlog_index_path(@project))
   end
   
   def plan
@@ -120,7 +114,4 @@ class UserStoriesController < AbstractSecurityController
     @sprint = @project.sprints.find(params[:sprint_id])
   end
 
-  def assign_additional_themes
-    @user_story.themes << @additional_theme if @additional_theme
-  end
 end

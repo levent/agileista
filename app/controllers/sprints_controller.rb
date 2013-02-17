@@ -5,6 +5,7 @@ class SprintsController < AbstractSecurityController
   before_filter :sprint_must_exist, :only => [:show, :edit, :plan, :update, :destroy, :set_stats]
 
   def index
+    store_location
     @sprints = @project.sprints
     @velocity = @project.average_velocity
     @cint_lo, @cint_hi = Velocity.confidence_interval(@sprints.finished.statistically_significant(@project).map(&:calculated_velocity))
@@ -53,10 +54,10 @@ class SprintsController < AbstractSecurityController
       render :action => 'new'
     end
   end
-  
+
   def edit
   end
-  
+
   def update
     if @sprint && @sprint.update_attributes(params[:sprint])
       flash[:notice] = "Sprint saved"

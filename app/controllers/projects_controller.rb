@@ -4,6 +4,22 @@ class ProjectsController < AbstractSecurityController
     @projects = current_person.projects.order('name')
   end
 
+  def new
+    @project = Project.new
+  end
+
+  def create
+    @project = current_person.projects.new(params[:project])
+    if @project.save
+      @project.people << current_person
+      flash[:notice] = "Project added"
+      redirect_to project_backlog_index_path(@project)
+    else
+      flash[:error] = "Project could not be added"
+      render :action => 'new'
+    end
+  end
+
   def edit
     @project = current_person.projects.find(params[:id])
   end
