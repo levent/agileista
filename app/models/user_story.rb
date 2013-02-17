@@ -13,8 +13,6 @@ class UserStory < ActiveRecord::Base
 
   acts_as_taggable_on :tags
 
-  has_many :themings, :foreign_key => "themable_id"
-  has_many :themes, :through => :themings
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements
   has_many :acceptance_criteria, :dependent => :delete_all

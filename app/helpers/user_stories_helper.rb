@@ -1,15 +1,5 @@
 module UserStoriesHelper
 
-  def show_themes(themes)
-    if themes.blank?
-      "Not assigned to any themes"
-    else
-      result = []
-      themes.each {|t| result << h(t.name)}
-      result.join(", ")
-    end
-  end
-
   def show_user(user_story)
     if user_story.person
       return "by #{user_story.person.name}"

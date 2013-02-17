@@ -5,7 +5,6 @@ class Account < ActiveRecord::Base
   has_many :team_members, :order => 'name', :dependent => :destroy, :class_name => "Person"
   has_many :sprints, :order => 'start_at DESC', :dependent => :destroy
   has_many :user_stories, :order => :position, :dependent => :destroy
-  has_many :themes, :order => 'name', :dependent => :destroy
 
   belongs_to :account_holder, :class_name => "Person", :foreign_key => 'account_holder_id'
 

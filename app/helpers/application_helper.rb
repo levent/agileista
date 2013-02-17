@@ -71,19 +71,6 @@ module ApplicationHelper
     return ' class="usclaimed"' if user_story.inprogress?
   end
 
-  def display_themes(account, current_themes)
-    result = []
-
-    account.themes.collect do |theme|
-      checkbox = check_box_tag("user_story[theme_ids][]", theme.id, (true if current_themes.include?(theme)), :id => sanitize_to_id(theme.name), :class => "checkbox")
-      label = label_tag(theme.name, nil, :class => "checkbox")
-
-      result << "<div>#{checkbox} #{label}</div>"
-    end
-
-    return result.join("\n").html_safe
-  end
-
   def confirmation_message(object, name)
     "This cannot be undone. Are you sure you want to delete #{object} '#{name}'?"
   end

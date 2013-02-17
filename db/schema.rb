@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130217122349) do
+ActiveRecord::Schema.define(:version => 20130217142441) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -182,23 +182,6 @@ ActiveRecord::Schema.define(:version => 20130217122349) do
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
   end
-
-  create_table "themes", :force => true do |t|
-    t.string  "name",        :default => "", :null => false
-    t.integer "account_id"
-    t.text    "description"
-    t.integer "position"
-  end
-
-  add_index "themes", ["name", "account_id"], :name => "index_themes_on_name_and_account_id", :unique => true
-
-  create_table "themings", :force => true do |t|
-    t.integer "theme_id",      :default => 0,  :null => false
-    t.integer "themable_id",   :default => 0,  :null => false
-    t.string  "themable_type", :default => "", :null => false
-  end
-
-  add_index "themings", ["theme_id", "themable_id", "themable_type"], :name => "index_themings_on_theme_id_and_themable_id_and_themable_type", :unique => true
 
   create_table "user_stories", :force => true do |t|
     t.text     "definition"

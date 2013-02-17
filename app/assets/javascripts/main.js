@@ -144,20 +144,6 @@ function setupSprintPlanning(project_id, sprint_id) {
   });
 }
 
-function setupThemes(){
-  $('#themewall').sortable({
-    items: 'div.atheme',
-    revert: false,
-    handle: '.handle',
-    update: function(event, ui) {
-      $.post('/themes/sort', {theme_id: ui.item.attr('id').substr(6), themes: $(this).sortable('serialize')}, function(data) {
-        return false;
-      }, "json");
-      // return false;
-    }
-  });
-}
-
 $(function() {
 
   // Return a helper with preserved width of cells

@@ -1,8 +1,0 @@
-<tr class="<%= cycle('odd', 'even', :name => "user_stories") %>">
-  <td class="state"><%= user_story_state(user_story.state) %></td>
-  <td class="id"><%= link_to user_story.id, show_link(user_story) %></td>
-  <td class="definition"><%= h user_story.definition %></td>
-  <td class="points"><%= show_story_points(user_story.story_points, :unit => "") %></td>
-  <td class="stakeholder"><%= show_stakeholder(user_story) %></td>
-  <td class="actions"><%= link_to 'Show', show_link(user_story), :class => "button" %> <%= link_to 'Edit', edit_link(user_story), :class => "button" %></td>
-</tr>
