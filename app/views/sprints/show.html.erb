@@ -1,4 +1,14 @@
-<%= render :partial => "shared/burn_charts", :locals => {:flot_points => @flot_points} %>
+<ul class="accordion">
+  <li>
+    <div class="title">
+      <h5>Burn Down</h5>
+    </div>
+    <div class="content">
+      <%= render :partial => "shared/burn_charts", :locals => {:flot_points => @flot_points} %>
+    </div>
+  </li>
+</ul>
+
 <h2 class="title"><%= sprint_header(@sprint) %> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
 <div class="row">
   <div class="ten columns">
