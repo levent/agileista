@@ -1,9 +1,18 @@
 class ApplicationController < ActionController::Base
   force_ssl
   protect_from_forgery
+  before_filter :ensure_domain
   before_filter :set_project
 
   protected
+
+  TheDomain = 'app.agileista.com'
+
+  def ensure_domain
+    if request.env['HTTP_HOST'] != TheDomain && Rails.env == "production"
+      redirect_to "https://#{TheDomain}"
+    end
+  end
 
   def set_project
     @project = current_person.projects.find(params[:project_id]) if params[:project_id]
