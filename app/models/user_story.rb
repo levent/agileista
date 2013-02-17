@@ -17,7 +17,8 @@ class UserStory < ActiveRecord::Base
   has_many :themes, :through => :themings
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements
-  has_many :acceptance_criteria
+  has_many :acceptance_criteria, :dependent => :delete_all
+  has_many :tasks, :order => :position, :dependent => :destroy
   accepts_nested_attributes_for :acceptance_criteria, :allow_destroy => true, :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
 
   include RankedModel
@@ -30,7 +31,6 @@ class UserStory < ActiveRecord::Base
   validates_presence_of :definition
   validates_presence_of :project_id
 
-  has_many :tasks, :order => :position
   accepts_nested_attributes_for :tasks, :allow_destroy => true, :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
   belongs_to :account
   belongs_to :project
