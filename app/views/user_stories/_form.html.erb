@@ -23,13 +23,15 @@
       <h3>Acceptance Criteria</h3>
       <ol id="acceptance-criteria">
         <%= f.simple_fields_for :acceptance_criteria do |ac| %>
-          <li class="panel">
-          <%= ac.input :detail %>
-          <% unless ac.object.new_record? %>
-            <span class="remove">
-              <%= ac.input '_destroy', label: "Remove", as: :boolean %>
-            </span>
-          <% end %>
+          <li>
+            <div class="alert-box secondary">
+              <%= ac.input :detail %>
+              <% unless ac.object.new_record? %>
+                <span class="remove">
+                  <%= ac.input '_destroy', label: "Remove", as: :boolean %>
+                </span>
+              <% end %>
+            </div>
           </li>
         <% end %>
       </ol>
@@ -40,14 +42,16 @@
       <h3>Tasks</h3>
       <ol id="tasks">
         <%= f.simple_fields_for :tasks do |tf| %>
-          <li class="panel">
-          <%= tf.input :definition %>
-          <%= tf.input :description, input_html: {rows: 5} %>
-          <% unless tf.object.new_record? %>
-            <span class="remove">
-              <%= tf.input '_destroy', label: "Remove", as: :boolean %>
-            </span>
-          <% end %>
+          <li>
+            <div class="alert-box secondary">
+              <%= tf.input :definition %>
+              <%= tf.input :description, input_html: {rows: 5} %>
+              <% unless tf.object.new_record? %>
+                <span class="remove">
+                  <%= tf.input '_destroy', label: "Remove", as: :boolean %>
+                </span>
+              <% end %>
+            </div>
           </li>
         <% end %>
       </ol>

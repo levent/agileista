@@ -4,7 +4,6 @@ var Agileista = (function(){
     // private methods
     addNewItem = function(element) {
       var e = $(element);
-      console.log(e.attr('class'));
       var tag = e.get(0).tagName.toLowerCase();
 
       e.after(
