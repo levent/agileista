@@ -53,9 +53,9 @@ Agileista::Application.routes.draw do
           put 'complete'
         end
       end
-
     end
   end
 
+  get '/about' => 'about#index'
   root :to => "projects#index"
 end

@@ -14,13 +14,13 @@ $totalColumns: 24;
 // Colors Settings
 
 $mainColor: #1793CC;
-// $secondaryColor: #e9e9e9;
+$secondaryColor: #e2e1e3;
 $alertColor: #B21428;
 $successColor: #02B227;
 // $txtColor: #222;
 $highlightColor: #FFF84F;
 // $black: #000;
-// $white: #fff;
+$white: #fffcfe;
 // $shinyEdge: rgba(#fff, .5);
 // $darkEdge: rgba(#000, .2);
 
@@ -276,4 +276,9 @@ div#estimated, div#committed, div.ui-droppable {
   margin: 12px 0;
   padding: 0 12px;
   border: 3px dashed $secondaryColor;
+}
+
+div#about {
+  width:1000px;
+  margin:0 auto;
 }

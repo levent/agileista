@@ -1,0 +1,57 @@
+<div id="about">
+  <!-- Content Slider -->
+
+  <div class="row">
+    <div class="twentyfour columns hide-for-small">
+
+      <div id="featured">
+        <%= image_tag 'about/backlog.png' %>
+        <%= image_tag 'about/new_user_story.png' %>
+        <%= image_tag 'about/search_results.png' %>
+        <%= image_tag 'about/sprints.png' %>
+        <%= image_tag 'about/task_board.png' %>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="twelve columns show-for-small">
+      <%= image_tag 'about/task_board.png' %>
+    </div>
+  </div>
+
+  <!-- End Content Slider -->
+
+  <div class="row">
+    <div class="twelve columns centered">
+
+      <div class="text-center">
+        <h2>Scrum collaboration<br><small>Written by developers, for developers.</small></h2>
+        <p>This is how we run Scrum across a distributed team.</p>
+        <h3>Our requirements:</h3>
+        <p>
+        An ordered backlog<br>
+        Proper user stories<br>
+        Sprint planning<br>
+        Velocity calculation<br>
+        Basic horizon planning<br>
+        Pair programming support<br>
+        Simple task board<br>
+        No hour tracking on tasks
+        </p>
+        <h4><%= link_to 'Try it out!', new_person_registration_path %></h4>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- End Content -->
+
+</div>
+<!-- Included JS Files -->
+<% content_for :custom_js do %>
+  $('#featured').orbit({ fluid: '2x1' });
+<% end %>
+<!-- End Footer -->
+

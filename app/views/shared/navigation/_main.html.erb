@@ -16,11 +16,13 @@
     <ul class="left">
       <li class="divider"></li>
       <li class="has-dropdown">
-        <%= link_to @project.name.humanize, projects_path %>
+        <%= link_to @project.name.humanize, project_backlog_index_path(@project) %>
         <ul class="dropdown">
           <% current_person.projects.each do |project| %>
             <li><%= link_to project.name.humanize, project_backlog_index_path(project) %></li>
           <% end %>
+          <li class="divider"></li>
+          <li><%= link_to 'View all projects', projects_path %></li>
         </ul>
       </li>
       <li class="divider"></li>
@@ -119,7 +121,18 @@
         <%= link_to "Agileista", root_path %>
       </h1>
     </li>
+    <li class="toggle-topbar"><a href="#"></a></li>
   </ul>
+
+  <section>
+    <ul class="right">
+      <li><%= link_to "About", about_path %></li>
+      <li class="divider"></li>
+      <li><%= link_to "Login", new_person_session_path %></li>
+      <li class="divider"></li>
+      <li><%= link_to "Sign up", new_person_registration_path %></li>
+    </ul>
+  </section>
 
   <% end %>
 
