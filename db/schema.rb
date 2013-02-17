@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130217142441) do
+ActiveRecord::Schema.define(:version => 20130217142749) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -134,27 +134,6 @@ ActiveRecord::Schema.define(:version => 20130217142441) do
     t.integer  "velocity"
     t.integer  "project_id"
   end
-
-  create_table "taggings", :force => true do |t|
-    t.integer  "tag_id",        :default => 0,  :null => false
-    t.integer  "taggable_id",   :default => 0,  :null => false
-    t.string   "taggable_type", :default => "", :null => false
-    t.integer  "tagger_id"
-    t.string   "tagger_type"
-    t.string   "context"
-    t.datetime "created_at"
-  end
-
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type"], :name => "index_taggings_on_tag_id_and_taggable_id_and_taggable_type", :unique => true
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
-
-  create_table "tags", :force => true do |t|
-    t.string  "name",       :default => "", :null => false
-    t.integer "account_id"
-  end
-
-  add_index "tags", ["name", "account_id"], :name => "index_tags_on_name_and_account_id", :unique => true
 
   create_table "task_developers", :force => true do |t|
     t.integer  "task_id"

@@ -2,7 +2,6 @@ require 'csv'
 class UserStory < ActiveRecord::Base
 
   define_index do
-    indexes tags.name, :as => :tag_string
     indexes definition
     indexes description
     indexes [stakeholder, person.name], :as => :responsible
@@ -10,8 +9,6 @@ class UserStory < ActiveRecord::Base
     where "done = 0 AND sprint_id IS NULL"
     set_property :delta => true
   end
-
-  acts_as_taggable_on :tags
 
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements

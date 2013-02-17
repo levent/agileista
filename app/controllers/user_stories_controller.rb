@@ -50,7 +50,6 @@ class UserStoriesController < AbstractSecurityController
   end
 
   def edit
-    @tags = @user_story.tags.map(&:name).join(' ')
     @user_story.acceptance_criteria.build
     @user_story.tasks.build
   end
