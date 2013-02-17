@@ -5,7 +5,7 @@ namespace :account do
     Project.destroy_all
     Account.all.each do |account|
       puts "Creating project #{account.name} from account ##{account.id}"
-      project = Project.create!(:name => account.name, :iteration_length => account.iteration_length, :velocity => account.velocity)
+      project = Project.create!(:name => account.name, :iteration_length => (account.iteration_length || 4), :velocity => account.velocity)
       account.people.each do |person|
         matching_people = Person.find_all_by_email(person.email)
         puts "Project: #{project.name} gaining #{matching_people.count}"
