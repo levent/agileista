@@ -1,20 +1,15 @@
 if defined?(AssetSync)
   AssetSync.configure do |config|
-    config.fog_provider = 'Rackspace'
-    config.rackspace_username = ENV['RACKSPACE_USERNAME']
-    config.rackspace_api_key = ENV['RACKSPACE_API_KEY']
-
-    # if you need to change rackspace_auth_url (e.g. if you need to use Rackspace London)
-    # config.rackspace_auth_url = "lon.auth.api.rackspacecloud.com"
+    config.fog_provider = 'AWS'
+    config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
+    config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
     config.fog_directory = ENV['FOG_DIRECTORY']
-
-    config.existing_remote_files = "delete"
 
     # Increase upload performance by configuring your region
     # config.fog_region = 'eu-west-1'
     #
     # Don't delete files from the store
-    # config.existing_remote_files = "keep"
+    config.existing_remote_files = "delete"
     #
     # Automatically replace files with their equivalent gzip compressed version
     # config.gzip_compression = true

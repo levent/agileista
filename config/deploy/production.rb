@@ -50,7 +50,7 @@ role :db,  "bigapple", :primary => true
 namespace :deploy do
 
   task :restart do
-    run_locally "bundle exec rake assets:precompile RAILS_ENV=#{rails_env} RACKSPACE_USERNAME=#{ENV['RACKSPACE_USERNAME']} RACKSPACE_API_KEY=#{ENV['RACKSPACE_API_KEY']} FOG_DIRECTORY=agileista_#{rails_env} --trace"
+    run_locally "bundle exec rake assets:precompile RAILS_ENV=#{rails_env} AWS_ACCESS_KEY_ID=#{ENV['AWS_ACCESS_KEY_ID']} AWS_SECRET_ACCESS_KEY=#{ENV['AWS_SECRET_ACCESS_KEY']} FOG_DIRECTORY=agileista-#{rails_env} --trace"
 
     # Ensure assets folder exists on app servers
     run "mkdir -p #{release_path}/public/assets"
