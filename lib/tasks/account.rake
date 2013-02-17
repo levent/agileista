@@ -11,10 +11,12 @@ namespace :account do
           matching_people = Person.find_all_by_email(person.email)
           puts "Project: #{project.name} gaining #{matching_people.count} people"
           project.people << matching_people
-          puts "Project: #{project.name} gaining #{account.user_stories.count} stories"
-          project.user_stories << account.user_stories
-          puts "Project: #{project.name} gaining #{account.sprints.count} sprints"
-          project.sprints << account.sprints
+        end
+        puts "Project: #{project.name} gaining #{account.user_stories.count} stories"
+        project.user_stories << account.user_stories
+        puts "Project: #{project.name} gaining #{account.sprints.count} sprints"
+        project.sprints << account.sprints
+        if account.account_holder
           scrum_master = account.account_holder.email
           puts "#{project.name} scrum master is #{scrum_master}"
           REDIS.set("project:#{project.id}:scrum_master", scrum_master)
