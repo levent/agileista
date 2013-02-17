@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130210223527) do
+ActiveRecord::Schema.define(:version => 20130217122349) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -86,6 +86,10 @@ ActiveRecord::Schema.define(:version => 20130210223527) do
   end
 
   add_index "people", ["account_id", "api_key", "authenticated", "activation_code"], :name => "by_api_key"
+  add_index "people", ["authentication_token"], :name => "index_people_on_authentication_token", :unique => true
+  add_index "people", ["confirmation_token"], :name => "index_people_on_confirmation_token", :unique => true
+  add_index "people", ["email"], :name => "index_people_on_email", :unique => true
+  add_index "people", ["reset_password_token"], :name => "index_people_on_reset_password_token", :unique => true
 
   create_table "projects", :force => true do |t|
     t.string   "name"
