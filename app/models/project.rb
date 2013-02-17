@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
   has_many :user_stories, :order => 'position', :dependent => :destroy
   has_many :sprints, :order => 'start_at DESC', :dependent => :destroy
 
-  has_many :invitations
+  has_many :invitations, :dependent => :destroy
 
   validates_presence_of :name
   validates_presence_of :iteration_length
