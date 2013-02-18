@@ -104,7 +104,7 @@ class UserStoriesController < AbstractSecurityController
       session[:return_to] = nil if session[:return_to].split("/").last == @user_story.id.to_s
       flash[:notice] = "User story deleted"
     end
-    redirect_back_or(backlog_url)
+    redirect_back_or(project_backlog_index_path(@project))
   end
 
   protected
