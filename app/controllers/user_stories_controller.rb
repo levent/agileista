@@ -92,13 +92,13 @@ class UserStoriesController < AbstractSecurityController
       }
     end
   end
-  
+
   def reorder
     sprint_element = @sprint.sprint_elements.where(:user_story_id => params[:id]).first
     sprint_element.update_attribute(:sprint_position, params[:move_to]) if sprint_element
     render :json => {:ok => true}.to_json
   end
-  
+
   def destroy
     if @user_story.destroy
       session[:return_to] = nil if session[:return_to].split("/").last == @user_story.id.to_s

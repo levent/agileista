@@ -18,7 +18,7 @@ class UserStory < ActiveRecord::Base
 
   include RankedModel
   ranks :backlog_order,
-    :with_same => :account_id,
+    :with_same => :project_id,
     :column => :position,
     :scope => :unassigned
   # acts_as_list :scope => :account
