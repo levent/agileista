@@ -72,10 +72,4 @@ class Person < ActiveRecord::Base
   def scrum_master_for?(project)
     project.team_members.where('scrum_master = ?', true).map(&:person).include?(self)
   end
-
-  protected
-  
-  def password_required?
-    self.hashed_password && self.salt ? false : true
-  end
 end
