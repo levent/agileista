@@ -13,9 +13,6 @@ class Person < ActiveRecord::Base
   gravtastic
 
   validates_presence_of :name
-  validates_presence_of :email
-  validates_uniqueness_of :email, :scope => :account_id, :case_sensitive => false
-  belongs_to :account
   has_many :user_stories
   has_many :task_developers, :foreign_key => "developer_id"
   has_many :tasks, :through => :task_developers
@@ -38,12 +35,6 @@ class Person < ActiveRecord::Base
     end
   end
 
-  def validate_account
-    self.authenticated = 1
-    self.activation_code = nil
-    return self.save
-  end
-  
   def authenticated?
     if self.authenticated == 1 && self.activation_code.nil?
       return true

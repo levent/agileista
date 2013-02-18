@@ -28,9 +28,7 @@ class UserStoriesController < AbstractSecurityController
 
   def create
     @user_story = @project.user_stories.new(params[:user_story])
-    @user_story.account = @account
     @user_story.person = current_person
-    @user_story.sprint = @sprint
 
     @user_story.backlog_order_position = :first
 

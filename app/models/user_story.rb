@@ -21,13 +21,11 @@ class UserStory < ActiveRecord::Base
     :with_same => :project_id,
     :column => :position,
     :scope => :unassigned
-  # acts_as_list :scope => :account
 
   validates_presence_of :definition
   validates_presence_of :project_id
 
   accepts_nested_attributes_for :tasks, :allow_destroy => true, :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
-  belongs_to :account
   belongs_to :project
 
   # This is only used (sprint_id field) to indicate whether a user story is planned or not (that's all it seems)
@@ -147,7 +145,7 @@ class UserStory < ActiveRecord::Base
   end
 
   def copy
-    new_us = UserStory.new(:account_id => self.account_id, :definition => self.definition, :description => self.description, :story_points => self.story_points)
+    new_us = UserStory.new(:project_id => self.project_id, :definition => self.definition, :description => self.description, :story_points => self.story_points)
     self.acceptance_criteria.each do |ac|
       new_us.acceptance_criteria << AcceptanceCriterium.new(:detail => ac.detail)
     end

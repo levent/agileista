@@ -80,17 +80,17 @@ class SprintsController < AbstractSecurityController
     end
     redirect_to sprints_path
   end
-  
-  private 
-  
+
+  private
+
   def iteration_length_must_be_specified
     if @project.iteration_length.blank?
       flash[:notice] = "Please specify an iteration length first"
-      redirect_to :controller => 'account', :action => 'settings'
-      return false 
+      redirect_to edit_project_path(@project)
+      return false
     end
   end
-  
+
   def set_start_at
     if @sprint.start_at.blank? && params[:from]
       @sprint.start_at = Date.new(params[:from][:year].to_i, params[:from][:month].to_i, params[:from][:day].to_i).strftime("%Y-%m-%d %H:%M:%S")

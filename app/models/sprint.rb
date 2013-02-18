@@ -6,7 +6,6 @@ class Sprint < ActiveRecord::Base
   has_many :sprint_changes, :as => :auditable
   has_many :audits, :class_name => "SprintChange"
 
-  belongs_to :account
   belongs_to :project
   validates_presence_of :project_id
   validates_presence_of :start_at, :end_at

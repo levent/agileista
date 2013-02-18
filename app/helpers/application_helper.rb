@@ -10,10 +10,6 @@ module ApplicationHelper
     current_person
   end
 
-  def account_switcher_selected(here, there)
-    here == there ? "selected=\"selected\"" : ""
-  end
-
   def show_stakeholder(user_story)
     if !user_story.stakeholder.blank?
       return "#{user_story.stakeholder}"
