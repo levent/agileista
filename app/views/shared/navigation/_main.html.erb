@@ -16,17 +16,6 @@
     <ul class="left">
       <li class="divider"></li>
       <li class="has-dropdown">
-        <%= link_to @project.name.humanize, project_backlog_index_path(@project) %>
-        <ul class="dropdown">
-          <% current_person.projects.each do |project| %>
-            <li><%= link_to project.name.humanize, project_backlog_index_path(project) %></li>
-          <% end %>
-          <li class="divider"></li>
-          <li><%= link_to 'View all projects', projects_path %></li>
-        </ul>
-      </li>
-      <li class="divider"></li>
-      <li class="has-dropdown">
         <%= link_to "Backlog", project_backlog_index_path(@project) %>
         <ul class="dropdown">
           <li><%= link_to "Add user story", new_project_user_story_path(@project) %></li>
@@ -60,6 +49,18 @@
       </li>
       <li class="divider"></li>
       <li class="has-dropdown">
+        <%= link_to @project.name.humanize, project_backlog_index_path(@project) %>
+        <ul class="dropdown">
+          <% current_person.projects.each do |project| %>
+            <li><%= link_to project.name.humanize, project_backlog_index_path(project) %></li>
+          <% end %>
+          <li class="divider"></li>
+          <li><%= link_to 'Add project', new_project_path %></li>
+          <li><%= link_to 'View all projects', projects_path %></li>
+        </ul>
+      </li>
+      <li class="divider"></li>
+      <li class="has-dropdown">
         <%= link_to(current_user.name, edit_person_registration_path) %>
         <ul class="dropdown">
           <li><label>Account</label></li>
@@ -88,18 +89,23 @@
   <section>
     <!-- Left Nav Section -->
     <ul class="left">
+    </ul>
+
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="divider"></li>
       <li class="has-dropdown">
         <%= link_to "Projects", root_path %>
         <ul class="dropdown">
           <% current_person.projects.each do |project| %>
             <li><%= link_to project.name.humanize, project_backlog_index_path(project) %></li>
           <% end %>
+          <li class="divider"></li>
+          <li><%= link_to 'Add project', new_project_path %></li>
+          <li><%= link_to 'View all projects', projects_path %></li>
         </ul>
       </li>
-    </ul>
-
-    <!-- Right Nav Section -->
-    <ul class="right">
+      <li class="divider"></li>
       <li class="has-dropdown">
         <%= link_to(current_user.name, edit_person_registration_path) %>
         <ul class="dropdown">
