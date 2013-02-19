@@ -43,15 +43,6 @@ class ApplicationController < ActionController::Base
     @user_story = @project.user_stories.find(params[:user_story_id])
   end
 
-  def set_task
-    begin
-      @task = @user_story.tasks.find(params[:id])
-    rescue
-      flash[:error] = "No such task"
-      redirect_to backlog_url and return false
-    end
-  end
-
   def must_be_account_holder
     current_person.scrum_master_for?(@project) ? true : (redirect_to backlog_url and return false)
   end

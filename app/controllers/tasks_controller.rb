@@ -41,6 +41,10 @@ class TasksController < AbstractSecurityController
 
   private
 
+  def set_task
+    @task = @user_story.tasks.find(params[:id])
+  end
+
   def truncate(string, length = 60)
     return string if string.length <= 60
     string[0...length-3] + "..."
