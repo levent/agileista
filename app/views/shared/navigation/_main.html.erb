@@ -51,6 +51,13 @@
       <li class="has-dropdown">
         <%= link_to @project.name.humanize, project_backlog_index_path(@project) %>
         <ul class="dropdown">
+          <% if current_person.scrum_master_for?(@project) %>
+            <li><label><%= @project.name.humanize %></label></li>
+            <li><%= link_to "Settings", edit_project_path(@project) %></li>
+            <li><%= link_to "Users", project_people_path(@project) %></li>
+            <li class="divider"></li>
+          <% end %>
+          <li><label>Other projects</label></li>
           <% current_person.projects.each do |project| %>
             <li><%= link_to project.name.humanize, project_backlog_index_path(project) unless project.new_record? %></li>
           <% end %>
@@ -65,8 +72,6 @@
         <ul class="dropdown">
           <li><label>Account</label></li>
           <li><%= link_to "Edit profile", edit_person_registration_path %></li>
-          <li><%= link_to "Settings", edit_project_path(@project) %></li>
-          <li><%= link_to "Users", project_people_path(@project) %></li>
           <li class="divider"></li>
           <li><%= link_to('Logout', destroy_person_session_path, :method => :delete) %></li>
         </ul>
