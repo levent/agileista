@@ -4,7 +4,7 @@
       <div class="new-task-card">
         <h5>Add a task</h5>
         <%= simple_form_for [@project, user_story, Task.new], :remote => true do |f| %>
-          <%= f.input :definition, label: false %>
+          <%= f.input :definition, label: false, input_html: {id: nil} %>
           <%= f.button :submit, class: 'tiny' %>
         <% end %>
       </div>
