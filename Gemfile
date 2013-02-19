@@ -5,18 +5,19 @@ gem 'rails', '3.2.12'
 gem 'pg'
 gem 'yajl-ruby'
 gem 'will_paginate', '~> 3.0'
-gem "acts-as-taggable-on"
-gem "newrelic_rpm"
-gem "newrelic-redis", "1.3.2"
+gem 'acts-as-taggable-on'
+gem 'newrelic_rpm'
+gem 'newrelic-redis', '1.3.2'
 gem 'juggernaut', '2.1.1'
 gem 'exceptional', '2.0.33'
 gem 'thinking-sphinx', '2.0.13'
 gem 'gravtastic'
 gem 'ranked-model'
-gem "hiredis", "0.4.5"
-gem "redis", "3.0.2", :require => ["redis/connection/hiredis", "redis"]
+gem 'hiredis', '0.4.5'
+gem 'redis', '3.0.2', :require => ['redis/connection/hiredis', 'redis']
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git', :branch => 'v2.1'
 gem 'devise'
+gem 'acts_as_paranoid', '~>0.4.0'
 gem 'thin'
 
 group :assets do
@@ -42,8 +43,8 @@ group :test do
   gem 'simplecov-console', :require => false
   gem 'poltergeist'
   gem 'shoulda-matchers'
-  gem "rspec-rails", '2.12.1'
-  gem "machinist"
-  gem "faker"
-  gem "timecop"
+  gem 'rspec-rails', '2.12.1'
+  gem 'machinist'
+  gem 'faker'
+  gem 'timecop'
 end

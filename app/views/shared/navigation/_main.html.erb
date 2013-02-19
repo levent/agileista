@@ -52,7 +52,7 @@
         <%= link_to @project.name.humanize, project_backlog_index_path(@project) %>
         <ul class="dropdown">
           <% current_person.projects.each do |project| %>
-            <li><%= link_to project.name.humanize, project_backlog_index_path(project) %></li>
+            <li><%= link_to project.name.humanize, project_backlog_index_path(project) unless project.new_record? %></li>
           <% end %>
           <li class="divider"></li>
           <li><%= link_to 'Add project', new_project_path %></li>
@@ -98,7 +98,7 @@
         <%= link_to "Projects", root_path %>
         <ul class="dropdown">
           <% current_person.projects.each do |project| %>
-            <li><%= link_to project.name.humanize, project_backlog_index_path(project) %></li>
+            <li><%= link_to project.name.humanize, project_backlog_index_path(project) unless project.new_record? %></li>
           <% end %>
           <li class="divider"></li>
           <li><%= link_to 'Add project', new_project_path %></li>

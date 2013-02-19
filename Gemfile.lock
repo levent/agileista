@@ -39,6 +39,8 @@ GEM
       multi_json (~> 1.0)
     acts-as-taggable-on (2.3.3)
       rails (~> 3.0)
+    acts_as_paranoid (0.4.1)
+      activerecord (~> 3.2)
     arel (3.0.2)
     asset_sync (0.5.4)
       activemodel
@@ -274,6 +276,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  acts_as_paranoid (~> 0.4.0)
   asset_sync
   capistrano
   capistrano-ext

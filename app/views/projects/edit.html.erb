@@ -13,5 +13,9 @@
       <p><%= current_user.api_key || "No api key" %></p>
       <%= button_tag "Generate api key", :class => 'button' %>
     </form>
+
+    <hr>
+
+    <%= link_to "Delete project", project_path(@project), :method => :delete, :confirm => 'Are you sure? This cannot be recovered from.', :class => 'button tiny alert' %>
   </div>
 </div>

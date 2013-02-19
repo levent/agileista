@@ -1,4 +1,7 @@
 class ProjectsController < AbstractSecurityController
+  before_filter :set_project_override, :only => [:edit, :destroy, :update]
+  before_filter :must_be_account_holder, :only => [:edit, :destroy, :update]
+
   def index
     setup_projects_from_invitations
     @projects = current_person.projects.order('name')
@@ -21,16 +24,24 @@ class ProjectsController < AbstractSecurityController
   end
 
   def edit
-    @project = current_person.projects.find(params[:id])
   end
 
   def update
-    @project = current_person.projects.find(params[:id])
     if @project.update_attributes(params[:project])
       flash[:notice] = "Settings saved"
       redirect_to :back
     else
       flash[:error] = "Settings couldn't be saved"
+      render :action => 'edit'
+    end
+  end
+
+  def destroy
+    if @project.destroy
+      flash[:notice] = "Project removed"
+      redirect_to root_path
+    else
+      flash[:error] = "Project could not be removed"
       render :action => 'edit'
     end
   end
@@ -41,6 +52,10 @@ class ProjectsController < AbstractSecurityController
   end
 
   private
+
+  def set_project_override
+    @project = current_person.projects.find(params[:id])
+  end
 
   def setup_projects_from_invitations
     invitations = Invitation.where(:email => current_person.email)

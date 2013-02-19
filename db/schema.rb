@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130217142749) do
+ActiveRecord::Schema.define(:version => 20130219112608) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20130217142749) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.string   "authentication_token"
+    t.datetime "deleted_at"
   end
 
   add_index "people", ["account_id", "api_key", "authenticated", "activation_code"], :name => "by_api_key"
@@ -97,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20130217142749) do
     t.integer  "velocity"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "projects", ["name"], :name => "index_projects_on_name", :unique => true
@@ -160,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20130217142749) do
     t.boolean  "scrum_master", :default => false
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
+    t.datetime "deleted_at"
   end
 
   create_table "user_stories", :force => true do |t|
