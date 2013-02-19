@@ -1,8 +1,6 @@
 require 'digest/sha1'
 
 class Person < ActiveRecord::Base
-  acts_as_paranoid
-
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

@@ -1,6 +1,4 @@
 class Project < ActiveRecord::Base
-  acts_as_paranoid
-
   has_many :team_members, :dependent => :destroy
   has_many :people, :through => :team_members
 
