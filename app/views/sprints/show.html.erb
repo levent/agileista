@@ -1,4 +1,4 @@
-<ul class="accordion">
+<ul class="accordion hide-for-small">
   <li>
     <div class="title">
       <h5>Burn Down</h5>
@@ -10,7 +10,8 @@
 </ul>
 
 <h2 class="title"><%= sprint_header(@sprint) %> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
-<div class="row">
+
+<div class="row hide-for-small">
   <div class="ten columns">
     <div class="progress twentyfour radius" id="progress-bar">
       <span class="meter"></span>
@@ -27,7 +28,7 @@
 <div class="row">
   <div class="columns twentyfour">
 
-    <div class="row">
+    <div class="row hide-for-small">
       <div class="three columns">
         <h3>User story</h3>
       </div>

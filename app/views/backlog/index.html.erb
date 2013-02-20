@@ -1,4 +1,5 @@
-<h2><small>Unassigned Backlog:</small> <%= pluralize(@user_stories.length, "user story") %> <small>worth</small> <%= show_story_points(@story_points ||= nil) %></strong> <small>(Average velocity: <%= average_velocity(@project) %></strong>)</span> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
+<h2 class="hide-for-medium-down"><small>Unassigned Backlog:</small> <%= pluralize(@user_stories.length, "user story") %> <small>worth</small> <%= show_story_points(@story_points ||= nil) %></strong> <small>(Average velocity: <%= average_velocity(@project) %></strong>)</span> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
+<h2 class="show-for-medium-down">Backlog</h2>
 
 <div class="row">
   <div class="columns twentyfour" id="backlog-items" data-project="<%= @project.id %>">
