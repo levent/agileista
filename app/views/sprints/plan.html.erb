@@ -1,4 +1,4 @@
-<h2><small>Planning</small> <%= @sprint.name %> <span id="points_planned"><%= show_story_points(@sprint.user_stories.sum('story_points')) %></span> <small>and</small> <span id="hours_left"><%= show_story_points(@sprint.hours_left, :unit => "hour") %></span> <small>planned</small> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
+<h2><%= @sprint.name %>: <span id="points_planned"><%= show_story_points(@sprint.user_stories.sum('story_points')) %></span> <small>and</small> <span id="hours_left"><%= show_story_points(@sprint.hours_left, :unit => "hour") %></span> <small>planned</small> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
 <div id="estimated" class="eleven columns">
   <h3>Estimated user stories:</h3>
   <% @project.user_stories.estimated.each do |user_story| %>

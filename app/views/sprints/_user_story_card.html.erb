@@ -1,4 +1,4 @@
-<div class="tb-backlog-item" data-status="<%= user_story.status %>" data-story="<%= user_story.id %>">
+<div class="tb-backlog-item" data-status="<%= user_story.status %>" data-story="<%= user_story.id %>" data-points="<%= user_story.story_points %>">
   <div class="row">
     <div class="twenty columns">
       <%= link_to edit_project_user_story_path(@project, user_story) do %>
@@ -6,21 +6,11 @@
       <% end %>
       <%= link_to edit_project_user_story_path(@project, user_story) do %>
         <%= show_story_points(user_story.story_points, :badge => true) %>
-      <% end %>
+      <% end %>&nbsp;<%= parse_definition(user_story.definition).html_safe %>
     </div>
-    <div class="text-right four columns">
-      Created: <%= user_story.created_at.strftime("%d/%m/%y") %>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="twentyfour columns">
-      <h4><%= parse_definition(user_story.definition).html_safe %></h4>
-    </div>
-  </div>
-  <div class="row">
-    <div class="twentyfour columns">
-      Stakeholder: <%= show_stakeholder(user_story) %>
+    <div class="text-right four columns">
+      <strong>Stakeholder:</strong> <%= show_stakeholder(user_story) %> | <strong>Created:</strong> <%= user_story.created_at.strftime("%d/%m/%y") %>
     </div>
   </div>
 </div>

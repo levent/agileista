@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130219112608) do
+ActiveRecord::Schema.define(:version => 20130220210646) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20130219112608) do
     t.integer "version"
   end
 
+  add_index "sprint_elements", ["sprint_id", "position"], :name => "index_sprint_elements_on_sprint_id_and_position"
   add_index "sprint_elements", ["user_story_id", "sprint_id"], :name => "index_sprint_elements_on_user_story_id_and_sprint_id"
 
   create_table "sprints", :force => true do |t|
@@ -137,12 +138,16 @@ ActiveRecord::Schema.define(:version => 20130219112608) do
     t.integer  "project_id"
   end
 
+  add_index "sprints", ["id", "project_id", "start_at"], :name => "index_sprints_on_id_and_project_id_and_start_at", :order => {"start_at"=>:desc}
+
   create_table "task_developers", :force => true do |t|
     t.integer  "task_id"
     t.integer  "developer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "task_developers", ["task_id"], :name => "index_task_developers_on_task_id"
 
   create_table "tasks", :force => true do |t|
     t.string  "definition"

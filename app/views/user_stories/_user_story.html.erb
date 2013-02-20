@@ -22,6 +22,6 @@
     <%= user_story.created_at.strftime("%d/%m/%y") %>
   </div>
   <div class="one columns hide-for-small">
-    <%= link_to 'Delete', project_user_story_path(@project, user_story), :method => :delete, :confirm => "Are you sure?" %>
+    <%= link_to 'Delete', project_user_story_path(@project, user_story), :method => :delete, :confirm => "Are you sure?" if controller.action_name != 'plan' %>
   </div>
 </div>

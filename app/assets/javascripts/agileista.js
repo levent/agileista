@@ -21,11 +21,11 @@ var Agileista = (function(){
 
     toggleCompletedStories = function(link) {
       if(link.text() === "Hide completed stories") {
-        $('.backlog-item[data-status="complete"]').parents('div.user-story').hide();
+        $('.tb-backlog-item[data-status="complete"]').parents('div.user-story').hide();
         $('#completed_user_stories_hidden').show();
         link.text('show completed stories');
       } else {
-        $('.backlog-item[data-status="complete"]').parents('div.user-story').show();
+        $('.tb-backlog-item[data-status="complete"]').parents('div.user-story').show();
         $('#completed_user_stories_hidden').hide();
         link.text('Hide completed stories');
       }
@@ -34,7 +34,7 @@ var Agileista = (function(){
     setupVelocityMarkers = function(velocity) {
       if(!(velocity === '') && window.location.pathname.indexOf('stale') === -1){
         $('.release-marker').removeClass('release-marker');
-        var user_stories = $('.backlog-item');
+        var user_stories = $('.tb-backlog-item');
         var tally = 0;
         $.each(user_stories, function(index, story) {
           var story_points = parseInt($(story).find('.points').text());

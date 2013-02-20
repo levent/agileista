@@ -32,7 +32,7 @@ function updateTaskCard(container, task_card, hours, devs, who, me) {
 
   if(Number(hours) > 0) {
     if(jQuery.inArray('Nobody', devs) > -1) {
-      container.siblings('.incomplete').append(task_card);
+      task_card.insertBefore(container.siblings('.incomplete').find('.new-task-card'));
     } else {
       container.siblings('.inprogress').append(task_card);
     }
@@ -93,9 +93,9 @@ function setupTaskBoard(project_id, user_story_id) {
 
 function setupTaskBoardStats() {
   var current_total = $("#current_total").html();
-  var complete_stories = $('.backlog-item[data-status="complete"] .points');
+  var complete_stories = $('.tb-backlog-item[data-status="complete"]');
   var complete_points = $.map(complete_stories, function(element) {
-    return(Number($(element).html()));
+    return(Number($(element).attr('data-points')));
   });
   var sum_complete = 0;
   $.each(complete_points, function(){

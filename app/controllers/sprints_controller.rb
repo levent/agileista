@@ -13,7 +13,7 @@ class SprintsController < AbstractSecurityController
   end
 
   def show
-    @sprint = @project.sprints.includes(:user_stories => :tasks).find(params[:id])
+    @sprint = @project.sprints.where(:id => params[:id]).includes(:user_stories => [{:tasks => :team_members}]).first
     store_location
     @current_sprint = @sprint
     calculate_burndown_points
