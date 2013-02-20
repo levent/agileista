@@ -1,14 +1,26 @@
-<div class="row alert-box secondary backlog-item" data-status="<%= user_story.status %>" data-story="<%= user_story.id %>">
-  <div class="twentyfour columns">
-    <div class="row">
-      <p>
-        <%= user_story_state(user_story.state) %>
-        <span class="label round"><%= user_story.id %></span>
-        <span class="label secondary round points"><%= show_story_points(user_story.story_points, :unit => "") %></span>
-      </p>
-      <p>
-        <%= link_to user_story.definition, edit_project_user_story_path(@project, user_story) %>
-      </p>
+<div class="tb-backlog-item" data-status="<%= user_story.status %>" data-story="<%= user_story.id %>">
+  <div class="row">
+    <div class="twenty columns">
+      <%= link_to edit_project_user_story_path(@project, user_story) do %>
+        #<%= user_story.id %>
+      <% end %>
+      <%= link_to edit_project_user_story_path(@project, user_story) do %>
+        <%= show_story_points(user_story.story_points, :badge => true) %>
+      <% end %>
+    </div>
+    <div class="text-right four columns">
+      Created: <%= user_story.created_at.strftime("%d/%m/%y") %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="twentyfour columns">
+      <h4><%= parse_definition(user_story.definition).html_safe %></h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="twentyfour columns">
+      Stakeholder: <%= show_stakeholder(user_story) %>
     </div>
   </div>
 </div>

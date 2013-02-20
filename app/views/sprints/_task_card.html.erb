@@ -1,32 +1,22 @@
-<div id="task_card_<%= task_card.id %>" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-story="<%= user_story.id %>" class="alert-box task-card secondary">
+<div id="task_card_<%= task_card.id %>" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-story="<%= user_story.id %>" class="task-card<%= " mine" if task_card.team_members.include?(current_person) %>">
   <div class="row">
-    <div class="twentyfour columns">
-
-      <div class="row">
-
-        <div class="sixteen columns">
-          <%= task_card.definition %>
-          <div class="row">
-            <div class="twentyfour columns">
-              <p class="assignees"><%= show_assignees(task_card.team_members) %></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="eight end columns">
-          <% unless sprint.finished? %>
-            <% if task_card.team_members.include?(current_user) %>
-              <%= link_to 'Claim', claim_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'success button tiny claim_btn hide-override' %>
-              <%= link_to 'Renounce', renounce_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'alert button tiny renounce_btn' %>
-            <% else %>
-              <%= link_to 'Claim', claim_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'success button tiny claim_btn' %>
-              <%= link_to 'Renounce', renounce_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'alert button tiny renounce_btn hide-override' %>
-            <% end %>
-          <% end %>
-        </div>
-
-      </div>
-
+    <div class="sixteen columns">
+      <%= task_card.definition %>
+      <p class="assignees"><%= show_assignees(task_card.team_members) %></p>
     </div>
+
+    <div class="eight columns">
+      <% unless sprint.finished? %>
+        <% if task_card.team_members.include?(current_user) %>
+          <%= link_to 'Claim', claim_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'success button small claim_btn hide-override' %>
+          <%= link_to 'Renounce', renounce_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'alert button small renounce_btn' %>
+        <% else %>
+          <%= link_to 'Claim', claim_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'success button small claim_btn' %>
+          <%= link_to 'Renounce', renounce_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'alert button small renounce_btn hide-override' %>
+        <% end %>
+      <% end %>
+    </div>
+
   </div>
+
 </div>

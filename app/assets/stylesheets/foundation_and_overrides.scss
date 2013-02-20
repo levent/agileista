@@ -237,7 +237,7 @@ $topBarDropBgColor: #082F42;
 // Modular Scale Settings
 
 // $ratio: $golden; // THIS IS DEFAULT IN MODULAR-SCALE
-$baseFontSize: 14px;
+$baseFontSize: 13px;
 // $importantModNum: 44px;
 // $base-size: $baseFontSize $importantModNum;
 // Produced the following list of values: 14, 17, 23, 27, 37, 44, 59, 71, 95, 115;
@@ -254,32 +254,52 @@ hr.narrow {
 }
 
 div#estimated, div#committed, div.ui-droppable {
-  min-height:200px;
+  min-height:140px;
+}
+
+.tb-backlog-item, .backlog-item {
+  padding: 11px 10px;
+  background: $white;
+}
+
+.tb-backlog-item {
+  border: 1px solid $mainColor;
 }
 
 .backlog-item {
-  padding: 11px 0 10px;
   border-top: 1px solid $secondaryColor;
-  background: $white;
 }
 
 .release-marker {
   border-top: 1px solid $alertColor;
 }
 
-.row.user-story {
-  padding-top: 12px;
-  border-bottom: 1px solid $secondaryColor;
+.user-story {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 12px;
+  padding-bottom: 12px;
+  border: 1px solid $secondaryColor;
 }
 
 .task-card {
   cursor: move;
+  margin: 4px 0;
+  background-color: $white;
+  padding: 12px;
+  border: 2px solid $secondaryColor;
+  &.mine {
+    border-left: 4px solid $successColor;
+  }
 }
 
 .new-task-card {
-  margin: 12px 0;
-  padding: 0 12px;
-  border: 3px dashed $secondaryColor;
+  padding: 12px;
+  border: 2px dashed $secondaryColor;
+  background: $white;
+  form {
+    margin: 0;
+  }
 }
 
 div#about {

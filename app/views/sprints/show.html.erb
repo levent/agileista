@@ -17,32 +17,17 @@
       <span class="meter"></span>
     </div>
   </div>
-  <div class="seven offset-by-one columns">
+  <div class="six columns">
     <p><strong><span id="current_complete"></span>/<span id="current_total"><%= @sprint.total_story_points %></span> story points completed (<span id="current_percentage"></span>)</strong></p>
   </div>
-  <div class="six columns end">
-    <p id="completed_user_stories_hidden" class="hide"><span class="highlight">Completed user stories are hidden</span></p>
+  <div class="eight columns">
+    <%= link_to 'Hide completed stories', '#', :id => 'togglecomplete', :class => 'button secondary small radius' %>
+    <span id="completed_user_stories_hidden" class="hide highlight">Completed user stories are hidden</span>
   </div>
 </div>
 
 <div class="row">
   <div class="columns twentyfour">
-
-    <div class="row hide-for-small">
-      <div class="three columns">
-        <h3>User story</h3>
-      </div>
-      <div class="six columns offset-by-one">
-        <h3>Incomplete</h3>
-      </div>
-      <div class="six columns offset-by-one">
-        <h3>In progress</h3>
-      </div>
-      <div class="six columns offset-by-one">
-        <h3>Complete story <%= link_to 'hide completed stories', '#', :id => 'togglecomplete', :class => 'button secondary small radius' %></h3>
-      </div>
-    </div>
-
     <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
   </div>
 </div>
