@@ -1,8 +1,8 @@
 <div id="task_card_<%= task_card.id %>" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-story="<%= user_story.id %>" class="task-card<%= " mine" if task_card.team_members.include?(current_person) %>">
   <div class="row">
     <div class="sixteen columns">
-      <%= task_card.definition %>
-      <p class="assignees"><%= show_assignees(task_card.team_members) %></p>
+      <%= task_card.definition %><br>
+      <span class="assignees"><%= show_assignees(task_card.team_members) %></span>
     </div>
 
     <div class="eight columns">

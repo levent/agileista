@@ -293,6 +293,12 @@ div#estimated, div#committed, div.ui-droppable {
   }
 }
 
+.assignees {
+  font-style: italic;
+  line-height: 1.2em;
+  color: $mainColor;
+}
+
 .new-task-card {
   padding: 12px;
   border: 2px dashed $secondaryColor;
