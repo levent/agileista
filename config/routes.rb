@@ -29,6 +29,7 @@ Agileista::Application.routes.draw do
       member do
         get 'plan'
         post 'set_stats'
+        get 'review'
       end
       resources :user_stories do
         member do
@@ -43,6 +44,8 @@ Agileista::Application.routes.draw do
       member do
         post 'copy'
       end
+
+      resources :acceptance_criteria, :only => [:update]
 
       resources :tasks, :except => [:edit, :update] do
         member do 

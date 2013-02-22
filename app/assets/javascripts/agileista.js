@@ -73,6 +73,10 @@ var Agileista = (function(){
       $('.add_nested_task').click(function() {
         addNewItem('ol#tasks li:last');
       });
+
+      $('.js-acceptance-criteria-done').click(function(e) {
+        $(this).closest('form').submit();
+      });
     };
 
     init();

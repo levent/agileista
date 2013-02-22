@@ -257,12 +257,12 @@ div#estimated, div#committed, div.ui-droppable {
   min-height:200px;
 }
 
-.tb-backlog-item, .backlog-item {
+.tb-backlog-item, .backlog-item, .rw-backlog-item {
   padding: 11px 10px;
   background: $white;
 }
 
-.tb-backlog-item {
+.tb-backlog-item, .rw-backlog-item {
   border: 1px solid $mainColor;
   border-left: 4px solid $alertColor;
   &[data-status="complete"] {
@@ -270,6 +270,13 @@ div#estimated, div#committed, div.ui-droppable {
   }
   &[data-status="inprogress"] {
     border-left: 4px solid $mainColor;
+  }
+}
+
+.rw-backlog-item {
+  margin: 10px 0;
+  h4, h5 {
+    margin-top: 0;
   }
 }
 

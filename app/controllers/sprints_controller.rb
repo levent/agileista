@@ -33,6 +33,12 @@ class SprintsController < AbstractSecurityController
     end
   end
 
+  def review
+    @sprint = @project.sprints.where(:id => params[:id]).includes(:user_stories => :acceptance_criteria).limit(1).first
+    store_location
+    calculate_burndown_points
+  end
+
   def set_stats
     REDIS.set("project:#{@project.id}:stats_since:sprint_id", @sprint.id)
     REDIS.set("project:#{@project.id}:stats_since", @sprint.start_at)
