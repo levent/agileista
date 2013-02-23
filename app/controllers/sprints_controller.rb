@@ -73,11 +73,13 @@ class SprintsController < AbstractSecurityController
       render :action => 'edit'
     end
   end
-  
+
   def plan
     store_location
+    @planned_stories = @sprint.user_stories.includes(:person)
+    @backlog_stories = @project.user_stories.estimated
   end
-  
+
   def destroy
     if @sprint && @sprint.destroy
       flash[:notice] = "Sprint deleted"
