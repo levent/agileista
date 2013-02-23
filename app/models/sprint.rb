@@ -49,7 +49,16 @@ class Sprint < ActiveRecord::Base
   end
 
   def total_story_points
-    self.user_stories.sum('story_points')
+    pts = REDIS.get("sprint:#{self.id}:total_story_points")
+    unless pts
+      pts = self.user_stories.sum('story_points')
+      REDIS.set("sprint:#{self.id}:total_story_points", pts)
+    end
+    pts
+  end
+
+  def expire_total_story_points
+    REDIS.del("sprint:#{self.id}:total_story_points")
   end
 
   def story_points_burned

@@ -34,6 +34,7 @@ class UserStory < ActiveRecord::Base
   belongs_to :person
 
   after_save :expire_story_points
+  after_save :expire_sprint_story_points
   after_destroy :expire_story_points
 
   scope :stale,
@@ -160,6 +161,10 @@ class UserStory < ActiveRecord::Base
 
   def expire_story_points
     REDIS.del("project:#{self.project.id}:story_points")
+  end
+
+  def expire_sprint_story_points
+    sprints.map(&:expire_total_story_points)
   end
 end
 

@@ -61,6 +61,11 @@ class Person < ActiveRecord::Base
   end
 
   def scrum_master_for?(project)
-    project.team_members.where('scrum_master = ?', true).map(&:person).include?(self)
+    scrum_master_email = REDIS.get("project:#{project.id}:scrum_master")
+    unless scrum_master_email
+      scrum_master_email = project.scrum_master.try(:email)
+      REDIS.set("project:#{project.id}:scrum_master", scrum_master_email)
+    end
+    scrum_master_email == self.email
   end
 end

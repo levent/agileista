@@ -15,4 +15,8 @@ class Project < ActiveRecord::Base
     return if sprints.finished.statistically_significant(self).empty?
     sprints.finished.statistically_significant(self).map {|s| s.calculated_velocity}.sum / sprints.finished.statistically_significant(self).count
   end
+
+  def scrum_master
+    people.where('scrum_master = ?', true).first
+  end
 end

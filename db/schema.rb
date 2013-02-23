@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222145400) do
+ActiveRecord::Schema.define(:version => 20130223092928) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -142,6 +142,8 @@ ActiveRecord::Schema.define(:version => 20130222145400) do
   end
 
   add_index "sprints", ["id", "project_id", "start_at"], :name => "index_sprints_on_id_and_project_id_and_start_at", :order => {"start_at"=>:desc}
+  add_index "sprints", ["project_id", "start_at"], :name => "index_sprints_on_project_id_and_start_at", :order => {"start_at"=>:desc}
+  add_index "sprints", ["project_id"], :name => "index_sprints_on_project_id"
 
   create_table "task_developers", :force => true do |t|
     t.integer  "task_id"
@@ -190,5 +192,7 @@ ActiveRecord::Schema.define(:version => 20130222145400) do
     t.boolean  "delta",               :default => false
     t.integer  "project_id"
   end
+
+  add_index "user_stories", ["project_id", "done", "sprint_id"], :name => "index_user_stories_on_project_id_and_done_and_sprint_id"
 
 end
