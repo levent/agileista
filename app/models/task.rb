@@ -29,11 +29,11 @@ class Task < ActiveRecord::Base
   after_destroy :calculate_burndown
 
   def self.incomplete
-    all(:conditions => "hours > 0 OR hours IS NULL").select {|x| x.team_members.blank?}
+    where("hours > 0 OR hours IS NULL").includes(:team_members).select {|x| x.team_members.blank?}
   end
 
   def self.inprogress
-    all(:conditions => "hours > 0 OR hours IS NULL").select {|x| x.team_members.any?}
+    where("hours > 0 OR hours IS NULL").includes(:team_members).select {|x| x.team_members.any?}
   end
 
   def calculate_burndown
