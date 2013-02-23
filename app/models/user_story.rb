@@ -34,7 +34,9 @@ class UserStory < ActiveRecord::Base
   belongs_to :person
 
   after_save :expire_story_points
+  after_save :expire_status, :expire_state
   after_save :expire_sprint_story_points
+  after_touch :expire_status, :expire_state
   after_destroy :expire_story_points
 
   scope :stale,
@@ -68,13 +70,18 @@ class UserStory < ActiveRecord::Base
   end
 
   def status
-    if self.inprogress?
-      status = "inprogress"
-    elsif self.complete?
-      status = "complete"
-    else
-      status = ""
+    cached_status = REDIS.get("user_story:#{self.id}:status")
+    unless cached_status
+      if self.inprogress?
+        cached_status = "inprogress"
+      elsif self.complete?
+        cached_status = "complete"
+      else
+        cached_status = ""
+      end
+      REDIS.set("user_story:#{self.id}:status", cached_status)
     end
+    cached_status
   end
 
   def inprogress?
@@ -134,15 +141,20 @@ class UserStory < ActiveRecord::Base
   end
 
   def state
-    if self.cannot_be_estimated?
-      'clarify'
-    elsif self.acceptance_criteria.blank?
-      'criteria'
-    elsif self.story_points.blank?
-      'estimate'
-    else
-      'plan'
+    cached_state = REDIS.get("user_story:#{self.id}:state")
+    unless cached_state
+      if self.cannot_be_estimated?
+        cached_state = 'clarify'
+      elsif self.acceptance_criteria.blank?
+        cached_state = 'criteria'
+      elsif self.story_points.blank?
+        cached_state = 'estimate'
+      else
+        cached_state = 'plan'
+      end
+      REDIS.set("user_story:#{self.id}:state", cached_state)
     end
+    cached_state
   end
 
   def copy
@@ -158,6 +170,14 @@ class UserStory < ActiveRecord::Base
   end
 
   private
+
+  def expire_status
+    REDIS.del("user_story:#{self.id}:status")
+  end
+
+  def expire_state
+    REDIS.del("user_story:#{self.id}:state")
+  end
 
   def expire_story_points
     REDIS.del("project:#{self.project.id}:story_points")

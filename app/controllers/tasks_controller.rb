@@ -9,7 +9,7 @@ class TasksController < AbstractSecurityController
 
   def renounce
     @task.team_members.delete(current_person)
-    @task.save
+    @task.touch
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
     json = { :notification => "#{current_person.name} renounced task of ##{@user_story.id}", :performed_by => current_person.name, :action => 'renounce', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
@@ -18,8 +18,7 @@ class TasksController < AbstractSecurityController
 
   def claim
     @task.team_members << current_person
-    @task.hours = 1
-    @task.save
+    @task.update_attribute(:hours, 1)
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
     json = { :notification => "#{current_person.name} claimed task of ##{@user_story.id}", :performed_by => current_person.name, :action => 'claim', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")

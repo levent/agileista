@@ -55,4 +55,5 @@ class Task < ActiveRecord::Base
     return true if hours.nil?
     hours.to_i > 0
   end
+
 end
