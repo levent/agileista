@@ -23,8 +23,8 @@
           <li><%= link_to "Export CSV", project_backlog_index_path(@project, :format => 'csv') %></li>
         </ul>
       </li>
-      <li class="divider"></li>
-      <li class="has-dropdown">
+      <li class="divider hide-for-small"></li>
+      <li class="has-dropdown hide-for-small">
         <%= link_to "Sprints", project_sprints_path(@project) %>
         <ul class="dropdown">
           <li><%= link_to("Add sprint", new_project_sprint_path(@project)) %></li>
@@ -41,13 +41,13 @@
 
     <!-- Right Nav Section -->
     <ul class="right">
-      <li class="has-button search">
+      <li class="has-button search hide-for-small">
       <%= form_for :tag, :url => search_project_backlog_index_path(@project), :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
         <%= text_field_tag 'q' %>
         <%= button_tag 'Search', :class => "submit secondary button" %>
       <% end %>
       </li>
-      <li class="divider"></li>
+      <li class="divider hide-for-small"></li>
       <li class="has-dropdown">
         <%= link_to @project.name.humanize, project_backlog_index_path(@project) %>
         <ul class="dropdown">
@@ -66,8 +66,8 @@
           <li><%= link_to 'View all projects', projects_path %></li>
         </ul>
       </li>
-      <li class="divider"></li>
-      <li class="has-dropdown">
+      <li class="divider hide-for-small"></li>
+      <li class="has-dropdown hide-for-small">
         <%= link_to(current_user.name, edit_person_registration_path) %>
         <ul class="dropdown">
           <li><label>Account</label></li>
