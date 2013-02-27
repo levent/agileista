@@ -23,3 +23,5 @@ tmp/
 *.sassc
 .sass-cache
 public/assets
+
+rails_best_practices_output.html
