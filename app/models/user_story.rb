@@ -184,6 +184,7 @@ class UserStory < ActiveRecord::Base
   end
 
   def expire_sprint_story_points
+    sprint.expire_total_story_points
     sprints.map(&:expire_total_story_points)
   end
 end
