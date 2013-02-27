@@ -137,10 +137,6 @@ class UserStory < ActiveRecord::Base
     return incomplete_tasks
   end
 
-  def total_hours
-    self.tasks.sum('hours')
-  end
-
   def state
     cached_state = REDIS.get("user_story:#{self.id}:state")
     unless cached_state
