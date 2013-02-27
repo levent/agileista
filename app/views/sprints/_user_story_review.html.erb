@@ -18,13 +18,17 @@
       </div>
 
       <div class="row">
-        <div class="twentyone offset-by-three columns">
+        <div class="sixteen offset-by-three columns">
           <h5 class="">Acceptance Criteria:</h5>
           <% user_story_review.acceptance_criteria.each do |ac| %>
             <%= simple_form_for [@project, user_story_review, ac], remote: true do |f| %>
               <%= f.input :done, label: ac.detail, input_html: {name: "acceptance_criterium_#{ac.id}[done]", id: "acceptance_criterium_#{ac.id}_done", class: "js-acceptance-criteria-done"} %>
             <% end %>
           <% end %>
+        </div>
+
+        <div class="five columns text-right">
+          <%= link_to "Copy to Backlog", copy_project_user_story_path(@project, user_story_review), :method => :post, :confirm => 'Are you sure?' %>
         </div>
       </div>
 
