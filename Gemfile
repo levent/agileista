@@ -32,6 +32,7 @@ group :assets do
 end
 
 group :development do
+  gem 'rails_best_practices'
   gem 'debugger'
   gem 'ruby-prof'
   gem 'capistrano'
@@ -43,7 +44,7 @@ group :test do
   gem 'simplecov-console', :require => false
   gem 'poltergeist'
   gem 'shoulda-matchers'
-  gem 'rspec-rails', '2.12.1'
+  gem 'rspec-rails'
   gem 'machinist'
   gem 'faker'
   gem 'timecop'
