@@ -115,7 +115,7 @@ task :sphinx_configure, :roles => :app do
 end
 
 task :bundle_clean, :roles => :app do
-  run "bundle clean"
+  run "echo 'Do this!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'"
 end
 
 task :downcase_emails, :roles => :app do
