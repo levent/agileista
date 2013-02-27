@@ -1,4 +1,4 @@
-<div id="velocity_chart" style="width:76%;height:200px;" class="chart"></div> 
+<div id="velocity_chart" style="width:76%;height:200px;" class="chart"></div>
 <% content_for :custom_js do %>
   <% if @sprints.finished.statistically_significant(@project).any? %>
     $(function () {
