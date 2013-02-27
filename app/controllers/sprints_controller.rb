@@ -41,9 +41,7 @@ class SprintsController < AbstractSecurityController
 
   def set_stats
     REDIS.set("project:#{@project.id}:stats_since:sprint_id", @sprint.id)
-    REDIS.expire("project:#{@project.id}:stats_since:sprint_id", 900)
     REDIS.set("project:#{@project.id}:stats_since", @sprint.start_at)
-    REDIS.expire("project:#{@project.id}:stats_since", 900)
     redirect_to project_sprints_path(@project)
   end
 
