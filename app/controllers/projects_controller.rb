@@ -14,7 +14,7 @@ class ProjectsController < AbstractSecurityController
   def create
     @project = current_person.projects.new(params[:project])
     if @project.save
-      @project.people << current_person
+      @project.scrum_master = current_person
       flash[:notice] = "Project added"
       redirect_to project_backlog_index_path(@project)
     else
