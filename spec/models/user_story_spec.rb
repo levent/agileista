@@ -1,10 +1,10 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 describe UserStory do
   
   before(:each) do
-    @account = Account.make!
-    @us = UserStory.make!(:account => @account)
+    @project = Project.make!
+    @us = UserStory.make!(:project => @project)
     @task_a = Task.new
     @task_b = Task.new
     @task_c = Task.new
@@ -69,14 +69,6 @@ describe UserStory do
     end
   end
   
-  describe "total hours remaining on tasks" do
-    it "should tell you how many hours are left on the tasks assigned to the story" do
-      task1 = Task.make!(:user_story => @us, :hours => 200)
-      task2 = Task.make!(:user_story => @us, :hours => 65)
-      @us.total_hours.should == 265
-    end
-  end
-  
   describe "#state?" do
     it "should return css class if user_story has no story point assigned" do
       @us.acceptance_criteria.stub!(:blank?).and_return(false)
@@ -85,6 +77,7 @@ describe UserStory do
 
     it "should return css class if user_story has story points assigned" do
       @us.story_points = 8
+      @us.acceptance_criteria.stub!(:blank?).and_return(false)
       @us.state.should == "plan"
     end
 
@@ -93,7 +86,7 @@ describe UserStory do
       @us.state.should == "clarify"
     end
 
-    it "should return css class if user_story has no acceptance criteria and has not been estimated" do
+    it "should return criteria state if user_story has no acceptance criteria and has not been estimated" do
       @us.acceptance_criteria.should be_blank
       @us.state.should == "criteria"
     end
@@ -121,9 +114,8 @@ describe UserStory do
   
   describe "#copy" do
     before(:each) do
-      @us.account = Account.create!(:name => 'account', :subdomain => 'subby')
+      @us.project = Project.make!
       @us.definition = "definition"
-      @us.save!
       @us.save!
     end
 

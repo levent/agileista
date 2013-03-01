@@ -1,8 +1,8 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 
 describe Sprint do
 
-  before(:each) do
+  before do
     @it = Sprint.new
 
     # stub out sweepers
@@ -18,25 +18,25 @@ describe Sprint do
   it { should have_many(:sprint_changes) }
   it { should have_many(:audits) }
 
-  it { should belong_to :account }
-  it { should validate_presence_of :account_id }
+  it { should belong_to :project }
+  it { should validate_presence_of :project_id }
   it { should validate_presence_of :start_at }
   it { should validate_presence_of :end_at }
   it { should validate_presence_of :name }
 
   context "auto setting end time" do
-    it "should set it on save based on account's iteration length" do
+    it "should set it on save based on project's iteration length" do
       start = 1.day.from_now
-      account = Account.make!(:iteration_length => 1)
-      sprint = Sprint.create!(:name => "Disco dance prep", :account => account, :start_at => start)
-      account.iteration_length.weeks.from_now(1.day.ago(start)).end_of_day.should == sprint.end_at
+      project = Project.make!(:iteration_length => 1)
+      sprint = Sprint.create!(:name => "Disco dance prep", :project => project, :start_at => start)
+      project.iteration_length.weeks.from_now(1.day.ago(start)).end_of_day.should == sprint.end_at
     end
 
     it "should set it to end of day on subsequent saves" do
       start = 19.days.from_now
-      account = Account.make!(:iteration_length => 1)
-      sprint = Sprint.create!(:name => "Disco dance prep", :account => account, :start_at => start)
-      finish = account.iteration_length.weeks.from_now(1.day.ago(start))
+      project = Project.make!(:iteration_length => 1)
+      sprint = Sprint.create!(:name => "Disco dance prep", :project => project, :start_at => start)
+      finish = project.iteration_length.weeks.from_now(1.day.ago(start))
       initial_finish = sprint.end_at
       sprint.end_at = finish
       sprint.save!
@@ -69,7 +69,7 @@ describe Sprint do
       @sprint.stub!(:user_stories).and_return([us1, us2, us3, us4, us5, us6, us7, us8])
       @sprint.start_at = 3.months.ago
       @sprint.end_at = 2.months.ago
-      @sprint.stub!(:account_id).and_return(19)
+      @sprint.stub!(:project_id).and_return(19)
     end
     
     it "should return the total story points for all the complete user stories" do
@@ -130,9 +130,9 @@ describe Sprint do
   describe "#destroy" do
     describe "with user stories" do
       before(:each) do
-        @account = Account.make!
-        @sprint = Sprint.make!(:account => @account)
-        @user_story = UserStory.make!(:account => @account, :sprint => @sprint)
+        @project = Project.make!
+        @sprint = Sprint.make!(:project => @project)
+        @user_story = UserStory.make!(:project => @project, :sprint => @sprint)
         @sprint_element = SprintElement.make!(:sprint => @sprint, :user_story => @user_story)
       end
 

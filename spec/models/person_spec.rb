@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 require 'digest/sha1'
 
 describe Person do
@@ -9,44 +9,14 @@ describe Person do
 
   it { should validate_presence_of :name }
   it { should validate_presence_of :email }
-  it { should belong_to :account }
+  it { should belong_to :project }
   it { should have_many :user_stories }
 
-  it "should have unique email addresses per account" do
-    account = Account.make!
-    person1 = Person.make!(:account => account)
+  it "should have unique email addresses per project" do
+    project = Project.make!
+    person1 = Person.make!(:project => project)
     person2 = Person.make!(:email => person1.email)
-    lambda { Person.make!(:account => account, :email => person1.email) }.should raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email has already been taken")
-  end
-
-  describe "#validate_account" do
-    it "should person to authenticated" do
-      @it.should_not be_authenticated
-      @it.validate_account
-      @it.should be_authenticated
-    end
-  end
-
-  describe "account_holder" do
-    before(:each) do
-      @account = Account.make
-    end
-
-    it "should return true if person is account holder" do
-      @it.account = @account
-      @it.should_not be_account_holder
-      @account.account_holder = @it
-      @account.save!
-      @it.should be_account_holder
-    end
-
-    it "should allow user deletion" do
-      @it.account = @account
-      @it.should_not be_can_delete_users
-      @account.account_holder = @it
-      @account.save!
-      @it.should be_can_delete_users
-    end
+    lambda { Person.make!(:project => project, :email => person1.email) }.should raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email has already been taken")
   end
 
   describe "in general" do
