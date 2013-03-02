@@ -6,9 +6,9 @@ set :deploy_via, :remote_cache
 # set :deploy_via, :copy
 # set :copy_cache, true
 # set :copy_exclude, [".git"]
-set :branch, "master"
+set :branch, "unicorn"
 set :scm_verbose, true
-set :keep_releases, 2
+set :keep_releases, 4
 # set :deploy_via, :export
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
@@ -47,7 +47,30 @@ role :db,  "bigapple", :primary => true
 #   end 
 # end
 
+def remote_file_exists?(full_path)
+  'true' == capture("if [ -e #{full_path} ]; then echo 'true'; fi").strip
+end
+
 namespace :deploy do
+
+
+  task :unicorns, :roles => :app do
+    pid_file = "/u/apps/agileista.com/shared/pids/unicorn.pid"
+
+    if remote_file_exists?(pid_file)
+      puts "pid found"
+      pid = File.read(pid_file).to_i
+
+      puts "USR2 to #{pid}"
+      run "kill -s USR2 #{pid}"
+      sleep 20
+      puts "WINCH to #{pid}"
+      run "kill -s WINCH #{pid}"
+      sleep 10
+      puts "QUIT to #{pid}"
+      run "kill -s QUIT #{pid}"
+    end
+  end
 
   task :restart do
     run_locally "bundle exec rake assets:precompile RAILS_ENV=#{rails_env} AWS_ACCESS_KEY_ID=\"#{ENV['AWS_ACCESS_KEY_ID']}\" AWS_SECRET_ACCESS_KEY=\"#{ENV['AWS_SECRET_ACCESS_KEY']}\" FOG_DIRECTORY=\"agileista-#{rails_env}\""
@@ -57,9 +80,6 @@ namespace :deploy do
 
     # Put new manifest onto all the app servers
     top.upload("public/assets/manifest.yml", "#{release_path}/public/assets/manifest.yml", :via => :scp)
-
-    # restart_sphinx
-    run "/etc/init.d/agileista restart"
   end
 
   task :stop do
@@ -129,4 +149,4 @@ after "deploy:update_code",
   'sass:update',
   "sphinx_configure"
 #  'downcase_emails'
-after "deploy", "deploy:cleanup", "bundle_clean"
+after "deploy", "deploy:cleanup", "deploy:unicorns", "bundle_clean"

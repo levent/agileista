@@ -1,7 +1,9 @@
 # config/unicorn.rb
-worker_processes 3
+worker_processes 4
 timeout 15
 preload_app true
+pid "/u/apps/agileista.com/shared/pids/unicorn.pid"
+listen "/tmp/unicorn.sock"
 
 before_fork do |server, worker|
 
@@ -12,11 +14,7 @@ before_fork do |server, worker|
 
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.connection.disconnect!
-
-  defined?(REDIS) and
-    REDIS.quit and
-    Rails.logger.warn('redis quit')
-end  
+end
 
 after_fork do |server, worker|
 
@@ -27,7 +25,5 @@ after_fork do |server, worker|
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.establish_connection
 
-  defined?(Redis) and
-    REDIS = Redis.new(:host => 'localhost', :port => 6379) and
-    Rails.logger.warn('redis connected')
+  Redis.current.quit
 end
