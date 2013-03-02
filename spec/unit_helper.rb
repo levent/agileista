@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift("./app/models")
 $LOAD_PATH.unshift("./app/helpers")
 
+require 'active_record'
 require 'simplecov'
 require 'rspec/fire'
 require 'timecop'

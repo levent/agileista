@@ -85,29 +85,7 @@ module ApplicationHelper
     "<strong class=\"hightlight\">#{number_with_delimiter(entries.offset + 1)} - #{number_with_delimiter(entries.offset + entries.length)}</strong> of <strong>#{pluralize(content_tag(:strong, number_with_delimiter(entries.total_entries)), name)}</strong>" if entries
   end
 
-
   protected
-
-  def build_link(link)
-    match = link[:match] || link[:name]
-    content_tag(
-      :li,
-      link_to(
-        link[:name].titleize,
-        link[:url],
-        ({:class => link[:class]} if link[:class])
-      ),
-      :class => "#{link[:name].gsub(/\s/, '_')}#{' active' if active?(match)}"
-    )
-  end
-
-  def active?(match)
-    if match.is_a?(Array)
-      match.any? {|match| page_signature.include?(match)}
-    else
-      page_signature.include?(match)
-    end
-  end
 
   def current_sprint
     @current_sprint ||= @project.sprints.current.first if @project

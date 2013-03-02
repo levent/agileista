@@ -1,4 +1,6 @@
+require 'active_record'
 require 'unit_helper'
+require 'project'
 require 'console_helper'
 
 describe ConsoleHelper do
