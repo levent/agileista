@@ -6,7 +6,7 @@ set :deploy_via, :remote_cache
 # set :deploy_via, :copy
 # set :copy_cache, true
 # set :copy_exclude, [".git"]
-set :branch, "unicorn"
+set :branch, "master"
 set :scm_verbose, true
 set :keep_releases, 4
 # set :deploy_via, :export
@@ -59,7 +59,7 @@ namespace :deploy do
 
     if remote_file_exists?(pid_file)
       puts "pid found"
-      pid = File.read(pid_file).to_i
+      pid = capture("File.read(#{pid_file}).to_i")
 
       puts "USR2 to #{pid}"
       run "kill -s USR2 #{pid}"
