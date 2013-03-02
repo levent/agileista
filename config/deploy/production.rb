@@ -59,7 +59,7 @@ namespace :deploy do
 
     if remote_file_exists?(pid_file)
       puts "pid found"
-      pid = capture("File.read(#{pid_file}).to_i")
+      pid = capture("cat #{pid_file}")
 
       puts "USR2 to #{pid}"
       run "kill -s USR2 #{pid}"
