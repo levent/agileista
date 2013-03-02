@@ -18,7 +18,8 @@ gem 'redis', '3.0.2', :require => ['redis/connection/hiredis', 'redis']
 gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git', :branch => 'v2.1'
 gem 'devise'
 gem 'acts_as_paranoid', '~>0.4.0'
-gem 'thin'
+gem 'unicorn'
+gem 'rack-timeout'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
