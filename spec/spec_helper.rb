@@ -9,6 +9,7 @@ SimpleCov.start 'rails' do
   add_filter '.gem/'
   add_filter '/lib/tasks/'
   minimum_coverage 57
+  command_name 'test:integration'
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'

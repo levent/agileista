@@ -48,4 +48,5 @@ group :test do
   gem 'machinist'
   gem 'faker'
   gem 'timecop'
+  gem 'rspec-fire'
 end
