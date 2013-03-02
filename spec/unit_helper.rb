@@ -1,4 +1,5 @@
 $LOAD_PATH.unshift("./app/models")
+$LOAD_PATH.unshift("./app/helpers")
 
 require 'simplecov'
 require 'rspec/fire'
