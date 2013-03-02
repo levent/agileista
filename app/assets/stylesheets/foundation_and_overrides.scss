@@ -98,7 +98,7 @@ $bodyFontFamily: "proxima-nova", "Helvetica Neue", helvetica, arial, sans-serif;
 $topBarBgColor: #082F42;
 // $topBarHeight: 45px;
 // $topBarHeightMobile: 45px;
-// $topBarBtmMargin: 30px;
+$topBarBtmMargin: 10px;
 // $topBarTitleWeight: bold;
 // $topBarTitleSize: 17px;
 // $topBarLinkColor: #fff;
@@ -257,19 +257,26 @@ div#estimated, div#committed, div.ui-droppable {
   min-height:200px;
 }
 
-.tb-backlog-item, .backlog-item, .rw-backlog-item {
+.tb-backlog-item, .rw-backlog-item {
   padding: 11px 10px;
   background: $white;
 }
 
 .tb-backlog-item, .rw-backlog-item {
-  border: 1px solid $mainColor;
-  border-left: 4px solid $alertColor;
+  border: 1px solid $secondaryColor;
+  border-left: 1px solid $alertColor;
+  padding: 6px;
   &[data-status="complete"] {
     border-left: 4px solid $successColor;
   }
   &[data-status="inprogress"] {
     border-left: 4px solid $mainColor;
+  }
+}
+
+.tb-header {
+  h4 {
+    margin: 0;
   }
 }
 
@@ -291,8 +298,7 @@ div#estimated, div#committed, div.ui-droppable {
 .user-story {
   margin-top: 12px;
   margin-bottom: 12px;
-  padding: 12px;
-  padding-bottom: 12px;
+  padding: 6px;
   border: 1px solid $secondaryColor;
 }
 
@@ -300,10 +306,10 @@ div#estimated, div#committed, div.ui-droppable {
   cursor: move;
   margin: 4px 0;
   background-color: $white;
-  padding: 12px;
-  border: 2px solid $secondaryColor;
+  padding: 6px;
+  border: 1px solid $secondaryColor;
   &.mine {
-    border-left: 4px solid $successColor;
+    border-left: 1px solid $successColor;
   }
 }
 
@@ -314,7 +320,8 @@ div#estimated, div#committed, div.ui-droppable {
 }
 
 .new-task-card {
-  padding: 12px;
+  margin: 4px 0;
+  padding: 6px;
   border: 2px dashed $secondaryColor;
   background: $white;
   form {
@@ -325,4 +332,10 @@ div#estimated, div#committed, div.ui-droppable {
 div#about {
   width:1000px;
   margin:0 auto;
+}
+
+.backlog-row {
+  cursor:move;
+  padding: 8px 7px;
+  background: $white;
 }

@@ -44,6 +44,18 @@
 
 </div>
 
+<div class="row tb-header">
+  <div class="eight columns">
+    <h4 class="hide-for-small subheader">Incomplete:</h4>
+  </div>
+  <div class="eight columns">
+    <h4 class="hide-for-small subheader">In progress:</h4>
+  </div>
+  <div class="eight columns">
+    <h4 class="hide-for-small subheader">Complete:</h4>
+  </div>
+</div>
+
 <div class="row">
   <div class="columns twentyfour">
     <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>

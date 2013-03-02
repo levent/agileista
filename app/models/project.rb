@@ -19,4 +19,8 @@ class Project < ActiveRecord::Base
   def scrum_master
     people.where('scrum_master = ?', true).first
   end
+
+  def scrum_master=(person)
+    team_members.create!(:person => person, :scrum_master => true)
+  end
 end

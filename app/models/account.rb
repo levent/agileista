@@ -19,8 +19,6 @@ class Account < ActiveRecord::Base
   attr_accessor :account_holder_email
 
   def invite_account_holder
-    debugger
-    puts 'debugger'
     generated_password = Devise.friendly_token.first(6)
     user = Person.create(:email => self.account_holder_email,
                          :password => generated_password)

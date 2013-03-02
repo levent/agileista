@@ -114,6 +114,10 @@ task :sphinx_configure, :roles => :app do
   thinking_sphinx.start
 end
 
+task :bundle_clean, :roles => :app do
+  run "echo 'Do this!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'"
+end
+
 task :downcase_emails, :roles => :app do
   run "cd #{release_path} && bundle exec rake account:downcase_emails RAILS_ENV=#{rails_env}"
 end
@@ -125,4 +129,4 @@ after "deploy:update_code",
   'sass:update',
   "sphinx_configure"
 #  'downcase_emails'
-after "deploy", "deploy:cleanup"
+after "deploy", "deploy:cleanup", "bundle_clean"

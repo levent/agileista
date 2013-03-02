@@ -13,6 +13,7 @@
             <th>Gravatar</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Scrum Master</th>
             <th>Joined</th>
             <th>Last logged in</th>
             <th></th>
@@ -23,7 +24,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="5"><%= pluralize(@people.count, 'active user') %></td>
+            <td colspan="7"><%= pluralize(@people.count, 'active user') %></td>
           </tr>
         </tfoot>
       </table>

@@ -80,6 +80,7 @@ class UserStory < ActiveRecord::Base
         cached_status = ""
       end
       REDIS.set("user_story:#{self.id}:status", cached_status)
+      REDIS.expire("user_story:#{self.id}:status", 900)
     end
     cached_status
   end
@@ -136,10 +137,6 @@ class UserStory < ActiveRecord::Base
     return incomplete_tasks
   end
 
-  def total_hours
-    self.tasks.sum('hours')
-  end
-
   def state
     cached_state = REDIS.get("user_story:#{self.id}:state")
     unless cached_state
@@ -153,6 +150,7 @@ class UserStory < ActiveRecord::Base
         cached_state = 'plan'
       end
       REDIS.set("user_story:#{self.id}:state", cached_state)
+      REDIS.expire("user_story:#{self.id}:state", 900)
     end
     cached_state
   end
@@ -184,6 +182,7 @@ class UserStory < ActiveRecord::Base
   end
 
   def expire_sprint_story_points
+    sprint.try(:expire_total_story_points)
     sprints.map(&:expire_total_story_points)
   end
 end
