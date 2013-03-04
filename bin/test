@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm -rf coverage
+time bundle exec rspec spec/unit
+time bundle exec rspec spec/integration

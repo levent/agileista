@@ -10,7 +10,6 @@ index/*
 *.swp
 rerun.txt
 mkmf.log
-bin/
 gems/*
 !gems/cache
 !gems/dirs
