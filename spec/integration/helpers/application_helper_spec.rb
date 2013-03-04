@@ -16,12 +16,12 @@ describe ApplicationHelper, :type => :helper do
       @it.show_story_points(nil).should == "? story points"
     end
   end
-  
+
   describe "show_assignees" do
     before(:each) do
       @task = Task.make
     end
-    
+
     it "should show the names of assigned team_members" do
       team_member1 = Person.make
       team_member2 = Person.make
@@ -29,45 +29,9 @@ describe ApplicationHelper, :type => :helper do
       @task.team_members = [team_member3, team_member2, team_member1]
       @it.show_assignees(@task.team_members).should == "#{team_member3.name}, #{team_member2.name}, #{team_member1.name}"
     end
-    
+
     it "should show nobody if blank" do
       @it.show_assignees(@task.team_members).should == "Nobody"
-    end
-  end
-
-  describe "#complete?" do
-    it "should return class if user_story is complete" do
-      @us.stub!(:complete?).and_return(true)
-      @it.complete?(@us).should == " class=\"uscomplete\""
-    end
-  end
-
-  describe "#claimed?" do
-    it "should return class if user_story is inprogress?" do
-      @us.stub!(:inprogress?).and_return(true)
-      @it.claimed?(@us).should == " class=\"usclaimed\""
-    end
-  end
-
-  describe "#claimed_or_complete?" do
-    it "should return uscomplete class if user_story is complete and not inprogress" do
-      @us.stub!(:complete?).and_return(true)
-      @us.stub!(:inprogress?).and_return(false)
-      @it.claimed_or_complete?(@us).should == " class=\"uscomplete\""
-    end
-
-    it "should return uscomplete class if user_story is complete and inprogress" do
-      #even though this is impossible?
-      @us.stub!(:complete?).and_return(true)
-      @us.stub!(:inprogress?).and_return(true)
-      @it.claimed_or_complete?(@us).should == " class=\"uscomplete\""
-    end
-
-    it "should return usclaimed class if user_story is not complete and inprogress" do
-      #even though this is impossible?
-      @us.stub!(:complete?).and_return(false)
-      @us.stub!(:inprogress?).and_return(true)
-      @it.claimed_or_complete?(@us).should == " class=\"usclaimed\""
     end
   end
 
