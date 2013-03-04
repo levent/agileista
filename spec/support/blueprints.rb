@@ -1,6 +1,11 @@
 require 'machinist/active_record'
 require 'faker'
 
+Invitation.blueprint do
+  email { Faker::Internet.email }
+  project { Project.make }
+end
+
 Project.blueprint do
   name { Faker::Name.name }
   iteration_length { 2 }
