@@ -35,29 +35,8 @@ class Person < ActiveRecord::Base
     end
   end
 
-  def authenticated?
-    if self.authenticated == 1 && self.activation_code.nil?
-      return true
-    else
-      return false
-    end
-  end
-  
-  def hash_password
-    return nil unless self.password
-    self.salt = Digest::SHA1.hexdigest("#{Time.now}--somecrazyrandomstring") if self.new_record? || self.salt.blank?
-    self.hashed_password = Digest::SHA1.hexdigest("#{self.salt}--#{self.password}") if !self.hashed_password || (self.password == self.password_confirmation)
-  end
-  
   def encrypt(password)
     Digest::SHA1.hexdigest("#{self.salt}--#{password}")
-  end
-  
-  def generate_temp_password
-    pass = Digest::SHA1.hexdigest("#{Time.now}---#{self.email}")[0..8]
-    self.password = pass
-    self.password_confirmation = pass
-    return pass
   end
 
   def scrum_master_for?(project)
