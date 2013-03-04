@@ -6,11 +6,12 @@ describe SprintElement do
       sweeper = mock(SprintAuditSweeper)
       sweeper.stub!(:update)
       SprintElement.instance_variable_set(:@observer_peers, [sweeper])
-      @account = Account.make!(:name => "sexy_dev_team", :subdomain => "xxx", :iteration_length => 2)
-      @sprint = Sprint.create!(:account => @account, :start_at => 3.days.ago, :name => "Fluff")
-      @us = UserStory.create!(:account => @account, :definition => "As a user I'd like some fluffing")
+      @project = Project.make!(:name => "sexy_dev_team", :iteration_length => 2)
+      @sprint = Sprint.create!(:project => @project, :start_at => 3.days.ago, :name => "Fluff")
+      @us = UserStory.create!(:project => @project, :definition => "As a user I'd like some fluffing")
       @sprint_element = SprintElement.create!(:sprint => @sprint, :user_story => @us)
-      @person = Person.create!(:account => @account, :name => "schlong", :password => "password", :email => "person@here.com")
+      @person = Person.create!(:name => "schlong", :password => "password", :email => "person@here.com")
+      @project.people << @person
     end
 
     describe "audit on create" do  
