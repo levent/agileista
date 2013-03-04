@@ -264,13 +264,13 @@ div#estimated, div#committed, div.ui-droppable {
 
 .tb-backlog-item, .rw-backlog-item {
   border: 1px solid $secondaryColor;
-  border-left: 1px solid $alertColor;
+  border-left: 2px solid $alertColor;
   padding: 6px;
   &[data-status="complete"] {
-    border-left: 4px solid $successColor;
+    border-left: 2px solid $successColor;
   }
   &[data-status="inprogress"] {
-    border-left: 4px solid $mainColor;
+    border-left: 2px solid $mainColor;
   }
 }
 
