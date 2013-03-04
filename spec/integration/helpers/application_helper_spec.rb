@@ -1,9 +1,8 @@
 require 'spec_helper'
 
-describe ApplicationHelper do
-  include ApplicationHelper
+describe ApplicationHelper, :type => :helper do
 
-  before(:each) do
+  before do
     @it = helper
     @us = UserStory.new
   end

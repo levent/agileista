@@ -41,10 +41,8 @@ class UserStory < ActiveRecord::Base
 
   scope :stale,
     lambda { |range|
-    {
-      :conditions => ['done = ? AND updated_at < ?', 0, range]
-    }
-  }
+             { :conditions => ['done = ? AND updated_at < ?', 0, range] }
+           }
   scope :estimated, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil]
   scope :unassigned, where(:done => 0, :sprint_id => nil).includes(:acceptance_criteria, :person)
 
