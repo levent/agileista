@@ -296,6 +296,9 @@ div#estimated, div#committed, div.ui-droppable {
 }
 
 .user-story {
+  &.panel {
+    background: #fffff5;
+  }
   margin-top: 12px;
   margin-bottom: 12px;
   padding: 6px;
