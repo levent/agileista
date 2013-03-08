@@ -56,11 +56,7 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="columns twentyfour">
     <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
-  </div>
-</div>
 
 <% content_for :custom_js do %>
   setupTaskBoardStats();

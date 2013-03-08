@@ -1,19 +1,23 @@
-<div class="user-story panel" id="user_story_container_<%= user_story.id %>">
-  <div class="row">
-    <div class="twentyfour columns">
-      <%= render :partial => 'sprints/user_story_card', :locals => {:sprint => sprint, :user_story => user_story, :tasks => true} %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="eight columns tasks incomplete" id="incomplete_<%= user_story.id %>">
-      <%= render :partial => 'sprints/task_card', :collection => user_story.tasks.rank(:order).incomplete, :locals => {:sprint => sprint, :user_story => user_story, :claim => true} %>
-      <%= render :partial => 'sprints/new_task_card', :locals => {:sprint => sprint, :user_story => user_story, :tasks => true} %>
-    </div>
-    <div class="eight columns tasks inprogress" id="inprogress_<%= user_story.id %>">
-      <%= render :partial => 'sprints/task_card', :collection => user_story.tasks.rank(:order).inprogress, :locals => {:sprint => sprint, :user_story => user_story, :claim => true} %>
-    </div>
-    <div class="eight columns tasks complete" id="complete_<%= user_story.id %>">
-      <%= render :partial => 'sprints/task_card', :collection => user_story.tasks.rank(:order).complete, :locals => {:sprint => sprint, :user_story => user_story, :claim => false} %>
+<div class="row">
+  <div class="twentyfour columns">
+    <div class="user-story panel" id="user_story_container_<%= user_story.id %>">
+      <div class="row">
+        <div class="twentyfour columns">
+          <%= render :partial => 'sprints/user_story_card', :locals => {:sprint => sprint, :user_story => user_story, :tasks => true} %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="eight columns tasks incomplete" id="incomplete_<%= user_story.id %>">
+          <%= render :partial => 'sprints/task_card', :collection => user_story.tasks.rank(:order).incomplete, :locals => {:sprint => sprint, :user_story => user_story, :claim => true} %>
+          <%= render :partial => 'sprints/new_task_card', :locals => {:sprint => sprint, :user_story => user_story, :tasks => true} %>
+        </div>
+        <div class="eight columns tasks inprogress" id="inprogress_<%= user_story.id %>">
+          <%= render :partial => 'sprints/task_card', :collection => user_story.tasks.rank(:order).inprogress, :locals => {:sprint => sprint, :user_story => user_story, :claim => true} %>
+        </div>
+        <div class="eight columns tasks complete" id="complete_<%= user_story.id %>">
+          <%= render :partial => 'sprints/task_card', :collection => user_story.tasks.rank(:order).complete, :locals => {:sprint => sprint, :user_story => user_story, :claim => false} %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

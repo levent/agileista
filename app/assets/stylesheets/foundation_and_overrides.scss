@@ -298,18 +298,21 @@ div#estimated, div#committed, div.ui-droppable {
 .user-story {
   &.panel {
     background: #fffff5;
+    margin: 12px 0 0 0;
   }
-  margin-top: 12px;
-  margin-bottom: 12px;
   padding: 6px;
   border: 1px solid $secondaryColor;
 }
 
+.task-card, .new-task-card {
+  position: relative;
+  margin: 4px 0;
+  padding: 6px;
+  background: $white;
+}
+
 .task-card {
   cursor: move;
-  margin: 4px 0;
-  background-color: $white;
-  padding: 6px;
   border: 1px solid $secondaryColor;
   &.mine {
     border-left: 1px solid $successColor;
@@ -323,12 +326,12 @@ div#estimated, div#committed, div.ui-droppable {
 }
 
 .new-task-card {
-  margin: 4px 0;
-  padding: 6px;
   border: 2px dashed $secondaryColor;
-  background: $white;
   form {
     margin: 0;
+    input[type=text] {
+      margin: 0;
+    }
   }
 }
 
@@ -347,4 +350,10 @@ div#about {
   border: none;
   @include box-shadow(none);
   @include transition(color .15s ease-out, background-color .15s ease-out, border-color .15s ease-out);
+}
+
+.top-right {
+  position: absolute;
+  top:6px;
+  right:6px;
 }

@@ -1,12 +1,6 @@
 <div class="new-task-card">
-  <div class="row">
-    <%= simple_form_for [@project, user_story, Task.new], :remote => true do |f| %>
-      <div class="sixteen columns">
-        <%= f.input :definition, label: false, input_html: {id: nil, class: ''}, placeholder: 'Add a task...' %>
-      </div>
-      <div class="eight columns">
-        <%= f.button :submit, class: 'secondary small' %>
-      </div>
-    <% end %>
-  </div>
+  <%= simple_form_for [@project, user_story, Task.new], :remote => true do |f| %>
+    <%= f.input :definition, label: false, input_html: {id: nil, class: 'eighteen'}, placeholder: 'Add a task...' %>
+    <%= f.button :submit, class: 'secondary small top-right' %>
+  <% end %>
 </div>
