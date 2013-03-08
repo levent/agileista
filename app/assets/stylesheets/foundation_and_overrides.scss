@@ -4,7 +4,7 @@
 
 // Grid Settings
 
-$rowWidth: 96%;
+$rowWidth: 98%;
 // $columnGutter: 30px;
 $totalColumns: 24;
 // $mobileTotalColumns: 4;
@@ -12,10 +12,10 @@ $totalColumns: 24;
 
 // Colors Settings
 
-$mainColor: #1793CC;
+$mainColor: #1B9CDB;
 $secondaryColor: #e2e1e3;
-$alertColor: #B21428;
-$successColor: #02B227;
+$alertColor: #E13245;
+$successColor: #19C908;
 // $txtColor: #222;
 $highlightColor: #FFF84F;
 // $black: #000;
@@ -341,4 +341,10 @@ div#about {
   cursor:move;
   padding: 8px 7px;
   background: $white;
+}
+
+.button, .button.small, .button.tiny, .button.medium, .button.large {
+  border: none;
+  @include box-shadow(none);
+  @include transition(color .15s ease-out, background-color .15s ease-out, border-color .15s ease-out);
 }
