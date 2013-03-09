@@ -54,23 +54,6 @@ module ApplicationHelper
     date.strftime("%d %b %y %H:%M %p")
   end
 
-  def complete?(user_story)
-    return ' class="uscomplete"' if user_story.complete?
-  end
-
-  def claimed?(user_story)
-    return ' class="usclaimed"' if user_story.inprogress?
-  end
-
-  def claimed_or_complete?(user_story)
-    return ' class="uscomplete"' if user_story.complete?
-    return ' class="usclaimed"' if user_story.inprogress?
-  end
-
-  def confirmation_message(object, name)
-    "This cannot be undone. Are you sure you want to delete #{object} '#{name}'?"
-  end
-
   def user_story_state(state)
     mapping = {
       :clarify => '',
