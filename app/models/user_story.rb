@@ -75,7 +75,7 @@ class UserStory < ActiveRecord::Base
       elsif self.complete?
         cached_status = "complete"
       else
-        cached_status = ""
+        cached_status = "incomplete"
       end
       REDIS.set("user_story:#{self.id}:status", cached_status)
       REDIS.expire("user_story:#{self.id}:status", 900)

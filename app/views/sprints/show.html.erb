@@ -38,8 +38,18 @@
   </div>
 
   <div class="six columns">
-    <%= link_to 'Hide completed stories', '#', :id => 'togglecomplete', :class => 'button secondary small radius' %>
-    <span id="completed_user_stories_hidden" class="hide highlight">Completed user stories are hidden</span>
+    <label for="show-stories-complete">
+      <input class="ctrl-show-stories" type="checkbox" value="complete" name="show-stories[complete]" id="show-stories-complete" checked="checked">
+      Complete
+    </label>
+    <label for="show-stories-incomplete">
+      <input class="ctrl-show-stories" type="checkbox" value="incomplete" name="show-stories[incomplete]" id="show-stories-incomplete" checked="checked">
+      Incomplete
+    </label>
+    <label for="show-stories-inprogress">
+      <input class="ctrl-show-stories" type="checkbox" value="inprogress" name="show-stories[inprogress]" id="show-stories-inprogress" checked="checked">
+      Inprogress
+    </label>
   </div>
 
 </div>

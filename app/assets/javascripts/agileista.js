@@ -19,15 +19,12 @@ var Agileista = (function(){
       }
     },
 
-    toggleCompletedStories = function(link) {
-      if(link.text() === "Hide completed stories") {
-        $('div.user-story[data-status="complete"]').hide();
-        $('#completed_user_stories_hidden').show();
-        link.text('show completed stories');
+    toggleStoriesByStatus = function(status, toggle) {
+      var userStories = $('div.user-story[data-status="' + status + '"]');
+      if(toggle === true) {
+        userStories.show();
       } else {
-        $('div.user-story[data-status="complete"]').show();
-        $('#completed_user_stories_hidden').hide();
-        link.text('Hide completed stories');
+        userStories.hide();
       }
     },
 
@@ -61,11 +58,6 @@ var Agileista = (function(){
         $($(this).attr('data-target')).hide();
       });
 
-      $("#togglecomplete").click(function(el) {
-        var link = $(el.target);
-        toggleCompletedStories(link);
-      });
-
       $('.add_nested_criterium').click(function() {
         addNewItem('ol#acceptance-criteria li:last');
       });
@@ -77,13 +69,19 @@ var Agileista = (function(){
       $('.js-acceptance-criteria-done').click(function(e) {
         $(this).closest('form').submit();
       });
+
+      $('.ctrl-show-stories').click(function() {
+        var whichCheckBox = $(this).val();
+        var whatState = $(this).is(':checked');
+        toggleStoriesByStatus(whichCheckBox, whatState);
+      });
     };
 
     init();
 
     return {
           switchAccount : switchAccount,
- toggleCompletedStories : toggleCompletedStories,
+ toggleStoriesByStatus : toggleStoriesByStatus,
    setupVelocityMarkers : setupVelocityMarkers
     };
 
