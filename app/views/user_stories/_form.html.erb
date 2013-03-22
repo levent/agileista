@@ -15,8 +15,19 @@
           <%= f.input :cannot_be_estimated, as: :boolean, label: false %>
         </div>
       </div>
-      <%= f.input :description, label: "Notes" %>
-      <%= f.button :submit, class: 'large' %>
+      <div class="row">
+        <div class="twentyfour columns">
+          <%= f.input :description, label: "Notes" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="twenty columns">
+          <%= f.button :submit, class: 'large' %>
+        </div>
+        <div class="four columns">
+          <%= link_to 'Delete user story', project_user_story_path(@project, @user_story), :class => "right small button alert", :method => :delete, :confirm => "Are you sure?" unless @user_story.new_record? %>
+        </div>
+      </div>
     </div>
 
     <div class="eight columns">
