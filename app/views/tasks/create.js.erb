@@ -1,4 +1,7 @@
 var content = "<%= escape_javascript render :partial => 'sprints/task_card', :locals => {:sprint => @user_story.sprint, :user_story => @user_story, :task_card => @task } %>";
 $(content).insertBefore($('#incomplete_<%= @user_story.id %> .new-task-card'));
+var us_card = $('div.user-story[data-story=<%= @user_story.id %>]');
+us_card.attr('data-status', '<%= @user_story.status %>');
 setupTaskBoard(<%= @project.id %>, <%= @user_story.id %>);
+setupTaskBoardStats();
 $('input[name="task[definition]"]').val("");

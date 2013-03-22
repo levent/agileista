@@ -21,11 +21,11 @@ var Agileista = (function(){
 
     toggleCompletedStories = function(link) {
       if(link.text() === "Hide completed stories") {
-        $('.tb-backlog-item[data-status="complete"]').parents('div.user-story').hide();
+        $('div.user-story[data-status="complete"]').hide();
         $('#completed_user_stories_hidden').show();
         link.text('show completed stories');
       } else {
-        $('.tb-backlog-item[data-status="complete"]').parents('div.user-story').show();
+        $('div.user-story[data-status="complete"]').show();
         $('#completed_user_stories_hidden').hide();
         link.text('Hide completed stories');
       }

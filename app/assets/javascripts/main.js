@@ -93,7 +93,7 @@ function setupTaskBoard(project_id, user_story_id) {
 
 function setupTaskBoardStats() {
   var current_total = $("#current_total").html();
-  var complete_stories = $('[data-status="complete"]');
+  var complete_stories = $('div.user-story[data-status="complete"]');
   var complete_points = $.map(complete_stories, function(element) {
     return(Number($(element).attr('data-points')));
   });
