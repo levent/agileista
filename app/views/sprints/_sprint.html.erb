@@ -1,5 +1,5 @@
 <tr>
-  <td class="<%= 'highlight' if @stats_since_sprint.to_i == sprint.id %>"><%= link_to sprint.name, project_sprint_path(@project, sprint) %></td>
+  <td><%= link_to sprint.name, project_sprint_path(@project, sprint) %></td>
   <td><%= sprint.goal %></td>
   <td><%= sprint.total_story_points %></td>
   <td><%= sprint.calculated_velocity %></td>
@@ -16,3 +16,8 @@
     <% end%>
   </td>
 </tr>
+<% if @stats_since_sprint.to_i == sprint.id %>
+  <tr>
+    <td colspan="7" class="text-center highlight"><strong>Velocity calculations are based on the sprints above.</strong></td>
+  </tr>
+<% end %>

@@ -26,7 +26,6 @@
       <%= render @sprints %>
     </tbody>
   </table>
-  <p><span class="highlight">*stats based on sprints since <strong><%= show_date(Velocity.stats_significant_since(@project).to_time) %></strong></span></p>
 <% else %>
   <p>There are no sprints for this project, <%= link_to "create your first sprint", new_project_sprint_path(@project) %>.</p>
 <% end %>
