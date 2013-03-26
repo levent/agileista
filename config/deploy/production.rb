@@ -55,21 +55,22 @@ namespace :deploy do
 
 
   task :unicorns, :roles => :app do
-    pid_file = "/u/apps/agileista.com/shared/pids/unicorn.pid"
+    run "/etc/init.d/unicorn restart"
+    # pid_file = "/u/apps/agileista.com/shared/pids/unicorn.pid"
 
-    if remote_file_exists?(pid_file)
-      puts "pid found"
-      pid = capture("cat #{pid_file}")
+    # if remote_file_exists?(pid_file)
+    #   puts "pid found"
+    #   pid = capture("cat #{pid_file}")
 
-      puts "USR2 to #{pid}"
-      run "kill -s USR2 #{pid}"
-      sleep 20
-      puts "WINCH to #{pid}"
-      run "kill -s WINCH #{pid}"
-      sleep 10
-      puts "QUIT to #{pid}"
-      run "kill -s QUIT #{pid}"
-    end
+    #   puts "USR2 to #{pid}"
+    #   run "kill -s USR2 #{pid}"
+    #   sleep 20
+    #   puts "WINCH to #{pid}"
+    #   run "kill -s WINCH #{pid}"
+    #   sleep 10
+    #   puts "QUIT to #{pid}"
+    #   run "kill -s QUIT #{pid}"
+    # end
   end
 
   task :restart do
