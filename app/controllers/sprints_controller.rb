@@ -53,10 +53,10 @@ class SprintsController < AbstractSecurityController
     @sprint = @project.sprints.new(params[:sprint])
     set_start_at
     if @sprint.save
-      flash[:notice] = "Sprint saved"
+      flash[:notice] = "Sprint created"
       redirect_to project_sprints_path(@project)
     else
-      flash[:error] = "Sprint couldn't be saved"
+      flash[:error] = "Sprint could not be created"
       render :action => 'new'
     end
   end
