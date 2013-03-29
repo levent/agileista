@@ -33,6 +33,7 @@ class UserStoriesController < AbstractSecurityController
     @user_story.backlog_order_position = :first
 
     if @user_story.save
+      flash[:notice] = "User story created"
       if @sprint
         SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
         redirect_to project_sprint_path(@project, @sprint)
