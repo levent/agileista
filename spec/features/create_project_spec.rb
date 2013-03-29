@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe "adding a new project" do
-  include Warden::Test::Helpers
-  Warden.test_mode!
 
   before do
     login_a_user
@@ -15,5 +13,11 @@ describe "adding a new project" do
     click_button 'Create Project'
     page.should have_content 'Project created'
     page.should have_content 'Create your first user story'
+  end
+
+  it "fails to create a project" do
+    visit '/projects/new'
+    click_button 'Create Project'
+    page.should have_content 'Project could not be created'
   end
 end
