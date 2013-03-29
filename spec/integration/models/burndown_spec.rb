@@ -6,8 +6,8 @@ describe Burndown do
 
   context "sort order" do
     it "should be ordered by date by default" do
-      account = Account.make!
-      sprint = Sprint.make!(:account => account)
+      project = Project.make!
+      sprint = Sprint.make!(:project => project)
       b1 = Burndown.make!(:created_on => 3.days.ago, :sprint => sprint)
       b4 = Burndown.make!(:created_on => 6.days.ago, :sprint => sprint)
       b2 = Burndown.make!(:created_on => 4.days.ago, :sprint => sprint)

@@ -40,37 +40,4 @@ describe UserStoriesHelper do
       user_story_status(@us).should == "OK"
     end
   end
-
-  describe "#parse_definition" do
-    it "should convert tags" do
-      @us.stub(:definition).and_return("[PO] As a user I wanna go home")
-      parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a> As a user I wanna go home'.html_safe
-    end
-
-    it "should convert multiple tags" do
-      @us.stub(:definition).and_return("[PO] [BUG] As a user I wanna go home")
-      parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a> <a href="/backlog/search?q=%5BBUG%5D" class="tagged">[BUG]</a> As a user I wanna go home'.html_safe
-    end
-
-    it "should convert multiple joined tags" do
-      @us.stub(:definition).and_return("[PO][BUG] As a user I wanna go home")
-      parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a><a href="/backlog/search?q=%5BBUG%5D" class="tagged">[BUG]</a> As a user I wanna go home'.html_safe
-    end
-
-    it "should handle duplicate tags" do
-      @us.stub(:definition).and_return("[PO][PO] As a user I wanna go home")
-      parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a><a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a> As a user I wanna go home'.html_safe
-    end
-
-    it "should not convert non tagged definitions" do
-      @us.stub(:definition).and_return("As a user I wanna go home")
-      parse_definition(@us.definition).should == 'As a user I wanna go home'
-    end
-
-    it "should handle escaping other dodgy tags" do
-      @us.stub(:definition).and_return("[PO] As a user I wanna go <title>home</title>")
-      parse_definition(@us.definition).should == '<a href="/backlog/search?q=%5BPO%5D" class="tagged">[PO]</a> As a user I wanna go &lt;title&gt;home&lt;/title&gt;'.html_safe
-    end
-  end
 end
-
