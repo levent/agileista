@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "the signup process" do
+describe "the login process" do
   before do
     @person = Person.make!
     @person.confirm!
@@ -14,4 +14,3 @@ describe "the signup process" do
     page.should have_content 'Signed in successfully.'
   end
 end
-

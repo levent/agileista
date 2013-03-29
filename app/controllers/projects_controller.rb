@@ -15,10 +15,10 @@ class ProjectsController < AbstractSecurityController
     @project = current_person.projects.new(params[:project])
     if @project.save
       @project.scrum_master = current_person
-      flash[:notice] = "Project added"
+      flash[:notice] = "Project created"
       redirect_to project_backlog_index_path(@project)
     else
-      flash[:error] = "Project could not be added"
+      flash[:error] = "Project could not be created"
       render :action => 'new'
     end
   end
