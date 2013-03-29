@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  force_ssl
   protect_from_forgery
   before_filter :ensure_domain
   before_filter :set_project
