@@ -8,6 +8,7 @@ require 'timecop'
 
 SimpleCov.start do
   command_name 'test:units'
+  add_filter "/spec/"
 end
 
 RSpec.configure do |config|
