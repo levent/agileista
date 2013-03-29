@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
   end
 
   def must_be_account_holder
-    current_person.scrum_master_for?(@project) ? true : (redirect_to backlog_url and return false)
+    current_person.scrum_master_for?(@project) ? true : (redirect_to project_backlog_index_path(@project) and return false)
   end
 
   # excludes DONE

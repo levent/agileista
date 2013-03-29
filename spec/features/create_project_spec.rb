@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "adding a new project" do
+describe "creating a project" do
 
   before do
     login_a_user

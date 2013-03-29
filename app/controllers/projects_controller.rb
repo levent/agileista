@@ -28,10 +28,10 @@ class ProjectsController < AbstractSecurityController
 
   def update
     if @project.update_attributes(params[:project])
-      flash[:notice] = "Settings saved"
+      flash[:notice] = "Project settings saved"
       redirect_to :back
     else
-      flash[:error] = "Settings couldn't be saved"
+      flash[:error] = "Project settings couldn't be saved"
       render :action => 'edit'
     end
   end
