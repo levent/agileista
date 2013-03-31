@@ -13,6 +13,10 @@ module FeatureHelpers
     project.save!
     project
   end
+
+  def create_sprint_for(project)
+    Sprint.make!(:project => project)
+  end
 end
 
 RSpec.configure do |config|
