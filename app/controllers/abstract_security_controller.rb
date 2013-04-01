@@ -15,13 +15,13 @@ class AbstractSecurityController < ApplicationController
       session[:return_to] = "/backlog" if session[:return_to] == "/backlog.atom"
     end
   end
-  
+
   def return_to
     session[:return_to] || params[:return_to]
   end
-  
+
   def clear_return_to
     session[:return_to] = nil
   end
-  
+
 end
