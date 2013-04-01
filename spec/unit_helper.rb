@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift("./app/models")
 $LOAD_PATH.unshift("./app/helpers")
+$LOAD_PATH.unshift("./app/controllers")
 
 require 'active_record'
 require 'simplecov'
