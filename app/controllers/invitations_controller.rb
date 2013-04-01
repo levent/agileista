@@ -4,15 +4,15 @@ class InvitationsController < AbstractSecurityController
   end
 
   def create
-    if person = Person.where(:email => params[:invitation][:email]).first
-      TeamMember.find_or_create_by_project_id_and_person_id(@project.id, person.id)
-      flash[:notice] = "#{person.name} added to project"
+    @invitation = Invitation.new(:email => params[:invitation][:email])
+    if @invitation.add_person_to_project(@project)
+      flash[:notice] = "Person added to project"
       redirect_to project_people_path(@project)
-    elsif @invitation = @project.invitations.where(:email => params[:invitation][:email]).first_or_create!
-      NotificationMailer.invite_to_project(@project, @invitation).deliver
-      flash[:notice] = "Invite sent to #{@invitation.email}"
+    elsif @invitation.create_and_notify_for_project(@project)
+      flash[:notice] = "Invite sent to #{params[:invitation][:email]}"
       redirect_to project_people_path(@project)
     else
+      flash[:error] = "Invalid email address"
       render :action => 'new'
     end
   end
