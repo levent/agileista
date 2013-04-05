@@ -14,6 +14,12 @@ before_fork do |server, worker|
 
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.connection.disconnect!
+
+  if defined?(Resque)
+    Resque.redis.quit
+    Redis.current.quit
+    Rails.logger.info('Disconnected from Redis')
+  end
 end
 
 after_fork do |server, worker|
@@ -25,5 +31,10 @@ after_fork do |server, worker|
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.establish_connection
 
-  Redis.current.quit
+  if defined?(Resque)
+    redis = Redis.new
+    Resque.redis = redis
+    Redis.current = redis
+    Rails.logger.info('Connected to Redis')
+  end
 end
