@@ -34,7 +34,7 @@ class UserStoriesController < AbstractSecurityController
 
     if @user_story.save
       flash[:notice] = "User story created"
-      hipchat_notify("User story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> created.")
+      hipchat_notify("User story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> created: \"#{@user_story.definition}\"")
 
       if @sprint
         SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
