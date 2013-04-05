@@ -20,6 +20,8 @@ gem 'devise'
 gem 'acts_as_paranoid', '~>0.4.0'
 gem 'unicorn'
 gem 'rack-timeout'
+gem 'resque'
+gem 'hipchat'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

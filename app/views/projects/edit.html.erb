@@ -19,3 +19,16 @@
     <%= link_to "Delete project", project_path(@project), :method => :delete, :confirm => 'Are you sure? This cannot be recovered from.', :class => 'button tiny alert' %>
   </div>
 </div>
+
+<div class="row">
+  <div class="columns six end">
+    <h2>HipChat Integration</h2>
+    <%= simple_form_for [@project, @hip_chat_integration] do |f| %>
+      <%= f.input :token %>
+      <%= f.input :room %>
+      <%= f.input :notify %>
+      <br>
+      <%= f.button :submit %>
+    <% end %>
+  </div>
+</div>

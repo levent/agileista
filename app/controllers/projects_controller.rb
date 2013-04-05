@@ -24,6 +24,7 @@ class ProjectsController < AbstractSecurityController
   end
 
   def edit
+    @hip_chat_integration = @project.hip_chat_integration || HipChatIntegration.new
   end
 
   def update

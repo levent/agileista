@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130223092928) do
+ActiveRecord::Schema.define(:version => 20130405152336) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -49,6 +49,13 @@ ActiveRecord::Schema.define(:version => 20130223092928) do
 
   add_index "burndowns", ["sprint_id", "created_on"], :name => "index_burndowns_on_sprint_id_and_created_on"
   add_index "burndowns", ["sprint_id"], :name => "index_burndowns_on_sprint_id"
+
+  create_table "hip_chat_integrations", :force => true do |t|
+    t.string  "room"
+    t.string  "token"
+    t.boolean "notify",     :default => false
+    t.integer "project_id"
+  end
 
   create_table "invitations", :force => true do |t|
     t.string   "email"
