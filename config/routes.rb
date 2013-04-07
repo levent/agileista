@@ -1,17 +1,9 @@
 Agileista::Application.routes.draw do
+  mount SecureResqueServer.new, :at => '/resque'
   devise_for :people
-
-  # resources :backlog, :controller => 'backlog', :collection => {:feed => :get, :search => :get, :sprint => :get, :sort => :post, :grid => :get, :list => :get}, :except => [:show]
 
   get "/console" => "console#index"
   get "/health" => "health#index"
-  # post "/backlog/sort" => "backlog#sort"
-  # get "/backlog/search" => "backlog#search"
-  # get "/backlog/grid" => "backlog#grid"
-  # get "/backlog/list" => "backlog#list"
-  # get "/backlog/:filter" => "backlog#index"
-  # get "/backlog/:filter/:range" => "backlog#index"
-
   post "/account/generate_api_key" => "account#generate_api_key"
 
   resources :projects do
