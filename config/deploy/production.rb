@@ -160,7 +160,5 @@ after "deploy:update_code",
   :setup_symlinks,
   'deploy:migrate',
   'sass:update',
-  "sphinx_configure",
-  "deploy:start_resque"
-#  'downcase_emails'
-after "deploy", "deploy:cleanup", "deploy:unicorns", "bundle_clean"
+  "sphinx_configure"
+after "deploy", "deploy:cleanup", "deploy:unicorns", "deploy:start_resque", "bundle_clean"
