@@ -28,9 +28,9 @@ set :default_environment, {
 default_run_options[:pty] = true
 
 set :rails_env, "production"
-role :app, "bigapple"
-role :web, "bigapple"
-role :db,  "bigapple", :primary => true
+role :app, "mormon"
+role :web, "mormon"
+role :db,  "mormon", :primary => true
 
 # TODO: Precompile assets locally
 # namespace :assets do
@@ -90,13 +90,23 @@ namespace :deploy do
   task :start do
   #  run "touch #{release_path}/tmp/restart.txt"
   end
+
+
+  desc "Start the resque worker"
+  task :start_resque, :roles => :app do
+    sudo "monit start resque_worker"
+  end
+
+  desc "Stop the resque worker"
+  task :stop_resque, :roles => :app do
+    sudo "monit stop resque_worker"
+  end
 end
 
 desc "Stop the sphinx server"
 task :stop_sphinx , :roles => :app do
   run "cd #{current_path} && bundle exec rake ts:stop RAILS_ENV=#{rails_env}"
 end
-
 
 desc "Start the sphinx server" 
 task :start_sphinx, :roles => :app do
@@ -143,11 +153,14 @@ task :downcase_emails, :roles => :app do
   run "cd #{release_path} && bundle exec rake account:downcase_emails RAILS_ENV=#{rails_env}"
 end
 
-before "deploy:update_code", "sphinx_stop"
+before "deploy:update_code",
+  "sphinx_stop",
+  "deploy:stop_resque"
 after "deploy:update_code",
   :setup_symlinks,
   'deploy:migrate',
   'sass:update',
-  "sphinx_configure"
+  "sphinx_configure",
+  "deploy:start_resque"
 #  'downcase_emails'
 after "deploy", "deploy:cleanup", "deploy:unicorns", "bundle_clean"
