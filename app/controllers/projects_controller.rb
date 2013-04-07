@@ -32,6 +32,7 @@ class ProjectsController < AbstractSecurityController
       flash[:notice] = "Project settings saved"
       redirect_to :back
     else
+      @hip_chat_integration = @project.hip_chat_integration || HipChatIntegration.new
       flash[:error] = "Project settings couldn't be saved"
       render :action => 'edit'
     end
