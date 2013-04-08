@@ -54,6 +54,7 @@ class SprintsController < AbstractSecurityController
     set_start_at
     if @sprint.save
       flash[:notice] = "Sprint created"
+      hipchat_notify("Sprint <a href=\"#{project_sprint_url(@project, @sprint)}\">##{@sprint.id}</a> created: \"#{@sprint.name}\"")
       redirect_to project_sprints_path(@project)
     else
       flash[:error] = "Sprint could not be created"
