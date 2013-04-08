@@ -6,6 +6,7 @@ class UserStoriesController < AbstractSecurityController
   def copy
     if @user_story.copy!
       flash[:notice] = "User story copied and added to backlog"
+      hipchat_notify("User story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> copied to backlog: \"#{@user_story.definition}\"")
     else
       flash[:error] = "The user story could not be copied"
     end
