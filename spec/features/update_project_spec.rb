@@ -20,4 +20,13 @@ describe "changing a project" do
     click_button 'Set iteration length'
     page.should have_content "Project settings couldn't be saved"
   end
+
+  it "creates hipchat settings" do
+    visit "/projects/#{@project.id}/edit"
+    fill_in 'Token', :with => 'abcd'
+    fill_in 'Room', :with => 'Room1'
+    check 'Notify'
+    click_button 'Create Hip chat integration'
+    page.should have_content "HipChat settings saved"
+  end
 end
