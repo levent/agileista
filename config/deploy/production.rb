@@ -94,12 +94,12 @@ namespace :deploy do
 
   desc "Start the resque worker"
   task :start_resque, :roles => :app do
-    sudo "monit start resque_worker"
+    sudo "monit start -g resque_workers"
   end
 
   desc "Stop the resque worker"
   task :stop_resque, :roles => :app do
-    sudo "monit stop resque_worker"
+    sudo "monit stop -g resque_workers"
   end
 end
 
