@@ -4,7 +4,7 @@ class UserStoriesController < AbstractSecurityController
   before_filter :set_sprint, :only => [:plan, :unplan, :reorder]
 
   def copy
-    if @user_story.copy
+    if @user_story.copy!
       flash[:notice] = "User story copied and added to backlog"
     else
       flash[:error] = "The user story could not be copied"

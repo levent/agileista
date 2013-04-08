@@ -112,7 +112,7 @@ describe UserStory do
     end
   end
   
-  describe "#copy" do
+  describe "#copy!" do
     before(:each) do
       @us.project = Project.make!
       @us.definition = "definition"
@@ -121,7 +121,7 @@ describe UserStory do
 
     it "should create a new user story" do
       count = UserStory.count
-      @us.copy
+      @us.copy!
       UserStory.count.should == count + 1
     end
 
@@ -129,7 +129,7 @@ describe UserStory do
       task1 = @us.tasks.make!(:hours => 6)
       task2 = @us.tasks.make!(:hours => 0)
       2.times { @us.acceptance_criteria.create(:detail => "It should work") }
-      @us.copy
+      @us.copy!
       us = UserStory.last
       us.should have(2).tasks
       us.should have(2).acceptance_criteria

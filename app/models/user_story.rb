@@ -153,7 +153,7 @@ class UserStory < ActiveRecord::Base
     cached_state
   end
 
-  def copy
+  def copy!
     new_us = UserStory.new(:project_id => self.project_id, :definition => self.definition, :description => self.description, :story_points => self.story_points)
     self.acceptance_criteria.each do |ac|
       new_us.acceptance_criteria << AcceptanceCriterium.new(:detail => ac.detail)
