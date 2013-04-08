@@ -141,7 +141,8 @@ task :sphinx_stop, :roles => :app do
 end
 
 task :sphinx_configure, :roles => :app do
-  thinking_sphinx.configure
+  # done as part of start
+  # thinking_sphinx.configure
   thinking_sphinx.start
 end
 
@@ -159,6 +160,5 @@ before "deploy:update_code",
 after "deploy:update_code",
   :setup_symlinks,
   'deploy:migrate',
-  'sass:update',
-  "sphinx_configure"
-after "deploy", "deploy:cleanup", "deploy:unicorns", "deploy:start_resque", "bundle_clean"
+  'sass:update'
+after "deploy", "deploy:cleanup", "deploy:unicorns", "sphinx_configure", "deploy:start_resque", "bundle_clean"
