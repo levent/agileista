@@ -1,10 +1,118 @@
-<div id="burnall" style="width:100%;height:268px;" class="chart"></div>
-<% content_for :custom_js do %>
-$(function () {
-  var burndown = { data: <%= @flot_burndown.inspect.html_safe %>, label: "Tasks remaining" };
-  var burnup1 = { data: <%= @flot_burnup[0].inspect.html_safe %>, label: "Story points complete", yaxis: 2 } ;
-  var burnup2 = { data: <%= @flot_burnup[1].inspect.html_safe %>, label: "Story points planned", yaxis: 2 } ;
+<div id="chart"></div>
 
-  $.plot($("#burnall"), [burndown, burnup1, burnup2 ], { series: {lines: {show: true}, points: {show: true} }, xaxis: { mode: "time", minTickSize: [1, "day"] }, yaxis: { min: 0, mintickSize: 1, tickDecimals: 0, tickFormatter: function (v, axis) { return v.toFixed(axis.tickDecimals) + " tasks" }}, y2axis: { tickFormatter: function (v, axis) { return v.toFixed(axis.tickDecimals) + " story points" }} });
-});
+<% content_for :custom_js do %>
+  var margin = {top: 20, right: 50, bottom: 30, left: 50},
+      width = 1200 - margin.left - margin.right,
+      height = 350 - margin.top - margin.bottom,
+      padding = 10;
+
+  var x = d3.time.scale()
+            .range([padding, width - padding]);
+
+  var y = d3.scale.linear()
+            .range([height - padding, 0]);
+
+  var y2 = d3.scale.linear()
+            .range([height - padding, 0]);
+
+  var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+  var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left");
+
+  var y2Axis = d3.svg.axis()
+                .scale(y2)
+                .ticks(5)
+                .orient("right");
+
+
+  var iso = d3.time.format("%Y-%m-%d");
+  var parseDate = iso.parse;
+
+  var xExtent = [parseDate("<%= @sprint.start_at.to_date.iso8601.html_safe %>"), parseDate("<%= @sprint.end_at.to_date.iso8601.html_safe %>")];
+
+  var spRemaining = <%= @chart_burnremaining.to_json.html_safe %>;
+  var spComplete = <%= @chart_burncomplete.to_json.html_safe %>;
+  var spHours = <%= @chart_burndown.to_json.html_safe %>;
+
+  spComplete.forEach(function(d) {
+    d.date = parseDate(d.date);
+    d.story_points = +d.story_points;
+  });
+
+  spRemaining.forEach(function(d) {
+    d.date = parseDate(d.date);
+    d.story_points = +d.story_points;
+  });
+
+  spHours.forEach(function(d) {
+    d.date = parseDate(d.date);
+    d.hours_left = +d.hours_left;
+  });
+
+  var line = d3.svg.line()
+               .x(function(d) { return x(d.date); })
+               .y(function(d) { return y(d.story_points); });
+  var line2 = d3.svg.line()
+               .x(function(d) { return x(d.date); })
+               .y(function(d) { return y2(d.hours_left); });
+
+  var mySVG = d3.select("#chart")
+                .append("svg")
+                  .attr("width", "100%")
+                  .attr("height", height)
+                  .attr("viewBox", "0 0 1200 350")
+                  .attr("preserveAspectRatio", "xMinYMax meet")
+                .append("g")
+                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var allData = spRemaining.concat(spComplete);
+  x.domain(d3.extent(xExtent, function(d) { return d; }));
+  y.domain(d3.extent(allData, function(d) { return d.story_points; }));
+  y2.domain(d3.extent(spHours, function(d) { return d.hours_left; }));
+
+  mySVG.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  mySVG.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Velocity");
+
+  mySVG.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + width + " ,0)")
+      .call(y2Axis)
+    .append("text")
+      .attr("transform", "rotate(-90) translate(0, -20)")
+      .attr("class", "tasks-text")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Tasks left");
+
+  mySVG.append("path")
+       .datum(spRemaining)
+       .attr("class", "line-remaining")
+       .attr("d", line);
+
+  mySVG.append("path")
+       .datum(spComplete)
+       .attr("class", "line-complete")
+       .attr("d", line);
+
+  mySVG.append("path")
+       .datum(spHours)
+       .attr("class", "line-tasks")
+       .attr("d", line2);
 <% end %>

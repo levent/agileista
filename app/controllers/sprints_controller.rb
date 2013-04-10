@@ -111,15 +111,9 @@ class SprintsController < AbstractSecurityController
   def calculate_burndown_points
     return nil unless @sprint
     burndowns = @sprint.burndowns
-    @flot_burnup = []
-    @flot_burndown = burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.hours_left || 'null']}
-    @flot_burnup << burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.story_points_complete || 'null']} 
-    @flot_burnup << burndowns.collect {|burn| [burn.created_on.to_time.to_i * 1000, burn.story_points_remaining || 'null']}
-    @sprint.start_at.to_date.upto @sprint.end_at.to_date do |date|
-      @flot_burndown << [date.to_time.to_i * 1000, 'null']
-      @flot_burnup[0] << [date.to_time.to_i * 1000, 'null']
-      @flot_burnup[1] << [date.to_time.to_i * 1000, 'null']
-    end
+    @chart_burndown = burndowns.where("hours_left IS NOT NULL").collect {|burn| {:date => burn.created_on.iso8601, :hours_left => burn.hours_left } }
+    @chart_burncomplete = burndowns.where("story_points_complete IS NOT NULL").collect {|burn| {:date => burn.created_on.iso8601, :story_points => burn.story_points_complete } }
+    @chart_burnremaining = burndowns.where("story_points_remaining IS NOT NULL").collect {|burn| {:date => burn.created_on.iso8601, :story_points => burn.story_points_remaining } }
+    @chart_xscale = [@sprint.start_at.iso8601.to_s, @sprint.end_at.iso8601.to_s]
   end
-  
 end

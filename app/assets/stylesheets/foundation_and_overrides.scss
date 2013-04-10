@@ -385,3 +385,31 @@ dl.sub-nav dd.active {
 .filter-inprogress {
   border-left: 4px solid $mainColor;
 }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+text.tasks-text {
+  fill: $mainColor;
+}
+
+.line-complete, .line-remaining, .line-tasks, .line-velocity {
+  fill: none;
+  stroke-width: 1.5px;
+}
+.line-avg {
+  stroke: $successColor;
+}
+.line-complete {
+  stroke: $successColor;
+}
+.line-remaining {
+  stroke: $alertColor;
+}
+.line-tasks, .line-velocity {
+  stroke: $mainColor;
+}
