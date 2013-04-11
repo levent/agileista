@@ -2,8 +2,17 @@
 <h2 class="show-for-medium-down">Backlog</h2>
 
 <div class="row">
-  <div class="columns twentyfour" id="backlog-items" data-project="<%= @project.id %>">
-    <%= render @user_stories %>
+  <div class="columns twentyfour">
+    <dl class="sub-nav">
+      <dd class="active"><a href="#" class="js-backlog-filter" data-filter="all">All</a></dd>
+      <dd><a class="js-backlog-filter filter-clarify" data-filter="clarify" href="">Clarify</a></dd>
+      <dd><a class="js-backlog-filter filter-criteria" data-filter="criteria" href="">Criteria</a></dd>
+      <dd><a class="js-backlog-filter filter-estimate" data-filter="estimate" href="">Estimate</a></dd>
+      <dd><a class="js-backlog-filter filter-plan" data-filter="plan" href="">Plan</a></dd>
+    </dl>
+    <div id="backlog-items" data-project="<%= @project.id %>">
+      <%= render @user_stories %>
+    </div>
   </div>
 </div>
 <hr>

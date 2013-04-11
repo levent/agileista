@@ -357,3 +357,19 @@ div#about {
   top:6px;
   right:6px;
 }
+
+dl.sub-nav dd.active {
+  a.filter-plan {
+    background: $successColor;
+  }
+  a.filter-estimate {
+    background: $secondaryColor;
+    color: #49464c;
+  }
+  a.filter-criteria {
+    background: $alertColor;
+  }
+  a.filter-clarify {
+    background: $mainColor;
+  }
+}

@@ -75,6 +75,20 @@ var Agileista = (function(){
         var whatState = $(this).is(':checked');
         toggleStoriesByStatus(whichCheckBox, whatState);
       });
+
+      $('.js-backlog-filter').click(function(e) {
+        e.preventDefault();
+        el = $(this);
+        $('dd.active').removeClass('active');
+        el.parent().addClass('active');
+        if (el.attr('data-filter') === 'all') {
+          $('div.backlog-item').show();
+        } else {
+          $('div.backlog-item').hide();
+          $('div.backlog-item[data-status="' + el.attr('data-filter') + '"]').show();
+        }
+        return false;
+      });
     };
 
     init();
