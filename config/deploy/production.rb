@@ -137,6 +137,7 @@ namespace :sass do
 end
 
 task :sphinx_stop, :roles => :app do
+  sudo "monit unmonitor sphinx"
   thinking_sphinx.stop
 end
 
@@ -144,6 +145,7 @@ task :sphinx_configure, :roles => :app do
   # done as part of start
   # thinking_sphinx.configure
   thinking_sphinx.start
+  sudo "monit monitor sphinx"
 end
 
 task :bundle_clean, :roles => :app do
