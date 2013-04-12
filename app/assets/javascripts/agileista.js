@@ -78,11 +78,14 @@ var Agileista = (function(){
 
       $('.js-backlog-filter').click(function(e) {
         e.preventDefault();
-        el = $(this);
+        var el = $(this);
+        $('.release-marker').removeClass('release-marker');
         $('dd.active').removeClass('active');
         el.parent().addClass('active');
         if (el.attr('data-filter') === 'all') {
           $('div.backlog-item').show();
+          var vel = $('#backlog-items').attr('data-velocity');
+          setupVelocityMarkers(vel);
         } else {
           $('div.backlog-item').hide();
           $('div.backlog-item[data-status="' + el.attr('data-filter') + '"]').show();
