@@ -53,27 +53,15 @@ class ApplicationController < ActionController::Base
 
   def calculate_todays_burndown
     return unless @current_sprint.start_at.to_date == Date.today
-    burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Date.today)
-    burndown.story_points_remaining = @current_sprint.total_story_points
-    burndown.story_points_complete = 0
-    burndown.hours_left = nil
-    burndown.save!
+    Resque.enqueue(CalculateBurnJob, Date.today, @current_sprint)
   end
 
   def calculate_tomorrows_burndown
-    burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Date.tomorrow)
-    burndown.hours_left = @current_sprint.hours_left
-    burndown.story_points_complete = @current_sprint.story_points_burned
-    burndown.story_points_remaining = @current_sprint.total_story_points
-    burndown.save
+    Resque.enqueue(CalculateBurnJob, Date.tomorrow, @current_sprint)
   end
 
   def calculate_end_burndown
-    burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, 1.day.from_now(@current_sprint.end_at).to_date)
-    burndown.hours_left = @current_sprint.hours_left
-    burndown.story_points_complete = @current_sprint.story_points_burned
-    burndown.story_points_remaining = @current_sprint.total_story_points
-    burndown.save
+    Resque.enqueue(CalculateBurnJob, 1.day.from_now(@current_sprint.end_at).to_date, @current_sprint)
   end
 
 end
