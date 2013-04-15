@@ -53,19 +53,19 @@ class ApplicationController < ActionController::Base
 
   def calculate_todays_burndown
     return unless @current_sprint.start_at.to_date == Date.today
-    @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Date.today)
-    @burndown.story_points_remaining = @current_sprint.total_story_points
-    @burndown.story_points_complete = 0
-    @burndown.hours_left = nil
-    @burndown.save!
+    burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Date.today)
+    burndown.story_points_remaining = @current_sprint.total_story_points
+    burndown.story_points_complete = 0
+    burndown.hours_left = nil
+    burndown.save!
   end
 
   def calculate_tomorrows_burndown
-    @burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Date.tomorrow)
-    @burndown.hours_left = @current_sprint.hours_left
-    @burndown.story_points_complete = @current_sprint.story_points_burned
-    @burndown.story_points_remaining = @current_sprint.total_story_points
-    @burndown.save
+    burndown = Burndown.find_or_create_by_sprint_id_and_created_on(@current_sprint.id, Date.tomorrow)
+    burndown.hours_left = @current_sprint.hours_left
+    burndown.story_points_complete = @current_sprint.story_points_burned
+    burndown.story_points_remaining = @current_sprint.total_story_points
+    burndown.save
   end
 
   def calculate_end_burndown
