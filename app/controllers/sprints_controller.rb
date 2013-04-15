@@ -21,10 +21,10 @@ class SprintsController < AbstractSecurityController
     respond_to do |format|
       format.html {
         if @sprint && @sprint.current?
-          calculate_todays_burndown
-          calculate_tomorrows_burndown
+          calculate_todays_burndown(@sprint)
+          calculate_tomorrows_burndown(@sprint)
         elsif @sprint.finished?
-          calculate_end_burndown
+          calculate_end_burndown(@sprint)
         end
       }
       format.json do

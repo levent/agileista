@@ -5,6 +5,8 @@ class TasksController < AbstractSecurityController
 
   def create
     @task = @user_story.tasks.create!(params[:task])
+    calculate_todays_burndown(@task.sprint)
+    calculate_tomorrows_burndown(@task.sprint)
     hipchat_notify("Task <strong>created</strong> on user story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
   end
 
@@ -14,6 +16,8 @@ class TasksController < AbstractSecurityController
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
     json = { :notification => "#{current_person.name} renounced task of ##{@user_story.id}", :performed_by => current_person.name, :action => 'renounce', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
+    calculate_todays_burndown(@task.sprint)
+    calculate_tomorrows_burndown(@task.sprint)
     hipchat_notify("Task <strong>renounced</strong> on user story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end
@@ -24,6 +28,8 @@ class TasksController < AbstractSecurityController
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
     json = { :notification => "#{current_person.name} claimed task of ##{@user_story.id}", :performed_by => current_person.name, :action => 'claim', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
+    calculate_todays_burndown(@task.sprint)
+    calculate_tomorrows_burndown(@task.sprint)
     hipchat_notify("Task <strong>claimed</strong> on user story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end
@@ -33,6 +39,8 @@ class TasksController < AbstractSecurityController
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
     json = { :notification => "#{current_person.name} completed task of ##{@user_story.id}", :performed_by => current_person.name, :action => 'complete', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
+    calculate_todays_burndown(@task.sprint)
+    calculate_tomorrows_burndown(@task.sprint)
     hipchat_notify("Task <strong>completed</strong> on user story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end

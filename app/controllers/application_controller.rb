@@ -51,17 +51,20 @@ class ApplicationController < ActionController::Base
     @user_stories = @project.user_stories.unassigned.rank(:backlog_order)
   end
 
-  def calculate_todays_burndown
-    return unless @current_sprint.start_at.to_date == Date.today
-    Resque.enqueue(CalculateBurnJob, Date.today, @current_sprint.id)
+  def calculate_todays_burndown(sprint)
+    return if sprint.nil?
+    return unless sprint.start_at.to_date == Date.today
+    Resque.enqueue(CalculateBurnJob, Date.today, sprint.id)
   end
 
-  def calculate_tomorrows_burndown
-    Resque.enqueue(CalculateBurnJob, Date.tomorrow, @current_sprint.id)
+  def calculate_tomorrows_burndown(sprint)
+    return if sprint.nil?
+    Resque.enqueue(CalculateBurnJob, Date.tomorrow, sprint.id)
   end
 
-  def calculate_end_burndown
-    Resque.enqueue(CalculateBurnJob, 1.day.from_now(@current_sprint.end_at).to_date, @current_sprint.id)
+  def calculate_end_burndown(sprint)
+    return if sprint.nil?
+    Resque.enqueue(CalculateBurnJob, 1.day.from_now(sprint.end_at).to_date, sprint.id)
   end
 
 end
