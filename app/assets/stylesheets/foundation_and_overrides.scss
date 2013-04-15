@@ -373,3 +373,15 @@ dl.sub-nav dd.active {
     background: $mainColor;
   }
 }
+
+.filter-complete {
+  border-left: 4px solid $successColor;
+}
+
+.filter-incomplete {
+  border-left: 4px solid $alertColor;
+}
+
+.filter-inprogress {
+  border-left: 4px solid $mainColor;
+}
