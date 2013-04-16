@@ -2,7 +2,7 @@
 
 <% content_for :custom_js do %>
   var margin = {top: 20, right: 50, bottom: 30, left: 50},
-      width = 1200 - margin.left - margin.right,
+      width = 1300 - margin.left - margin.right,
       height = 350 - margin.top - margin.bottom,
       padding = 10;
 
@@ -64,7 +64,7 @@
                 .append("svg")
                   .attr("width", "100%")
                   .attr("height", height)
-                  .attr("viewBox", "0 0 1200 350")
+                  .attr("viewBox", "0 0 1300 350")
                   .attr("preserveAspectRatio", "xMinYMax meet")
                 .append("g")
                   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -72,7 +72,7 @@
   var allData = spRemaining.concat(spComplete);
   x.domain(d3.extent(xExtent, function(d) { return d; }));
   y.domain(d3.extent(allData, function(d) { return d.story_points; }));
-  y2.domain(d3.extent(spHours, function(d) { return d.hours_left; }));
+  y2.domain([0].concat(d3.max(spHours, function(d) { return d.hours_left; })));
 
   mySVG.append("g")
       .attr("class", "x axis")
