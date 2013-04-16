@@ -2,7 +2,7 @@
 
 <% content_for :custom_js do %>
   var margin = {top: 20, right: 50, bottom: 30, left: 50},
-      width = 1300 - margin.left - margin.right,
+      width = 900 - margin.left - margin.right,
       height = 350 - margin.top - margin.bottom,
       padding = 10;
 
@@ -32,7 +32,7 @@
   var iso = d3.time.format("%Y-%m-%d");
   var parseDate = iso.parse;
 
-  var xExtent = [parseDate("<%= @sprint.start_at.to_date.iso8601.html_safe %>"), parseDate("<%= @sprint.end_at.to_date.iso8601.html_safe %>")];
+  var xExtent = [parseDate("<%= @sprint.start_at.to_date.iso8601.html_safe %>"), parseDate("<%= 1.day.from_now(@sprint.end_at.to_date).iso8601.html_safe %>")];
 
   var spRemaining = <%= @chart_burnremaining.to_json.html_safe %>;
   var spComplete = <%= @chart_burncomplete.to_json.html_safe %>;
@@ -64,7 +64,7 @@
                 .append("svg")
                   .attr("width", "100%")
                   .attr("height", height)
-                  .attr("viewBox", "0 0 1300 350")
+                  .attr("viewBox", "0 0 900 350")
                   .attr("preserveAspectRatio", "xMinYMax meet")
                 .append("g")
                   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
