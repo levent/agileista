@@ -12,7 +12,7 @@
       <%= link_to 'Plan', plan_project_sprint_url(@project, sprint), :class => 'button tiny' %>
     <% end %>
     <% if scrum_master? && sprint.finished? %>
-      <%= link_to 'Calc stats from here', set_stats_project_sprint_path(@project, sprint), :method => 'post', :class => (@stats_since_sprint.to_i == sprint.id ? 'alert button tiny' : 'button tiny') if current_user.scrum_master_for?(@project) %>
+      <%= link_to 'Calc stats from here', set_stats_project_sprint_path(@project, sprint), :method => 'post', :class => (@stats_since_sprint.to_i == sprint.id ? 'alert button tiny' : 'button secondary tiny') if current_user.scrum_master_for?(@project) %>
     <% end%>
   </td>
 </tr>
