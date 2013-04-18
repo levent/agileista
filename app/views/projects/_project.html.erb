@@ -1,7 +1,8 @@
-<li>
-  <h2>
-    <%= link_to project_backlog_index_path(project) do %>
-      <%= project.name.humanize %>
-    <% end %>
-  </h2>
-</li>
+<div class="six columns<%= ' end' if last %>">
+  <ul class="pricing-table">
+    <li class="title"><%= project.name.humanize %></li>
+    <li class="bullet-item"><%= pluralize(project.people.count, 'person') %></li>
+    <li class="bullet-item"><%= pluralize(project.user_stories.unassigned.count, 'story') %></li>
+    <li class="cta-button"><%= link_to 'Choose Project', project_backlog_index_path(project), :class => 'button' %></li>
+  </ul>
+</div>

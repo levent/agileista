@@ -1,8 +1,12 @@
 <h2>Projects</h2>
 
-<ul class="square">
-  <%= render @projects %>
-</ul>
+<% @projects.in_groups_of(4, false) do |projects| %>
+  <div class="row">
+    <% projects.each do |project| %>
+      <%= render :partial => 'project', :locals => {:project => project, :last => projects.last == project} %>
+    <% end %>
+  </div>
+<% end %>
 
 <% if @projects.empty? %>
   <%= link_to 'Create your first project', new_project_path %>
