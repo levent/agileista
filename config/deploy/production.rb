@@ -55,7 +55,7 @@ namespace :deploy do
 
 
   task :unicorns, :roles => :app do
-    run "/etc/init.d/unicorn restart"
+    run "/etc/init.d/unicorn restart; true"
     # pid_file = "/u/apps/agileista.com/shared/pids/unicorn.pid"
 
     # if remote_file_exists?(pid_file)
