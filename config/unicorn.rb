@@ -4,6 +4,8 @@ timeout 15
 preload_app true
 pid "/u/apps/agileista.com/shared/pids/unicorn.pid"
 listen "/tmp/unicorn.sock"
+stderr_path "/u/apps/agileista.com/shared/log/unicorn.stderr.log"
+stdout_path "/u/apps/agileista.com/shared/log/unicorn.stdout.log"
 
 before_fork do |server, worker|
 
