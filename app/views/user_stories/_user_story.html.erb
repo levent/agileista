@@ -18,7 +18,7 @@
   <div class="three columns">
     <%= show_stakeholder(user_story) %>
   </div>
-  <div class="one columns hide-for-medium-down">
+  <div class="one columns hide-for-medium-down" title="<%= time_ago_in_words(user_story.created_at) %> ago">
     <%= user_story.created_at.strftime("%d/%m/%y") %>
   </div>
   <div class="one columns hide-for-small">
