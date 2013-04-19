@@ -49,8 +49,10 @@
                   .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    var yExtent = [0, d3.max(data, function(d) { return d.velocity; })];
+
     x.domain(d3.extent(data, function(d) { return d.end_at; }));
-    y.domain(d3.extent(data, function(d) { return d.velocity; }))
+    y.domain(d3.extent(yExtent, function(d) { return d; }));
 
     mySVG.append("g")
         .attr("class", "x axis")
