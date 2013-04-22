@@ -1,6 +1,6 @@
 <div class="row">
   <div class="columns six end">
-    <h2>Account Settings</h2>
+    <h2>Project Settings</h2>
     <%= simple_form_for @project do |f| %>
       <p><%= f.input :name %></p>
       <p><%= f.input :iteration_length, as: :select, collection: [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]] %></p>
