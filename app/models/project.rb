@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
 
   validates_presence_of :name
   validates_presence_of :iteration_length
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name, :case_sensitive => false
 
   def average_velocity
     return if sprints.finished.statistically_significant(self).empty?

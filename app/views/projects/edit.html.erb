@@ -2,8 +2,9 @@
   <div class="columns six end">
     <h2>Account Settings</h2>
     <%= simple_form_for @project do |f| %>
+      <p><%= f.input :name %></p>
       <p><%= f.input :iteration_length, as: :select, collection: [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]] %></p>
-      <%= f.button :submit, "Set iteration length" %>
+      <%= f.button :submit %>
     <% end %>
 
     <hr>
@@ -11,7 +12,7 @@
     <%= form_tag({:controller => 'account', :action => 'generate_api_key'}, {:class => 'form'}) %>
       <label>Api Key</label>
       <p><%= current_user.api_key || "No api key" %></p>
-      <%= button_tag "Generate api key", :class => 'button' %>
+      <%= button_tag "Generate Api Key", :class => 'button' %>
     </form>
 
     <hr>
@@ -28,7 +29,7 @@
       <%= f.input :room %>
       <%= f.input :notify %>
       <br>
-      <%= f.button :submit %>
+      <%= f.button :submit, "Save HipChat Settings" %>
     <% end %>
   </div>
 </div>
