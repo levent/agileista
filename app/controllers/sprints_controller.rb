@@ -20,12 +20,7 @@ class SprintsController < AbstractSecurityController
     @uid = Digest::SHA1.hexdigest("exclusiveshit#{@sprint.id}")
     respond_to do |format|
       format.html {
-        if @sprint && @sprint.current?
-          calculate_todays_burndown(@sprint)
-          calculate_tomorrows_burndown(@sprint)
-        elsif @sprint.finished?
-          calculate_end_burndown(@sprint)
-        end
+        calculate_burndown_if_needed(@sprint)
       }
       format.json do
         render :json => @sprint
@@ -36,6 +31,7 @@ class SprintsController < AbstractSecurityController
   def review
     @sprint = @project.sprints.where(:id => params[:id]).includes(:user_stories => :acceptance_criteria).limit(1).first
     store_location
+    calculate_burndown_if_needed(@sprint)
     calculate_burndown_points
   end
 
@@ -115,5 +111,14 @@ class SprintsController < AbstractSecurityController
     @chart_burncomplete = burndowns.where("story_points_complete IS NOT NULL").collect {|burn| {:date => burn.created_on.iso8601, :story_points => burn.story_points_complete } }
     @chart_burnremaining = burndowns.where("story_points_remaining IS NOT NULL").collect {|burn| {:date => burn.created_on.iso8601, :story_points => burn.story_points_remaining } }
     @chart_xscale = [@sprint.start_at.iso8601.to_s, @sprint.end_at.iso8601.to_s]
+  end
+
+  def calculate_burndown_if_needed(sprint)
+    if sprint && sprint.current?
+      calculate_todays_burndown(sprint)
+      calculate_tomorrows_burndown(sprint)
+    elsif sprint.finished?
+      calculate_end_burndown(sprint)
+    end
   end
 end
