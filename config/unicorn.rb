@@ -7,6 +7,10 @@ listen "/tmp/unicorn.sock"
 stderr_path "/u/apps/agileista.com/shared/log/unicorn.stderr.log"
 stdout_path "/u/apps/agileista.com/shared/log/unicorn.stdout.log"
 
+before_exec do |server|
+  ENV['BUNDLE_GEMFILE'] = "/u/apps/agileista.com/current/Gemfile"
+end
+
 before_fork do |server, worker|
 
   Signal.trap 'TERM' do
