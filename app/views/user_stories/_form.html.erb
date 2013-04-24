@@ -36,7 +36,7 @@
         <%= f.simple_fields_for :acceptance_criteria do |ac| %>
           <li>
             <div class="alert-box secondary">
-              <%= ac.input :detail %>
+              <%= ac.input :detail, as: :text, input_html: {rows: 1, class: 'vert'} %>
               <% unless ac.object.new_record? %>
                 <span class="remove">
                   <%= ac.input '_destroy', label: "Remove", as: :boolean %>
@@ -55,8 +55,8 @@
         <%= f.simple_fields_for :tasks do |tf| %>
           <li>
             <div class="alert-box secondary">
-              <%= tf.input :definition %>
-              <%= tf.input :description, input_html: {rows: 5} %>
+              <%= tf.input :definition, as: :text, input_html: {rows: 1, class: 'vert'} %>
+              <%= tf.input :description, input_html: {rows: 5, class: 'vert'} %>
               <% unless tf.object.new_record? %>
                 <span class="remove">
                   <%= tf.input '_destroy', label: "Remove", as: :boolean %>
