@@ -27,5 +27,10 @@
     </tbody>
   </table>
 <% else %>
-  <p>There are no sprints for this project, <%= link_to "create your first sprint", new_project_sprint_path(@project) %>.</p>
+  <div class="row">
+    <div class="columns centered twelve">
+      <h2>There are no sprints for this project</h2>
+      <p><%= link_to "Add your first sprint", new_project_sprint_path(@project), :class => "button" %></p>
+    </div>
+  </div>
 <% end %>
