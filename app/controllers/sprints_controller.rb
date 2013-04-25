@@ -103,7 +103,7 @@ class SprintsController < AbstractSecurityController
       @sprint.start_at = Date.today
     end
   end
-  
+
   def calculate_burndown_points
     return nil unless @sprint
     burndowns = @sprint.burndowns
