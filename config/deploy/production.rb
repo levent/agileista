@@ -47,30 +47,11 @@ role :db,  "mormon", :primary => true
 #   end 
 # end
 
-def remote_file_exists?(full_path)
-  'true' == capture("if [ -e #{full_path} ]; then echo 'true'; fi").strip
-end
-
 namespace :deploy do
 
 
   task :unicorns, :roles => :app do
     run "/etc/init.d/unicorn restart; true"
-    # pid_file = "/u/apps/agileista.com/shared/pids/unicorn.pid"
-
-    # if remote_file_exists?(pid_file)
-    #   puts "pid found"
-    #   pid = capture("cat #{pid_file}")
-
-    #   puts "USR2 to #{pid}"
-    #   run "kill -s USR2 #{pid}"
-    #   sleep 20
-    #   puts "WINCH to #{pid}"
-    #   run "kill -s WINCH #{pid}"
-    #   sleep 10
-    #   puts "QUIT to #{pid}"
-    #   run "kill -s QUIT #{pid}"
-    # end
   end
 
   task :restart do
@@ -82,15 +63,6 @@ namespace :deploy do
     # Put new manifest onto all the app servers
     top.upload("public/assets/manifest.yml", "#{release_path}/public/assets/manifest.yml", :via => :scp)
   end
-
-  task :stop do
-  #  run "touch #{release_path}/tmp/restart.txt"
-  end
-
-  task :start do
-  #  run "touch #{release_path}/tmp/restart.txt"
-  end
-
 
   desc "Start the resque worker"
   task :start_resque, :roles => :app do
