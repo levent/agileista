@@ -7,6 +7,7 @@ class Task < ActiveRecord::Base
 
   validates_presence_of :definition
   validates_presence_of :hours
+  validates_length_of :definition, :maximum => 255
   # Screws up in accepts_nested_attributes_for
   # validates_uniqueness_of :definition, :scope => :user_story_id
 
