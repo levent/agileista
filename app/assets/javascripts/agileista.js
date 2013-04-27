@@ -48,6 +48,120 @@ var Agileista = (function(){
       }
     },
 
+    drawBurndown = function(startDate, endDate, spRemaining, spComplete, spHours) {
+      var margin = {top: 20, right: 50, bottom: 30, left: 50},
+          width = 900 - margin.left - margin.right,
+          height = 350 - margin.top - margin.bottom,
+          padding = 10;
+
+      var x = d3.time.scale()
+                .range([padding, width - padding]);
+
+      var y = d3.scale.linear()
+                .range([height - padding, 0]);
+
+      var y2 = d3.scale.linear()
+                .range([height - padding, 0]);
+
+      var xAxis = d3.svg.axis()
+                    .scale(x)
+                    .ticks(d3.time.days, 1)
+                    .orient("bottom");
+
+      var yAxis = d3.svg.axis()
+                    .scale(y)
+                    .orient("left");
+
+      var y2Axis = d3.svg.axis()
+                    .scale(y2)
+                    .ticks(5)
+                    .orient("right");
+
+
+      var iso = d3.time.format("%Y-%m-%d");
+      var parseDate = iso.parse;
+
+      var xExtent = [parseDate(startDate), parseDate(endDate)];
+
+      spComplete.forEach(function(d) {
+        d.date = parseDate(d.date);
+        d.story_points = +d.story_points;
+      });
+
+      spRemaining.forEach(function(d) {
+        d.date = parseDate(d.date);
+        d.story_points = +d.story_points;
+      });
+
+      spHours.forEach(function(d) {
+        d.date = parseDate(d.date);
+        d.hours_left = +d.hours_left;
+      });
+
+      var line = d3.svg.line()
+                  .x(function(d) { return x(d.date); })
+                  .y(function(d) { return y(d.story_points); });
+      var line2 = d3.svg.line()
+                  .x(function(d) { return x(d.date); })
+                  .y(function(d) { return y2(d.hours_left); });
+
+      var mySVG = d3.select("#chart")
+                    .append("svg")
+                      .attr("width", "100%")
+                      .attr("height", height)
+                      .attr("viewBox", "0 0 900 350")
+                      .attr("preserveAspectRatio", "xMinYMax meet")
+                    .append("g")
+                      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      var allData = spRemaining.concat(spComplete);
+      x.domain(d3.extent(xExtent, function(d) { return d; }));
+      y.domain(d3.extent(allData, function(d) { return d.story_points; }));
+      y2.domain([0].concat(d3.max(spHours, function(d) { return d.hours_left; })));
+
+      mySVG.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + height + ")")
+          .call(xAxis);
+
+      mySVG.append("g")
+          .attr("class", "y axis")
+          .call(yAxis)
+        .append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("Velocity");
+
+      mySVG.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + width + " ,0)")
+          .call(y2Axis)
+        .append("text")
+          .attr("transform", "rotate(-90) translate(0, -20)")
+          .attr("class", "tasks-text")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .text("Tasks left");
+
+      mySVG.append("path")
+          .datum(spRemaining)
+          .attr("class", "line-remaining")
+          .attr("d", line);
+
+      mySVG.append("path")
+          .datum(spComplete)
+          .attr("class", "line-complete")
+          .attr("d", line);
+
+      mySVG.append("path")
+          .datum(spHours)
+          .attr("class", "line-tasks")
+          .attr("d", line2);
+    },
+
     init = function() {
 
       $("#accountswitcher").change(function() {
@@ -97,9 +211,10 @@ var Agileista = (function(){
     init();
 
     return {
-          switchAccount : switchAccount,
- toggleStoriesByStatus : toggleStoriesByStatus,
-   setupVelocityMarkers : setupVelocityMarkers
+            switchAccount : switchAccount,
+    toggleStoriesByStatus : toggleStoriesByStatus,
+     setupVelocityMarkers : setupVelocityMarkers,
+             drawBurndown : drawBurndown
     };
 
 })();
