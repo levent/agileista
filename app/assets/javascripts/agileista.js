@@ -7,14 +7,14 @@ var Agileista = (function(){
       var tag = e.get(0).tagName.toLowerCase();
 
       e.after(
-        $('<'+tag+' class="' + e.attr('class') + '">'+'</'+tag+'>').append(e.html().replace(/\d+(?=\_)|\d+(?=\])/g, function(match) {return parseInt(match)+1;}))
+        $('<'+tag+' class="' + e.attr('class') + '">'+'</'+tag+'>').append(e.html().replace(/\d+(?=\_)|\d+(?=\])/g, function(match) {return parseInt(match, 10)+1;}))
         );
     },
 
     // public methods
     switchAccount = function(){
       var selected = $("#accountswitcher option:selected");
-      if(selected.val() != 0){
+      if(selected.val() !== 0){
         window.location = selected.val();
       }
     },
@@ -29,18 +29,19 @@ var Agileista = (function(){
     },
 
     setupVelocityMarkers = function(velocity) {
-      if(!(velocity === '') && window.location.pathname.indexOf('stale') === -1){
+      if((velocity !== '') && window.location.pathname.indexOf('stale') === -1){
         $('.release-marker').removeClass('release-marker');
         var user_stories = $('.backlog-item');
         var tally = 0;
         $.each(user_stories, function(index, story) {
-          var story_points = parseInt($(story).find('.points').text());
+          var story_points = parseInt($(story).find('.points').text(), 10);
           if(!isNaN(story_points)){
             tally += story_points;
           }
           if(tally > velocity) {
-            if(story_points > velocity)
+            if(story_points > velocity) {
               $(story).addClass('warning');
+            }
             $(story).addClass('release-marker');
             tally = story_points;
           }

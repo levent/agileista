@@ -1,4 +1,13 @@
 GIT
+  remote: git@github.com:cosm/jshintrb.git
+  revision: d7765eaca7b149eaaf30f90feddc85305e05d78b
+  specs:
+    jshintrb (0.2.3)
+      execjs
+      multi_json (>= 1.3)
+      rake
+
+GIT
   remote: https://github.com/plataformatec/simple_form.git
   revision: e3da7301dcf6feb9a1db275ff5cb3f85afce0e80
   branch: v2.1
@@ -329,6 +338,7 @@ DEPENDENCIES
   hipchat
   hiredis (= 0.4.5)
   jquery-rails
+  jshintrb (= 0.2.3)!
   juggernaut (= 2.1.1)
   machinist
   newrelic-redis (= 1.3.2)

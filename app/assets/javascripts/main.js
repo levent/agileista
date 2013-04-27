@@ -14,14 +14,14 @@ if($('#loading')) {
 }
 
 function notifyUser(json, user) {
-  if(user != json.performed_by) {
+  if(user !== json.performed_by) {
     $('#notification-bar div.content').replaceWith(json.notification);
     $('#notification-bar').slideDown('slow');
     setTimeout(function() {
       $("#notification-bar").slideUp('slow');
     }, 5000);
   }
-};
+}
 
 function updateTaskCard(container, task_card, hours, devs, who, me) {
   var claim_btn = task_card.find('.claim_btn');
@@ -47,7 +47,7 @@ function updateTaskCard(container, task_card, hours, devs, who, me) {
     claim_btn.removeClass('hide-override');
     renounce_btn.addClass('hide-override');
   }
-};
+}
 
 function setupTaskBoard(project_id, user_story_id) {
 
@@ -144,7 +144,7 @@ function setupSprintPlanning(project_id, sprint_id) {
     connectWith: '#committed',
     receive: function(event, ui) {
       $.post('/projects/' + project_id + '/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/unplan', {format: 'json'}, function(data) {
-        if(data.ok == true) {
+        if(data.ok === true) {
           $('#points_planned').html(data.points_planned + ' story points');
           $('#hours_left').html(data.hours_left + ' hours');
           $('#flashs').html('Sprint reordered');
@@ -158,14 +158,14 @@ function setupSprintPlanning(project_id, sprint_id) {
     connectWith: '#estimated',
     update: function(event, ui) {
       $.post('/projects/' + project_id + '/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/reorder', {move_to: ui.item.index() - 1}, function(data) {
-        if(data.ok == true) {
+        if(data.ok === true) {
           $('#flashs').html('Sprint reordered');
         }
       }, "json");
     },
     receive: function(event, ui) {
       $.post('/projects/' + project_id + '/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/plan', {format: 'json'}, function(data) {
-        if(data.ok == true) {
+        if(data.ok === true) {
           $('#points_planned').html(data.points_planned + ' story points');
           $('#hours_left').html(data.hours_left + ' hours');
           $('#flashs').html('Sprint reordered');
@@ -189,11 +189,11 @@ $(function() {
     $('#backlog-items').sortable({
       items: '> div',
       update: function(event, ui) {
-      project_id = $(this).attr('data-project');
+      var project_id = $(this).attr('data-project');
         $.post('/projects/' + project_id + '/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index()}, function(data) {
-          if(data.ok == true) {
+          if(data.ok === true) {
             $('#flashs').html('Backlog reordered');
-            Agileista.setupVelocityMarkers(data.velocity)
+            Agileista.setupVelocityMarkers(data.velocity);
           }
         }, "json");
       }
