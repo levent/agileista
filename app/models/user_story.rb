@@ -12,7 +12,7 @@ class UserStory < ActiveRecord::Base
 
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements
-  has_many :acceptance_criteria, :dependent => :delete_all
+  has_many :acceptance_criteria, :order => 'position', :dependent => :delete_all
   has_many :tasks, :order => :position, :dependent => :destroy
   accepts_nested_attributes_for :acceptance_criteria, :allow_destroy => true, :reject_if => proc { |attrs| attrs.all? { |k, v| v.blank? } }
 

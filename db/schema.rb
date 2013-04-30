@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130405152336) do
+ActiveRecord::Schema.define(:version => 20130430200902) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
     t.integer "user_story_id"
     t.integer "version"
     t.boolean "done",          :default => false
+    t.integer "position"
   end
 
   add_index "acceptance_criteria", ["user_story_id"], :name => "index_acceptance_criteria_on_user_story_id"
