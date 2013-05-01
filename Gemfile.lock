@@ -178,7 +178,7 @@ GEM
     newrelic_rpm (3.6.0.83)
     nokogiri (1.5.9)
     orm_adapter (0.4.0)
-    pg (0.14.1)
+    pg (0.15.1)
     poltergeist (1.1.0)
       capybara (~> 2.0, >= 2.0.1)
       faye-websocket (~> 0.4, >= 0.4.4)
