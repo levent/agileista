@@ -1,15 +1,24 @@
 <div id="about">
+
+  <div class="row">
+    <div class="twelve columns centered mobile-four">
+      <div class="text-center">
+        <h2>Agileista - Scrum collaboration<br><small>By Developers for Developers</small></h2>
+      </div>
+    </div>
+  </div>
+
   <!-- Content Slider -->
 
   <div class="row">
-    <div class="twentyfour columns hide-for-small">
+    <div class="twelve columns centered hide-for-small">
 
       <div id="featured">
-        <%= image_tag 'about/backlog.png' %>
-        <%= image_tag 'about/new_user_story.png' %>
-        <%= image_tag 'about/search_results.png' %>
-        <%= image_tag 'about/sprints.png' %>
-        <%= image_tag 'about/task_board.png' %>
+        <%= image_tag 'about/backlog.png', :class => 'orbit-slide' %>
+        <%= image_tag 'about/new_user_story.png', :class => 'orbit-slide' %>
+        <%= image_tag 'about/search_results.png', :class => 'orbit-slide' %>
+        <%= image_tag 'about/sprints.png', :class => 'orbit-slide' %>
+        <%= image_tag 'about/task_board.png', :class => 'orbit-slide' %>
       </div>
 
     </div>
@@ -18,12 +27,11 @@
   <!-- End Content Slider -->
 
   <div class="row">
-    <div class="twelve columns centered">
+    <div class="twelve mobile-four columns centered">
 
       <div class="text-center">
-        <h2>Scrum collaboration<br><small>Written by developers, for developers.</small></h2>
-        <p>This is how we run Scrum across our distributed team.</p>
-        <h3>Our requirements:</h3>
+        <p>Agileista evolved over years of running Scrum across several distributed teams.</p>
+        <h3>Our Requirements:</h3>
         <p>
         An ordered backlog<br>
         User stories with acceptance criteria<br>
@@ -37,7 +45,7 @@
         No hour tracking on tasks<br>
         HipChat integration
         </p>
-        <h4><%= link_to 'Try it out!', new_person_registration_path %></h4>
+        <h4><%= link_to 'Try it out!', new_person_registration_path, :class => "large radius button" %></h4>
       </div>
 
     </div>
