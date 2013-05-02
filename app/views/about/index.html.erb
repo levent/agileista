@@ -1,62 +1,42 @@
-<div id="about">
-
-  <div class="row">
-    <div class="twelve columns centered mobile-four">
-      <div class="text-center">
-        <h2>Agileista - Scrum Collaboration<br><small>By Developers for Developers</small></h2>
-      </div>
-    </div>
-  </div>
-
-  <!-- Content Slider -->
-
-  <div class="row">
-    <div class="twelve columns centered hide-for-small">
-
-      <div id="featured">
-        <%= image_tag 'about/backlog.png', :class => 'orbit-slide' %>
-        <%= image_tag 'about/new_user_story.png', :class => 'orbit-slide' %>
-        <%= image_tag 'about/search_results.png', :class => 'orbit-slide' %>
-        <%= image_tag 'about/sprints.png', :class => 'orbit-slide' %>
-        <%= image_tag 'about/task_board.png', :class => 'orbit-slide' %>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- End Content Slider -->
-
-  <div class="row">
-    <div class="twelve mobile-four columns centered">
-
-      <div class="text-center">
-        <p>Agileista evolved over years of running Scrum across several distributed teams.</p>
-        <h3>Our Requirements:</h3>
-        <p>
-        An ordered backlog<br>
-        User stories with acceptance criteria<br>
-        Story points<br>
-        Sprint planning<br>
-        Velocity calculation<br>
-        Basic horizon planning<br>
-        Pair programming support<br>
-        Simple task board<br>
-        Burn charts<br>
-        No hour tracking on tasks<br>
-        HipChat integration
-        </p>
-        <h4><%= link_to 'Try it out!', new_person_registration_path, :class => "large radius button" %></h4>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- End Content -->
-
+<div class="text-center">
+  <h2>Agileista - Scrum Collaboration<br><small>By Developers for Developers</small></h2>
 </div>
-<!-- Included JS Files -->
+
+<!-- Content Slider -->
+
+<div class="row">
+  <div class="twelve columns centered hide-for-small">
+
+    <div id="featured">
+      <%= image_tag 'about/backlog.png', :class => 'orbit-slide' %>
+      <%= image_tag 'about/new_user_story.png', :class => 'orbit-slide' %>
+      <%= image_tag 'about/search_results.png', :class => 'orbit-slide' %>
+      <%= image_tag 'about/sprints.png', :class => 'orbit-slide' %>
+      <%= image_tag 'about/task_board.png', :class => 'orbit-slide' %>
+    </div>
+
+  </div>
+</div>
+
+<div class="text-center">
+  <p>Agileista evolved over years of running Scrum across several distributed teams.</p>
+  <h3>Our Requirements:</h3>
+  <p>
+  An ordered backlog<br>
+  User stories with acceptance criteria<br>
+  Story points<br>
+  Sprint planning<br>
+  Velocity calculation<br>
+  Basic horizon planning<br>
+  Pair programming support<br>
+  Simple task board<br>
+  Burn charts<br>
+  No hour tracking on tasks<br>
+  HipChat integration
+  </p>
+  <h4><%= link_to 'Try it out!', new_person_registration_path, :class => "large radius button" %></h4>
+</div>
+
 <% content_for :custom_js do %>
   $('#featured').orbit({ fluid: '2x1' });
 <% end %>
-<!-- End Footer -->
-
