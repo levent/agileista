@@ -5,7 +5,7 @@
     <!-- Title Area -->
     <li class="name">
       <h1>
-        <%= link_to "Agileista", (@project ? project_backlog_index_path(@project) : root_path) %>
+        <%= link_to "Agileista", (@project ? project_backlog_index_path(@project) : projects_path) %>
       </h1>
     </li>
     <li class="toggle-topbar"><a href="#"></a></li>
@@ -85,7 +85,7 @@
     <!-- Title Area -->
     <li class="name">
       <h1>
-        <%= link_to "Agileista", root_path %>
+        <%= link_to "Agileista", projects_path %>
       </h1>
     </li>
     <li class="toggle-topbar"><a href="#"></a></li>
@@ -100,7 +100,7 @@
     <ul class="right">
       <li class="divider"></li>
       <li class="has-dropdown">
-        <%= link_to "Projects", root_path %>
+        <%= link_to "Projects", projects_path %>
         <ul class="dropdown">
           <% current_person.projects.each do |project| %>
             <li><%= link_to project.name.humanize, project_backlog_index_path(project) unless project.new_record? %></li>
@@ -137,7 +137,7 @@
 
   <section>
     <ul class="right">
-      <li><%= link_to "About", about_path %></li>
+      <li><%= link_to "About", root_path %></li>
       <li class="divider"></li>
       <li><%= link_to "Login", new_person_session_path %></li>
       <li class="divider"></li>

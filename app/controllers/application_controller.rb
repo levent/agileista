@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
 
   TheDomain = 'app.agileista.com'
 
+  def after_sign_in_path_for(resource)
+    projects_path
+  end
+
   def ensure_domain
     if request.env['HTTP_HOST'] != TheDomain && Rails.env == "production"
       redirect_to "https://#{TheDomain}"
@@ -17,7 +21,7 @@ class ApplicationController < ActionController::Base
     @project = current_person.projects.find(params[:project_id]) if params[:project_id]
   rescue ActiveRecord::RecordNotFound
     flash[:error] = "No such project"
-    redirect_to root_path
+    redirect_to projects_path
   end
 
   def ssl_required?

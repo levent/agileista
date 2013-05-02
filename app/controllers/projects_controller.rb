@@ -41,7 +41,7 @@ class ProjectsController < AbstractSecurityController
   def destroy
     if @project.destroy
       flash[:notice] = "Project removed"
-      redirect_to root_path
+      redirect_to projects_path
     else
       flash[:error] = "Project could not be removed"
       render :action => 'edit'
