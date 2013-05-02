@@ -8,8 +8,8 @@ describe "listing my projects" do
   end
 
   it "listing when only one project" do
-    visit '/'
+    visit '/projects'
     page.should have_content @project.name.humanize
-    current_path.should == '/'
+    current_path.should == '/projects'
   end
 end
