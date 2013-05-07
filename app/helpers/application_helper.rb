@@ -52,10 +52,6 @@ module ApplicationHelper
     date.strftime("%d %B %Y")
   end
 
-  def show_date_and_time(date)
-    date.strftime("%d %b %y %H:%M %p")
-  end
-
   def user_story_state(state)
     mapping = {
       :clarify => '',
