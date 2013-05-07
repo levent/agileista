@@ -57,5 +57,10 @@ describe ApplicationHelper, :type => :helper do
       @us.stakeholder = "fred dude"
       @it.show_stakeholder(@us).should == "fred dude"
     end
+
+    it "should have a user override option" do
+      person = Person.new(:name => 'monkey face')
+      @it.show_stakeholder(@us, person).should == "monkey face"
+    end
   end
 end

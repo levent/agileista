@@ -8,7 +8,7 @@
           <%= f.input :story_points, input_html: { placeholder: '0, 1, 3, 5, 8, 13, 20 ...' } %>
         </div>
         <div class="ten columns">
-          <%= f.input :stakeholder %>
+          <%= f.input :stakeholder, input_html: { value: show_stakeholder(@user_story, current_user) } %>
         </div>
         <div class="four columns">
           <%= f.label :cannot_be_estimated %>

@@ -10,13 +10,15 @@ module ApplicationHelper
     current_person
   end
 
-  def show_stakeholder(user_story)
+  def show_stakeholder(user_story, person_override = nil)
     if !user_story.stakeholder.blank?
-      return "#{user_story.stakeholder}"
+      user_story.stakeholder
     elsif user_story.person
-      "#{user_story.person.name}"
+      user_story.person.name
+    elsif person_override
+      person_override.name
     else
-      return "Unknown"
+      "Unknown"
     end
   end
 

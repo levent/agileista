@@ -17,6 +17,10 @@ module FeatureHelpers
   def create_sprint_for(project)
     Sprint.make!(:project => project)
   end
+
+  def create_user_story_for(project)
+    UserStory.make!(:project => project)
+  end
 end
 
 RSpec.configure do |config|
