@@ -3,7 +3,7 @@
     <h2>Edit User Story</h2>
   </div>
   <div class="text-right twelve columns hide-for-small">
-    <h4 class="subheader">Created on <%= @user_story.created_at.strftime("%w %B %Y at %H:%M %p") %></h4>
+    <h4 class="subheader">Created on <%= @user_story.created_at.strftime("%e %B %Y at %H:%M %p") %></h4>
   </div>
 </div>
 <%= render :partial => 'form' %>
