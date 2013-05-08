@@ -53,7 +53,17 @@ var Agileista = (function(){
       var margin = {top: 20, right: 50, bottom: 30, left: 50},
           width = 900 - margin.left - margin.right,
           height = 350 - margin.top - margin.bottom,
-          padding = 10;
+          padding = 10,
+          numTickDays = 1;
+
+      var iso = d3.time.format("%Y-%m-%d");
+      var parseDate = iso.parse;
+      var parsedStartDate = parseDate(startDate);
+      var parsedEndDate = parseDate(endDate);
+
+      if (((parsedEndDate - parsedStartDate) / (24*60*60*1000)) > 20 ) {
+        numTickDays = 2
+      }
 
       var x = d3.time.scale()
                 .range([padding, width - padding]);
@@ -66,7 +76,7 @@ var Agileista = (function(){
 
       var xAxis = d3.svg.axis()
                     .scale(x)
-                    .ticks(d3.time.days, 1)
+                    .ticks(d3.time.days, numTickDays)
                     .orient("bottom");
 
       var yAxis = d3.svg.axis()
@@ -78,11 +88,7 @@ var Agileista = (function(){
                     .ticks(5)
                     .orient("right");
 
-
-      var iso = d3.time.format("%Y-%m-%d");
-      var parseDate = iso.parse;
-
-      var xExtent = [parseDate(startDate), parseDate(endDate)];
+      var xExtent = [parsedStartDate, parsedEndDate];
 
       spComplete.forEach(function(d) {
         d.date = parseDate(d.date);
