@@ -58,17 +58,17 @@ class ApplicationController < ActionController::Base
   def calculate_todays_burndown(sprint)
     return if sprint.nil?
     return unless sprint.start_at.to_date == Date.today
-    Resque.enqueue(CalculateBurnJob, Date.today, sprint.id)
+    CalculateBurnWorker.perform_async(Date.today, sprint.id)
   end
 
   def calculate_tomorrows_burndown(sprint)
     return if sprint.nil?
-    Resque.enqueue(CalculateBurnJob, Date.tomorrow, sprint.id)
+    CalculateBurnWorker.perform_async(Date.tomorrow, sprint.id)
   end
 
   def calculate_end_burndown(sprint)
     return if sprint.nil?
-    Resque.enqueue(CalculateBurnJob, 1.day.from_now(sprint.end_at).to_date, sprint.id)
+    CalculateBurnWorker.perform_async(1.day.from_now(sprint.end_at).to_date, sprint.id)
   end
 
 end

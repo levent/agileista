@@ -27,7 +27,7 @@ class AbstractSecurityController < ApplicationController
   def hipchat_notify(message)
     hip_chat_integration = @project.try(:hip_chat_integration)
     if hip_chat_integration && hip_chat_integration.required_fields_present?
-      Resque.enqueue(HipChatJob, @project.hip_chat_integration.token, @project.hip_chat_integration.room, @project.hip_chat_integration.notify?, message)
+      HipChatWorker.perform_async(@project.hip_chat_integration.token, @project.hip_chat_integration.room, @project.hip_chat_integration.notify?, message)
     end
   end
 end

@@ -1,5 +1,10 @@
+require 'sidekiq/web'
 Agileista::Application.routes.draw do
-  mount SecureResqueServer.new, :at => '/resque'
+  constraint = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.email == 'lebreeze@gmail.com' }
+  constraints constraint do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   devise_for :people
 
   get "/console" => "console#index"
