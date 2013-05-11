@@ -64,14 +64,14 @@ namespace :deploy do
     top.upload("public/assets/manifest.yml", "#{release_path}/public/assets/manifest.yml", :via => :scp)
   end
 
-  desc "Start the resque worker"
-  task :start_resque, :roles => :app do
-    sudo "monit start -g resque_workers"
+  desc "Start the sidekiq worker"
+  task :start_sidekiq, :roles => :app do
+    sudo "monit start -g sidekiq"
   end
 
-  desc "Stop the resque worker"
-  task :stop_resque, :roles => :app do
-    sudo "monit stop -g resque_workers"
+  desc "Stop the sidekiq worker"
+  task :stop_sidekiq, :roles => :app do
+    sudo "monit stop -g sidekiq"
   end
 end
 
@@ -130,9 +130,9 @@ end
 
 before "deploy:update_code",
   "sphinx_stop",
-  "deploy:stop_resque"
+  "deploy:stop_sidekiq"
 after "deploy:update_code",
   :setup_symlinks,
   'deploy:migrate',
   'sass:update'
-after "deploy", "deploy:cleanup", "deploy:unicorns", "sphinx_configure", "deploy:start_resque", "bundle_clean"
+after "deploy", "deploy:cleanup", "deploy:unicorns", "sphinx_configure", "deploy:start_sidekiq", "bundle_clean"
