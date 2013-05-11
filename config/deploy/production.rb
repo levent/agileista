@@ -66,12 +66,12 @@ namespace :deploy do
 
   desc "Start the sidekiq worker"
   task :start_sidekiq, :roles => :app do
-    sudo "monit start -g sidekiq"
+    sudo "monit start -g sidekiq_worker"
   end
 
   desc "Stop the sidekiq worker"
   task :stop_sidekiq, :roles => :app do
-    sudo "monit stop -g sidekiq"
+    sudo "monit stop -g sidekiq_worker"
   end
 end
 
