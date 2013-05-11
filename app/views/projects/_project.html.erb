@@ -3,6 +3,6 @@
     <li class="title"><%= project.name.humanize %></li>
     <li class="bullet-item"><%= pluralize(project.people.count, 'person') %></li>
     <li class="bullet-item"><%= pluralize(project.user_stories.unassigned.count, 'story') %></li>
-    <li class="cta-button"><%= link_to 'Choose Project', project_backlog_index_path(project), :class => 'button' %></li>
+    <li class="cta-button"><%= link_to 'Choose Project', project_backlog_index_path(project), :class => 'button radius' %></li>
   </ul>
 </div>
