@@ -1,11 +1,13 @@
-<div class="text-center">
-  <h2>Agileista - Scrum Collaboration<br><small>By Developers for Developers</small></h2>
+<div class="row">
+  <div class="sixteen columns centered">
+    <h1 class="text-center">Agileista<br><small>Online collaboration for distributed Scrum teams</small></h1>
+  </div>
 </div>
 
 <!-- Content Slider -->
 
 <div class="row">
-  <div class="twelve columns centered hide-for-small">
+  <div class="sixteen columns centered hide-for-small">
 
     <div id="featured">
       <%= image_tag 'about/backlog.png', :class => 'orbit-slide' %>
@@ -18,23 +20,38 @@
   </div>
 </div>
 
-<div class="text-center">
-  <p>Agileista evolved over years of running Scrum across several distributed teams.</p>
-  <h3>Our Requirements:</h3>
-  <p>
-  An ordered backlog<br>
-  User stories with acceptance criteria<br>
-  Story points<br>
-  Sprint planning<br>
-  Velocity calculation<br>
-  Basic horizon planning<br>
-  Pair programming support<br>
-  Simple task board<br>
-  Burn charts<br>
-  No hour tracking on tasks<br>
-  HipChat integration
-  </p>
-  <h4><%= link_to 'Try it out!', new_person_registration_path, :class => "large radius button" %></h4>
+<div class="row">
+  <div class="sixteen columns centered">
+    <blockquote class="panel">
+      <h3>Agileista has been evolving for over six years, whilst running Scrum across several distributed teams.</h3>
+      <cite>Levent Ali, developer of Agileista</cite>
+    </blockquote>
+  </div>
+</div>
+
+<div class="row">
+  <div class="sixteen columns offset-by-four">
+  </div>
+</div>
+
+<div class="row">
+  <div class="eight columns centered text-center">
+    <h3>What Agileista Provides</h3>
+    <ul class="none">
+      <li>An ordered backlog</li>
+      <li>User stories with acceptance criteria</li>
+      <li>Story points</li>
+      <li>Sprint planning</li>
+      <li>Velocity calculation</li>
+      <li>Basic horizon planning</li>
+      <li>Pair programming support</li>
+      <li>Simple task board</li>
+      <li>Burn charts</li>
+      <li>No hour tracking on tasks</li>
+      <li>HipChat integration</li>
+    </ul>
+    <%= link_to 'Try it out free!', new_person_registration_path, :class => "large radius button" %>
+  </div>
 </div>
 
 <% content_for :custom_js do %>
