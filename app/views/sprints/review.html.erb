@@ -2,13 +2,12 @@
 
   <div class="twentyfour columns">
     <div class="row">
-      <div class="twentyfour columns">
+      <div class="eighteen columns">
         <h2>Review: <%= sprint_header(@sprint) %></h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="twentyfour columns">
         <%= render :partial => "shared/burn_charts" %>
+      </div>
+      <div class="six columns">
+        <%= render 'filters' %>
       </div>
     </div>
 
