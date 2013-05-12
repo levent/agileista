@@ -55,6 +55,7 @@ namespace :deploy do
   end
 
   task :restart do
+    run_locally "rm -rf public/assets"
     run_locally "bundle exec rake assets:precompile RAILS_ENV=#{rails_env} AWS_ACCESS_KEY_ID=\"#{ENV['AWS_ACCESS_KEY_ID']}\" AWS_SECRET_ACCESS_KEY=\"#{ENV['AWS_SECRET_ACCESS_KEY']}\" FOG_DIRECTORY=\"agileista-#{rails_env}\""
 
     # Ensure assets folder exists on app servers
