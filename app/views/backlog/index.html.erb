@@ -1,3 +1,5 @@
+<% content_for :title, "Backlog - #{@project.name.humanize} - Agileista" %>
+
 <div class="row">
   <div class="columns twentyfour">
     <h2>Backlog: <small><span class="hide-for-small"><%= pluralize(@user_stories.length, "user story") %> worth <%= show_story_points(@story_points ||= nil) %> <span class="hide-for-medium-down">(Velocity: <%= average_velocity(@project) %>)</span></span></small> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
