@@ -17,9 +17,11 @@
 
     <hr>
 
-    <%= link_to "Delete project", project_path(@project), :method => :delete, :confirm => 'Are you sure? This cannot be recovered from.', :class => 'button tiny alert' %>
+    <%= link_to "Delete project", project_path(@project), :method => :delete, :confirm => 'Are you sure? This cannot be recovered from.', :class => 'button small alert' %> <abbr>This cannot be undone</abbr>
   </div>
 </div>
+
+<hr>
 
 <div class="row">
   <div class="columns six end">
