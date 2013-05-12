@@ -9,14 +9,6 @@
 
     <hr>
 
-    <%= form_tag({:controller => 'account', :action => 'generate_api_key'}, {:class => 'form'}) %>
-      <label>Api Key</label>
-      <p><%= current_user.api_key || "No api key" %></p>
-      <%= button_tag "Generate Api Key", :class => 'button' %>
-    </form>
-
-    <hr>
-
     <%= link_to "Delete project", project_path(@project), :method => :delete, :confirm => 'Are you sure? This cannot be recovered from.', :class => 'button small alert' %> <abbr>This cannot be undone</abbr>
   </div>
 </div>
