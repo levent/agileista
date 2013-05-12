@@ -7,7 +7,7 @@
   _gaq.push(['_trackPageview']);
 
   <% if defined?(@project) %>
-  _gaq.push(['_setCustomVar', 1, 'Project', '<%= @project.id %>' ]);
+  _gaq.push(['_setCustomVar', 1, 'Project', '<%= @project.id %>', 3 ]);
   <% end %>
 
   (function() {
