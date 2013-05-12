@@ -7,9 +7,6 @@
       <%= f.button :submit %>
     <% end %>
 
-    <hr>
-
-    <%= link_to "Delete project", project_path(@project), :method => :delete, :confirm => 'Are you sure? This cannot be recovered from.', :class => 'button small alert' %> <abbr>This cannot be undone</abbr>
   </div>
 </div>
 
@@ -25,5 +22,9 @@
       <br>
       <%= f.button :submit, "Save HipChat Settings" %>
     <% end %>
+
+    <hr>
+
+    <%= link_to "Delete project", project_path(@project), :method => :delete, :confirm => 'Are you sure? This cannot be recovered from.', :class => 'button small alert' %> <abbr>This cannot be undone</abbr>
   </div>
 </div>
