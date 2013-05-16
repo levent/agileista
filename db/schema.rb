@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430203248) do
+ActiveRecord::Schema.define(:version => 20130516180702) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20130430203248) do
     t.integer "story_points_remaining"
   end
 
-  add_index "burndowns", ["sprint_id", "created_on"], :name => "index_burndowns_on_sprint_id_and_created_on"
+  add_index "burndowns", ["sprint_id", "created_on"], :name => "index_burndowns_on_sprint_id_and_created_on", :unique => true
   add_index "burndowns", ["sprint_id"], :name => "index_burndowns_on_sprint_id"
 
   create_table "hip_chat_integrations", :force => true do |t|
