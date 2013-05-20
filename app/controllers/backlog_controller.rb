@@ -20,7 +20,7 @@ class BacklogController < AbstractSecurityController
       end
     end
   end
-  
+
   def search
     store_location
     if params[:q]
@@ -31,7 +31,7 @@ class BacklogController < AbstractSecurityController
       redirect_to :action => 'index' and return false
     end
   end
-  
+
   def sort
     @user_stories.find(params[:user_story_id]).update_attribute(:backlog_order_position, params[:move_to])
     json = {
@@ -42,7 +42,7 @@ class BacklogController < AbstractSecurityController
     Juggernaut.publish(uid, json)
     render :json => {:ok => true, :velocity => @project.average_velocity}.to_json
   end
-  
+
   private
 
   def calculate_staleness(t)
