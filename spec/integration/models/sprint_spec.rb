@@ -4,19 +4,11 @@ describe Sprint do
 
   before do
     @it = Sprint.new
-
-    # stub out sweepers
-    sweeper = mock(SprintAuditSweeper)
-    sweeper.stub!(:update)
-    SprintElement.instance_variable_set(:@observer_peers, [sweeper])
   end
 
-  it { should have_many(:sprint_changes)}
   it { should have_many(:sprint_elements).dependent(:delete_all) }
   it { should have_many(:user_stories) }
   it { should have_many(:burndowns) }
-  it { should have_many(:sprint_changes) }
-  it { should have_many(:audits) }
 
   it { should belong_to :project }
   it { should validate_presence_of :project_id }
