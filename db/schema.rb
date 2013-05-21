@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516180702) do
+ActiveRecord::Schema.define(:version => 20130521080649) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -113,19 +113,6 @@ ActiveRecord::Schema.define(:version => 20130516180702) do
   end
 
   add_index "projects", ["name"], :name => "index_projects_on_name", :unique => true
-
-  create_table "sprint_changes", :force => true do |t|
-    t.integer  "auditable_id"
-    t.integer  "sprint_id"
-    t.integer  "person_id"
-    t.text     "auditable_type"
-    t.string   "kind"
-    t.text     "changes_description"
-    t.boolean  "major"
-    t.text     "details"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "sprint_elements", :force => true do |t|
     t.integer "sprint_id"
