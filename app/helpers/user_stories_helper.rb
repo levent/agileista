@@ -17,10 +17,11 @@ module UserStoriesHelper
   def parse_definition(definition)
     definition = html_escape(definition)
     definition.scan(/\[\w+\]/).uniq.each do |m|
-      link = link_to m, search_project_backlog_index_path(@project, :q => m), :class => 'tagged'
+      tag = m.clone
+      tag.gsub!('[', '').gsub!(']', '')
+      link = link_to m, search_project_backlog_index_path(@project, :t => tag.downcase), :class => 'tagged'
       definition.gsub!(m, link).html_safe
     end
     definition
   end
 end
-

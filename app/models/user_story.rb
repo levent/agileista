@@ -1,14 +1,32 @@
 require 'csv'
 class UserStory < ActiveRecord::Base
 
-  define_index do
-    indexes definition
-    indexes description
-    indexes [stakeholder, person.name], :as => :responsible
-    has project(:id), :as => :project_id
-    where "done = 0 AND sprint_id IS NULL"
-    set_property :delta => true
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+  mapping do
+    indexes :id, :index => :not_analyzed
+    indexes :definition, :analyzer => 'snowball', :boost => 100
+    indexes :description, :analyzer => 'snowball'
+    indexes :stakeholder, :analyzer => 'keyword'
+    indexes :project_id, :type => 'integer', :index => :not_analyzed
+    indexes :sprint_id, :type => 'integer', :index => :not_analyzed
+    indexes :done, :type => 'integer', :index => :not_analyzed
+    indexes :created_at, :type => 'date', :include_in_all => false
+    indexes :tags, :analyzer => 'keyword', :as => 'tags'
   end
+
+  def tags
+    self.definition.scan(/\[(\w+)\]/).uniq.flatten.map(&:downcase)
+  end
+
+  # define_index do
+  #   indexes definition
+  #   indexes description
+  #   indexes [stakeholder, person.name], :as => :responsible
+  #   has project(:id), :as => :project_id
+  #   where "done = 0 AND sprint_id IS NULL"
+  #   set_property :delta => true
+  # end
 
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements
