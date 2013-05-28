@@ -388,8 +388,16 @@ dl.sub-nav dd.active {
   shape-rendering: crispEdges;
 }
 
+text.tasks-text, text.velocity-text {
+  font-size: 1.2em;
+}
+
 text.tasks-text {
   fill: $mainColor;
+}
+
+text.velocity-text {
+  fill: $successColor;
 }
 
 .line-complete, .line-remaining, .line-tasks, .line-velocity {

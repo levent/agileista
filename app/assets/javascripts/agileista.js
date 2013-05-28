@@ -136,8 +136,9 @@ var Agileista = (function(){
           .call(yAxis)
         .append("text")
           .attr("transform", "rotate(-90)")
+          .attr("class", "velocity-text")
           .attr("y", 6)
-          .attr("dy", ".71em")
+          .attr("dy", ".61em")
           .style("text-anchor", "end")
           .text("Velocity");
 
@@ -149,7 +150,7 @@ var Agileista = (function(){
           .attr("transform", "rotate(-90) translate(0, -20)")
           .attr("class", "tasks-text")
           .attr("y", 6)
-          .attr("dy", ".71em")
+          .attr("dy", ".61em")
           .style("text-anchor", "end")
           .text("Tasks left");
 
