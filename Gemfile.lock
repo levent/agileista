@@ -133,7 +133,7 @@ GEM
     gravtastic (3.2.6)
     highline (1.6.15)
     hike (1.2.2)
-    hipchat (0.8.0)
+    hipchat (0.9.0)
       httparty
     hirb (0.7.1)
     hiredis (0.4.5)
