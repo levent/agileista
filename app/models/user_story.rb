@@ -6,13 +6,23 @@ class UserStory < ActiveRecord::Base
   mapping do
     indexes :id, :index => :not_analyzed
     indexes :definition, :analyzer => 'snowball', :boost => 100
-    indexes :description, :analyzer => 'snowball'
+    indexes :description, :analyzer => 'snowball', :boost => 50
     indexes :stakeholder, :analyzer => 'keyword'
     indexes :project_id, :type => 'integer', :index => :not_analyzed
     indexes :sprint_id, :type => 'integer', :index => :not_analyzed
     indexes :done, :type => 'integer', :index => :not_analyzed
     indexes :created_at, :type => 'date', :include_in_all => false
     indexes :tags, :analyzer => 'keyword', :as => 'tags'
+    indexes :search_ac, :analyzer => 'snowball'
+    indexes :search_task, :analyzer => 'snowball'
+  end
+
+  def search_ac
+    self.acceptance_criteria.collect(&:detail)
+  end
+
+  def search_task
+    self.tasks.collect(&:detail)
   end
 
   def tags

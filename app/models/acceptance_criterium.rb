@@ -1,4 +1,4 @@
-class AcceptanceCriterium < ActiveRecord::Base  
+class AcceptanceCriterium < ActiveRecord::Base
   include RankedModel
   belongs_to :user_story, :touch => true
 
