@@ -1,11 +1,9 @@
 .rvmrc
 .bundle/
 log
-db/sphinx/*
 .DS_Store
 *.sqlite3
 config/database.yml
-config/*.sphinx.conf
 index/*
 *.swp
 rerun.txt
