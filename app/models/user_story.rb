@@ -19,15 +19,6 @@ class UserStory < ActiveRecord::Base
     self.definition.scan(/\[(\w+)\]/).uniq.flatten.map(&:downcase)
   end
 
-  # define_index do
-  #   indexes definition
-  #   indexes description
-  #   indexes [stakeholder, person.name], :as => :responsible
-  #   has project(:id), :as => :project_id
-  #   where "done = 0 AND sprint_id IS NULL"
-  #   set_property :delta => true
-  # end
-
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements
   has_many :acceptance_criteria, :order => 'position', :dependent => :delete_all
@@ -202,4 +193,3 @@ class UserStory < ActiveRecord::Base
     sprints.map(&:expire_total_story_points)
   end
 end
-

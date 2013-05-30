@@ -8,6 +8,7 @@ Agileista::Application.routes.draw do
   devise_for :people
 
   get "/console" => "console#index"
+  get "/console/search" => "console#search"
   get "/health" => "health#index"
   post "/account/generate_api_key" => "account#generate_api_key"
 
