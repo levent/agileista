@@ -44,7 +44,7 @@
       <li class="has-button search hide-for-small">
       <%= form_for :tag, :url => search_project_backlog_index_path(@project), :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
         <%= text_field_tag 'q' %>
-        <%= button_tag 'Search', :class => "submit secondary button" %>
+        <%= button_tag 'Search', :class => "submit secondary button", :name => nil %>
       <% end %>
       </li>
       <li class="divider hide-for-small"></li>
