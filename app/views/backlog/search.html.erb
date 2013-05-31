@@ -1,6 +1,6 @@
 <div class="row">
   <div class="columns twenty">
-    <h2><%= pagination_info(@user_stories, "user story").html_safe %> <%= "found for: <kbd>#{params[:q]}</kbd>".html_safe if params[:q] %></h2>
+    <h2>Backlog search: <small><%= pagination_info(@user_stories, "user story").html_safe %> </small><%= "<small>found for</small> <kbd>#{params[:q]}</kbd>".html_safe %></h2>
   </div>
   <div class="columns four end text-right">
     <a href="#" class="button small" data-reveal-id="myModal">Search help</a>

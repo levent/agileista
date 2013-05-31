@@ -23,13 +23,12 @@ class BacklogController < AbstractSecurityController
 
   def search
     store_location
-    q = params[:q]
-    q = '*' if q.blank?
+    params[:q] = '*' if params[:q].blank?
     raise ArgumentError unless @project.id
     @user_stories = UserStory.search(per_page: 100, page: params[:page], load: true) do |search|
       search.query do |query|
         query.boolean do |boolean|
-          boolean.must { |must| must.string q, default_operator: "AND" }
+          boolean.must { |must| must.string params[:q], default_operator: "AND" }
           boolean.must { |must| must.term :project_id, @project.id }
           boolean.must { |must| must.term :done, 0 }
         end
