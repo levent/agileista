@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe UserStory do
-  
+
   before(:each) do
     @project = Project.make!
     @us = UserStory.make!(:project => @project)
@@ -9,7 +9,7 @@ describe UserStory do
     @task_b = Task.new
     @task_c = Task.new
   end
-  
+
   describe "in general" do
     it "should default to being estimateable" do
       @us.stub!(:valid?).and_return(true)
@@ -17,7 +17,7 @@ describe UserStory do
       @us.reload
       @us.cannot_be_estimated?.should be_false
     end
-    
+
     it "should be flaggable as cannot be estimated" do
       @us.stub!(:valid?).and_return(true)
       @us.cannot_be_estimated = 1
@@ -25,12 +25,12 @@ describe UserStory do
       @us.reload
       @us.cannot_be_estimated?.should be_true
     end
-    
+
     describe "stakeholder field" do
       it "should default to blank" do
         @us.stakeholder.should be_blank
       end
-      
+
       it "should accept a string" do
         @us.stub!(:valid?).and_return(true)
         @us.stakeholder = "Mr Leroy Burns the Third of Edinbra"
@@ -46,21 +46,21 @@ describe UserStory do
       @us.stub!(:tasks).and_return([])
       @us.complete?.should be_false
     end
-    
+
     it "should return true if all tasks are complete" do
       @task_a.stub!(:complete?).and_return(true)
       @task_b.stub!(:complete?).and_return(true)
       @us.stub!(:tasks).and_return([@task_a, @task_b])
       @us.complete?.should be_true
     end
-    
+
     it "should return false if any tasks are incomplete" do
       @task_a.stub!(:complete?).and_return(true)
       @task_b.stub!(:complete?).and_return(false)
       @us.stub!(:tasks).and_return([@task_a, @task_b])
       @us.complete?.should be_false
     end
-    
+
     it "should return false if all tasks are incomplete" do
       @task_a.stub!(:complete?).and_return(false)
       @task_b.stub!(:complete?).and_return(false)
@@ -68,7 +68,7 @@ describe UserStory do
       @us.complete?.should be_false
     end
   end
-  
+
   describe "#state?" do
     it "should return css class if user_story has no story point assigned" do
       @us.acceptance_criteria.stub!(:blank?).and_return(false)
@@ -91,19 +91,19 @@ describe UserStory do
       @us.state.should == "criteria"
     end
   end
-  
+
   describe "#inprogress?" do
     it "should return false if no tasks" do
       @us.inprogress?.should be_false
     end
-    
+
     it "should return true if any tasks are inprogress still" do
       @task_a.stub!(:inprogress?).and_return(true)
       @task_b.stub!(:inprogress?).and_return(false)
       @us.stub!(:tasks).and_return([@task_a, @task_b])
       @us.inprogress?.should be_true
     end
-    
+
     it "should return false if all tasks are complete" do
       @task_a.stub!(:inprogress?).and_return(false)
       @task_b.stub!(:inprogress?).and_return(false)
@@ -111,7 +111,7 @@ describe UserStory do
       @us.inprogress?.should be_false
     end
   end
-  
+
   describe "#copy!" do
     before(:each) do
       @us.project = Project.make!
@@ -135,7 +135,7 @@ describe UserStory do
       us.should have(2).acceptance_criteria
     end
   end
-  
+
   describe "self#complete_tasks" do
     it "should return an array of complete tasks" do
       @task_a.stub!(:complete?).and_return(true)
@@ -146,7 +146,7 @@ describe UserStory do
       UserStory.complete_tasks.should == [@task_a, @task_b]
     end
   end
-  
+
   describe "self#inprogress_tasks" do
     it "should return an array of inprogress tasks" do
       @task_a.stub!(:inprogress?).and_return(true)
@@ -157,7 +157,7 @@ describe UserStory do
       UserStory.inprogress_tasks.should == [@task_a, @task_b]
     end
   end
-  
+
   describe "self#incomplete_tasks" do
     it "should return an array of inprogress tasks" do
       @task_a.stub!(:incomplete?).and_return(true)
