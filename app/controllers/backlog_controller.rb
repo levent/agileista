@@ -24,25 +24,21 @@ class BacklogController < AbstractSecurityController
   def search
     store_location
     q = params[:q]
-    t = params[:t]
-    if q || t
-      raise ArgumentError unless @project.id
-      q = '*' if q.blank?
-      @user_stories = UserStory.search(per_page: 100, page: params[:page], load: true) do |search|
-        search.query do |query|
-          query.boolean do |boolean|
-            boolean.must { |must| must.string q, default_operator: "AND" }
-            boolean.must { |must| must.term :tags, t} if t
-            boolean.must { |must| must.term :project_id, @project.id }
-            boolean.must { |must| must.term :done, 0 }
-          end
+    q = '*' if q.blank?
+    raise ArgumentError unless @project.id
+    @user_stories = UserStory.search(per_page: 100, page: params[:page], load: true) do |search|
+      search.query do |query|
+        query.boolean do |boolean|
+          boolean.must { |must| must.string q, default_operator: "AND" }
+          boolean.must { |must| must.term :project_id, @project.id }
+          boolean.must { |must| must.term :done, 0 }
         end
-        search.filter(:missing, :field => 'sprint_id' )
       end
-    else
-      flash[:notice] = "No user stories found"
-      redirect_to :action => 'index' and return false
+      search.filter(:missing, :field => 'sprint_id' )
     end
+  rescue Tire::Search::SearchRequestFailed => e
+    @user_stories = @project.user_stories.limit(0).paginate(:per_page => 0, :page => 1)
+    flash[:error] = "Invalid search query"
   end
 
   def sort

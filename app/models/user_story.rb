@@ -13,7 +13,7 @@ class UserStory < ActiveRecord::Base
     indexes :sprint_id, :type => 'integer', :index => :not_analyzed
     indexes :done, :type => 'integer', :index => :not_analyzed
     indexes :created_at, :type => 'date', :include_in_all => false
-    indexes :tags, :analyzer => 'keyword', :as => 'tags'
+    indexes :tag, :analyzer => 'keyword', :as => 'tags'
     indexes :search_ac, :analyzer => 'snowball', :as => 'search_ac'
     indexes :search_task, :analyzer => 'snowball', :as => 'search_tasks'
   end

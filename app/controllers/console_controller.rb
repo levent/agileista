@@ -7,13 +7,11 @@ class ConsoleController < AbstractSecurityController
 
   def search
     q = params[:q]
-    t = params[:t]
-    q = '*' if q.blank? && t.blank?
+    q = '*' if q.blank?
     @user_stories = UserStory.search(per_page: 100, page: params[:page], load: true) do |search|
       search.query do |query|
         query.boolean do |boolean|
           boolean.must { |must| must.string q, default_operator: "AND" }
-          boolean.must { |must| must.term :tags, t} if t
           boolean.must { |must| must.term :done, 0 }
         end
       end

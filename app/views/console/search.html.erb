@@ -1,4 +1,4 @@
-<h2><%= pagination_info(@user_stories, "user story").html_safe %> <%= "found for '<strong>#{params[:q]}</strong>'".html_safe if params[:q] %><%= "tagged with '<strong>#{params[:t]}</strong>'".html_safe if params[:t] %></h2>
+<h2><%= pagination_info(@user_stories, "user story").html_safe %> <%= "found for '<strong>#{params[:q]}</strong>'".html_safe if params[:q] %></h2>
 
 <%= form_for :tag, :url => console_search_path, :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
   <div class="row">

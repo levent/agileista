@@ -1,6 +1,6 @@
 <div class="row">
   <div class="columns twenty">
-    <h2><%= pagination_info(@user_stories, "user story").html_safe %> <%= "found for <kbd>#{params[:q]}</kbd>".html_safe if params[:q] %><%= "tagged with <kbd>#{params[:t]}</kbd>".html_safe if params[:t] %></h2>
+    <h2><%= pagination_info(@user_stories, "user story").html_safe %> <%= "found for <kbd>#{params[:q]}</kbd>".html_safe if params[:q] %></h2>
   </div>
   <div class="columns four end text-right">
     <a href="#" class="button small" data-reveal-id="myModal">Search tips</a>
@@ -58,13 +58,13 @@
   </div>
   <div class="row">
     <div class="ten columns">
-      <kbd>tags:"design"</kbd>
+      <kbd>tag:"design"</kbd>
     </div>
     <div class="ten columns">
       Tagged 'design'
     </div>
     <div class="four columns">
-      <%= link_to "try it", search_project_backlog_index_path(@project, :q => "tags:\"design\""), :class => 'button tiny' %>
+      <%= link_to "try it", search_project_backlog_index_path(@project, :q => "tag:\"design\""), :class => 'button tiny' %>
     </div>
   </div>
   <a class="close-reveal-modal">&#215;</a>
