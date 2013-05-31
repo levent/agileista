@@ -1,0 +1,49 @@
+<div id="myModal" class="reveal-modal large">
+  <h2>Query interface guide:</h2>
+  <p class="lead">Here are some queries you can run.</p>
+  <div class="row">
+    <div class="twelve columns">
+      <kbd>story_points:&lt;=8</kbd>
+    </div>
+    <div class="eight columns">
+      Story points less than or equal to 8
+    </div>
+    <div class="four columns">
+      <%= link_to "Try it!", search_project_backlog_index_path(@project, :q => "story_points:<=8"), :class => 'button tiny' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="twelve columns">
+      <kbd>stakeholder:"<%= current_person.name %>"</kbd>
+    </div>
+    <div class="eight columns">
+      Stakeholder <%= current_person.name %>
+    </div>
+    <div class="four columns">
+      <%= link_to "Try it!", search_project_backlog_index_path(@project, :q => "stakeholder:\"#{current_person.name}\""), :class => 'button tiny' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="twelve columns">
+      <kbd>tag:"design"</kbd>
+    </div>
+    <div class="eight columns">
+      Tagged 'design'
+    </div>
+    <div class="four columns">
+      <%= link_to "Try it!", search_project_backlog_index_path(@project, :q => "tag:\"design\""), :class => 'button tiny' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="twelve columns">
+      <kbd>created_at:[<%= Date.today.beginning_of_month %> TO <%= Date.today.end_of_month %>]</kbd>
+    </div>
+    <div class="eight columns">
+      Created this month
+    </div>
+    <div class="four columns">
+      <%= link_to "Try it!", search_project_backlog_index_path(@project, :q => "created_at:[#{Date.today.beginning_of_month} TO #{Date.today.end_of_month}]"), :class => 'button tiny' %>
+    </div>
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
