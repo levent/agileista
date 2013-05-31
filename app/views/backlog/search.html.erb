@@ -1,4 +1,12 @@
-<h2><%= pagination_info(@user_stories, "user story").html_safe %> <%= "found for <kbd>#{params[:q]}</kbd>".html_safe if params[:q] %><%= "tagged with <kbd>#{params[:t]}</kbd>".html_safe if params[:t] %></h2>
+<div class="row">
+  <div class="columns twenty">
+    <h2><%= pagination_info(@user_stories, "user story").html_safe %> <%= "found for <kbd>#{params[:q]}</kbd>".html_safe if params[:q] %><%= "tagged with <kbd>#{params[:t]}</kbd>".html_safe if params[:t] %></h2>
+  </div>
+  <div class="columns four end text-right">
+    <a href="#" class="button small" data-reveal-id="myModal">Search tips</a>
+  </div>
+</div>
+
 
 <% unless @user_stories.blank? %>
 
@@ -22,3 +30,42 @@
   </div>
 
 <% end %>
+
+<div id="myModal" class="reveal-modal large">
+  <h2>Search tips</h2>
+  <p class="lead">Here are some queries you can run.</p>
+  <div class="row">
+    <div class="ten columns">
+      <kbd>story_points:&lt;=8</kbd>
+    </div>
+    <div class="ten columns">
+      Story points less than or equal to 8
+    </div>
+    <div class="four columns">
+      <%= link_to "try it", search_project_backlog_index_path(@project, :q => "story_points:<=8"), :class => 'button tiny' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="ten columns">
+      <kbd>stakeholder:"<%= current_person.name %>"</kbd>
+    </div>
+    <div class="ten columns">
+      Stakeholder <%= current_person.name %>
+    </div>
+    <div class="four columns">
+      <%= link_to "try it", search_project_backlog_index_path(@project, :q => "stakeholder:\"#{current_person.name}\""), :class => 'button tiny' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="ten columns">
+      <kbd>tags:"design"</kbd>
+    </div>
+    <div class="ten columns">
+      Tagged 'design'
+    </div>
+    <div class="four columns">
+      <%= link_to "try it", search_project_backlog_index_path(@project, :q => "tags:\"design\""), :class => 'button tiny' %>
+    </div>
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
