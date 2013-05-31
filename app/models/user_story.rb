@@ -13,21 +13,23 @@ class UserStory < ActiveRecord::Base
     indexes :done, :type => 'integer', :index => :not_analyzed
     indexes :created_at, :type => 'date', :include_in_all => false
     indexes :tags, :analyzer => 'keyword', :as => 'tags'
-    indexes :search_ac, :analyzer => 'snowball'
-    indexes :search_task, :analyzer => 'snowball'
+    indexes :search_ac, :analyzer => 'snowball', :as => 'search_ac'
+    indexes :search_task, :analyzer => 'snowball', :as => 'search_tasks'
   end
 
   def search_ac
     self.acceptance_criteria.collect(&:detail)
   end
 
-  def search_task
-    self.tasks.collect(&:detail)
+  def search_tasks
+    self.tasks.collect(&:definition)
   end
 
   def tags
     self.definition.scan(/\[(\w+)\]/).uniq.flatten.map(&:downcase)
   end
+
+  after_touch() { tire.update_index }
 
   has_many :sprint_elements, :dependent => :delete_all
   has_many :sprints, :through => :sprint_elements
