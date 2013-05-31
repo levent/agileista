@@ -129,6 +129,7 @@ describe UserStory do
       task1 = @us.tasks.make!(:hours => 6)
       task2 = @us.tasks.make!(:hours => 0)
       2.times { @us.acceptance_criteria.create(:detail => "It should work") }
+      @us.reload
       @us.copy!
       us = UserStory.last
       us.should have(2).tasks
