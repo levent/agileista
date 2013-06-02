@@ -47,6 +47,7 @@ namespace :deploy do
 
     # Put new manifest onto all the app servers
     top.upload("public/assets/manifest.yml", "#{release_path}/public/assets/manifest.yml", :via => :scp)
+    run_locally "rm -rf public/assets"
   end
 
   desc "Start the sidekiq worker"
