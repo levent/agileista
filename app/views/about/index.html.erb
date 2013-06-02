@@ -1,6 +1,9 @@
-<% cache do %>
-  <% content_for :title, "Agileista - Online collaboration for distributed Scrum teams" %>
+<% content_for :title, "Agileista - Online collaboration for distributed Scrum teams" %>
+<% content_for :custom_js do %>
+  $('#featured').orbit({ fluid: '2x1' });
+<% end %>
 
+<% cache do %>
   <div class="row">
     <div class="sixteen columns centered">
       <h1 class="text-center">Agileista<br><small>Online collaboration for distributed Scrum teams</small></h1>
@@ -56,8 +59,4 @@
       <%= link_to 'Try it out free!', new_person_registration_path, :class => "large radius button" %>
     </div>
   </div>
-
-  <% content_for :custom_js do %>
-    $('#featured').orbit({ fluid: '2x1' });
-  <% end %>
 <% end %>
