@@ -6,7 +6,7 @@
   <td><%= show_date(person.created_at) %></td>
   <td><%= show_date(person.last_sign_in_at) if person.last_sign_in_at %></td>
 	<td>
-    <%= link_to 'Remove from project', project_team_member_path(@project, person), :class => "tiny button alert", :method => :delete, :confirm => "Are you sure?" if current_user.scrum_master_for?(@project) && person != current_person %>
+    <%= link_to 'Remove from project', project_team_member_path(@project, person), :class => "tiny button alert", :method => :delete, :confirm => "Are you sure?" if current_user.scrum_master_for?(@project) || person == current_person %>
   </td>
 </tr>
 

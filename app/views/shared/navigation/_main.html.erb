@@ -51,12 +51,10 @@
       <li class="has-dropdown">
         <%= link_to @project.name.humanize, project_backlog_index_path(@project) %>
         <ul class="dropdown">
-          <% if current_person.scrum_master_for?(@project) %>
-            <li><label><%= @project.name.humanize %></label></li>
-            <li><%= link_to "Settings", edit_project_path(@project) %></li>
-            <li><%= link_to "Users", project_people_path(@project) %></li>
-            <li class="divider"></li>
-          <% end %>
+          <li><label><%= @project.name.humanize %></label></li>
+          <li><%= link_to "Settings", edit_project_path(@project) if current_person.scrum_master_for?(@project) %></li>
+          <li><%= link_to "Users", project_people_path(@project) %></li>
+          <li class="divider"></li>
           <li><label>Other projects</label></li>
           <% current_person.projects.where("project_id != ?", @project.id).each do |project| %>
             <li><%= link_to project.name.humanize, project_backlog_index_path(project) unless project.new_record? %></li>
