@@ -47,13 +47,13 @@
   </div>
   <div class="row">
     <div class="twelve columns">
-      <kbd>created_at:[1970-01-01 TO <%= Date.today.months_ago(3) %>]</kbd>
+      <kbd>created_at:<<%= Date.today.months_ago(3) %></kbd>
     </div>
     <div class="eight columns">
       Older than 3 months
     </div>
     <div class="four columns">
-      <%= link_to "Try it!", search_project_backlog_index_path(@project, :q => "created_at:[1970-01-01 TO #{Date.today.months_ago(3)}]"), :class => 'button tiny' %>
+      <%= link_to "Try it!", search_project_backlog_index_path(@project, :q => "created_at:<#{Date.today.months_ago(3)}"), :class => 'button tiny' %>
     </div>
   </div>
   <a class="close-reveal-modal">&#215;</a>
