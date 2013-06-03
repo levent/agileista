@@ -185,7 +185,7 @@ $(function() {
     return ui;
   };
 
-  if ($('#backlog-items').length > 0 && (window.location.pathname.indexOf('stale') === -1)) {
+  if ( $('#backlog-items').length > 0 ) {
     $('#backlog-items').sortable({
       items: '> div',
       update: function(event, ui) {

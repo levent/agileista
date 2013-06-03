@@ -29,7 +29,7 @@ var Agileista = (function(){
     },
 
     setupVelocityMarkers = function(velocity) {
-      if((velocity !== '') && window.location.pathname.indexOf('stale') === -1){
+      if(velocity !== '') {
         $('.release-marker').removeClass('release-marker');
         var user_stories = $('.backlog-item');
         var tally = 0;
