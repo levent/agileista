@@ -7,7 +7,7 @@ class UserStory < ActiveRecord::Base
     indexes :id, :index => :not_analyzed
     indexes :definition, :analyzer => 'snowball', :boost => 100
     indexes :description, :analyzer => 'snowball', :boost => 50
-    indexes :stakeholder, :analyzer => 'keyword'
+    indexes :stakeholder, :analyzer => 'simple'
     indexes :story_points, :type => 'integer', :index => :not_analyzed
     indexes :project_id, :type => 'integer', :index => :not_analyzed
     indexes :sprint_id, :type => 'integer', :index => :not_analyzed
