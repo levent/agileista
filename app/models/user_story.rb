@@ -16,6 +16,7 @@ class UserStory < ActiveRecord::Base
     indexes :tag, :analyzer => 'keyword', :as => 'tags'
     indexes :search_ac, :analyzer => 'snowball', :as => 'search_ac'
     indexes :search_task, :analyzer => 'snowball', :as => 'search_tasks'
+    indexes :state, :analyzer => 'keyword', :as => 'state'
   end
 
   def search_ac
