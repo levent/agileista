@@ -2,7 +2,7 @@
   <div class="columns twenty">
     <h2>Backlog search: <small><%= pagination_info(@user_stories, "user story").html_safe %> </small><%= "<small>found for</small> <kbd>#{params[:q]}</kbd>".html_safe %></h2>
   </div>
-  <div class="columns four end text-right">
+  <div class="columns four end text-right hide-for-small">
     <a href="#" class="button small" data-reveal-id="myModal">Search help</a>
   </div>
 </div>
