@@ -25,13 +25,24 @@
   </div>
   <div class="row">
     <div class="twelve columns">
-      <kbd>tag:"design"</kbd>
+      <kbd>tag:design</kbd>
     </div>
     <div class="eight columns">
       Tagged 'design'
     </div>
     <div class="four columns">
-      <%= link_to "Try it!", search_project_backlog_index_path(@project, :q => "tag:\"design\""), :class => 'button tiny' %>
+      <%= link_to "Try it!", search_project_backlog_index_path(@project, :q => "tag:design"), :class => 'button tiny' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="twelve columns">
+      <kbd>state:plan</kbd>
+    </div>
+    <div class="eight columns">
+      State 'plan'
+    </div>
+    <div class="four columns">
+      <%= link_to "Try it!", search_project_backlog_index_path(@project, :q => "state:plan"), :class => 'button tiny' %>
     </div>
   </div>
   <div class="row">
