@@ -67,17 +67,16 @@ class UserStoriesController < AbstractSecurityController
     end
     redirect_back_or(project_backlog_index_path(@project))
   end
-  
+
   def plan
     @user_story.sprint = @sprint
     @user_story.save!
     @sprint.expire_total_story_points
     SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
     points_planned = @sprint.user_stories.sum('story_points')
-    hours_left = @sprint.hours_left
-    render :json => {:ok => true, :points_planned => points_planned, :hours_left => hours_left}.to_json
+    render :json => {:ok => true, :points_planned => points_planned}.to_json
   end
-  
+
   def unplan
     @user_story.sprint = nil
     @user_story.backlog_order_position = :first
@@ -90,9 +89,8 @@ class UserStoriesController < AbstractSecurityController
         redirect_to sprint_path(@sprint)
       }
       format.json {
-        hours_left = @sprint.hours_left
         points_planned = @sprint.user_stories.sum('story_points')
-        render :json => {:ok => true, :points_planned => points_planned, :hours_left => hours_left}.to_json
+        render :json => {:ok => true, :points_planned => points_planned}.to_json
       }
     end
   end

@@ -146,7 +146,6 @@ function setupSprintPlanning(project_id, sprint_id) {
       $.post('/projects/' + project_id + '/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/unplan', {format: 'json'}, function(data) {
         if(data.ok === true) {
           $('#points_planned').html(data.points_planned + ' story points');
-          $('#hours_left').html(data.hours_left + ' hours');
           $('#flashs').html('Sprint reordered');
         }
       }, "json");
@@ -167,7 +166,6 @@ function setupSprintPlanning(project_id, sprint_id) {
       $.post('/projects/' + project_id + '/sprints/' + sprint_id + '/user_stories/' + ui.item.attr('data-story') + '/plan', {format: 'json'}, function(data) {
         if(data.ok === true) {
           $('#points_planned').html(data.points_planned + ' story points');
-          $('#hours_left').html(data.hours_left + ' hours');
           $('#flashs').html('Sprint reordered');
         }
       }, "json");
