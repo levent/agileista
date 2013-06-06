@@ -6,8 +6,8 @@ module SprintsHelper
     return result.join(" ").html_safe
   end
 
-  def average_velocity(account, opts = {})
-    return nil unless velocity = @velocity || account.average_velocity
+  def average_velocity(project, opts = {})
+    return nil unless velocity = @velocity || project.average_velocity
     options = {:unit => "story points"}.merge(opts)
     "#{velocity} #{options[:unit]}"
   end

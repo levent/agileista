@@ -1,4 +1,4 @@
-<h2><%= @sprint.name %>: <small><span id="points_planned"><%= show_story_points(@sprint.user_stories.sum('story_points')) %></span> planned</small></h2>
+<h2><%= @sprint.name %>: <small><span id="points_planned"><%= show_story_points(@sprint.user_stories.sum('story_points')) %></span> planned <% if @velocity %>(<%= average_velocity(@project) %> available)<% end %></small></h2>
 <div id="estimated" class="eleven columns">
   <h3>Estimated user stories:</h3>
   <% @backlog_stories.includes(:person).each do |user_story| %>

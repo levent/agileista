@@ -73,6 +73,7 @@ class SprintsController < AbstractSecurityController
 
   def plan
     store_location
+    @velocity = @project.average_velocity
     @planned_stories = @sprint.user_stories.includes(:person)
     @backlog_stories = @project.user_stories.estimated
   end
