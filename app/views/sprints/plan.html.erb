@@ -3,14 +3,14 @@
 <div id="estimated" class="eleven columns">
   <h3>Estimated user stories:</h3>
   <% @backlog_stories.includes(:person).each do |user_story| %>
-    <%= render :partial => '/user_stories/user_story', :locals => {:sprint => @sprint, :user_story => user_story, :tasks => !@sprint.finished?, :copy => @sprint.finished? && !user_story.complete?} %>
+    <%= render :partial => '/user_stories/plan_user_story', :locals => {:sprint => @sprint, :user_story => user_story, :tasks => !@sprint.finished?, :copy => @sprint.finished? && !user_story.complete?} %>
   <% end %>
 </div>
 
 <div id="committed" class="eleven columns">
   <h3 class="tab"><%= @sprint.name %></h3>
   <% @planned_stories.each do |user_story| %>
-    <%= render :partial => '/user_stories/user_story', :locals => {:sprint => @sprint, :user_story => user_story, :tasks => !@sprint.finished?, :copy => @sprint.finished? && !user_story.complete?} %>
+    <%= render :partial => '/user_stories/plan_user_story', :locals => {:sprint => @sprint, :user_story => user_story, :tasks => !@sprint.finished?, :copy => @sprint.finished? && !user_story.complete?} %>
   <% end %>
 </div>
 

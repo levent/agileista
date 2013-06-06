@@ -7,21 +7,12 @@
       </div>
     <% end %>
   </div>
-  <div class="fourteen columns">
+  <div class="eighteen columns">
     <%= parse_definition(user_story.definition).html_safe %>
   </div>
-  <div class="one columns">
+  <div class="two columns">
     <%= link_to edit_project_user_story_path(@project, user_story) do %>
       <%= show_story_points(user_story.story_points, :badge => true, :unit => "") %>
     <% end %>
-  </div>
-  <div class="three columns">
-    <%= show_stakeholder(user_story) %>
-  </div>
-  <div class="one columns hide-for-medium-down" title="<%= time_ago_in_words(user_story.created_at) %> ago">
-    <%= user_story.created_at.strftime("%d/%m/%y") %>
-  </div>
-  <div class="one columns hide-for-small">
-    <%= link_to 'Delete', project_user_story_path(@project, user_story), :method => :delete, :confirm => "Are you sure?" %>
   </div>
 </div>
