@@ -1,8 +1,5 @@
-<div class="six columns<%= ' end' if last %>">
-  <ul class="pricing-table">
-    <li class="title"><%= project.name.humanize %></li>
-    <li class="bullet-item"><%= pluralize(project.people.count, 'person') %></li>
-    <li class="bullet-item"><%= pluralize(project.user_stories.unassigned.count, 'story') %></li>
-    <li class="cta-button"><%= link_to 'Choose Project', project_backlog_index_path(project), :class => 'button radius' %></li>
-  </ul>
-</div>
+<tr>
+  <td><%= link_to project.name.humanize, project_backlog_index_path(project) %></td>
+  <td><%= pluralize(project.people.count, 'person') %></td>
+  <td><%= pluralize(project.user_stories.unassigned.count, 'story') %></td>
+</tr>

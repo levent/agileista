@@ -4,7 +4,7 @@ class ProjectsController < AbstractSecurityController
 
   def index
     setup_projects_from_invitations
-    @projects = current_person.projects.order('name')
+    @projects = current_person.projects
   end
 
   def new
