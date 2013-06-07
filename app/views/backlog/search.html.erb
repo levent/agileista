@@ -12,6 +12,16 @@
 
   <div class="row">
     <div class="columns twentyfour">
+      <dl class="sub-nav">
+        <dt>Filter by tag:</dt>
+        <% @user_stories.facets['tags']['terms'].each do |tag_facet| %>
+          <dd><%= link_to "#{tag_facet['term']}", search_project_backlog_index_path(@project, :q => "#{params[:q]} AND tag:#{tag_facet['term']}") %> (<%= tag_facet['count'] %>)</dd>
+        <% end %>
+      </dl>
+    </div>
+  </div>
+  <div class="row">
+    <div class="columns twentyfour">
       <%= render @user_stories %>
     </div>
   </div>

@@ -21,12 +21,17 @@ class BacklogController < AbstractSecurityController
     raise ArgumentError unless @project.id
     @user_stories = UserStory.search(per_page: 100, page: params[:page], load: true) do |search|
       search.query do |query|
-        query.boolean do |boolean|
-          boolean.must { |must| must.string params[:q], default_operator: "AND" }
-          boolean.must { |must| must.term :project_id, @project.id }
+        query.filtered do |f|
+          f.query do |q|
+            q.string params[:q], default_operator: "AND"
+          end
+          f.filter :missing , :field => :sprint_id
+          f.filter :term, :project_id => @project.id
         end
       end
-      search.filter(:missing, :field => 'sprint_id' )
+      search.facet('tags') do
+        terms :tag
+      end
     end
   rescue Tire::Search::SearchRequestFailed => e
     @user_stories = @project.user_stories.limit(0).paginate(:per_page => 0, :page => 1)
