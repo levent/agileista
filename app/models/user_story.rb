@@ -11,7 +11,6 @@ class UserStory < ActiveRecord::Base
     indexes :story_points, :type => 'integer', :index => :not_analyzed
     indexes :project_id, :type => 'integer', :index => :not_analyzed
     indexes :sprint_id, :type => 'integer', :index => :not_analyzed
-    indexes :done, :type => 'integer', :index => :not_analyzed
     indexes :created_at, :type => 'date', :include_in_all => false
     indexes :tag, :analyzer => 'keyword', :as => 'tags'
     indexes :search_ac, :analyzer => 'snowball', :as => 'search_ac'
@@ -62,20 +61,20 @@ class UserStory < ActiveRecord::Base
   after_touch :expire_status, :expire_state
   after_destroy :expire_story_points
 
-  scope :estimated, :conditions => ['done = ? AND sprint_id IS ? AND story_points IS NOT ?', 0, nil, nil]
-  scope :unassigned, where(:done => 0, :sprint_id => nil).includes(:acceptance_criteria, :person)
+  scope :estimated, :conditions => ['sprint_id IS ? AND story_points IS NOT ?', nil, nil]
+  scope :unassigned, where(:sprint_id => nil).includes(:acceptance_criteria, :person)
 
   def as_json(options = {})
-    super(options.merge(:only => [:definition, :description, :done, :stakeholder, :story_points, :updated_at, :created_at]))
+    super(options.merge(:only => [:definition, :description, :stakeholder, :story_points, :updated_at, :created_at]))
   end
 
   def to_json(options = {})
-    super(options.merge(:only => [:definition, :description, :done, :stakeholder, :story_points, :updated_at, :created_at]))
+    super(options.merge(:only => [:definition, :description, :stakeholder, :story_points, :updated_at, :created_at]))
   end
 
   def self.to_csv
     CSV.generate do |csv|
-      csv << columns = [:id, :definition, :description, :done, :stakeholder, :story_points, :updated_at, :created_at].map(&:to_s)
+      csv << columns = [:id, :definition, :description, :stakeholder, :story_points, :updated_at, :created_at].map(&:to_s)
       all.each do |product|
         csv << product.attributes.values_at(*columns)
       end

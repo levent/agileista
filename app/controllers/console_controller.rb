@@ -12,7 +12,6 @@ class ConsoleController < AbstractSecurityController
       search.query do |query|
         query.boolean do |boolean|
           boolean.must { |must| must.string q, default_operator: "AND" }
-          boolean.must { |must| must.term :done, 0 }
         end
       end
       search.filter(:missing, :field => 'sprint_id' )

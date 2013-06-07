@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130521080649) do
+ActiveRecord::Schema.define(:version => 20130607121629) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20130521080649) do
     t.string   "unconfirmed_email"
     t.string   "authentication_token"
     t.datetime "deleted_at"
+    t.string   "time_zone"
   end
 
   add_index "people", ["account_id", "api_key", "authenticated", "activation_code"], :name => "by_api_key"
@@ -175,7 +176,6 @@ ActiveRecord::Schema.define(:version => 20130521080649) do
     t.text     "description"
     t.integer  "story_points"
     t.integer  "position"
-    t.integer  "done",                :default => 0,     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sprint_id"
@@ -187,7 +187,5 @@ ActiveRecord::Schema.define(:version => 20130521080649) do
     t.boolean  "delta",               :default => false
     t.integer  "project_id"
   end
-
-  add_index "user_stories", ["project_id", "done", "sprint_id"], :name => "index_user_stories_on_project_id_and_done_and_sprint_id"
 
 end

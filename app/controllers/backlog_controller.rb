@@ -24,7 +24,6 @@ class BacklogController < AbstractSecurityController
         query.boolean do |boolean|
           boolean.must { |must| must.string params[:q], default_operator: "AND" }
           boolean.must { |must| must.term :project_id, @project.id }
-          boolean.must { |must| must.term :done, 0 }
         end
       end
       search.filter(:missing, :field => 'sprint_id' )
