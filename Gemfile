@@ -42,6 +42,7 @@ group :development do
   gem 'ruby-prof'
   gem 'capistrano'
   gem 'capistrano-ext'
+  gem 'sextant'
 end
 
 group :test do
