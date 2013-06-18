@@ -7,7 +7,7 @@ class TasksController < AbstractSecurityController
     @task = @user_story.tasks.create!(params[:task])
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
-    hipchat_notify("Task <strong>created</strong> on user story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    hipchat_notify("Task <strong>created</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
   end
 
   def renounce
@@ -18,7 +18,7 @@ class TasksController < AbstractSecurityController
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
-    hipchat_notify("Task <strong>renounced</strong> on user story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    hipchat_notify("Task <strong>renounced</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end
 
@@ -30,7 +30,7 @@ class TasksController < AbstractSecurityController
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
-    hipchat_notify("Task <strong>claimed</strong> on user story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    hipchat_notify("Task <strong>claimed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end
 
@@ -41,7 +41,7 @@ class TasksController < AbstractSecurityController
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
-    hipchat_notify("Task <strong>completed</strong> on user story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    hipchat_notify("Task <strong>completed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end
 

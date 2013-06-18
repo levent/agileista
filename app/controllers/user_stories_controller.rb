@@ -6,7 +6,7 @@ class UserStoriesController < AbstractSecurityController
   def copy
     if @user_story.copy!
       flash[:notice] = "User story copied and added to backlog"
-      hipchat_notify("User story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> copied to backlog: \"#{@user_story.definition}\"")
+      hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> copied to backlog by #{current_person.name}: \"#{@user_story.definition}\"")
     else
       flash[:error] = "The user story could not be copied"
     end
@@ -35,7 +35,7 @@ class UserStoriesController < AbstractSecurityController
 
     if @user_story.save
       flash[:notice] = "User story created"
-      hipchat_notify("User story <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> created: \"#{@user_story.definition}\"")
+      hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> created by #{current_person.name}: \"#{@user_story.definition}\"")
 
       if @sprint
         SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
@@ -103,7 +103,7 @@ class UserStoriesController < AbstractSecurityController
 
   def destroy
     if @user_story.destroy
-      hipchat_notify("User story ##{@user_story.id} deleted: \"#{@user_story.definition}\"")
+      hipchat_notify("##{@user_story.id} deleted by #{current_person.name}: \"#{@user_story.definition}\"")
       session[:return_to] = nil if session[:return_to].split("/").last == @user_story.id.to_s
       flash[:notice] = "User story deleted"
     end
