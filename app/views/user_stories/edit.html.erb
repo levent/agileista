@@ -1,4 +1,4 @@
-<% content_for :title, "#{@user_story.definition} - Agileista" %>
+<% content_for :title, "#{truncate(@user_story.definition, :length => 200)} - Agileista" %>
 <div class="row">
   <div class="twelve columns">
     <h2>Edit User Story</h2>
