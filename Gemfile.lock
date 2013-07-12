@@ -260,7 +260,7 @@ GEM
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
-    sidekiq (2.12.4)
+    sidekiq (2.13.0)
       celluloid (>= 0.14.1)
       connection_pool (>= 1.0.0)
       json
