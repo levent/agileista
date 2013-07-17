@@ -73,7 +73,7 @@ GEM
     celluloid (0.14.1)
       timers (>= 1.0.0)
     chunky_png (1.2.7)
-    code_analyzer (0.3.1)
+    code_analyzer (0.3.2)
       sexp_processor
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -161,7 +161,7 @@ GEM
       compass (>= 0.12.1)
       sass (>= 3.2.0)
       sassy-math (>= 1.5)
-    multi_json (1.7.4)
+    multi_json (1.7.7)
     multi_xml (0.5.3)
     net-scp (1.1.1)
       net-ssh (>= 2.6.5)
@@ -200,7 +200,7 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
-    rails_best_practices (1.13.5)
+    rails_best_practices (1.13.8)
       activesupport
       awesome_print
       code_analyzer
@@ -245,7 +245,7 @@ GEM
       rspec-mocks (~> 2.13.0)
     ruby-hmac (0.4.0)
     ruby-prof (0.12.1)
-    ruby-progressbar (1.0.2)
+    ruby-progressbar (1.1.1)
     sass (3.2.5)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
