@@ -24,6 +24,7 @@ class UserStoriesController < AbstractSecurityController
       format.json {
         render :json => @user_story
       }
+      format.html { redirect_to edit_project_user_story_path(@project, @user_story) }
     end
   end
 
