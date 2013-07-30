@@ -106,6 +106,7 @@ class UserStoriesController < AbstractSecurityController
     if @user_story.destroy
       hipchat_notify("##{@user_story.id} deleted by #{current_person.name}: \"#{@user_story.definition}\"")
       session[:return_to] = nil if session[:return_to].split("/").last == @user_story.id.to_s
+      UserStory.index.refresh
       flash[:notice] = "User story deleted"
     end
     redirect_back_or(project_backlog_index_path(@project))
