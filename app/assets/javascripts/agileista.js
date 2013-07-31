@@ -123,7 +123,7 @@ var Agileista = (function(){
 
       var allData = spRemaining.concat(spComplete);
       x.domain(d3.extent(xExtent, function(d) { return d; }));
-      y.domain(d3.extent(allData, function(d) { return d.story_points; }));
+      y.domain([0].concat(d3.max(allData, function(d) { return d.story_points; })));
       y2.domain([0].concat(d3.max(spHours, function(d) { return d.hours_left; })));
 
       mySVG.append("g")
