@@ -43,6 +43,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'sextant'
+  gem 'brakeman'
 end
 
 group :test do
