@@ -41,11 +41,8 @@ module ApplicationHelper
   end
 
   def show_assignees(developers)
-    if developers.any?
-      return developers.map(&:name).join(', ')
-    else
-      return "Nobody"
-    end
+    assignees = developers.map(&:name).join(', ')
+    assignees.blank? ? "Nobody" : assignees
   end
 
   def show_date(date)
