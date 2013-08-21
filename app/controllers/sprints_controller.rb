@@ -122,4 +122,13 @@ class SprintsController < AbstractSecurityController
       calculate_end_burndown(sprint)
     end
   end
+
+  def sprint_must_exist
+    begin
+      @sprint = @project.sprints.find(params[:id])
+    rescue
+      flash[:error] = "No such sprint"
+      redirect_to project_sprints_path(@project) and return false
+    end
+  end
 end

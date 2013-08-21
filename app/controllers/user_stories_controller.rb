@@ -118,4 +118,8 @@ class UserStoriesController < AbstractSecurityController
     @sprint = @project.sprints.find(params[:sprint_id])
   end
 
+  def user_story_must_exist
+    @user_story = @project.user_stories.find(params[:id])
+  end
+
 end

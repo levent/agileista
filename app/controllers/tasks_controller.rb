@@ -1,5 +1,4 @@
 class TasksController < AbstractSecurityController
-
   before_filter :set_user_story
   before_filter :set_task, :except => [:create]
 

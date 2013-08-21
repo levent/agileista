@@ -60,4 +60,10 @@ class BacklogController < AbstractSecurityController
       REDIS.expire("project:#{@project.id}:story_points", 900)
     end
   end
+
+  # excludes DONE
+  def project_user_stories
+    @user_stories = @project.user_stories.unassigned.rank(:backlog_order)
+  end
+
 end
