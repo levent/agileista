@@ -11,7 +11,7 @@ describe "editing a user story" do
   it "edits a user story" do
     visit "/projects/#{@project.id}/user_stories/#{@user_story.id}/edit"
     fill_in 'user_story_definition', :with => 'As a user I want beef to eat'
-    click_button 'Update User story'
+    click_button 'Save and Close'
     page.should have_content 'User story updated successfully'
     page.should have_content 'As a user I want beef to eat'
   end

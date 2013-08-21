@@ -10,7 +10,7 @@ describe "creating a user story" do
   it "creates a user story" do
     visit "/projects/#{@project.id}/user_stories/new"
     fill_in 'user_story_definition', :with => 'As a user I want beef to eat'
-    click_button 'Create User story'
+    click_button 'Save and Close'
     page.should have_content 'User story created'
     page.should have_content 'As a user I want beef to eat'
   end

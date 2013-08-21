@@ -22,7 +22,8 @@
       </div>
       <div class="row">
         <div class="twenty columns">
-          <%= f.button :submit, class: 'large' %>
+          <%= f.button :submit, 'Save and Close', class: 'large' %>
+          <%= f.button :submit, 'Save', class: 'normal' %>
         </div>
         <div class="four columns">
           <%= link_to 'Delete user story', project_user_story_path(@project, @user_story), :class => "right small button alert", :method => :delete, :confirm => "Are you sure?" unless @user_story.new_record? %>

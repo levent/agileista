@@ -38,9 +38,8 @@ class UserStoriesController < AbstractSecurityController
       flash[:notice] = "User story created"
       hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> created by #{current_person.name}: \"#{@user_story.definition}\"")
 
-      if @sprint
-        SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
-        redirect_to project_sprint_path(@project, @sprint)
+      if params[:commit] == 'Save'
+        redirect_to edit_project_user_story_path(@project, @user_story)
       else
         redirect_to project_backlog_index_path(@project)
       end
@@ -66,6 +65,7 @@ class UserStoriesController < AbstractSecurityController
       @user_story.tasks.build
       render :action => 'edit' and return false
     end
+    render :action => 'edit' and return false if params[:commit] == 'Save'
     redirect_back_or(project_backlog_index_path(@project))
   end
 
