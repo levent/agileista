@@ -115,6 +115,9 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.2.4)
+    dotenv (0.8.0)
+    dotenv-rails (0.8.0)
+      dotenv (= 0.8.0)
     erubis (2.7.0)
     eventmachine (1.0.3)
     exceptional (2.0.33)
@@ -353,6 +356,7 @@ DEPENDENCIES
   compass-rails
   debugger
   devise
+  dotenv-rails
   exceptional (= 2.0.33)
   faker
   gravtastic

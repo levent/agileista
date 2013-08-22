@@ -44,6 +44,7 @@ group :development do
   gem 'capistrano-ext'
   gem 'sextant'
   gem 'brakeman'
+  gem 'dotenv-rails'
 end
 
 group :test do
