@@ -4,6 +4,7 @@
     <div class="row">
       <div class="eighteen columns">
         <h2>Review: <%= sprint_header(@sprint) %></h2>
+        <h4>Sprint goal: <%= @sprint.goal %></h4>
         <%= render :partial => "shared/burn_charts" %>
       </div>
       <div class="six columns">
