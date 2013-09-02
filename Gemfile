@@ -38,7 +38,7 @@ end
 group :development do
   gem 'jshintrb', "0.2.3", :git => 'git@github.com:cosm/jshintrb.git'
   gem 'rails_best_practices'
-  gem 'debugger'
+  gem 'byebug'
   gem 'ruby-prof'
   gem 'capistrano'
   gem 'capistrano-ext'
