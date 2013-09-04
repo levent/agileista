@@ -18,8 +18,7 @@ module UserStoriesHelper
     definition = html_escape(definition)
     definition.scan(/\[\w+\]/).uniq.each do |m|
       tag = m.clone
-      tag.gsub!('[', '').gsub!(']', '')
-      link = link_to m, search_project_backlog_index_path(@project, :q => "tag:#{tag.downcase}"), :class => 'tagged'
+      link = link_to((content_tag :kbd, tag), search_project_backlog_index_path(@project, :q => "tag:#{tag.downcase}"), :class => 'tagged')
       definition.gsub!(m, link).html_safe
     end
     definition

@@ -421,3 +421,10 @@ textarea.vert { resize:vertical; }
 ul.none {
   list-style: none;
 }
+
+a.tagged kbd {
+  color: #222222;
+  &:hover {
+    background-color: $highlightColor;
+  }
+}
