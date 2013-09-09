@@ -1,12 +1,14 @@
+<% content_for :title, "People - #{@project.name.humanize} - Agileista" %>
+
 <div class="row">
   <div class="twentyfour columns">
     <% if current_user.scrum_master_for?(@project) %>
-      <p><%= link_to("Invite user", new_project_invitation_path, :class => 'button') %></p>
+      <p><%= link_to("Invite person", new_project_invitation_path, :class => 'button') %></p>
     <% end %>
     <% if @people.blank? %>
-      <p>There are no people on this project. <%= link_to "Create the first user", new_user_url %>.</p>
+      <p>There are no people on this project. <%= link_to "Create the first person", new_user_url %>.</p>
     <% else %>
-      <h2>Users</h2>
+      <h2>People</h2>
       <table class="twentyfour">
         <thead>
           <tr>
@@ -24,7 +26,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="7"><%= pluralize(@people.count, 'active user') %></td>
+            <td colspan="7"><%= pluralize(@people.count, 'active person') %></td>
           </tr>
         </tfoot>
       </table>
