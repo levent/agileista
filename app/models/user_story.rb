@@ -183,6 +183,24 @@ class UserStory < ActiveRecord::Base
     new_us.save!
   end
 
+  def self.search_by_query(search_query, page, project_id)
+    raise ArgumentError unless project_id
+    UserStory.search(per_page: 100, page: page, load: true) do |search|
+      search.query do |query|
+        query.filtered do |f|
+          f.query do |q|
+            q.string search_query, default_operator: "AND"
+          end
+          f.filter :missing , :field => :sprint_id
+          f.filter :term, :project_id => project_id
+        end
+      end
+      search.facet('tags') do
+        terms :tag
+      end
+    end
+  end
+
   private
 
   def expire_status
