@@ -284,27 +284,33 @@ div#estimated, div#committed, div.ui-droppable {
   border-top: 1px solid $secondaryColor;
 }
 
-#backlog-items .backlog-item {
-  &:nth-child(n+10) {
-    opacity: 0.9;
-  }
-  &:nth-child(n+15) {
-    opacity: 0.8;
-  }
-  &:nth-child(n+20) {
-    opacity: 0.7;
-  }
-  &:nth-child(n+25) {
-    opacity: 0.6;
-  }
-  &:nth-child(n+30) {
-    opacity: 0.5;
-  }
-  &:nth-child(n+35) {
-    opacity: 0.4;
-  }
-  &:nth-child(n+40) {
-    opacity: 0.3;
+.backlog-key p {
+  margin-bottom: 8px;
+}
+
+#backlog-items {
+  .backlog-item {
+    &:nth-child(n+10) {
+      opacity: 0.9;
+    }
+    &:nth-child(n+15) {
+      opacity: 0.8;
+    }
+    &:nth-child(n+20) {
+      opacity: 0.7;
+    }
+    &:nth-child(n+25) {
+      opacity: 0.6;
+    }
+    &:nth-child(n+30) {
+      opacity: 0.5;
+    }
+    &:nth-child(n+35) {
+      opacity: 0.4;
+    }
+    &:nth-child(n+40) {
+      opacity: 0.3;
+    }
   }
 }
 
