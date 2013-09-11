@@ -11,6 +11,4 @@ module SprintsHelper
     options = {:unit => "story points"}.merge(opts)
     "#{velocity} #{options[:unit]}"
   end
-
 end
-

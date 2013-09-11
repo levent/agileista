@@ -284,6 +284,10 @@ div#estimated, div#committed, div.ui-droppable {
   border-top: 1px solid $secondaryColor;
 }
 
+#backlog-items .backlog-item:nth-child(n+10) {
+  opacity: 0.6;
+}
+
 .release-marker {
   border-top: 1px solid $alertColor;
 }
