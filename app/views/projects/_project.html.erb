@@ -1,10 +1,9 @@
 <tr>
-  <td><%= link_to project.name.humanize, project_backlog_index_path(project) %></td>
+  <% if project.sprints.current.any? %>
+    <td><%= link_to(project.name.humanize, project_sprint_path(project.id, project.sprints.current.first), :class => "button small success") %></td>
+  <% else %>
+    <td><%= link_to(project.name.humanize, project_backlog_index_path(project.id), :class => "button small secondary") %></td>
+  <% end %>
   <td><%= pluralize(project.people.count, 'person') %></td>
   <td><%= pluralize(project.user_stories.unassigned.count, 'story') %></td>
-  <% if project.sprints.current.any? %>
-    <td><%= link_to("Task Board", project_sprint_path(project.id, project.sprints.current.first), :class => "button small") %></td>
-  <% else %>
-    <td><%= link_to("Backlog", project_backlog_index_path(project.id), :class => "button small secondary") %></td>
-  <% end %>
 </tr>
