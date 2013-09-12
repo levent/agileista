@@ -1,5 +1,4 @@
 class UserStoriesController < AbstractSecurityController
-
   before_filter :user_story_must_exist, :only => [:update, :show, :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
   before_filter :set_sprint, :only => [:plan, :unplan, :reorder]
 
@@ -36,7 +35,7 @@ class UserStoriesController < AbstractSecurityController
 
     if @user_story.save
       flash[:notice] = "User story created"
-      hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> created by #{current_person.name}: \"#{@user_story.definition}\"")
+      hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>created</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
 
       if params[:commit] == 'Save'
         redirect_to edit_project_user_story_path(@project, @user_story)
@@ -59,6 +58,7 @@ class UserStoriesController < AbstractSecurityController
   def update
     if @user_story.update_attributes(params[:user_story])
       flash[:notice] = "User story updated successfully"
+      hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>updated</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
     else
       flash[:error] = "User story couldn't be updated"
       @user_story.acceptance_criteria.build
@@ -75,6 +75,7 @@ class UserStoriesController < AbstractSecurityController
     @sprint.expire_total_story_points
     SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
     points_planned = @sprint.user_stories.sum('story_points')
+    hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>planned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
     render :json => {:ok => true, :points_planned => points_planned}.to_json
   end
 
@@ -84,6 +85,7 @@ class UserStoriesController < AbstractSecurityController
     @user_story.save!
     @sprint.expire_total_story_points
     SprintElement.destroy_all("sprint_id = #{@sprint.id} AND user_story_id = #{@user_story.id}")
+    hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>unplanned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
     respond_to do |format|
       format.html {
         flash[:notice] = "User story removed from sprint"
@@ -121,5 +123,4 @@ class UserStoriesController < AbstractSecurityController
   def user_story_must_exist
     @user_story = @project.user_stories.find(params[:id])
   end
-
 end
