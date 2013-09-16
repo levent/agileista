@@ -4,6 +4,10 @@ require 'user_stories_helper'
 describe UserStoriesHelper do
   include UserStoriesHelper
 
+  def content_tag(tag, body, options = {})
+    "<#{tag} class=\"#{options[:class]}\">#{body}</#{tag}>"
+  end
+
   before do
     @us = fire_double("UserStory")
     @person = fire_double("Person")
@@ -38,6 +42,23 @@ describe UserStoriesHelper do
       @us.should_receive(:cannot_be_estimated?).and_return(false)
       @us.should_receive(:story_points).and_return(34)
       user_story_status(@us).should == "OK"
+    end
+  end
+
+  describe "#created_at_to_date" do
+    it "should return a short date format" do
+      @us.stub(:created_at).and_return(2.days.ago)
+      created_at_to_date(@us).should == 2.days.ago.strftime("%d/%m/%y")
+    end
+
+    it "should say today if so" do
+      @us.stub(:created_at).and_return(Date.today)
+      created_at_to_date(@us).should == "<span class=\"underline\">Today</span>"
+    end
+
+    it "should say yesterday if so" do
+      @us.stub(:created_at).and_return(1.day.ago)
+      created_at_to_date(@us).should == "<span class=\"underline\">Yesterday</span>"
     end
   end
 end

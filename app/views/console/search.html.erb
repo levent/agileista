@@ -33,7 +33,7 @@
             <%= user_story.project.try(:name) %>
           </div>
           <div class="two columns hide-for-medium-down" title="<%= time_ago_in_words(user_story.created_at) %> ago">
-            <%= user_story.created_at.strftime("%d/%m/%y") %>
+            <%= created_at_to_date(user_story) %>
           </div>
         </div>
       <% end %>
