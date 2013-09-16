@@ -1,18 +1,10 @@
 <div class="row backlog-item backlog-row" data-story=<%= user_story.id %> data-status="<%= user_story.state %>">
-  <div class="four columns">
-    <%= link_to edit_project_user_story_path(@project, user_story) do %>
-      <div class="row">
-        <div class="twelve columns"><%= user_story_state(user_story.state) %></div>
-        <div class="twelve columns">#<%= user_story.id %></div>
-      </div>
-    <% end %>
-  </div>
-  <div class="eighteen columns">
-    <%= parse_definition(user_story.definition).html_safe %>
-  </div>
   <div class="two columns">
     <%= link_to edit_project_user_story_path(@project, user_story) do %>
-      <%= show_story_points(user_story.story_points, :badge => true, :unit => "") %>
+      #<%= user_story.id %>
     <% end %>
+  </div>
+  <div class="twentytwo columns">
+    <%= show_story_points(user_story.story_points, :badge => true, :unit => "pts") %> <%= parse_definition(user_story.definition).html_safe %>
   </div>
 </div>
