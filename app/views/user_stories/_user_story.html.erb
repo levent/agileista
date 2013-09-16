@@ -1,27 +1,20 @@
 <div class="row backlog-item backlog-row" data-story=<%= user_story.id %> data-status="<%= user_story.state %>">
-  <div class="four columns">
+  <div class="two columns">
     <%= link_to edit_project_user_story_path(@project, user_story) do %>
-      <div class="row">
-        <div class="twelve columns"><%= user_story_state(user_story.state) %></div>
-        <div class="twelve columns">#<%= user_story.id %></div>
-      </div>
+      #<%= user_story.id %>
     <% end %>
   </div>
-  <div class="fourteen columns">
-    <%= parse_definition(user_story.definition).html_safe %>
+  <div class="sixteen columns">
+    <%= show_story_points(user_story.story_points, :badge => true, :unit => "pts") %> <%= parse_definition(user_story.definition).html_safe %>
   </div>
-  <div class="one columns">
-    <%= link_to edit_project_user_story_path(@project, user_story) do %>
-      <%= show_story_points(user_story.story_points, :badge => true, :unit => "") %>
-    <% end %>
+  <div class="two columns show-for-large-up"><%= user_story_state(user_story.state) %></div>
+  <div class="two columns show-for-large-up">
+    <%= show_stakeholder(user_story) %><br><%= created_at_to_date(user_story) %>
   </div>
-  <div class="three columns">
-    <%= show_stakeholder(user_story) %>
+  <div class="four columns show-for-medium-down">
+    <%= show_stakeholder(user_story) %><br><%= created_at_to_date(user_story) %>
   </div>
-  <div class="one columns hide-for-medium-down" title="<%= time_ago_in_words(user_story.created_at) %> ago">
-    <%= created_at_to_date(user_story) %>
-  </div>
-  <div class="one columns hide-for-small">
+  <div class="two columns hide-for-medium-down" title="<%= time_ago_in_words(user_story.created_at) %> ago">
     <%= link_to 'Delete', project_user_story_path(@project, user_story), :method => :delete, :confirm => "Are you sure?" %>
   </div>
 </div>
