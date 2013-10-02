@@ -9,7 +9,7 @@ class Velocity
   end
 
   def self.confidence_interval(story_points = [])
-    return if story_points.size < 6
+    return if story_points.size < 5
     [calculate_confidence(story_points, '-'), calculate_confidence(story_points, '+')]
   end
 
@@ -18,7 +18,9 @@ class Velocity
     interval = REDIS.get(story_points.join(hi_or_lo))
     unless interval
       position = (story_points.size / 2).send(hi_or_lo, (1.96 * (story_points.size * 0.25)**0.5))
-      interval = story_points[position.ceil - 1]
+      index = position.ceil - 1
+      index = 0 if index < 0
+      interval = story_points[index]
       REDIS.set(story_points.join(hi_or_lo), interval)
     end
     interval
