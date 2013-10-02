@@ -9,7 +9,7 @@ class Velocity
   end
 
   def self.confidence_interval(story_points = [])
-    return if story_points.size < 5
+    return if story_points.size < 6
     [calculate_confidence(story_points, '-'), calculate_confidence(story_points, '+')]
   end
 
