@@ -7,11 +7,13 @@
       <h2><small>Total:</small> <%= @sprints.size %>. <small>Finished:</small> <%= @sprints.finished.size %>. <small>Average Velocity:</small> <%= average_velocity(@project) %></h2>
     </div>
   </div>
-  <div class="row">
-    <div class="columns twentyfour">
-      <p><strong>90%</strong> likelihood velocity will be between <strong><%= @cint_lo %></strong> and <strong><%= @cint_hi %></strong>*</p>
+  <% if @cint_hi && @cint_lo %>
+    <div class="row">
+      <div class="columns twentyfour">
+        <p><strong>90%</strong> likelihood velocity will be between <strong><%= @cint_lo %></strong> and <strong><%= @cint_hi %></strong>*</p>
+      </div>
     </div>
-  </div>
+  <% end %>
   <table class="twentyfour">
     <thead>
       <tr>
