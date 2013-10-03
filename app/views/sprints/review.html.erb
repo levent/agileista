@@ -8,14 +8,15 @@
         <h4>Sprint goal: <%= @sprint.goal %></h4>
         <%= render :partial => "shared/burn_charts" %>
       </div>
-      <div class="six columns">
+
+      <div class="six columns hide-on-print">
         <%= render 'filters' %>
       </div>
     </div>
 
-    <hr>
+    <hr class="hide-on-print">
 
-    <div class="row">
+    <div class="row hide-on-print">
 
       <div class="ten columns">
         <div class="progress twentyfour radius" id="progress-bar">

@@ -16,7 +16,7 @@
 	<title><%= content_for?(:title) ? yield(:title) : "Agileista" %></title>
 
 	<!-- Included CSS Files -->
-	<%= stylesheet_link_tag "application" %>
+	<%= stylesheet_link_tag "application", media: "all" %>
 
   <%= csrf_meta_tags %>
   <script type="text/javascript" src="//use.typekit.net/voz6jxm.js"></script>

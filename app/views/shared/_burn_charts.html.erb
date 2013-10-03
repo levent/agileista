@@ -1,4 +1,4 @@
-<div id="chart"></div>
+<div id="chart" class="hide-on-print"></div>
 
 <% content_for :custom_js do %>
   var spRemaining = <%= @chart_burnremaining.to_json.html_safe %>;
