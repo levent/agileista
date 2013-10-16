@@ -18,7 +18,6 @@ div#estimated, div#committed, div.ui-droppable {
 }
 
 .tb-backlog-item, .rw-backlog-item {
-  border: 1px solid $secondaryColor;
   padding: 6px;
 }
 
@@ -75,32 +74,30 @@ div#estimated, div#committed, div.ui-droppable {
 
 .user-story {
   &.panel {
-    background: #fffff5;
+    background: $white;
     margin: 12px 0 0 0;
   }
   &[data-status="complete"] {
-    border-left: 4px solid $successColor;
+    border: 1px solid $successColor;
   }
   &[data-status="inprogress"] {
-    border-left: 4px solid $mainColor;
+    border: 1px solid $mainColor;
   }
   padding: 6px;
-  border: 1px solid $secondaryColor;
-  border-left: 4px solid $alertColor;
+  border: 1px solid $alertColor;
 }
 
 .task-card, .new-task-card {
   position: relative;
-  margin: 4px 0;
+  margin: -1px 0;
   padding: 6px;
-  background: $white;
 }
 
 .task-card {
   cursor: move;
   border: 1px solid $secondaryColor;
   &.mine {
-    border-left: 1px solid $successColor;
+    background: $highlightColor;
   }
 }
 
@@ -110,6 +107,7 @@ div#estimated, div#committed, div.ui-droppable {
 }
 
 .new-task-card {
+  margin: 4px 0 0 0;
   border: 2px dashed $secondaryColor;
   form {
     margin: 0;
