@@ -19,7 +19,6 @@ gem 'devise'
 gem 'unicorn'
 gem 'rack-timeout'
 gem 'sidekiq'
-gem 'slim', ">= 1.3.0"
 # if you require 'sinatra' you get the DSL extended to Object
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'hipchat'
@@ -43,7 +42,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'sextant'
-  gem 'brakeman'
+  gem 'brakeman', :require => false
   gem 'dotenv-rails'
 end
 
