@@ -47,7 +47,7 @@ Agileista::Application.routes.draw do
       resources :acceptance_criteria, :only => [:update]
 
       resources :tasks, :except => [:edit, :update] do
-        member do 
+        member do
           post 'move_up'
           post 'move_down'
           put 'claim'

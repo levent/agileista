@@ -37,7 +37,7 @@ class AddDeviseToPeople < ActiveRecord::Migration
       # t.timestamps
     end
 
-    #TODO: 
+    #TODO:
     #add_index :people, :email,                :unique => true
     #add_index :people, :reset_password_token, :unique => true
     #add_index :people, :authentication_token, :unique => true

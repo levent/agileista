@@ -14,7 +14,7 @@ if defined?(AssetSync)
     # Automatically replace files with their equivalent gzip compressed version
     # config.gzip_compression = true
     #
-    # Use the Rails generated 'manifest.yml' file to produce the list of files to 
+    # Use the Rails generated 'manifest.yml' file to produce the list of files to
     # upload instead of searching the assets directory.
     # config.manifest = true
     #
