@@ -89,7 +89,7 @@ div#estimated, div#committed, div.ui-droppable {
 
 .task-card, .new-task-card {
   position: relative;
-  margin: -1px 0;
+  margin: -1px 0 0 0;
   padding: 6px;
 }
 
@@ -107,14 +107,17 @@ div#estimated, div#committed, div.ui-droppable {
 }
 
 .new-task-card {
-  margin: 4px 0 0 0;
-  border: 2px dashed $secondaryColor;
+  border: 1px dashed $secondaryColor;
   form {
     margin: 0;
     input[type=text] {
       margin: 0;
     }
   }
+}
+
+.task-card + .new-task-card {
+  margin: 4px 0 0 0;
 }
 
 .backlog-row {
