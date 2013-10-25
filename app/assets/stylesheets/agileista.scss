@@ -97,7 +97,7 @@ div#estimated, div#committed, div.ui-droppable {
   cursor: move;
   border: 1px solid $secondaryColor;
   &.mine {
-    background: $highlightColor;
+    border: 1px solid $highlightColor;
   }
 }
 
