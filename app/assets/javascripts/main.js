@@ -1,5 +1,5 @@
 (function($) {
-	$().ajaxSend(function(a, xhr, s){ //Set request headers globally
+	$().ajaxSend(function(a, xhr, s){ // Set request headers globally
 		xhr.setRequestHeader("Accept", "text/javascript, text/html, application/xml, text/xml, */*");
 	});
 })(jQuery);
@@ -196,6 +196,15 @@ $(function() {
         }, "json");
       }
     });
-
   }
+
+  $('.js-new-task-button').attr('disabled',true);
+  $('.js-new-task-input').keyup(function(){
+    if($(this).val().length !=0){
+      $(this).parent().next('.js-new-task-button').attr('disabled', false);
+    }
+    else {
+      $('.js-new-task-button').attr('disabled', true);
+    }
+  })
 });

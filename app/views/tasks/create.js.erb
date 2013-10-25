@@ -5,3 +5,4 @@ us_card.attr('data-status', '<%= @user_story.status %>');
 setupTaskBoard(<%= @project.id %>, <%= @user_story.id %>);
 setupTaskBoardStats();
 $('input[name="task[definition]"]').val("");
+$('.js-new-task-button').attr('disabled', true);
