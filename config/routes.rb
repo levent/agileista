@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+
 Agileista::Application.routes.draw do
   constraint = lambda { |request| request.env["warden"].authenticate? and request.env['warden'].user.email == 'lebreeze@gmail.com' }
   constraints constraint do
@@ -13,7 +14,7 @@ Agileista::Application.routes.draw do
   post "/account/generate_api_key" => "account#generate_api_key"
 
   resources :projects do
-    resources :hip_chat_integrations
+    resources :hip_chat_integrations, only: [:create, :update]
     resources :team_members
     resources :invitations
     resources :backlog, :only => 'index' do
