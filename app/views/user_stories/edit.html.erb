@@ -7,4 +7,18 @@
     <h4 class="subheader">Created on <%= @user_story.created_at.strftime("%e %B %Y at %H:%M %p") %></h4>
   </div>
 </div>
+
 <%= render :partial => 'form' %>
+
+<hr>
+
+<%= render :partial => 'planning_poker', locals: {user_story: @user_story, project: @project} %>
+
+<% content_for :custom_js do %>
+  <%= render :partial => 'juggernaut_planning_poker', :locals => {:uid => @uid} %>
+  $('#show-estimates').click(function(e) {
+    e.preventDefault();
+    $('.secret-estimate').show();
+    $('#average-estimate').show();
+  });
+<% end %>
