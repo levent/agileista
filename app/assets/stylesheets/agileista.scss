@@ -212,6 +212,10 @@ span.underline {
   border-bottom: 1px dotted $highlightColor;
 }
 
+.about-quote {
+  text-align: center;
+}
+
 @media print {
   .user-story, .tb-backlog-item, .rw-backlog-item {
     border: 1px solid $white;
