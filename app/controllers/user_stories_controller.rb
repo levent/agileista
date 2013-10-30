@@ -3,7 +3,7 @@ class UserStoriesController < AbstractSecurityController
   before_filter :set_sprint, :only => [:plan, :unplan, :reorder]
 
   def estimate
-    json = { :estimator => current_person.name, :story_points => params[:user_story][:story_points] }
+    json = { :estimator => current_person.name, :estimator_id => current_person.id, :story_points => params[:user_story][:story_points] }
     uid = Digest::SHA1.hexdigest("planningpoker_#{@project.id}_#{@user_story.id}")
     Juggernaut.publish(uid, json)
   end

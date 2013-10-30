@@ -4,13 +4,15 @@ var update = function(data){
   if (data.story_points !== '') {
     $('.secret-estimate').hide();
     $('#average-estimate').hide();
-    var estimate = '<li>' + data.estimator + ' submitted an estimate <strong><span class="secret-estimate">' + data.story_points + '</span></strong></li>';
+    var estimatorId = 'js-estimate-' + data.estimator_id;
+    $('#' + estimatorId).remove();
+    var estimate = '<li id="' + estimatorId + '"><strong>' + data.estimator + '</strong> submitted an estimate <strong><span class="secret-estimate">' + data.story_points + '</span></strong></li>';
     $(estimate).appendTo($('#secret-estimates'));
     var sum = 0;
-    var average_story_points = $.map($('.secret-estimate'), function(element) {
+    $.map($('.secret-estimate'), function(element) {
       sum = sum + (Number($(element).html()));
     });
-    $('#average-estimate').html('Average: ' + sum / $('.secret-estimate').length);
+    $('#average-estimate').html('<strong>Average:</strong> ' + Math.round(sum / $('.secret-estimate').length));
   }
 };
 
