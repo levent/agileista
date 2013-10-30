@@ -1,6 +1,12 @@
 class UserStoriesController < AbstractSecurityController
-  before_filter :user_story_must_exist, :only => [:update, :show, :edit, :delete, :destroy, :done, :copy, :plan, :unplan]
+  before_filter :user_story_must_exist, :only => [:update, :show, :edit, :delete, :destroy, :done, :copy, :plan, :unplan, :estimate]
   before_filter :set_sprint, :only => [:plan, :unplan, :reorder]
+
+  def estimate
+    json = { :estimator => current_person.name, :story_points => params[:user_story][:story_points] }
+    uid = Digest::SHA1.hexdigest("planningpoker_#{@project.id}_#{@user_story.id}")
+    Juggernaut.publish(uid, json)
+  end
 
   def copy
     if @user_story.copy!
@@ -51,6 +57,7 @@ class UserStoriesController < AbstractSecurityController
   end
 
   def edit
+    @uid = Digest::SHA1.hexdigest("planningpoker_#{@project.id}_#{@user_story.id}")
     @user_story.acceptance_criteria.build
     @user_story.tasks.build
   end

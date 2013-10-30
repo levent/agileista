@@ -1,10 +1,13 @@
 <% content_for :title, "#{truncate(@user_story.definition, :length => 200)} - Agileista" %>
 <div class="row">
   <div class="twelve columns">
-    <h2>Edit User Story</h2>
+    <h2>Edit User Story<% unless @user_story.story_points %> <small>(<a href="#" data-reveal-id="modal-planning-poker">play planning poker</a>)</small><% end %></h2>
   </div>
   <div class="text-right twelve columns hide-for-small">
     <h4 class="subheader">Created on <%= @user_story.created_at.strftime("%e %B %Y at %H:%M %p") %></h4>
   </div>
 </div>
+
 <%= render :partial => 'form' %>
+
+<%= render :partial => 'planning_poker', locals: {user_story: @user_story, project: @project} %>

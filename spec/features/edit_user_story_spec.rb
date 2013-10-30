@@ -20,4 +20,17 @@ describe "editing a user story" do
     visit "/projects/#{@project.id}/user_stories/#{@user_story.id}/edit"
     page.should have_css("#user_story_stakeholder[value=\"#{@user.name}\"]")
   end
+
+  context "planning poker" do
+    it "should show when unestimated" do
+      visit "/projects/#{@project.id}/user_stories/#{@user_story.id}/edit"
+      page.should have_content "Planning Poker"
+    end
+
+    it "should hide when estimated" do
+      @user_story.update_attribute(:story_points, 13)
+      visit "/projects/#{@project.id}/user_stories/#{@user_story.id}/edit"
+      page.should have_no_content "Planning Poker"
+    end
+  end
 end

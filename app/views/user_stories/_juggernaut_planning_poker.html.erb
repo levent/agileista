@@ -1,0 +1,28 @@
+var log = function(data){
+};
+var update = function(data){
+  if (data.story_points !== '') {
+    $('.secret-estimate').hide();
+    $('#average-estimate').hide();
+    var estimate = '<li>' + data.estimator + ' submitted an estimate <strong><span class="secret-estimate">' + data.story_points + '</span></strong></li>';
+    $(estimate).appendTo($('#secret-estimates'));
+    var sum = 0;
+    var average_story_points = $.map($('.secret-estimate'), function(element) {
+      sum = sum + (Number($(element).html()));
+    });
+    $('#average-estimate').html('Average: ' + sum / $('.secret-estimate').length);
+  }
+};
+
+var jug = new Juggernaut({secure: ('https:' == document.location.protocol)});
+
+jug.on("connect", function(){ log("Connected") });
+jug.on("disconnect", function(){ log("Disconnected") });
+jug.on("reconnect", function(){ log("Reconnecting") });
+
+jug.subscribe("<%= uid %>", function(data){
+  update(data);
+});
+
+// Expose for debugging
+window.jug = jug;

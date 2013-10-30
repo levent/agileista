@@ -33,6 +33,7 @@ Agileista::Application.routes.draw do
       end
       resources :user_stories do
         member do
+          put 'estimate'
           post 'plan'
           post 'unplan'
           post 'reorder'

@@ -1,0 +1,37 @@
+<% unless user_story.story_points %>
+  <div id="modal-planning-poker" class="reveal-modal large">
+    <div class="row">
+      <div class="twenty columns">
+        <h3>Planning Poker:</h3>
+      </div>
+      <div class="four columns text-right">
+        <a class="close-reveal-modal">&#215;</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="fourteen columns">
+        <%= simple_form_for [project, user_story], :html => {:id => 'form_estimate_story'}, :url => estimate_project_sprint_user_story_path(project, user_story), :remote => true do |f| %>
+          <%= f.label :story_points, label: "Submit your estimate" %>
+          <%= f.input :story_points, label: false, input_html: { placeholder: '0, 1, 3, 5, 8, 13, 20 ...' }, class: 'eight' %>
+          <%= f.submit 'Submit estimate', :class => 'button' %>
+        <% end %>
+      </div>
+
+      <div class="eight columns" id="pp-estimates">
+        <ul class="square" id="secret-estimates"></ul>
+        <p id="average-estimate"></p>
+        <a href="#" id="show-estimates">Reveal estimates</a>
+      </div>
+
+    </div>
+  </div>
+
+  <% content_for :custom_js do %>
+    <%= render :partial => 'juggernaut_planning_poker', :locals => {:uid => @uid} %>
+    $('#show-estimates').click(function(e) {
+    e.preventDefault();
+    $('.secret-estimate').show();
+    $('#average-estimate').show();
+    });
+  <% end %>
+<% end %>
