@@ -50,6 +50,7 @@ var Agileista = (function(){
     },
 
     drawBurndown = function(startDate, endDate, spRemaining, spComplete, spHours) {
+      $('#chart').html('');
       var margin = {top: 20, right: 50, bottom: 30, left: 50},
           width = 900 - margin.left - margin.right,
           height = 350 - margin.top - margin.bottom,

@@ -1,11 +1,13 @@
 class TasksController < AbstractSecurityController
   before_filter :set_user_story
   before_filter :set_task, :except => [:create]
+  before_filter :set_sprint, only: [:complete, :create, :renounce, :claim]
 
   def create
     @task = @user_story.tasks.create!(params[:task])
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
+    calculate_burndown_points
     hipchat_notify("Task <strong>created</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
   end
 
@@ -17,6 +19,7 @@ class TasksController < AbstractSecurityController
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
+    calculate_burndown_points
     hipchat_notify("Task <strong>renounced</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end
@@ -29,6 +32,7 @@ class TasksController < AbstractSecurityController
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
+    calculate_burndown_points
     hipchat_notify("Task <strong>claimed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end
@@ -40,6 +44,7 @@ class TasksController < AbstractSecurityController
     uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
+    calculate_burndown_points
     hipchat_notify("Task <strong>completed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end
@@ -53,6 +58,10 @@ class TasksController < AbstractSecurityController
 
   def set_task
     @task = @user_story.tasks.find(params[:id])
+  end
+
+  def set_sprint
+    @sprint = @user_story.sprint
   end
 
   def truncate(string, length = 60)
