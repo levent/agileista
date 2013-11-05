@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130607121629) do
+ActiveRecord::Schema.define(:version => 20131105135005) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -95,7 +95,6 @@ ActiveRecord::Schema.define(:version => 20130607121629) do
     t.string   "unconfirmed_email"
     t.string   "authentication_token"
     t.datetime "deleted_at"
-    t.string   "time_zone"
   end
 
   add_index "people", ["account_id", "api_key", "authenticated", "activation_code"], :name => "by_api_key"
@@ -151,13 +150,15 @@ ActiveRecord::Schema.define(:version => 20130607121629) do
   add_index "task_developers", ["task_id"], :name => "index_task_developers_on_task_id"
 
   create_table "tasks", :force => true do |t|
-    t.string  "definition"
-    t.text    "description"
-    t.integer "hours",         :default => 1
-    t.integer "position"
-    t.integer "developer_id"
-    t.integer "user_story_id"
-    t.integer "version"
+    t.string   "definition"
+    t.text     "description"
+    t.integer  "hours",         :default => 1
+    t.integer  "position"
+    t.integer  "developer_id"
+    t.integer  "user_story_id"
+    t.integer  "version"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "tasks", ["user_story_id"], :name => "index_tasks_on_user_story_id"
