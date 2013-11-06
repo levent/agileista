@@ -12,6 +12,10 @@ div#estimated, div#committed, div.ui-droppable {
   min-height:200px;
 }
 
+div#estimated, div#committed {
+  padding-bottom: 60px;
+}
+
 .tb-backlog-item, .rw-backlog-item {
   padding: 11px 10px;
   background: $white;
