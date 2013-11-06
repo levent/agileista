@@ -13,7 +13,16 @@ div#estimated, div#committed, div.ui-droppable {
 }
 
 div#estimated, div#committed {
-  padding-bottom: 60px;
+  border: 2px dashed $secondaryColor;
+}
+
+.drop-here {
+  display: block;
+  line-height: 3em;
+  text-align: center;
+  color: $secondaryColor;
+  font-weight: bold;
+  font-size: 2em;
 }
 
 .tb-backlog-item, .rw-backlog-item {
