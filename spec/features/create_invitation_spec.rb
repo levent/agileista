@@ -4,7 +4,15 @@ describe "creating an invitation" do
 
   before do
     user = login_a_user
-    @project = create_project_for(user)
+    @project = create_project_for(user, false)
+  end
+
+  it "should allow me to navigate to invite people" do
+    @project.scrum_master = nil
+    @project.save!
+    visit "/projects/#{@project.id}/people"
+    click_link "Invite person"
+    page.should have_content 'Invite someone to join'
   end
 
   it "creates an invitation" do

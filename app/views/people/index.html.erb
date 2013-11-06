@@ -2,9 +2,7 @@
 
 <div class="row">
   <div class="twentyfour columns">
-    <% if current_user.scrum_master_for?(@project) %>
-      <p><%= link_to("Invite person", new_project_invitation_path, :class => 'button') %></p>
-    <% end %>
+    <p><%= link_to("Invite person", new_project_invitation_path, :class => 'button') %></p>
     <% if @people.blank? %>
       <p>There are no people on this project. <%= link_to "Create the first person", new_user_url %>.</p>
     <% else %>

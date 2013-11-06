@@ -6,10 +6,10 @@ module FeatureHelpers
     person
   end
 
-  def create_project_for(person)
+  def create_project_for(person, is_scrum_master = true)
     project = Project.make!
     person.projects << project
-    project.scrum_master = person
+    project.scrum_master = person if is_scrum_master
     project.save!
     project
   end
