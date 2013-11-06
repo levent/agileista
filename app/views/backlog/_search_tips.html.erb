@@ -1,6 +1,6 @@
 <div id="myModal" class="reveal-modal large">
   <h2>Query interface guide:</h2>
-  <p class="lead">The query interface allows you to construct exactly the search you need. Combine query terms with <kbd>AND</kbd>. Exclude them with <kbd>NOT</kbd>.</p>
+  <p class="lead">The query interface allows you to find the stories you need</p>
   <div class="row">
     <div class="twelve columns">
       <kbd>story_points:&lt;=8</kbd>
@@ -67,5 +67,9 @@
       <%= link_to "Try it!", search_project_backlog_index_path(@project, :q => "created_at:<#{Date.today.months_ago(3)}"), :class => 'button tiny' %>
     </div>
   </div>
+  <p>
+    Combine terms with <kbd>AND</kbd><br>
+    Exclude terms with <kbd>NOT</kbd>
+  </p>
   <a class="close-reveal-modal">&#215;</a>
 </div>
