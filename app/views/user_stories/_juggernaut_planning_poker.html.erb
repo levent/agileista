@@ -12,7 +12,7 @@ var update = function(data){
     $.map($('.secret-estimate'), function(element) {
       sum = sum + (Number($(element).html()));
     });
-    $('#average-estimate').html('<strong>Average:</strong> ' + Math.round(sum / $('.secret-estimate').length));
+    $('#average-estimate').html('<strong>Average estimate:</strong> ' + Math.round(sum / $('.secret-estimate').length));
   }
 };
 
