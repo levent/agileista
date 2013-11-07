@@ -87,31 +87,31 @@ div#estimated, div#committed {
 
 .user-story {
   &.panel {
-    background: $white;
+    background: #efeeef;
     margin: 12px 0 0 0;
   }
   &[data-status="complete"] {
-    border: 1px solid $successColor;
+    border-left: 4px solid $successColor;
   }
   &[data-status="inprogress"] {
-    border: 1px solid $mainColor;
+    border-left: 4px solid $mainColor;
   }
   padding: 6px;
-  border: 1px solid $alertColor;
+  border: none;
+  border-left: 4px solid $alertColor;
 }
 
 .task-card, .new-task-card {
   position: relative;
-  margin: -1px 0 0 0;
+  margin: 4px 0 0 0;
   padding: 6px;
   background-color: $white;
 }
 
 .task-card {
   cursor: move;
-  border: 1px solid $secondaryColor;
   &.mine {
-    border: 1px solid $highlightColor;
+    border-left: 2px solid $highlightColor;
   }
 }
 
@@ -121,7 +121,6 @@ div#estimated, div#committed {
 }
 
 .new-task-card {
-  border: 1px dashed $secondaryColor;
   form {
     margin: 0;
     input[type=text] {
