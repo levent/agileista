@@ -1,7 +1,7 @@
 <tr>
   <td><%= link_to sprint.name, project_sprint_path(@project, sprint) %></td>
   <td><%= sprint.goal %></td>
-  <td><%= sprint.total_story_points %></td>
+  <td><span class="has-tip" data-width="210" title="Average points per story: <%= sprint.total_story_points.to_i / sprint.user_stories.count.to_i %>"><%= sprint.total_story_points %></span></td>
   <td><%= sprint.calculated_velocity %></td>
   <td><%= show_date(sprint.start_at) %></td>
   <td><%= show_date(sprint.end_at) %></td>
