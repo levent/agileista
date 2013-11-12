@@ -6,7 +6,7 @@ set :deploy_via, :remote_cache
 # set :deploy_via, :copy
 # set :copy_cache, true
 # set :copy_exclude, [".git"]
-set :branch, "master"
+set :branch, "rails/stable_3_2"
 set :scm_verbose, true
 set :keep_releases, 4
 # set :deploy_via, :export
