@@ -1,8 +1,10 @@
 require 'csv'
 class UserStory < ActiveRecord::Base
-
   include Tire::Model::Search
   include Tire::Model::Callbacks
+
+  index_name 'user_stories-2013-11-29'
+
   mapping do
     indexes :id, :index => :not_analyzed
     indexes :definition, :analyzer => 'snowball', :boost => 100
