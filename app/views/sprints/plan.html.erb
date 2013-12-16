@@ -1,3 +1,5 @@
+<% content_for :title, "Plan - #{@sprint.name} - #{@project.name.humanize} - Agileista" %>
+
 <h2><%= @sprint.name %>: <small><span id="points_planned"><%= show_story_points(@sprint.user_stories.sum('story_points')) %></span> planned <% if @velocity %>(<%= average_velocity(@project) %> available)<% end %></small></h2>
 <div id="estimated" class="eleven columns">
   <h3>Estimated backlog:</h3>
