@@ -1,0 +1,5 @@
+<% if sprint.finished? %>
+  <div class="alert-box alert hide-for-small">
+    This sprint ended <%= time_ago_in_words sprint.end_at %> ago.
+  </div>
+<% end %>
