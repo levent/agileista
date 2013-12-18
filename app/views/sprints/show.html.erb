@@ -1,5 +1,7 @@
 <% content_for :title, "Task Board - #{@sprint.name} - #{@project.name.humanize} - Agileista" %>
 
+<%= render :partial => 'sprint_alerts', locals: {sprint: @sprint} %>
+
 <div class="row hide-for-small">
   <div class="eighteen columns">
     <ul class="accordion">
