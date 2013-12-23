@@ -8,6 +8,15 @@ GIT
       rake
 
 GIT
+  remote: https://github.com/getsentry/raven-ruby.git
+  revision: 3563a6b08bfde1d1b603b40cc092c0a75a2ab032
+  specs:
+    sentry-raven (0.7.1)
+      faraday (>= 0.7.6)
+      hashie (>= 1.1.0)
+      uuidtools
+
+GIT
   remote: https://github.com/plataformatec/simple_form.git
   revision: e3da7301dcf6feb9a1db275ff5cb3f85afce0e80
   branch: v2.1
@@ -125,6 +134,8 @@ GEM
       multi_json (~> 1.0)
     faker (1.1.2)
       i18n (~> 0.5)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     fastercsv (1.5.5)
     faye-websocket (0.4.7)
       eventmachine (>= 0.12.0)
@@ -143,6 +154,7 @@ GEM
     gravtastic (3.2.6)
     haml (4.0.3)
       tilt
+    hashie (2.0.5)
     hashr (0.0.22)
     highline (1.6.19)
     hike (1.2.3)
@@ -177,6 +189,7 @@ GEM
       sassy-math (>= 1.5)
     multi_json (1.8.2)
     multi_xml (0.5.5)
+    multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -331,6 +344,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    uuidtools (2.1.4)
     warden (1.2.1)
       rack (>= 1.0)
     will_paginate (3.0.5)
@@ -378,6 +392,7 @@ DEPENDENCIES
   rspec-rails
   ruby-prof
   sass-rails (~> 3.2.3)
+  sentry-raven!
   sextant
   shoulda-matchers
   sidekiq
