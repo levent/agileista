@@ -15,5 +15,10 @@
 //= require jquery_ujs
 //= require foundation
 //= require d3.v3/d3.v3
+//= require jquery.autosize
 //= require agileista
 //= require main
+
+$(document).ready(function(){
+  $('textarea.autosize').autosize({});
+});
