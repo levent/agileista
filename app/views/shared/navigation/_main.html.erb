@@ -1,5 +1,5 @@
 <nav class="top-bar hide-on-print">
-  <% if person_signed_in? && @project && !@project.new_record? %>
+  <% if person_signed_in_and_project? %>
 
   <ul>
     <!-- Title Area -->
@@ -47,6 +47,7 @@
         <%= button_tag 'Search', :class => "submit secondary button", :name => nil %>
       <% end %>
       </li>
+      <li><a href="#" data-reveal-id="js-search-modal">?</a></li>
       <li class="divider hide-for-small"></li>
       <li class="has-dropdown">
         <%= link_to @project.name.humanize, project_backlog_index_path(@project) %>

@@ -232,6 +232,10 @@ span.underline {
   display: none;
 }
 
+.top-bar ul > li.search {
+  padding-right: 0;
+}
+
 @media print {
   .user-story, .tb-backlog-item, .rw-backlog-item {
     border: 1px solid $white;

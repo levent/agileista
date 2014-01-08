@@ -1,6 +1,10 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
+  def person_signed_in_and_project?
+    person_signed_in? && @project && !@project.new_record?
+  end
+
   def scrum_master?
     return false unless @project && current_person
     current_person.scrum_master_for?(@project)
