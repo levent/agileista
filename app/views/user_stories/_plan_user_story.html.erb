@@ -1,4 +1,4 @@
-<div class="row backlog-item backlog-row" data-story=<%= user_story.id %> data-status="<%= user_story.state %>">
+<div class="row backlog-item backlog-row" data-story="<%= user_story.id %>" data-status="<%= user_story.state %>">
   <div class="two columns">
     <%= link_to edit_project_user_story_path(@project, user_story) do %>
       #<%= user_story.id %>

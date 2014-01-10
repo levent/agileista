@@ -51,8 +51,11 @@ div#estimated, div#committed {
   border-top: 1px solid $secondaryColor;
 }
 
-.backlog-key p {
-  margin-bottom: 8px;
+.backlog-key {
+  margin-bottom: 500px;
+  p {
+    margin-bottom: 8px;
+  }
 }
 
 #backlog-items {

@@ -149,6 +149,7 @@ function setupSprintPlanning(project_id, sprint_id) {
           $('#flashs').html('Sprint reordered');
         }
       }, "json");
+      $('#estimated > .drop-here').appendTo("#estimated");
     }
   });
 
@@ -169,6 +170,7 @@ function setupSprintPlanning(project_id, sprint_id) {
           $('#flashs').html('Sprint reordered');
         }
       }, "json");
+      $('#committed > .drop-here').appendTo("#committed");
     }
   });
 }
