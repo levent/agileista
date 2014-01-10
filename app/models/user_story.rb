@@ -185,7 +185,7 @@ class UserStory < ActiveRecord::Base
     new_us.save!
   end
 
-  def self.search_by_query(search_query, page, project_id)
+  def self.search_by_query(search_query, page, project_id, all_sprints = false)
     raise ArgumentError unless project_id
     UserStory.search(per_page: 100, page: page, load: true) do |search|
       search.query do |query|
@@ -193,7 +193,7 @@ class UserStory < ActiveRecord::Base
           f.query do |q|
             q.string search_query, default_operator: "AND"
           end
-          f.filter :missing , :field => :sprint_id
+          f.filter :missing , :field => :sprint_id unless all_sprints
           f.filter :term, :project_id => project_id
         end
       end
