@@ -1,4 +1,4 @@
-begin
+if defined?(Jshintrb)
   require "jshintrb/jshinttask"
   Jshintrb::JshintTask.new :jshint do |t|
     t.js_files = `find app/assets/javascripts -name *.js`.split("\n")
@@ -29,5 +29,4 @@ begin
       :browser => true
     }
   end
-rescue => e
 end
