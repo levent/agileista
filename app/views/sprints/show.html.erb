@@ -59,6 +59,13 @@
 
 <% content_for :custom_js do %>
   setupTaskBoardStats();
+  $(document).ready(function(){
+    $('.ctrl-show-stories').each(function() {
+      var whichCheckBox = $(this).val();
+      var whatState = $(this).is(':checked');
+      Agileista.toggleStoriesByStatus(whichCheckBox, whatState);
+    });
+  });
   <%= render :partial => 'juggernaut', :locals => {:uid => @uid} unless @sprint.finished? %>
 <% end %>
 
