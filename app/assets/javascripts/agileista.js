@@ -63,7 +63,7 @@ var Agileista = (function(){
       var parsedEndDate = parseDate(endDate);
 
       if (((parsedEndDate - parsedStartDate) / (24*60*60*1000)) > 20 ) {
-        numTickDays = 2
+        numTickDays = 2;
       }
 
       var x = d3.time.scale()

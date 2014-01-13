@@ -35,7 +35,6 @@ group :assets do
 end
 
 group :development do
-  gem 'jshintrb', "0.2.3", :git => 'git@github.com:cosm/jshintrb.git'
   gem 'rails_best_practices'
   gem 'byebug'
   gem 'ruby-prof'
@@ -49,6 +48,7 @@ end
 group :test do
   gem 'simplecov', '0.7.1', :require => false
   gem 'simplecov-console', :require => false
+  gem 'jshintrb'
   gem 'poltergeist'
   gem 'shoulda-matchers'
   gem 'rspec-rails'
