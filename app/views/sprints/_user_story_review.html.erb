@@ -24,7 +24,7 @@
           <% end %>
         </div>
         <div class="five columns text-right hide-on-print">
-          <%= link_to "Copy to Backlog", copy_project_user_story_path(@project, user_story_review), :method => :post, :confirm => 'Are you sure?' %>
+          <%= link_to "Copy to Backlog", copy_project_user_story_path(@project, user_story_review), :method => :post, :remote => true, :confirm => 'Are you sure?' %>
         </div>
       </div>
     </div>
