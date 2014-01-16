@@ -15,7 +15,6 @@ class SprintsController < AbstractSecurityController
   def show
     @sprint = @project.sprints.where(:id => params[:id]).includes(:user_stories => [{:tasks => :team_members}]).first
     store_location
-    @current_sprint = @sprint
     calculate_burndown_points
     @uid = Digest::SHA1.hexdigest("exclusiveshit#{@sprint.id}")
     respond_to do |format|
