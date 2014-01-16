@@ -174,7 +174,7 @@ class UserStory < ActiveRecord::Base
   end
 
   def copy!
-    new_us = UserStory.new(:project_id => self.project_id, :definition => self.definition, :description => self.description, :story_points => self.story_points)
+    new_us = UserStory.new(:project_id => self.project_id, :person_id => self.person_id, :stakeholder => self.stakeholder, :definition => self.definition, :description => self.description, :story_points => self.story_points)
     self.acceptance_criteria.each do |ac|
       new_us.acceptance_criteria << AcceptanceCriterium.new(:detail => ac.detail)
     end
