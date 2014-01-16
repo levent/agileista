@@ -6,16 +6,19 @@
 
 <% unless @user_stories.blank? %>
 
-  <div class="row">
-    <div class="columns twentyfour">
-      <dl class="sub-nav">
-        <dt>Filter by tag:</dt>
-        <% @user_stories.facets['tags']['terms'].each do |tag_facet| %>
-          <dd><%= link_to "#{tag_facet['term']}", search_project_backlog_index_path(@project, :q => "#{params[:q]} AND tag:#{tag_facet['term']}", :global => params[:global]) %> (<%= tag_facet['count'] %>)</dd>
-        <% end %>
-      </dl>
+  <% if @user_stories.facets['tags']['terms'].any? %>
+    <div class="row">
+      <div class="columns twentyfour">
+        <dl class="sub-nav">
+          <dt>Filter by tag:</dt>
+          <% @user_stories.facets['tags']['terms'].each do |tag_facet| %>
+            <dd><%= link_to "#{tag_facet['term']}", search_project_backlog_index_path(@project, :q => "#{params[:q]} AND tag:#{tag_facet['term']}", :global => params[:global]) %> (<%= tag_facet['count'] %>)</dd>
+          <% end %>
+        </dl>
+      </div>
     </div>
-  </div>
+  <% end %>
+
   <div class="row">
     <div class="columns twentyfour">
       <%= render @user_stories %>
