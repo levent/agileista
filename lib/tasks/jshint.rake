@@ -1,4 +1,4 @@
-if defined?(Jshintrb)
+if ENV['JSHINT'] == 'true'
   require "jshintrb/jshinttask"
   Jshintrb::JshintTask.new :jshint do |t|
     t.js_files = `find app/assets/javascripts -name *.js`.split("\n")
