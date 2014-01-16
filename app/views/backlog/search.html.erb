@@ -1,6 +1,6 @@
 <div class="row">
   <div class="columns twentyfour">
-    <h2>Backlog search: <small><%= pagination_info(@user_stories, "user story").html_safe %> </small><%= "<small>found for</small> <kbd>#{params[:q]}</kbd>".html_safe %></h2>
+    <h2><%= params[:global] == 'true' ? 'Global' : 'Backlog' %> search: <small><%= pagination_info(@user_stories, "user story").html_safe %> </small><%= "<small>found for</small> <kbd>#{params[:q]}</kbd>".html_safe %></h2>
   </div>
 </div>
 
