@@ -11,8 +11,8 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery-ui
 //= require jquery_ujs
+//= require jquery.ui.sortable
 //= require foundation
 //= require d3.v3/d3.v3
 //= require jquery.autosize

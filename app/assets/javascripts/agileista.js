@@ -1,4 +1,6 @@
 var Agileista = (function(){
+  "use strict";
+
   var self = this ,
 
     // private methods
