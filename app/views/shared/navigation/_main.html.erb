@@ -42,7 +42,7 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <li class="has-button search hide-for-small">
-      <%= form_for :tag, :url => search_project_backlog_index_path(@project), :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
+      <%= form_for :tag, :url => project_search_path(@project), :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
         <%= text_field_tag 'q', params[:q] %>
         <%= button_tag 'Search', :class => "submit secondary button", :name => nil %>
       <% end %>

@@ -17,9 +17,9 @@ Agileista::Application.routes.draw do
     resources :hip_chat_integrations, only: [:create, :update]
     resources :team_members
     resources :invitations
+    resource :search, :only => 'show'
     resources :backlog, :only => 'index' do
       collection do
-        get 'search'
         post 'sort'
       end
     end
