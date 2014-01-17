@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.sortable
+//= require jquery.ui.draggable
+//= require jquery.ui.droppable
 //= require foundation
 //= require d3.v3/d3.v3
 //= require jquery.autosize
