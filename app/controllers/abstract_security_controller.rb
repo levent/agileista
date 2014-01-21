@@ -55,13 +55,6 @@ class AbstractSecurityController < ApplicationController
     CalculateBurnWorker.perform_async(1.day.from_now(sprint.end_at).to_date, sprint.id)
   end
 
-  def hipchat_notify(message)
-    hip_chat_integration = @project.try(:hip_chat_integration)
-    if hip_chat_integration && hip_chat_integration.required_fields_present?
-      HipChatWorker.perform_async(@project.hip_chat_integration.token, @project.hip_chat_integration.room, @project.hip_chat_integration.notify?, message)
-    end
-  end
-
   def calculate_burndown_points
     return nil unless @sprint
     burndowns = @sprint.burndowns

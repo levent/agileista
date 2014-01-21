@@ -25,4 +25,10 @@ class Project < ActiveRecord::Base
   def scrum_master=(person)
     team_members.create!(:person => person, :scrum_master => true)
   end
+
+  def hipchat_notify(message)
+    if self.hip_chat_integration && self.hip_chat_integration.required_fields_present?
+      HipChatWorker.perform_async(self.hip_chat_integration.token, self.hip_chat_integration.room, self.hip_chat_integration.notify?, message)
+    end
+  end
 end

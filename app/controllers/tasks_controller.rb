@@ -8,7 +8,7 @@ class TasksController < AbstractSecurityController
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
     calculate_burndown_points
-    hipchat_notify("Task <strong>created</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    @project.hipchat_notify("Task <strong>created</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
   end
 
   def renounce
@@ -20,7 +20,7 @@ class TasksController < AbstractSecurityController
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
     calculate_burndown_points
-    hipchat_notify("Task <strong>renounced</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    @project.hipchat_notify("Task <strong>renounced</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end
 
@@ -33,7 +33,7 @@ class TasksController < AbstractSecurityController
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
     calculate_burndown_points
-    hipchat_notify("Task <strong>claimed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    @project.hipchat_notify("Task <strong>claimed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end
 
@@ -45,7 +45,7 @@ class TasksController < AbstractSecurityController
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
     calculate_burndown_points
-    hipchat_notify("Task <strong>completed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    @project.hipchat_notify("Task <strong>completed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     Juggernaut.publish(uid, json)
   end
 
