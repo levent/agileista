@@ -83,6 +83,9 @@ class UserStoriesController < AbstractSecurityController
     SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
     points_planned = @sprint.user_stories.sum('story_points')
     @project.hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>planned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
+    json = { :performed_by => current_person.name, :refresh => true }.to_json
+    uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
+    REDIS.publish "pubsub.#{uid}", json
     render :json => {:ok => true, :points_planned => points_planned}.to_json
   end
 
@@ -93,6 +96,9 @@ class UserStoriesController < AbstractSecurityController
     @sprint.expire_total_story_points
     SprintElement.destroy_all("sprint_id = #{@sprint.id} AND user_story_id = #{@user_story.id}")
     @project.hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>unplanned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
+    json = { :performed_by => current_person.name, :refresh => true }.to_json
+    uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
+    REDIS.publish "pubsub.#{uid}", json
     respond_to do |format|
       format.html {
         flash[:notice] = "User story removed from sprint"

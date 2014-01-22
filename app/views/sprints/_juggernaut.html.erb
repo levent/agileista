@@ -12,8 +12,9 @@ var source = new EventSource('http://localhost:9292/subscribe/<%= uid %>');
 
 source.addEventListener('message', function (event) {
   var parsedData = JSON.parse(event.data);
-  if (parsedData.refresh === 'true' && '<%=  escape_javascript current_user.name %>' !== parsedData.performed_by) {
-    console.log ('yes');
+  if (parsedData.refresh === true && '<%= escape_javascript current_user.name %>' !== parsedData.performed_by) {
+    $('.js-temporary-alert').remove();
+    $('<div class="alert-box alert hide-for-small js-temporary-alert">Task Board updated. Please <%= link_to 'refresh', project_sprint_path(@project, @sprint) %>.</div>').prependTo($('#main-wrapper-div'));
   } else {
     update(parsedData);
   }
