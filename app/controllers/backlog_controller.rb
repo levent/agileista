@@ -22,7 +22,7 @@ class BacklogController < AbstractSecurityController
       :performed_by => current_person.name
     }
     uid = Digest::SHA1.hexdigest("backlog#{@project.id}")
-    Juggernaut.publish(uid, json)
+    REDIS.publish "pubsub.#{uid}", json.to_json
     render :json => {:ok => true, :velocity => @project.average_velocity}.to_json
   end
 

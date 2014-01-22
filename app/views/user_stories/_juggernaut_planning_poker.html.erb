@@ -1,5 +1,3 @@
-var log = function(data){
-};
 var update = function(data){
   if (data.story_points !== '') {
     $('.secret-estimate').hide();
@@ -16,15 +14,8 @@ var update = function(data){
   }
 };
 
-var jug = new Juggernaut({secure: ('https:' == document.location.protocol)});
+var source = new EventSource('/subscribe/<%= uid %>');
 
-jug.on("connect", function(){ log("Connected") });
-jug.on("disconnect", function(){ log("Disconnected") });
-jug.on("reconnect", function(){ log("Reconnecting") });
-
-jug.subscribe("<%= uid %>", function(data){
-  update(data);
-});
-
-// Expose for debugging
-window.jug = jug;
+source.addEventListener('message', function (event) {
+  update(JSON.parse(event.data));
+}, false);

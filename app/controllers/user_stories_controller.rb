@@ -5,7 +5,7 @@ class UserStoriesController < AbstractSecurityController
   def estimate
     json = { :estimator => current_person.name, :estimator_id => current_person.id, :story_points => params[:user_story][:story_points] }
     uid = Digest::SHA1.hexdigest("planningpoker_#{@project.id}_#{@user_story.id}")
-    Juggernaut.publish(uid, json)
+    REDIS.publish "pubsub.#{uid}", json.to_json
   end
 
   def copy
