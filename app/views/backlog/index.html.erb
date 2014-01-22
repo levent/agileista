@@ -41,5 +41,5 @@
 
 <% content_for :custom_js do %>
   Agileista.setupVelocityMarkers('<%= @velocity %>');
-  <%= render :partial => 'juggernaut', :locals => {:uid => @uid} %>
+  <%= render :partial => 'sse', :locals => {:uid => @uid} %>
 <% end %>

@@ -66,6 +66,6 @@
       Agileista.toggleStoriesByStatus(whichCheckBox, whatState);
     });
   });
-  <%= render :partial => 'juggernaut', :locals => {:uid => @uid} unless @sprint.finished? %>
+  <%= render :partial => 'sse', :locals => {:uid => @uid} unless @sprint.finished? %>
 <% end %>
 
