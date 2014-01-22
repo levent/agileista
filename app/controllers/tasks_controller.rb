@@ -9,6 +9,9 @@ class TasksController < AbstractSecurityController
     calculate_tomorrows_burndown(@task.sprint)
     calculate_burndown_points
     @project.hipchat_notify("Task <strong>created</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    json = { :performed_by => current_person.name, :refresh => true }.to_json
+    uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
+    REDIS.publish "pubsub.#{uid}", json
   end
 
   def renounce
