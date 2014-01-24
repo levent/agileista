@@ -1,0 +1,2 @@
+Agileista::Application.config.sse_token = '65b0724cb6e20241e5744a8f1e8c6e434f698e5e2b3e19f646a2f37a6a7f925f739d0afed42ef33fa1d6bd57d9dda7e1d7c02aceef1caf1789a55e7cbc875ec8'
+

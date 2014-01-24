@@ -16,7 +16,7 @@ class SprintsController < AbstractSecurityController
     @sprint = @project.sprints.where(:id => params[:id]).includes(:user_stories => [{:tasks => :team_members}]).first
     store_location
     calculate_burndown_points
-    @uid = Digest::SHA1.hexdigest("exclusiveshit#{@sprint.id}")
+    @uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@sprint.id}")
     respond_to do |format|
       format.html {
         calculate_burndown_if_needed(@sprint)

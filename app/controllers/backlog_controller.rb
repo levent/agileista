@@ -4,7 +4,7 @@ class BacklogController < AbstractSecurityController
   def index
     store_location
     @velocity = @project.average_velocity
-    @uid = Digest::SHA1.hexdigest("backlog#{@project.id}")
+    @uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}backlog#{@project.id}")
     load_story_points
     respond_to do |format|
       format.html do
@@ -21,7 +21,7 @@ class BacklogController < AbstractSecurityController
       :notification => "Backlog reordered by #{current_person.name}",
       :performed_by => current_person.name
     }
-    uid = Digest::SHA1.hexdigest("backlog#{@project.id}")
+    uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}backlog#{@project.id}")
     REDIS.publish "pubsub.#{uid}", json.to_json
     render :json => {:ok => true, :velocity => @project.average_velocity}.to_json
   end

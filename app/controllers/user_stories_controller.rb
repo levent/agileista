@@ -4,7 +4,7 @@ class UserStoriesController < AbstractSecurityController
 
   def estimate
     json = { :estimator => current_person.name, :estimator_id => current_person.id, :story_points => params[:user_story][:story_points] }
-    uid = Digest::SHA1.hexdigest("planningpoker_#{@project.id}_#{@user_story.id}")
+    uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}poker#{@project.id}#{@user_story.id}")
     REDIS.publish "pubsub.#{uid}", json.to_json
   end
 
@@ -57,7 +57,7 @@ class UserStoriesController < AbstractSecurityController
   end
 
   def edit
-    @uid = Digest::SHA1.hexdigest("planningpoker_#{@project.id}_#{@user_story.id}")
+    @uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}poker#{@project.id}#{@user_story.id}")
     @user_story.acceptance_criteria.build
     @user_story.tasks.build
   end
@@ -84,7 +84,7 @@ class UserStoriesController < AbstractSecurityController
     points_planned = @sprint.user_stories.sum('story_points')
     @project.hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>planned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
     json = { :performed_by => current_person.name, :refresh => true }.to_json
-    uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
+    uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
     REDIS.publish "pubsub.#{uid}", json
     render :json => {:ok => true, :points_planned => points_planned}.to_json
   end
@@ -97,7 +97,7 @@ class UserStoriesController < AbstractSecurityController
     SprintElement.destroy_all("sprint_id = #{@sprint.id} AND user_story_id = #{@user_story.id}")
     @project.hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>unplanned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
     json = { :performed_by => current_person.name, :refresh => true }.to_json
-    uid = Digest::SHA1.hexdigest("exclusiveshit#{@user_story.sprint_id}")
+    uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
     REDIS.publish "pubsub.#{uid}", json
     respond_to do |format|
       format.html {
