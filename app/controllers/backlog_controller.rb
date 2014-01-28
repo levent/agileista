@@ -1,5 +1,5 @@
 class BacklogController < AbstractSecurityController
-  before_filter :project_user_stories ,:only => ['index', 'export', 'feed', 'sort']
+  before_filter :project_user_stories
 
   def index
     store_location
@@ -24,6 +24,16 @@ class BacklogController < AbstractSecurityController
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}backlog#{@project.id}")
     REDIS.publish "pubsub.#{uid}", json.to_json
     render :json => {:ok => true, :velocity => @project.average_velocity}.to_json
+  end
+
+  def destroy_multiple
+    if params[:user_stories] && params[:user_stories].any?
+      @user_stories.where("ID IN (?)", params[:user_stories]).destroy_all
+      flash[:notice] = "User stories #{params[:user_stories].join(', ')} deleted successfully"
+    else
+      flash[:error] = "No user stories deleted"
+    end
+    redirect_back_or(project_backlog_index_path(@project))
   end
 
   private

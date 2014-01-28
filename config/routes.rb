@@ -21,6 +21,7 @@ Agileista::Application.routes.draw do
     resources :backlog, :only => 'index' do
       collection do
         post 'sort'
+        delete 'destroy_multiple'
       end
     end
 
