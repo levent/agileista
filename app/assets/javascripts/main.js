@@ -200,7 +200,6 @@ $(function() {
     });
   }
 
-  $('.js-new-task-button').attr('disabled',true);
   $('.js-new-task-input').keyup(function(){
     if($(this).val().length !== 0){
       $(this).parent().next('.js-new-task-button').attr('disabled', false);
@@ -209,4 +208,7 @@ $(function() {
       $('.js-new-task-button').attr('disabled', true);
     }
   });
+
+  $('.js-new-task-button').attr('disabled', true);
+
 });

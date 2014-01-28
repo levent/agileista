@@ -226,7 +226,6 @@ var Agileista = (function(){
       mySVG.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
-
           .call(xAxis);
 
       mySVG.append("g")
