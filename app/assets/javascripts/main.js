@@ -190,7 +190,7 @@ $(function() {
       items: 'div.backlog-item',
       update: function(event, ui) {
       var project_id = $(this).attr('data-project');
-        $.post('/projects/' + project_id + '/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index()}, function(data) {
+        $.post('/projects/' + project_id + '/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index() - 1}, function(data) {
           if(data.ok === true) {
             $('#flashs').html('Backlog reordered');
             Agileista.setupVelocityMarkers(data.velocity);
