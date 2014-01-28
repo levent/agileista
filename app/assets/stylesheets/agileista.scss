@@ -244,6 +244,10 @@ span.underline {
   text-decoration: underline;
 }
 
+#search-results-container input.checkbox-delete-multiple {
+  display: none;
+}
+
 @media print {
   .user-story, .tb-backlog-item, .rw-backlog-item {
     border: 1px solid $white;

@@ -1,6 +1,6 @@
 <div class="row backlog-item backlog-row" data-story="<%= user_story.id %>" data-status="<%= user_story.state %>" id="<%= user_story.id %>">
   <div class="two columns">
-    <%= check_box_tag "user_stories[]", user_story.id, false, id: "user_stories_delete_#{user_story.id}" %>
+    <%= check_box_tag "user_stories[]", user_story.id, false, id: "user_stories_delete_#{user_story.id}", class: "checkbox-delete-multiple" %>
     <%= link_to edit_project_user_story_path(@project, user_story) do %>
       #<%= user_story.id %>
     <% end %>
