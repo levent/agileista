@@ -187,7 +187,7 @@ $(function() {
 
   if ( $('#backlog-items').length > 0 ) {
     $('#backlog-items').sortable({
-      items: '> div',
+      items: 'div.backlog-item',
       update: function(event, ui) {
       var project_id = $(this).attr('data-project');
         $.post('/projects/' + project_id + '/backlog/sort', {user_story_id: ui.item.attr('data-story'), move_to: ui.item.index()}, function(data) {
