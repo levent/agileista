@@ -20,7 +20,7 @@ gem 'sidekiq'
 # if you require 'sinatra' you get the DSL extended to Object
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'hipchat'
-gem "sentry-raven", :git => "https://github.com/getsentry/raven-ruby.git"
+gem "sentry-raven"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
