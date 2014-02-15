@@ -2,7 +2,7 @@
 
 <div id="task_card_<%= task_card.id %>" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-story="<%= user_story.id %>" class="task-card<%= " mine" if team_members.include?(current_person.name) %>">
   <span title="<%= task_card.definition %>"><%= truncate task_card.definition, length: 80 %></span><br>
-  <span class="assignees"><%= team_members.join(', ') %></span>
+  <span class="assignees"><%= team_members.present? ? team_members.join(', ') : 'Nobody' %></span>
   <% unless sprint.finished? %>
     <% if team_members.include?(current_user.name) %>
       <%= link_to 'Claim', claim_project_user_story_task_path(@project, user_story, task_card), method: 'put', remote: true, class: 'button small claim_btn hide-override top-right' %>

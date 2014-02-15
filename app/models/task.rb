@@ -29,7 +29,6 @@ class Task < ActiveRecord::Base
     devs = REDIS.get("task:#{self.id}:assignees")
     unless devs
       devs = self.team_members.map(&:name).join(',')
-      devs = devs.blank? ? "Nobody" : devs
       REDIS.set("task:#{self.id}:assignees", devs)
       REDIS.expire("task:#{self.id}:assignees", REDIS_EXPIRY)
     end
@@ -37,11 +36,11 @@ class Task < ActiveRecord::Base
   end
 
   def self.incomplete
-    where("done = false").includes(:team_members).select {|x| x.team_members.blank?}
+    where("done = false").select {|x| x.assignees.blank?}
   end
 
   def self.inprogress
-    where("done = false").includes(:team_members).select {|x| x.team_members.any?}
+    where("done = false").select {|x| x.assignees.present?}
   end
 
   def calculate_burndown

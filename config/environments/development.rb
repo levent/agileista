@@ -39,4 +39,6 @@ Agileista::Application.configure do
   EMAIL_FROM = "donotreply@agileista.local"
   MAIN_HOST = 'agileista.local'
   config.action_mailer.default_url_options = { :host => 'app.agileista.local:3000' }
+
+  EVENT_SOURCE = 'http://0.0.0.0:9292'
 end

@@ -40,4 +40,6 @@ Agileista::Application.configure do
   MAIN_HOST = 'agileista.local'
 
   config.action_mailer.default_url_options = { :host => 'app.agileista.local' }
+
+  EVENT_SOURCE = 'http://0.0.0.0:9292'
 end

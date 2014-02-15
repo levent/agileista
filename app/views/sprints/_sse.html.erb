@@ -8,7 +8,7 @@ var update = function(data){
   setupTaskBoardStats();
 };
 
-var source = new EventSource('https://sse.agileista.com/subscribe/<%= uid %>');
+var source = new EventSource('<%= EVENT_SOURCE %>/subscribe/<%= uid %>');
 
 source.addEventListener('message', function (event) {
   var parsedData = JSON.parse(event.data);
