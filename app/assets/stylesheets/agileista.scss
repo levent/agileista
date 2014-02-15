@@ -1,4 +1,9 @@
-@import 'foundation_and_overrides';
+$white: #fffffe;
+$highlight-color: #FFF84F;
+
+.fullWidth {
+  max-width: 98%;
+}
 
 table.bland tbody tr:nth-child(even) {
   background: none;
@@ -13,14 +18,14 @@ div#estimated, div#committed, div.ui-droppable {
 }
 
 div#estimated, div#committed {
-  border: 2px dashed $secondaryColor;
+  border: 2px dashed $secondary-color;
 }
 
 .drop-here {
   display: block;
   line-height: 3em;
   text-align: center;
-  color: $secondaryColor;
+  color: $secondary-color;
   font-weight: bold;
   font-size: 2em;
 }
@@ -48,7 +53,7 @@ div#estimated, div#committed {
 }
 
 .backlog-item {
-  border-top: 1px solid $secondaryColor;
+  border-top: 1px solid $secondary-color;
 }
 
 .backlog-key {
@@ -59,7 +64,7 @@ div#estimated, div#committed {
 }
 
 .release-marker {
-  border-top: 1px solid $alertColor;
+  border-top: 1px solid $alert-color;
 }
 
 .user-story {
@@ -68,14 +73,14 @@ div#estimated, div#committed {
     margin: 12px 0 0 0;
   }
   &[data-status="complete"] {
-    border-left: 4px solid $successColor;
+    border-left: 4px solid $success-color;
   }
   &[data-status="inprogress"] {
-    border-left: 4px solid $mainColor;
+    border-left: 4px solid $primary-color;
   }
   padding: 6px;
   border: none;
-  border-left: 4px solid $alertColor;
+  border-left: 4px solid $alert-color;
 }
 
 .task-card, .new-task-card {
@@ -88,13 +93,13 @@ div#estimated, div#committed {
 .task-card {
   cursor: move;
   &.mine {
-    border-left: 2px solid $highlightColor;
+    border-left: 2px solid $highlight-color;
   }
 }
 
 .assignees {
   line-height: 1.2em;
-  color: $mainColor;
+  color: $primary-color;
 }
 
 .new-task-card {
@@ -118,8 +123,6 @@ div#estimated, div#committed {
 
 .button, .button.small, .button.tiny, .button.medium, .button.large {
   border: none;
-  @include box-shadow(none);
-  @include transition(color .15s ease-out, background-color .15s ease-out, border-color .15s ease-out);
 }
 
 .top-right {
@@ -130,30 +133,30 @@ div#estimated, div#committed {
 
 dl.sub-nav dd.active {
   a.filter-plan {
-    background: $successColor;
+    background: $success-color;
   }
   a.filter-estimate {
-    background: $secondaryColor;
+    background: $secondary-color;
     color: #49464c;
   }
   a.filter-criteria {
-    background: $alertColor;
+    background: $alert-color;
   }
   a.filter-clarify {
-    background: $mainColor;
+    background: $primary-color;
   }
 }
 
 .filter-complete {
-  border-left: 4px solid $successColor;
+  border-left: 4px solid $success-color;
 }
 
 .filter-incomplete {
-  border-left: 4px solid $alertColor;
+  border-left: 4px solid $alert-color;
 }
 
 .filter-inprogress {
-  border-left: 4px solid $mainColor;
+  border-left: 4px solid $primary-color;
 }
 
 .axis path,
@@ -168,11 +171,11 @@ text.tasks-text, text.velocity-text {
 }
 
 text.tasks-text {
-  fill: $mainColor;
+  fill: $primary-color;
 }
 
 text.velocity-text {
-  fill: $successColor;
+  fill: $success-color;
 }
 
 .line-complete, .line-remaining, .line-tasks, .line-velocity {
@@ -180,16 +183,16 @@ text.velocity-text {
   stroke-width: 1.5px;
 }
 .line-avg {
-  stroke: $successColor;
+  stroke: $success-color;
 }
 .line-complete {
-  stroke: $successColor;
+  stroke: $success-color;
 }
 .line-remaining {
-  stroke: $alertColor;
+  stroke: $alert-color;
 }
 .line-tasks, .line-velocity {
-  stroke: $mainColor;
+  stroke: $primary-color;
 }
 textarea.vert { resize:vertical; }
 
@@ -198,7 +201,7 @@ ul.none {
 }
 
 span.underline {
-  border-bottom: 1px dotted $highlightColor;
+  border-bottom: 1px dotted $highlight-color;
 }
 
 .about-quote {

@@ -64,7 +64,7 @@ class UserStory < ActiveRecord::Base
   after_destroy :expire_story_points
 
   scope :estimated, -> {where(['sprint_id IS ? AND story_points IS NOT ?', nil, nil])}
-  scope :unassigned, -> {where(sprint_id: nil).includes(:acceptance_criteria, :person)}
+  scope :unassigned, -> {where(sprint_id: nil)}
 
   def as_json(options = {})
     super(options.merge(only: [:definition, :description, :stakeholder, :story_points, :updated_at, :created_at]))

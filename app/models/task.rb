@@ -17,10 +17,10 @@ class Task < ActiveRecord::Base
 
   delegate :sprint, :to => :user_story, :allow_nil => true
 
-  scope :complete, :conditions => "done = true"
+  scope :complete, -> {where(done: true)}
 
   # Similar to above, but we're using these in the user_story/show context
-  scope :not_done, :conditions => "done = false"
+  scope :not_done, -> {where(done: false)}
 
   after_save :calculate_burndown
   after_destroy :calculate_burndown
