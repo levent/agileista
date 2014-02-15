@@ -1,11 +1,5 @@
 module UserStoriesHelper
 
-  def user_story_status(user_story)
-    return "Cannot be estimated" if user_story.cannot_be_estimated?
-    return "Unestimated" if user_story.story_points.blank?
-    return "OK"
-  end
-
   def parse_definition(definition)
     definition = html_escape(definition)
     definition.scan(/\[\w+\]/).uniq.each do |m|

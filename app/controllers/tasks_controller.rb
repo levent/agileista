@@ -68,9 +68,4 @@ class TasksController < AbstractSecurityController
   def set_sprint
     @sprint = @user_story.sprint
   end
-
-  def truncate(string, length = 60)
-    return string if string.length <= 60
-    string[0...length-3] + "..."
-  end
 end
