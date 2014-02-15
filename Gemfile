@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.16'
+gem 'rails', '4.0.2'
 
 gem 'pg'
 gem 'yajl-ruby'
@@ -12,7 +12,7 @@ gem 'gravtastic'
 gem 'ranked-model'
 gem 'hiredis', '0.4.5'
 gem 'redis', require: ['redis/connection/hiredis', 'redis']
-gem 'simple_form', git: 'https://github.com/plataformatec/simple_form.git', branch: 'v2.1'
+gem 'simple_form'
 gem 'devise'
 gem 'unicorn'
 gem 'rack-timeout'
@@ -22,17 +22,17 @@ gem 'sinatra', '>= 1.3.0', require: nil
 gem 'hipchat'
 gem "sentry-raven"
 
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+gem 'sass-rails',   '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
 
-  gem 'compass-rails'
-  gem 'zurb-foundation'
-  gem 'jquery-rails'
-  gem 'jquery-ui-rails'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'asset_sync'
-end
+gem 'compass-rails'
+gem 'zurb-foundation'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'uglifier', '>= 1.3.0'
+gem 'asset_sync'
+
+gem 'protected_attributes'
 
 group :development do
   gem 'rails_best_practices'
