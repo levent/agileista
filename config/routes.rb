@@ -16,15 +16,15 @@ Agileista::Application.routes.draw do
     resources :hip_chat_integrations, only: [:create, :update]
     resources :team_members, only: [:destroy]
     resources :invitations, only: [:new, :create, :destroy]
-    resource :search, :only => 'show'
-    resources :backlog, :only => 'index' do
+    resource :search, only: 'show'
+    resources :backlog, only: 'index' do
       collection do
         post 'sort'
         delete 'destroy_multiple'
       end
     end
 
-    resources :people, :only => [:index]
+    resources :people, only: [:index]
     resources :sprints do
       member do
         get 'plan'
@@ -41,14 +41,14 @@ Agileista::Application.routes.draw do
       end
     end
 
-    resources :user_stories, except:[:index] do
+    resources :user_stories, except: [:index] do
       member do
         post 'copy'
       end
 
-      resources :acceptance_criteria, :only => [:update]
+      resources :acceptance_criteria, only: [:update]
 
-      resources :tasks, :only => [:create, :destroy] do
+      resources :tasks, only: [:create, :destroy] do
         member do
           post 'move_up'
           post 'move_down'

@@ -14,18 +14,6 @@ describe UserStoriesHelper do
     @person.stub(:name).and_return("Some Bo-Di")
   end
 
-  describe "#show_user" do
-    it "should return by Unknown if no creator" do
-      @us.stub(:person)
-      show_user(@us).should == "by Unknown"
-    end
-
-    it "should return by Creator if creator" do
-      @us.stub(:person).and_return(@person)
-      show_user(@us).should == "by Some Bo-Di"
-    end
-  end
-
   describe "#user_story_status" do
     it "should return Cannot be estimated if so" do
       @us.should_receive(:cannot_be_estimated?).and_return(true)

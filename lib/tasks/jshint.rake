@@ -6,6 +6,7 @@ if ENV['JSHINT'] == 'true'
     t.exclude_js_files = [
       'app/assets/javascripts/socket.io.js',
       'app/assets/javascripts/d3.v3/d3.v3.js',
+      'app/assets/javascripts/jquery.timeago.js',
     ]
     t.options = {
       :bitwise => true,
