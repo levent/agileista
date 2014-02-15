@@ -39,11 +39,17 @@
 
     <!-- Right Nav Section -->
     <ul class="right">
-      <li class="has-button search hide-for-small">
-      <%= form_for :tag, :url => project_search_path(project), :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
-        <%= text_field_tag 'q', params[:q] %>
-        <%= button_tag 'Search', :class => "submit secondary button", :name => nil %>
-      <% end %>
+      <li class="has-form">
+        <div class="row-collapse">
+          <%= form_for :tag, :url => project_search_path(project), :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
+            <div class="large-12 small-9 columns">
+              <%= text_field_tag 'q', params[:q] %>
+            </div>
+            <div class="large-12 small-9 columns">
+              <%= button_tag 'Search', :class => "expand secondary button", :name => nil %>
+            </div>
+          <% end %>
+        </div>
       </li>
       <li><a href="#" data-reveal-id="js-search-modal">?</a></li>
       <li class="divider hide-for-small"></li>
