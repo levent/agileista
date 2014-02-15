@@ -2,8 +2,8 @@ class Project < ActiveRecord::Base
   has_many :team_members, :dependent => :destroy
   has_many :people, :through => :team_members
 
-  has_many :user_stories, :order => 'position', :dependent => :destroy
-  has_many :sprints, :order => 'start_at DESC', :dependent => :destroy
+  has_many :user_stories, -> {order('position')}, :dependent => :destroy
+  has_many :sprints, -> {order('start_at DESC')}, :dependent => :destroy
 
   has_many :invitations, :dependent => :destroy
 

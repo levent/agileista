@@ -26,3 +26,5 @@ $(document).ready(function(){
   $('textarea.autosize').autosize({});
   $("abbr.timeago").timeago();
 });
+
+$(document).foundation();

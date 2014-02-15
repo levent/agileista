@@ -1,17 +1,15 @@
-<nav class="top-bar hide-on-print">
+<nav class="top-bar hide-on-print" data-topbar>
   <% if person_signed_in_and_project? %>
 
-  <ul>
+  <ul class="title-area">
     <!-- Title Area -->
     <li class="name">
-      <h1>
-        <%= link_to "Agileista", (project ? project_backlog_index_path(project) : projects_path) %>
-      </h1>
+      <h1><%= link_to "Agileista", (project ? project_backlog_index_path(project) : projects_path) %></h1>
     </li>
-    <li class="toggle-topbar"><a href="#"></a></li>
+    <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
   </ul>
 
-  <section>
+  <section class="top-bar-section">
     <!-- Left Nav Section -->
     <ul class="left">
       <li class="divider"></li>
@@ -80,7 +78,7 @@
 
   <% elsif person_signed_in? %>
 
-  <ul>
+  <ul class="title-area">
     <!-- Title Area -->
     <li class="name">
       <h1>
@@ -90,7 +88,7 @@
     <li class="toggle-topbar"><a href="#"></a></li>
   </ul>
 
-  <section>
+  <section class="top-bar-section">
     <!-- Left Nav Section -->
     <ul class="left">
     </ul>
@@ -124,7 +122,7 @@
 
   <% else %>
 
-  <ul>
+  <ul class="title-area">
     <!-- Title Area -->
     <li class="name">
       <h1>
@@ -134,7 +132,7 @@
     <li class="toggle-topbar"><a href="#"></a></li>
   </ul>
 
-  <section>
+  <section class="top-bar-section">
     <ul class="right">
       <li><%= link_to "About", root_path %></li>
       <li class="divider"></li>

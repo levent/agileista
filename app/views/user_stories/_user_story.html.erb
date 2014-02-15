@@ -28,6 +28,6 @@
     </abbr>
   </div>
   <div class="two columns hide-for-medium-down">
-    <%= link_to 'Delete', project_user_story_path(@project, user_story), :method => :delete, :confirm => "Are you sure?" %>
+    <%= link_to 'Delete', project_user_story_path(@project, user_story), :method => :delete, data: {confirm: "Are you sure?"} %>
   </div>
 </div>

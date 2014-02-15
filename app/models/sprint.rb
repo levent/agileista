@@ -11,9 +11,9 @@ class Sprint < ActiveRecord::Base
 
   before_validation :calculate_end_date
 
-  scope :current, lambda { { :conditions => ["start_at <= ? AND end_at > ?", Date.today.beginning_of_day, Date.today.beginning_of_day] } }
-  scope :finished, lambda { {:conditions => ["end_at < ?", Time.zone.now.beginning_of_day]} }
-  scope :statistically_significant, lambda { |account| {:conditions => ["end_at > ?", Velocity.stats_significant_since(account)] } }
+  scope :current, -> { where(["start_at <= ? AND end_at > ?", Date.today.beginning_of_day, Date.today.beginning_of_day] ) }
+  scope :finished, -> {where(["end_at < ?", Time.zone.now.beginning_of_day])}
+  scope :statistically_significant, ->(account) { where(["end_at > ?", Velocity.stats_significant_since(account)] ) }
 
   def as_json(options = {})
     super(options.merge(:only => [:name, :goal, :start_at, :end_at, :created_at, :updated_at, :velocity], :methods => [:user_stories]))

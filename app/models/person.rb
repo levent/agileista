@@ -17,7 +17,7 @@ class Person < ActiveRecord::Base
   has_many :task_developers, :foreign_key => "developer_id"
   has_many :tasks, :through => :task_developers
   has_many :team_members, :dependent => :destroy
-  has_many :projects, :through => :team_members, :order => 'LOWER(projects.name)'
+  has_many :projects, -> {order('LOWER(projects.name)')}, :through => :team_members
 
   def valid_password?(password)
     if self.hashed_password.present?

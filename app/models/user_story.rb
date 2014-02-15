@@ -36,8 +36,8 @@ class UserStory < ActiveRecord::Base
 
   has_many :sprint_elements, dependent: :delete_all
   has_many :sprints, through: :sprint_elements
-  has_many :acceptance_criteria, order: 'position', dependent: :delete_all
-  has_many :tasks, order: :position, dependent: :destroy
+  has_many :acceptance_criteria, -> {order('position')}, dependent: :delete_all
+  has_many :tasks, -> {order('position')}, dependent: :destroy
   accepts_nested_attributes_for :acceptance_criteria, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? } }
 
   include RankedModel
@@ -63,8 +63,8 @@ class UserStory < ActiveRecord::Base
   after_touch :expire_status, :expire_state
   after_destroy :expire_story_points
 
-  scope :estimated, conditions: ['sprint_id IS ? AND story_points IS NOT ?', nil, nil]
-  scope :unassigned, where(sprint_id: nil).includes(:acceptance_criteria, :person)
+  scope :estimated, -> {where(['sprint_id IS ? AND story_points IS NOT ?', nil, nil])}
+  scope :unassigned, -> {where(sprint_id: nil).includes(:acceptance_criteria, :person)}
 
   def as_json(options = {})
     super(options.merge(only: [:definition, :description, :stakeholder, :story_points, :updated_at, :created_at]))

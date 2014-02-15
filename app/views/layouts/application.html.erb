@@ -16,16 +16,17 @@
   <title><%= content_for?(:title) ? yield(:title) : "Agileista" %></title>
 
   <!-- Included CSS Files -->
-  <%= stylesheet_link_tag "application", media: "all" %>
-
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "vendor/modernizr" %>
   <%= csrf_meta_tags %>
+
   <script type="text/javascript" src="//use.typekit.net/voz6jxm.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body>
   <%= render 'shared/navigation/main', :project => @project -%>
-  <div class="row">
-    <div class="twentyfour columns" id="main-wrapper-div">
+  <div class="row fullWidth">
+    <div class="large-24 columns" id="main-wrapper-div">
 
       <% if flash[:alert] %>
         <div class="alert-box alert">
