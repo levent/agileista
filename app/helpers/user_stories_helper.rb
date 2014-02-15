@@ -24,16 +24,4 @@ module UserStoriesHelper
     end
     definition
   end
-
-  def created_at_to_date(user_story)
-    return underline('Today') if user_story.created_at.to_date == Date.today
-    return underline('Yesterday') if user_story.created_at.to_date == Date.yesterday
-    user_story.created_at.strftime("%d/%m/%y")
-  end
-
-  private
-
-  def underline(whenever)
-    content_tag :span, whenever, :class => 'underline'
-  end
 end

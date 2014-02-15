@@ -16,12 +16,18 @@
     <% end %>
   </div>
   <div class="two columns show-for-large-up">
-    <%= show_stakeholder(user_story) %><br><%= created_at_to_date(user_story) %>
+    <%= show_stakeholder(user_story) %><br>
+    <abbr class="timeago" title="<%= user_story.created_at.getutc.iso8601 %>">
+      <%= user_story.created_at.to_s %>
+    </abbr>
   </div>
   <div class="four columns show-for-medium-down">
-    <%= show_stakeholder(user_story) %><br><%= created_at_to_date(user_story) %>
+    <%= show_stakeholder(user_story) %><br>
+    <abbr class="timeago" title="<%= user_story.created_at.getutc.iso8601 %>">
+      <%= user_story.created_at.to_s %>
+    </abbr>
   </div>
-  <div class="two columns hide-for-medium-down" title="<%= time_ago_in_words(user_story.created_at) %> ago">
+  <div class="two columns hide-for-medium-down">
     <%= link_to 'Delete', project_user_story_path(@project, user_story), :method => :delete, :confirm => "Are you sure?" %>
   </div>
 </div>

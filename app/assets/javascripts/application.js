@@ -18,9 +18,11 @@
 //= require foundation
 //= require d3.v3/d3.v3
 //= require jquery.autosize
+//= require jquery.timeago
 //= require agileista
 //= require main
 
 $(document).ready(function(){
   $('textarea.autosize').autosize({});
+  $("abbr.timeago").timeago();
 });

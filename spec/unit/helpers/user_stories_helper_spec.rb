@@ -44,21 +44,4 @@ describe UserStoriesHelper do
       user_story_status(@us).should == "OK"
     end
   end
-
-  describe "#created_at_to_date" do
-    it "should return a short date format" do
-      @us.stub(:created_at).and_return(2.days.ago)
-      created_at_to_date(@us).should == 2.days.ago.strftime("%d/%m/%y")
-    end
-
-    it "should say today if so" do
-      @us.stub(:created_at).and_return(Date.today)
-      created_at_to_date(@us).should == "<span class=\"underline\">Today</span>"
-    end
-
-    it "should say yesterday if so" do
-      @us.stub(:created_at).and_return(1.day.ago)
-      created_at_to_date(@us).should == "<span class=\"underline\">Yesterday</span>"
-    end
-  end
 end
