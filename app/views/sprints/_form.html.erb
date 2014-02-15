@@ -1,21 +1,21 @@
 <%= simple_form_for [@project, @sprint] do |f| %>
   <div class="row">
-    <div class="sixteen columns">
+    <div class="large-16 small-16 medium-16 columns">
       <%= f.input :name %>
       <% default = @project.sprints.any? && !@project.sprints.first.end_at.nil? ? @project.sprints.first.end_at : Time.now %>
       <div class="row">
-        <div class="eight columns">
-          <%= f.input :start_at, as: :date, order: [:day, :month, :year], default: 1.day.from_now(default), input_html: { class: 'eight columns' } %>
+        <div class="large-8 small-8 medium-8 columns">
+          <%= f.input :start_at, as: :date, order: [:day, :month, :year], default: 1.day.from_now(default), input_html: { class: 'large-8 small-8 medium-8 columns' } %>
         </div>
-        <div class="eight columns">
+        <div class="large-8 small-8 medium-8 columns">
           <% if @project && @sprint.new_record? %>
             <%= f.label :end_at, "Ends in" %>
             <%= pluralize(@project.iteration_length, "week") %>
           <% else %>
-            <%= f.input :end_at, as: :date, order: [:day, :month, :year], input_html: { class: 'eight columns' } %>
+            <%= f.input :end_at, as: :date, order: [:day, :month, :year], input_html: { class: 'large-8 small-8 medium-8 columns' } %>
           <% end %>
         </div>
-        <div class="eight columns"></div>
+        <div class="large-8 small-8 medium-8 columns"></div>
       </div>
       <hr>
       <%= f.input :goal, input_html: { rows: 6 } %>
