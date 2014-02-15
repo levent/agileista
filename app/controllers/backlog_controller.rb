@@ -44,7 +44,7 @@ class BacklogController < AbstractSecurityController
       @story_points = 0
       @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
       REDIS.set("project:#{@project.id}:story_points", @story_points)
-      REDIS.expire("project:#{@project.id}:story_points", 900)
+      REDIS.expire("project:#{@project.id}:story_points", REDIS_EXPIRY)
     end
   end
 

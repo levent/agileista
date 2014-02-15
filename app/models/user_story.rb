@@ -98,7 +98,7 @@ class UserStory < ActiveRecord::Base
         cached_status = "incomplete"
       end
       REDIS.set("user_story:#{self.id}:status", cached_status)
-      REDIS.expire("user_story:#{self.id}:status", 900)
+      REDIS.expire("user_story:#{self.id}:status", REDIS_EXPIRY)
     end
     cached_status
   end
@@ -138,7 +138,7 @@ class UserStory < ActiveRecord::Base
         cached_state = 'plan'
       end
       REDIS.set("user_story:#{self.id}:state", cached_state)
-      REDIS.expire("user_story:#{self.id}:state", 900)
+      REDIS.expire("user_story:#{self.id}:state", REDIS_EXPIRY)
     end
     cached_state
   end
