@@ -1,13 +1,13 @@
 <div id="task_card_<%= task_card.id %>" title="<%=h task_card.definition %>" data-task="<%= task_card.id %>" data-story="<%= user_story.id %>" class="task-card<%= " mine" if task_card.team_members.include?(current_person) %>">
-  <span title="<%= task_card.definition %>"><%= truncate task_card.definition, :length => 80 %></span><br>
+  <span title="<%= task_card.definition %>"><%= truncate task_card.definition, length: 80 %></span><br>
   <span class="assignees"><%= show_assignees(task_card.team_members) %></span>
   <% unless sprint.finished? %>
     <% if task_card.team_members.include?(current_user) %>
-      <%= link_to 'Claim', claim_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'button small claim_btn hide-override top-right' %>
-      <%= link_to 'Renounce', renounce_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'alert button small renounce_btn top-right' %>
+      <%= link_to 'Claim', claim_project_user_story_task_path(@project, user_story, task_card), method: 'put', remote: true, class: 'button small claim_btn hide-override top-right' %>
+      <%= link_to 'Renounce', renounce_project_user_story_task_path(@project, user_story, task_card), method: 'put', remote: true, class: 'alert button small renounce_btn top-right' %>
     <% else %>
-      <%= link_to 'Claim', claim_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'button small claim_btn top-right' %>
-      <%= link_to 'Renounce', renounce_project_user_story_task_path(@project, user_story, task_card), :method => 'put', :remote => true, :class => 'alert button small renounce_btn hide-override top-right' %>
+      <%= link_to 'Claim', claim_project_user_story_task_path(@project, user_story, task_card), method: 'put', remote: true, class: 'button small claim_btn top-right' %>
+      <%= link_to 'Renounce', renounce_project_user_story_task_path(@project, user_story, task_card), method: 'put', remote: true, class: 'alert button small renounce_btn hide-override top-right' %>
     <% end %>
   <% end %>
 </div>

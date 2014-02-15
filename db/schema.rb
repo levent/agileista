@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131105135005) do
+ActiveRecord::Schema.define(:version => 20140215114711) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -172,6 +172,9 @@ ActiveRecord::Schema.define(:version => 20131105135005) do
     t.datetime "deleted_at"
   end
 
+  add_index "team_members", ["project_id", "person_id"], :name => "index_team_members_on_project_id_and_person_id"
+  add_index "team_members", ["project_id"], :name => "index_team_members_on_project_id"
+
   create_table "user_stories", :force => true do |t|
     t.text     "definition"
     t.text     "description"
@@ -188,5 +191,8 @@ ActiveRecord::Schema.define(:version => 20131105135005) do
     t.boolean  "delta",               :default => false
     t.integer  "project_id"
   end
+
+  add_index "user_stories", ["project_id", "sprint_id"], :name => "index_user_stories_on_project_id_and_sprint_id"
+  add_index "user_stories", ["project_id"], :name => "index_user_stories_on_project_id"
 
 end
