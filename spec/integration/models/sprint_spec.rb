@@ -36,7 +36,7 @@ describe Sprint do
       sprint.end_at.should.to_s == initial_finish.to_s
     end
   end
-  
+
   describe "#velocity" do
     before(:each) do
       us1 = UserStory.new(:story_points => 3)
@@ -47,7 +47,7 @@ describe Sprint do
       us6 = UserStory.new(:story_points => nil)
       us7 = UserStory.new(:story_points => 20)
       us8 = UserStory.new(:story_points => 40)
-      
+
       us1.stub!(:complete?).and_return(true)
       us2.stub!(:complete?).and_return(true)
       us3.stub!(:complete?).and_return(false)
@@ -56,14 +56,14 @@ describe Sprint do
       us6.stub!(:complete?).and_return(false)
       us7.stub!(:complete?).and_return(true)
       us8.stub!(:complete?).and_return(false)
-      
+
       @sprint = Sprint.new(:name => "sprint a")
       @sprint.stub!(:user_stories).and_return([us1, us2, us3, us4, us5, us6, us7, us8])
       @sprint.start_at = 3.months.ago
       @sprint.end_at = 2.months.ago
       @sprint.stub!(:project_id).and_return(19)
     end
-    
+
     it "should return the total story points for all the complete user stories" do
       @sprint.calculated_velocity.should == 56
       @sprint.velocity.should == 56
@@ -91,14 +91,14 @@ describe Sprint do
       @it.end_at = 1.weeks.ago
       @it.current?.should be_false
     end
-    
+
     it "should return false if upcoming" do
       @it.start_at = 1.weeks.from_now
       @it.end_at = 2.weeks.from_now
       @it.current?.should be_false
     end
   end
-  
+
   describe "#destroy" do
     describe "with user stories" do
       before(:each) do
