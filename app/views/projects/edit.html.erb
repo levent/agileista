@@ -22,6 +22,6 @@
 
 <div class="row">
   <div class="columns ten offset-by-fourteen">
-    <%= link_to "Delete project", project_path(@project), :method => :delete, :confirm => 'Are you sure? This cannot be recovered from.', :class => 'button small alert' %> <abbr>This cannot be undone</abbr>
+    <%= link_to "Delete project", project_path(@project), method: :delete, data: {confirm: 'Are you sure? This cannot be undone.'}, class: 'button small alert' %> <abbr>This cannot be undone</abbr>
   </div>
 </div>

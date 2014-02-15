@@ -1,4 +1,5 @@
 require 'active_record'
+require 'protected_attributes'
 require 'unit_helper'
 require 'project'
 require 'console_helper'
