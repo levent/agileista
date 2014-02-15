@@ -37,7 +37,6 @@ end
 
 Task.blueprint do
   definition { Faker::Lorem.sentence }
-  hours { rand(12) }
 end
 
 AcceptanceCriterium.blueprint do

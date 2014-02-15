@@ -1,18 +1,18 @@
 require 'spec_helper'
 
 describe Task do
-  
+
   before(:each) do
     @task = Task.new
   end
 
   describe "named_scopes" do
     before(:each) do
-      @task1 = Task.make!(:hours => 100)
-      @task2 = Task.make!(:hours => 1)
-      @task3 = Task.make!(:hours => 14)
+      @task1 = Task.make!
+      @task2 = Task.make!
+      @task3 = Task.make!
       @task3.team_members = [Person.make!]
-      @task4 = Task.make!(:hours => 0)
+      @task4 = Task.make!(done: true)
     end
 
     describe "incomplete" do
@@ -45,12 +45,12 @@ describe Task do
       end
     end
   end
-  
+
   context "#team_members" do
     before(:each) do
       @task = Task.make
     end
-    
+
     it "should return an array of team_members assigned to this task" do
       @task.team_members.should be_blank
       @team_member1 = Person.make
@@ -61,51 +61,17 @@ describe Task do
     end
   end
 
-  describe "incomplete?" do
-    it "should be false if any team_members are assigned" do
-      @task = Task.new
-      @task.stub!(:team_members).and_return(["a developer"])
-      @task.should_not be_incomplete
-    end
-
-    it "should be true if any hours left" do
-      @task = Task.new(:hours => 100)
-      @task.should be_incomplete
-    end
-
-    it "should be true if nil hours left" do
-      @task = Task.new(:hours => nil)
-      @task.should be_incomplete
-    end
-
-    it "should be false if no hours are left" do
-      @task = Task.new(:hours => 0)
-      @task.should_not be_incomplete
-    end
-  end
-
   describe "inprogress?" do
-    it "should be true if any team_members and hours left" do
-      @task = Task.new(:hours => 1)
+    it "should be true if any team_members and not done" do
+      @task = Task.new(:done => false)
       @task.stub!(:team_members).and_return(["a developer"])
       @task.should be_inprogress
     end
 
-    it "should be true if any team_members and nil hours left" do
-      @task = Task.new(:hours => nil)
-      @task.stub!(:team_members).and_return(["a developer"])
-      @task.should be_inprogress
-    end
 
-    it "should be false if no team_members and hours left" do
-      @task = Task.new(:hours => 1)
-      @task.should_not be_inprogress
-    end
-
-    it "should be false if no team_members and nil hours left" do
-      @task = Task.new(:hours => nil)
+    it "should be false if no team_members and not done" do
+      @task = Task.new(:done => true)
       @task.should_not be_inprogress
     end
   end
-
 end

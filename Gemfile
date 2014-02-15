@@ -43,6 +43,8 @@ group :development do
   gem 'sextant'
   gem 'brakeman', :require => false
   gem 'dotenv-rails'
+  gem 'rack-mini-profiler'
+  gem 'flamegraph'
 end
 
 group :test do

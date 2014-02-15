@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140215114711) do
+ActiveRecord::Schema.define(:version => 20140215125547) do
 
   create_table "acceptance_criteria", :force => true do |t|
     t.string  "detail"
@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(:version => 20140215114711) do
   create_table "tasks", :force => true do |t|
     t.string   "definition"
     t.text     "description"
-    t.integer  "hours",         :default => 1
+    t.boolean  "done",          :default => false
     t.integer  "position"
     t.integer  "developer_id"
     t.integer  "user_story_id"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(:version => 20140215114711) do
     t.datetime "updated_at"
   end
 
+  add_index "tasks", ["user_story_id", "done"], :name => "index_tasks_on_user_story_id_and_done"
   add_index "tasks", ["user_story_id"], :name => "index_tasks_on_user_story_id"
 
   create_table "team_members", :force => true do |t|

@@ -1,6 +1,6 @@
 class TasksController < AbstractSecurityController
   before_filter :set_user_story
-  before_filter :set_task, :except => [:create]
+  before_filter :set_task, except: [:create]
   before_filter :set_sprint, only: [:complete, :create, :renounce, :claim]
 
   def create
@@ -29,7 +29,7 @@ class TasksController < AbstractSecurityController
 
   def claim
     @task.team_members << current_person
-    @task.update_attribute(:hours, 1)
+    @task.update_attribute(:done, false)
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
     json = { :notification => "#{current_person.name} claimed task of ##{@user_story.id}", :performed_by => current_person.name, :action => 'claim', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
@@ -41,7 +41,7 @@ class TasksController < AbstractSecurityController
   end
 
   def complete
-    @task.update_attribute(:hours, 0)
+    @task.update_attribute(:done, true)
     devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
     json = { :notification => "#{current_person.name} completed task of ##{@user_story.id}", :performed_by => current_person.name, :action => 'complete', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")

@@ -71,7 +71,7 @@ class Sprint < ActiveRecord::Base
   end
 
   def hours_left
-    Task.where("user_story_id IN (?)", self.user_story_ids).sum('hours')
+    Task.where("user_story_id IN (?) AND done = ?", self.user_story_ids, false).count
   end
 
   def finished?

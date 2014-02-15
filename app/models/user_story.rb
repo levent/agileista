@@ -117,42 +117,12 @@ class UserStory < ActiveRecord::Base
   def complete?
     if !tasks.blank?
       tasks.each do |task|
-        return false unless task.complete?
+        return false unless task.done?
       end
       return true
     else
       return false
     end
-  end
-
-  def self.complete_tasks
-    complete_tasks = []
-    find(:all).each do |user_story|
-      user_story.tasks.each do |task|
-        complete_tasks << task if task.complete?
-      end
-    end
-    return complete_tasks
-  end
-
-  def self.inprogress_tasks
-    inprogress_tasks = []
-    find(:all).each do |user_story|
-      user_story.tasks.each do |task|
-        inprogress_tasks << task if task.inprogress?
-      end
-    end
-    return inprogress_tasks
-  end
-
-  def self.incomplete_tasks
-    incomplete_tasks = []
-    find(:all).each do |user_story|
-      user_story.tasks.each do |task|
-        incomplete_tasks << task if task.incomplete?
-      end
-    end
-    return incomplete_tasks
   end
 
   def state
@@ -179,7 +149,7 @@ class UserStory < ActiveRecord::Base
       new_us.acceptance_criteria << AcceptanceCriterium.new(:detail => ac.detail)
     end
     self.tasks.each do |task|
-      new_us.tasks << Task.new(:definition => task.definition, :description => task.description, :hours => task.hours)
+      new_us.tasks << Task.new(:definition => task.definition, :description => task.description, :done => task.done)
     end
     new_us.backlog_order_position = :first
     new_us.save!
