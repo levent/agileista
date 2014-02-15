@@ -15,9 +15,10 @@ class TasksController < AbstractSecurityController
   end
 
   def renounce
+    REDIS.del("task:#{@task.id}:assignees")
     @task.team_members.delete(current_person)
     @task.touch
-    devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
+    devs = @task.assignees.split(',')
     json = { :notification => "#{current_person.name} renounced task of ##{@user_story.id}", :performed_by => current_person.name, :action => 'renounce', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
     calculate_todays_burndown(@task.sprint)
@@ -28,9 +29,10 @@ class TasksController < AbstractSecurityController
   end
 
   def claim
+    REDIS.del("task:#{@task.id}:assignees")
     @task.team_members << current_person
     @task.update_attribute(:done, false)
-    devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
+    devs = @task.assignees.split(',')
     json = { :notification => "#{current_person.name} claimed task of ##{@user_story.id}", :performed_by => current_person.name, :action => 'claim', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
     calculate_todays_burndown(@task.sprint)
@@ -42,7 +44,7 @@ class TasksController < AbstractSecurityController
 
   def complete
     @task.update_attribute(:done, true)
-    devs = @task.team_members.any? ? @task.team_members.map(&:name) : ["Nobody"]
+    devs = @task.assignees.split(',')
     json = { :notification => "#{current_person.name} completed task of ##{@user_story.id}", :performed_by => current_person.name, :action => 'complete', :task_id => @task.id, :task_hours => @task.hours, :task_devs => devs, :user_story_status => @user_story.status, :user_story_id => @user_story.id }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
     calculate_todays_burndown(@task.sprint)

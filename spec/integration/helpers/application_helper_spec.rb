@@ -17,24 +17,6 @@ describe ApplicationHelper, :type => :helper do
     end
   end
 
-  describe "show_assignees" do
-    before(:each) do
-      @task = Task.make
-    end
-
-    it "should show the names of assigned team_members" do
-      team_member1 = Person.make
-      team_member2 = Person.make
-      team_member3 = Person.make
-      @task.team_members = [team_member3, team_member2, team_member1]
-      @it.show_assignees(@task.team_members).should == "#{team_member3.name}, #{team_member2.name}, #{team_member1.name}"
-    end
-
-    it "should show nobody if blank" do
-      @it.show_assignees(@task.team_members).should == "Nobody"
-    end
-  end
-
   describe "#show_stakeholder" do
     # deals with legacy before created_by
     it "should return by Unknown if no stakeholder or creator" do

@@ -25,6 +25,16 @@ class Task < ActiveRecord::Base
   after_save :calculate_burndown
   after_destroy :calculate_burndown
 
+  def assignees
+    devs = REDIS.get("task:#{self.id}:assignees")
+    return devs if devs
+    devs = self.team_members.map(&:name).join(',')
+    devs = devs.blank? ? "Nobody" : devs
+    REDIS.set("task:#{self.id}:assignees", devs)
+    REDIS.expire("task:#{self.id}:assignees", 900)
+    return devs
+  end
+
   def self.incomplete
     where("done = false").includes(:team_members).select {|x| x.team_members.blank?}
   end

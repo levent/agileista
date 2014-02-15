@@ -44,11 +44,6 @@ module ApplicationHelper
     end
   end
 
-  def show_assignees(developers)
-    assignees = developers.map(&:name).join(', ')
-    assignees.blank? ? "Nobody" : assignees
-  end
-
   def show_date(date)
     date.strftime("%d %B %Y")
   end
