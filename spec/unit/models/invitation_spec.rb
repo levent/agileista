@@ -1,3 +1,4 @@
+require 'protected_attributes'
 require 'unit_helper'
 require 'invitation'
 

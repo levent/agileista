@@ -13,6 +13,8 @@ class Project < ActiveRecord::Base
   validates_presence_of :iteration_length
   validates_uniqueness_of :name, :case_sensitive => false
 
+  attr_accessible :name, :iteration_length
+
   def average_velocity
     return if sprints.finished.statistically_significant(self).empty?
     sprints.finished.statistically_significant(self).map {|s| s.calculated_velocity}.sum / sprints.finished.statistically_significant(self).count
