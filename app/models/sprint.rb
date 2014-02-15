@@ -23,10 +23,6 @@ class Sprint < ActiveRecord::Base
     super(options.merge(:only => [:name, :goal, :start_at, :end_at, :created_at, :updated_at, :velocity], :methods => [:user_stories]))
   end
 
-  def user_stories_json
-    user_stories_json = user_stories.collect(&:as_json)
-  end
-
   def validate
     return unless start_at && end_at
     errors.add(:start_at, "and end at must be different") if self.start_at >= self.end_at
@@ -80,10 +76,6 @@ class Sprint < ActiveRecord::Base
 
   def finished?
     self.end_at < Time.zone.now.at_beginning_of_day
-  end
-
-  def upcoming?
-    self.start_at > Time.zone.now.end_of_day
   end
 
   def current?

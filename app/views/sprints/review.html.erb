@@ -6,7 +6,7 @@
       <div class="eighteen columns">
         <h2>Review: <%= sprint_header(@sprint) %></h2>
         <h4>Sprint goal: <%= @sprint.goal %></h4>
-        <%= render :partial => "shared/burn_charts" %>
+        <%= render "shared/burn_charts", :chart_burnremaining => @chart_burnremaining, :chart_burncomplete => @chart_burncomplete, :chart_burndown => @chart_burndown, :sprint => @sprint %>
       </div>
 
       <div class="six columns hide-on-print">

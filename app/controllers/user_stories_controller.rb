@@ -52,7 +52,7 @@ class UserStoriesController < AbstractSecurityController
     else
       @user_story.acceptance_criteria.build
       @user_story.tasks.build
-      render :action => 'new'
+      render 'new'
     end
   end
 
@@ -68,10 +68,10 @@ class UserStoriesController < AbstractSecurityController
       @project.hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>updated</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
       redirect_to edit_project_user_story_path(@project, @user_story) and return false if params[:commit] == 'Save'
     else
-      flash[:error] = "User story couldn't be updated"
+      flash.now[:error] = "User story couldn't be updated"
       @user_story.acceptance_criteria.build
       @user_story.tasks.build
-      render :action => 'edit' and return false
+      render 'edit' and return false
     end
     redirect_back_or(project_backlog_index_path(@project))
   end

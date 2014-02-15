@@ -17,7 +17,7 @@
         <div class="content">
           <div class="row">
             <div class="twentyfour columns">
-              <%= render :partial => "shared/burn_charts" %>
+              <%= render "shared/burn_charts", :chart_burnremaining => @chart_burnremaining, :chart_burncomplete => @chart_burncomplete, :chart_burndown => @chart_burndown, :sprint => @sprint %>
             </div>
           </div>
         </div>
@@ -66,6 +66,5 @@
       Agileista.toggleStoriesByStatus(whichCheckBox, whatState);
     });
   });
-  <%= render :partial => 'sse', :locals => {:uid => @uid} unless @sprint.finished? %>
+  <%= render 'sse', :uid => @uid unless @sprint.finished? %>
 <% end %>
-

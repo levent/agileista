@@ -79,26 +79,6 @@ describe Sprint do
     end
   end
 
-  describe "#upcoming?" do
-    it "should return true if starts in the future" do
-      @it.start_at = 1.weeks.from_now
-      @it.end_at = 2.weeks.from_now
-      @it.upcoming?.should be_true
-    end
-    
-    it "should return false if already started" do
-      @it.start_at = 1.weeks.ago
-      @it.end_at = 2.weeks.from_now
-      @it.upcoming?.should be_false
-    end
-    
-    it "should return false if already complete" do
-      @it.start_at = 2.weeks.ago
-      @it.end_at = 1.weeks.ago
-      @it.upcoming?.should be_false
-    end
-  end
-  
   describe "#current?" do
     it "should return true if active sprint" do
       @it.start_at = 1.weeks.ago

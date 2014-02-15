@@ -18,8 +18,8 @@ class ProjectsController < AbstractSecurityController
       flash[:notice] = "Project created"
       redirect_to project_backlog_index_path(@project)
     else
-      flash[:error] = "Project could not be created"
-      render :action => 'new'
+      flash.now[:error] = "Project could not be created"
+      render 'new'
     end
   end
 
@@ -33,8 +33,8 @@ class ProjectsController < AbstractSecurityController
       redirect_to :back
     else
       @hip_chat_integration = @project.hip_chat_integration || HipChatIntegration.new
-      flash[:error] = "Project settings couldn't be saved"
-      render :action => 'edit'
+      flash.now[:error] = "Project settings couldn't be saved"
+      render 'edit'
     end
   end
 
@@ -43,8 +43,8 @@ class ProjectsController < AbstractSecurityController
       flash[:notice] = "Project removed"
       redirect_to projects_path
     else
-      flash[:error] = "Project could not be removed"
-      render :action => 'edit'
+      flash.now[:error] = "Project could not be removed"
+      render 'edit'
     end
   end
 

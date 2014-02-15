@@ -1,6 +1,6 @@
 <% content_for :title, "Sprints - #{@project.name.humanize} - Agileista" %>
 
-<%= render :partial => "shared/velocity_chart" %>
+<%= render "shared/velocity_chart", :sprints => @sprints, :project => @project, :velocity => @velocity %>
 <% unless @sprints.blank? %>
   <div class="row">
     <div class="columns twentyfour">

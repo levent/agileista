@@ -52,8 +52,8 @@ class SprintsController < AbstractSecurityController
       @project.hipchat_notify("Sprint <a href=\"#{project_sprint_url(@project, @sprint)}\">##{@sprint.id}</a> <strong>created</strong> by #{current_person.name}: \"#{@sprint.name}\"")
       redirect_to project_sprints_path(@project)
     else
-      flash[:error] = "Sprint could not be created"
-      render :action => 'new'
+      flash.now[:error] = "Sprint could not be created"
+      render 'new'
     end
   end
 
@@ -66,8 +66,8 @@ class SprintsController < AbstractSecurityController
       @project.hipchat_notify("Sprint <a href=\"#{project_sprint_url(@project, @sprint)}\">##{@sprint.id}</a> <strong>updated</strong> by #{current_person.name}: \"#{@sprint.name}\"")
       redirect_back_or(project_sprints_path(@project))
     else
-      flash[:error] = "Sprint couldn't be saved"
-      render :action => 'edit'
+      flash.now[:error] = "Sprint couldn't be saved"
+      render 'edit'
     end
   end
 

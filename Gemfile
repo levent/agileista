@@ -11,14 +11,14 @@ gem 'tire'
 gem 'gravtastic'
 gem 'ranked-model'
 gem 'hiredis', '0.4.5'
-gem 'redis', :require => ['redis/connection/hiredis', 'redis']
-gem 'simple_form', :git => 'https://github.com/plataformatec/simple_form.git', :branch => 'v2.1'
+gem 'redis', require: ['redis/connection/hiredis', 'redis']
+gem 'simple_form', git: 'https://github.com/plataformatec/simple_form.git', branch: 'v2.1'
 gem 'devise'
 gem 'unicorn'
 gem 'rack-timeout'
 gem 'sidekiq'
 # if you require 'sinatra' you get the DSL extended to Object
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sinatra', '>= 1.3.0', require: nil
 gem 'hipchat'
 gem "sentry-raven"
 
@@ -46,8 +46,8 @@ group :development do
 end
 
 group :test do
-  gem 'simplecov', '0.7.1', :require => false
-  gem 'simplecov-console', :require => false
+  gem 'simplecov', '0.7.1', require: false
+  gem 'simplecov-console', require: false
   gem 'jshintrb'
   gem 'poltergeist'
   gem 'shoulda-matchers'

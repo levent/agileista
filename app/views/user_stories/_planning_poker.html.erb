@@ -27,7 +27,7 @@
   </div>
 
   <% content_for :custom_js do %>
-    <%= render :partial => 'sse_planning_poker', :locals => {:uid => @uid} %>
+    <%= render 'sse_planning_poker', :uid => @uid %>
     $('#show-estimates').click(function(e) {
     e.preventDefault();
     $('.secret-estimate').show();

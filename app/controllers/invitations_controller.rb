@@ -12,8 +12,8 @@ class InvitationsController < AbstractSecurityController
       flash[:notice] = "Invite sent to #{params[:invitation][:email]}"
       redirect_to project_people_path(@project)
     else
-      flash[:error] = "Invalid email address"
-      render :action => 'new'
+      flash.now[:error] = "Invalid email address"
+      render 'new'
     end
   end
 

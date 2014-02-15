@@ -5,7 +5,7 @@
     <!-- Title Area -->
     <li class="name">
       <h1>
-        <%= link_to "Agileista", (@project ? project_backlog_index_path(@project) : projects_path) %>
+        <%= link_to "Agileista", (project ? project_backlog_index_path(project) : projects_path) %>
       </h1>
     </li>
     <li class="toggle-topbar"><a href="#"></a></li>
@@ -16,25 +16,25 @@
     <ul class="left">
       <li class="divider"></li>
       <li class="has-dropdown">
-        <%= link_to "Backlog", project_backlog_index_path(@project) %>
+        <%= link_to "Backlog", project_backlog_index_path(project) %>
         <ul class="dropdown">
-          <li><%= link_to "Add user story", new_project_user_story_path(@project) %></li>
-          <li><%= link_to "View all stories", project_backlog_index_path(@project) %></li>
-          <li><%= link_to "Export CSV", project_backlog_index_path(@project, :format => 'csv') %></li>
+          <li><%= link_to "Add user story", new_project_user_story_path(project) %></li>
+          <li><%= link_to "View all stories", project_backlog_index_path(project) %></li>
+          <li><%= link_to "Export CSV", project_backlog_index_path(project, :format => 'csv') %></li>
         </ul>
       </li>
       <li class="divider hide-for-small"></li>
       <li class="has-dropdown hide-for-small">
-        <%= link_to "Sprints", project_sprints_path(@project) %>
+        <%= link_to "Sprints", project_sprints_path(project) %>
         <ul class="dropdown">
-          <li><%= link_to("Add sprint", new_project_sprint_path(@project)) %></li>
-          <li><%= link_to "View all sprints", project_sprints_path(@project) %></li>
+          <li><%= link_to("Add sprint", new_project_sprint_path(project)) %></li>
+          <li><%= link_to "View all sprints", project_sprints_path(project) %></li>
         </ul>
       </li>
       <li class="divider"></li>
       <% if current_sprint %>
         <li>
-          <%= link_to "Task Board", project_sprint_path(@project, current_sprint) %>
+          <%= link_to "Task Board", project_sprint_path(project, current_sprint) %>
         </li>
       <% end %>
     </ul>
@@ -42,7 +42,7 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <li class="has-button search hide-for-small">
-      <%= form_for :tag, :url => project_search_path(@project), :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
+      <%= form_for :tag, :url => project_search_path(project), :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
         <%= text_field_tag 'q', params[:q] %>
         <%= button_tag 'Search', :class => "submit secondary button", :name => nil %>
       <% end %>
@@ -50,14 +50,14 @@
       <li><a href="#" data-reveal-id="js-search-modal">?</a></li>
       <li class="divider hide-for-small"></li>
       <li class="has-dropdown">
-        <%= link_to @project.name.humanize, project_backlog_index_path(@project) %>
+        <%= link_to project.name.humanize, project_backlog_index_path(project) %>
         <ul class="dropdown">
-          <li><label><%= @project.name.humanize %></label></li>
-          <li><%= link_to "Settings", edit_project_path(@project) if current_person.scrum_master_for?(@project) %></li>
-          <li><%= link_to "Users", project_people_path(@project) %></li>
+          <li><label><%= project.name.humanize %></label></li>
+          <li><%= link_to "Settings", edit_project_path(project) if current_person.scrum_master_for?(project) %></li>
+          <li><%= link_to "Users", project_people_path(project) %></li>
           <li class="divider"></li>
           <li><label>Other projects</label></li>
-          <% current_person.projects.where("project_id != ?", @project.id).each do |project| %>
+          <% current_person.projects.where("project_id != ?", project.id).each do |project| %>
             <li><%= link_to project.name.humanize, project_backlog_index_path(project) unless project.new_record? %></li>
           <% end %>
           <li class="divider"></li>
