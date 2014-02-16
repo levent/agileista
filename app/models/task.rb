@@ -15,6 +15,8 @@ class Task < ActiveRecord::Base
   has_many :task_developers, :dependent => :delete_all
   has_many :team_members, -> {uniq}, :through => :task_developers, :foreign_key => 'developer_id', :class_name => "Person"
 
+  attr_accessible :definition, :description
+
   delegate :sprint, :to => :user_story, :allow_nil => true
 
   scope :complete, -> {where(done: true)}

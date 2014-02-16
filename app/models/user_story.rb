@@ -20,6 +20,8 @@ class UserStory < ActiveRecord::Base
     indexes :state, analyzer: 'keyword', as: 'state'
   end
 
+  attr_accessible :definition, :story_points, :stakeholder, :cannot_be_estimated, :description, :acceptance_criteria_attributes, :tasks_attributes
+
   def search_ac
     self.acceptance_criteria.collect(&:detail)
   end

@@ -33,7 +33,6 @@ Agileista::Application.routes.draw do
       end
       resources :user_stories, only: [] do
         member do
-          put 'estimate'
           post 'plan'
           post 'unplan'
           post 'reorder'
@@ -43,6 +42,7 @@ Agileista::Application.routes.draw do
 
     resources :user_stories, except: [:index] do
       member do
+        put 'estimate'
         post 'copy'
       end
 
