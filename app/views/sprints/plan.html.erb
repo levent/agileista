@@ -1,7 +1,7 @@
 <% content_for :title, "Plan - #{@sprint.name} - #{@project.name.humanize} - Agileista" %>
 
 <h2><%= @sprint.name %>: <small><span id="points_planned"><%= show_story_points(@sprint.user_stories.sum('story_points')) %></span> planned <% if @velocity %>(<%= average_velocity(@project) %> available)<% end %></small></h2>
-<div id="estimated" class="eleven columns">
+<div id="estimated" class="large-11 small-11 medium-11 columns">
   <h3>Estimated backlog:</h3>
   <% @backlog_stories.includes(:person).each do |user_story| %>
     <%= render :partial => '/user_stories/plan_user_story', :locals => {:sprint => @sprint, :user_story => user_story, :tasks => !@sprint.finished?, :copy => @sprint.finished? && !user_story.complete?} %>
@@ -9,7 +9,7 @@
   <div class="drop-here">Drop Here</div>
 </div>
 
-<div id="committed" class="eleven columns">
+<div id="committed" class="large-11 small-11 medium-11 columns">
   <h3 class="tab"><%= @sprint.name %></h3>
   <% @planned_stories.each do |user_story| %>
     <%= render :partial => '/user_stories/plan_user_story', :locals => {:sprint => @sprint, :user_story => user_story, :tasks => !@sprint.finished?, :copy => @sprint.finished? && !user_story.complete?} %>

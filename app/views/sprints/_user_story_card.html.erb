@@ -1,6 +1,6 @@
 <div class="tb-backlog-item">
   <div class="row">
-    <div class="sixteen columns">
+    <div class="large-16 small-16 medium-16 columns">
       <%= link_to edit_project_user_story_path(@project, user_story) do %>
         #<%= user_story.id %>
       <% end %>
@@ -9,7 +9,7 @@
       <% end %>&nbsp;<%= parse_definition(user_story.definition).html_safe %>
     </div>
 
-    <div class="text-right eight columns hide-for-small">
+    <div class="text-right large-8 small-8 medium-8 columns hide-for-small">
       <strong>Stakeholder:</strong> <%= show_stakeholder(user_story) %> <span class="hide-for-medium-down"><strong>Created:</strong> <%= user_story.created_at.strftime("%d/%m/%y") %></span>
     </div>
   </div>
