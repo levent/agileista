@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./script/rails s
+./bin/rails s
