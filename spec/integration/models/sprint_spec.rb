@@ -17,18 +17,20 @@ describe Sprint do
   it { should validate_presence_of :name }
 
   context "auto setting end time" do
+    before do
+      @project = Project.make!(:iteration_length => 1)
+    end
+
     it "should set it on save based on project's iteration length" do
       start = 1.day.from_now
-      project = Project.make!(:iteration_length => 1)
-      sprint = Sprint.create!(:name => "Disco dance prep", :project => project, :start_at => start)
-      project.iteration_length.weeks.from_now(1.day.ago(start)).end_of_day.should == sprint.end_at
+      sprint = @project.sprints.create!(:name => "Disco dance prep", :start_at => start)
+      @project.iteration_length.weeks.from_now(1.day.ago(start)).end_of_day.should == sprint.end_at
     end
 
     it "should set it to end of day on subsequent saves" do
       start = 19.days.from_now
-      project = Project.make!(:iteration_length => 1)
-      sprint = Sprint.create!(:name => "Disco dance prep", :project => project, :start_at => start)
-      finish = project.iteration_length.weeks.from_now(1.day.ago(start))
+      sprint = @project.sprints.create!(:name => "Disco dance prep", :start_at => start)
+      finish = @project.iteration_length.weeks.from_now(1.day.ago(start))
       initial_finish = sprint.end_at
       sprint.end_at = finish
       sprint.save!
@@ -109,9 +111,9 @@ describe Sprint do
       end
 
       it "should remove sprint_id reference" do
-        UserStory.find_all_by_sprint_id(@sprint.id).should_not be_blank
+        UserStory.where(sprint_id: @sprint.id).should_not be_blank
         @sprint_element.sprint.destroy
-        UserStory.find_all_by_sprint_id(@sprint.id).should be_blank
+        UserStory.where(sprint_id: @sprint.id).should be_blank
       end
 
       it "should remove sprint_elements" do

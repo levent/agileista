@@ -31,7 +31,7 @@ Burndown.blueprint do
 end
 
 UserStory.blueprint do
-  project { Project.make }
+  project { Project.make! }
   definition { Faker::Lorem.sentence }
 end
 

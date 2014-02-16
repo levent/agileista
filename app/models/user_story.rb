@@ -146,12 +146,15 @@ class UserStory < ActiveRecord::Base
   end
 
   def copy!
-    new_us = UserStory.new(project_id: self.project_id, person_id: self.person_id, stakeholder: self.stakeholder, definition: self.definition, description: self.description, story_points: self.story_points)
+    new_us = self.project.user_stories.new(stakeholder: self.stakeholder, definition: self.definition, description: self.description, story_points: self.story_points)
+    new_us.person = self.person
     self.acceptance_criteria.each do |ac|
       new_us.acceptance_criteria << AcceptanceCriterium.new(detail: ac.detail)
     end
     self.tasks.each do |task|
-      new_us.tasks << Task.new(definition: task.definition, description: task.description, done: task.done)
+      new_task = Task.new(definition: task.definition, description: task.description)
+      new_task.done = task.done
+      new_us.tasks << new_task
     end
     new_us.backlog_order_position = :first
     new_us.save!
