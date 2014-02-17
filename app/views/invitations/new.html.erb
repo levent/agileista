@@ -1,7 +1,7 @@
 <h2>Invite someone to join <%= @project.name.humanize %></h2>
 
 <div class="row">
-  <div class="columns six">
+  <div class="columns large-6 small-6 medium-6">
     <%= simple_form_for [@project, @invitation] do |f| %>
       <%= f.input :email %>
       <%= f.button :submit, "Send invite" %>
