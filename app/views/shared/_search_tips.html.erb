@@ -1,69 +1,69 @@
-<div id="js-search-modal" class="reveal-modal large">
+<div id="js-search-modal" class="reveal-modal large" data-reveal>
   <h2>Query interface guide:</h2>
   <p class="lead">Find the stories you need</p>
   <div class="row">
-    <div class="twelve columns">
+    <div class="large-12 small-12 medium-12 columns">
       <kbd>story_points:&lt;=8</kbd>
     </div>
-    <div class="eight columns">
+    <div class="large-8 small-8 medium-8 columns">
       Story points less than or equal to 8
     </div>
-    <div class="four columns">
+    <div class="large-4 small-4 medium-4 columns">
       <%= link_to "Search", project_search_path(@project, :q => "story_points:<=8"), :class => 'button tiny' %>
     </div>
   </div>
   <div class="row">
-    <div class="twelve columns">
+    <div class="large-12 small-12 medium-12 columns">
       <kbd>stakeholder:"<%= current_person.name %>"</kbd>
     </div>
-    <div class="eight columns">
+    <div class="large-8 small-8 medium-8 columns">
       Stakeholder <%= current_person.name %>
     </div>
-    <div class="four columns">
+    <div class="large-4 small-4 medium-4 columns">
       <%= link_to "Search", project_search_path(@project, :q => "stakeholder:\"#{current_person.name}\""), :class => 'button tiny' %>
     </div>
   </div>
   <div class="row">
-    <div class="twelve columns">
+    <div class="large-12 small-12 medium-12 columns">
       <kbd>tag:design</kbd>
     </div>
-    <div class="eight columns">
+    <div class="large-8 small-8 medium-8 columns">
       Tagged 'design'
     </div>
-    <div class="four columns">
+    <div class="large-4 small-4 medium-4 columns">
       <%= link_to "Search", project_search_path(@project, :q => "tag:design"), :class => 'button tiny' %>
     </div>
   </div>
   <div class="row">
-    <div class="twelve columns">
+    <div class="large-12 small-12 medium-12 columns">
       <kbd>state:plan</kbd>
     </div>
-    <div class="eight columns">
+    <div class="large-8 small-8 medium-8 columns">
       State 'plan'
     </div>
-    <div class="four columns">
+    <div class="large-4 small-4 medium-4 columns">
       <%= link_to "Search", project_search_path(@project, :q => "state:plan"), :class => 'button tiny' %>
     </div>
   </div>
   <div class="row">
-    <div class="twelve columns">
+    <div class="large-12 small-12 medium-12 columns">
       <kbd>created_at:[<%= Date.today.beginning_of_month %> TO <%= Date.today.end_of_month %>]</kbd>
     </div>
-    <div class="eight columns">
+    <div class="large-8 small-8 medium-8 columns">
       Created this month
     </div>
-    <div class="four columns">
+    <div class="large-4 small-4 medium-4 columns">
       <%= link_to "Search", project_search_path(@project, :q => "created_at:[#{Date.today.beginning_of_month} TO #{Date.today.end_of_month}]"), :class => 'button tiny' %>
     </div>
   </div>
   <div class="row">
-    <div class="twelve columns">
+    <div class="large-12 small-12 medium-12 columns">
       <kbd>created_at:<<%= Date.today.months_ago(3) %></kbd>
     </div>
-    <div class="eight columns">
+    <div class="large-8 small-8 medium-8 columns">
       Older than 3 months
     </div>
-    <div class="four columns">
+    <div class="large-4 small-4 medium-4 columns">
       <%= link_to "Search", project_search_path(@project, :q => "created_at:<#{Date.today.months_ago(3)}"), :class => 'button tiny' %>
     </div>
   </div>
