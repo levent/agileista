@@ -37,7 +37,7 @@ $total-columns: 24;
 // We use these to control various global styles
 // $body-bg: #fff;
 // $body-font-color: #222;
-// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "proxima-nova", "Helvetica Neue", helvetica, arial, sans-serif;
 // $body-font-weight: normal;
 // $body-font-style: normal;
 
@@ -1012,7 +1012,7 @@ $button-lrg: rem-calc(16);
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-// $topbar-bg-color: #333;
+$topbar-bg-color: #082F42;
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
@@ -1024,7 +1024,7 @@ $button-lrg: rem-calc(16);
 // $topbar-title-font-size: rem-calc(17);
 
 // Style the top bar dropdown elements
-// $topbar-dropdown-bg: #333;
+$topbar-dropdown-bg: #082F42;
 // $topbar-dropdown-link-color: #fff;
 // $topbar-dropdown-link-bg: #333;
 // $topbar-dropdown-link-weight: normal;
@@ -1046,11 +1046,11 @@ $button-lrg: rem-calc(16);
 
 // $topbar-button-font-size: 0.75rem;
 
-// $topbar-dropdown-label-color: #777;
+$topbar-dropdown-label-color: #1990ca;
 // $topbar-dropdown-label-text-transform: uppercase;
 // $topbar-dropdown-label-font-weight: bold;
 // $topbar-dropdown-label-font-size: rem-calc(10);
-// $topbar-dropdown-label-bg: #333;
+$topbar-dropdown-label-bg: #082F42;
 
 // Top menu icon styles
 // $topbar-menu-link-transform: uppercase;
@@ -1083,7 +1083,7 @@ $button-lrg: rem-calc(16);
 // $include-open-sans: true;
 
 // We use these to control header font styles
-// $header-font-family: join("Open Sans", $body-font-family);
+$header-font-family: $body-font-family;
 // $header-font-weight: 300;
 // $header-font-style: normal;
 // $header-font-color: #222;
