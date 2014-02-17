@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="columns twentyfour">
+  <div class="columns large-24 small-24 medium-24">
     <h2><%= params[:global] == 'true' ? 'Global' : 'Backlog' %> search: <small><%= pagination_info(@user_stories, "user story").html_safe %> </small><%= "<small>found for</small> <kbd>#{params[:q]}</kbd>".html_safe %></h2>
   </div>
 </div>
@@ -8,7 +8,7 @@
 
   <% if @user_stories.facets['tags']['terms'].any? %>
     <div class="row">
-      <div class="columns twentyfour">
+      <div class="columns large-24 small-24 medium-24">
         <dl class="sub-nav">
           <dt>Filter by tag:</dt>
           <% @user_stories.facets['tags']['terms'].each do |tag_facet| %>
@@ -20,12 +20,12 @@
   <% end %>
 
   <div class="row">
-    <div class="columns twentyfour" id="search-results-container">
+    <div class="columns large-24 small-24 medium-24" id="search-results-container">
       <%= render @user_stories %>
     </div>
   </div>
   <div class="row">
-    <div class="columns ten">
+    <div class="columns large-10 small-10 medium-10">
       <p><%= will_paginate @user_stories %></p>
     </div>
   </div>
@@ -33,7 +33,7 @@
 <% else %>
 
   <div class="row">
-    <div class="columns ten">
+    <div class="columns large-10 small-10 medium-10">
       <h3>No stories found</h3>
     </div>
   </div>

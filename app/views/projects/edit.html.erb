@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="columns ten">
+  <div class="columns large-10 small-10 medium-10">
     <h2>Project Settings</h2>
     <%= simple_form_for @project do |f| %>
       <p><%= f.input :name %></p>
@@ -8,7 +8,7 @@
     <% end %>
   </div>
 
-  <div class="columns ten offset-by-four">
+  <div class="columns ten large-offset-4">
     <h2>HipChat Integration</h2>
     <%= simple_form_for [@project, @hip_chat_integration] do |f| %>
       <%= f.input :token %>
@@ -21,7 +21,7 @@
 </div>
 
 <div class="row">
-  <div class="columns ten offset-by-fourteen">
+  <div class="columns ten large-offset-4teen">
     <%= link_to "Delete project", project_path(@project), method: :delete, data: {confirm: 'Are you sure? This cannot be undone.'}, class: 'button small alert' %> <abbr>This cannot be undone</abbr>
   </div>
 </div>

@@ -2,20 +2,20 @@
   <div class="twentyfour columns">
     <div class="rw-backlog-item user-story" data-status="<%= user_story_review.status %>" data-story="<%= user_story_review.id %>" data-points="<%= user_story_review.story_points %>">
       <div class="row">
-        <div class="three columns">
+        <div class="large-3 small-3 medium-3 columns">
           <p>#<%= user_story_review.id %> <%= show_story_points(user_story_review.story_points, :badge => true) %></p>
         </div>
-        <div class="sixteen columns">
+        <div class="large-16 small-16 medium-16 columns">
           <h4 class="hide-on-print"><%= parse_definition(user_story_review.definition).html_safe %></h4>
           <h4 class="print-only"><%= user_story_review.definition %></h4>
         </div>
-        <div class="text-right five columns hide-for-small">
+        <div class="text-right large-5 small-5 medium-5 columns hide-for-small">
           <strong>Stakeholder:</strong> <%= show_stakeholder(user_story_review) %> <span class="hide-for-medium-down"><strong>Created:</strong> <%= user_story_review.created_at.strftime("%d/%m/%y") %></span>
         </div>
       </div>
 
       <div class="row">
-        <div class="sixteen offset-by-three columns">
+        <div class="large-16 small-16 medium-16 large-offset-3 columns">
           <h5 class="">Acceptance Criteria:</h5>
           <% user_story_review.acceptance_criteria.each do |ac| %>
             <%= simple_form_for [@project, user_story_review, ac], remote: true do |f| %>
@@ -23,7 +23,7 @@
             <% end %>
           <% end %>
         </div>
-        <div class="five columns text-right hide-on-print">
+        <div class="large-5 small-5 medium-5 columns text-right hide-on-print">
           <%= link_to "Copy to Backlog", copy_project_user_story_path(@project, user_story_review), :method => :post, :remote => true, :confirm => 'Are you sure?' %>
         </div>
       </div>
