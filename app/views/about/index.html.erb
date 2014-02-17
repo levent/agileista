@@ -1,11 +1,8 @@
 <% content_for :title, "Agileista - Online collaboration for distributed Scrum teams" %>
-<% content_for :custom_js do %>
-  $('#featured').orbit({ fluid: '2x1' });
-<% end %>
 
 <% cache do %>
   <div class="row">
-    <div class="sixteen columns centered">
+    <div class="large-16 small-16 medium-16 columns large-centered">
       <h1 class="text-center">Agileista<br><small>Online collaboration for distributed Scrum teams</small></h1>
     </div>
   </div>
@@ -13,34 +10,32 @@
   <!-- Content Slider -->
 
   <div class="row">
-    <div class="sixteen columns centered hide-for-small">
+    <div class="large-16 small-16 medium-16 columns large-centered hide-for-small">
 
-      <div id="featured">
-        <%= image_tag 'about/backlog.png', :class => 'orbit-slide' %>
-        <%= image_tag 'about/new_user_story.png', :class => 'orbit-slide' %>
-        <%= image_tag 'about/search_results.png', :class => 'orbit-slide' %>
-        <%= image_tag 'about/sprints.png', :class => 'orbit-slide' %>
-        <%= image_tag 'about/task_board.png', :class => 'orbit-slide' %>
+      <ul id="featured" data-orbit>
+        <li><%= image_tag 'about/backlog.png', :class => 'orbit-slide' %></li>
+        <li><%= image_tag 'about/new_user_story.png', :class => 'orbit-slide' %></li>
+        <li><%= image_tag 'about/search_results.png', :class => 'orbit-slide' %></li>
+        <li><%= image_tag 'about/sprints.png', :class => 'orbit-slide' %></li>
+        <li><%= image_tag 'about/task_board.png', :class => 'orbit-slide' %></li>
       </div>
 
     </div>
   </div>
 
   <div class="row">
-    <div class="twelve columns centered">
-      <blockquote class="panel">
+    <div class="large-12 small-12 medium-12 columns large-centered">
         <h3 class="about-quote">Agileista has evolved through running several projects across many distributed Scrum teams over the past six years</h3>
-      </blockquote>
     </div>
   </div>
 
   <div class="row">
-    <div class="sixteen columns offset-by-four">
+    <div class="large-16 small-16 medium-16 columns offset-by-four">
     </div>
   </div>
 
   <div class="row">
-    <div class="eight columns centered text-center">
+    <div class="large-8 small-8 medium-8 columns large-centered text-center">
       <h3>What Agileista Provides</h3>
       <ul class="none">
         <li>An ordered backlog</li>
