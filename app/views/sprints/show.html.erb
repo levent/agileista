@@ -4,25 +4,9 @@
 
 <div class="row hide-for-small">
   <div class="large-18 small-18 medium-18 columns">
-    <ul class="accordion">
-      <li>
-        <div class="title">
-          <div class="row">
-            <div class="large-24 small-24 medium-24 columns">
-              <h3><%= sprint_header(@sprint) %></h3>
-              <h4>Sprint goal: <small><%= @sprint.goal %></small></h4>
-            </div>
-          </div>
-        </div>
-        <div class="content">
-          <div class="row">
-            <div class="large-24 small-24 medium-24 columns">
-              <%= render "shared/burn_charts", :chart_burnremaining => @chart_burnremaining, :chart_burncomplete => @chart_burncomplete, :chart_burndown => @chart_burndown, :sprint => @sprint %>
-            </div>
-          </div>
-        </div>
-      </li>
-    </ul>
+    <h2>Review: <%= sprint_header(@sprint) %></h2>
+    <h4>Sprint goal: <%= @sprint.goal %></h4>
+    <%= render "shared/burn_charts", :chart_burnremaining => @chart_burnremaining, :chart_burncomplete => @chart_burncomplete, :chart_burndown => @chart_burndown, :sprint => @sprint %>
   </div>
 
   <div class="large-6 small-6 medium-6 columns hide-on-print">

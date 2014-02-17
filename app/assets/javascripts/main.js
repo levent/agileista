@@ -202,7 +202,7 @@ $(function() {
 
   $('.js-new-task-input').keyup(function(){
     if($(this).val().length !== 0){
-      $(this).parent().next('.js-new-task-button').attr('disabled', false);
+      $(this).parent().parent().next('.js-new-task-button').attr('disabled', false);
     }
     else {
       $('.js-new-task-button').attr('disabled', true);
