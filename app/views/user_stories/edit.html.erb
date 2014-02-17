@@ -1,9 +1,9 @@
 <% content_for :title, "#{truncate(@user_story.definition, :length => 200)} - Agileista" %>
 <div class="row">
-  <div class="twelve columns">
+  <div class="large-12 small-12 medium-12 columns">
     <h2>Edit User Story<% unless @user_story.story_points %> <small>(<a href="#" data-reveal-id="modal-planning-poker">planning poker</a>)</small><% end %></h2>
   </div>
-  <div class="text-right twelve columns hide-for-small">
+  <div class="text-right large-12 small-12 medium-12 columns hide-for-small">
     <h4 class="subheader">Created on <%= @user_story.created_at.strftime("%e %B %Y at %H:%M %p") %><% if @user_story.sprint_id %> – <%= link_to "View in Sprint", project_sprint_path(@project, @user_story.sprint_id) %><% end %></h4>
   </div>
 </div>

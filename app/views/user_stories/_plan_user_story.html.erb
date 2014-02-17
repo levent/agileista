@@ -1,10 +1,10 @@
 <div class="row backlog-item backlog-row" data-story="<%= user_story.id %>" data-status="<%= user_story.state %>">
-  <div class="two columns">
+  <div class="large-2 small-2 medium-2 columns">
     <%= link_to edit_project_user_story_path(@project, user_story) do %>
       #<%= user_story.id %>
     <% end %>
   </div>
-  <div class="twentytwo columns">
+  <div class="large-22 medium-22 small-22 columns">
     <%= show_story_points(user_story.story_points, :badge => true, :unit => "pts") %> <%= parse_definition(user_story.definition).html_safe %>
   </div>
 </div>

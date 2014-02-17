@@ -1,13 +1,13 @@
 <% content_for :title, "People - #{@project.name.humanize} - Agileista" %>
 
 <div class="row">
-  <div class="twentyfour columns">
+  <div class="large-24 small-24 medium-24 columns">
     <p><%= link_to("Invite person", new_project_invitation_path, :class => 'button') %></p>
     <% if @people.blank? %>
       <p>There are no people on this project. <%= link_to "Create the first person", new_user_url %>.</p>
     <% else %>
       <h2>People</h2>
-      <table class="twentyfour">
+      <table class="large-24 small-24 medium-24">
         <thead>
           <tr>
             <th>Gravatar</th>
@@ -34,8 +34,8 @@
 
 <h2>Pending invitations</h2>
 <div class="row">
-  <div class="twelve columns">
-    <table class="twentyfour">
+  <div class="large-12 small-12 medium-12 columns">
+    <table class="large-24 small-24 medium-24">
       <thead>
         <tr>
           <th>Email</th>
