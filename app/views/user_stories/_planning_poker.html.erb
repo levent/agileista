@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="large-4 small-4 medium-4teen columns">
+      <div class="large-14 small-14 medium-14 columns">
         <%= simple_form_for [project, user_story], :html => {:id => 'form_estimate_story'}, :url => estimate_project_user_story_path(project, user_story), :remote => true do |f| %>
           <%= f.label :story_points, label: "Submit your estimate" %>
           <%= f.input :story_points, label: false, input_html: { placeholder: '0, 1, 3, 5, 8, 13, 20 ...' }, class: 'large-8 small-8 medium-8' %>
