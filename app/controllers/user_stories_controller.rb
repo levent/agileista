@@ -80,7 +80,7 @@ class UserStoriesController < AbstractSecurityController
     @user_story.sprint = @sprint
     @user_story.save!
     @sprint.expire_total_story_points
-    SprintElement.find_or_create_by_sprint_id_and_user_story_id(@sprint.id, @user_story.id)
+    SprintElement.find_or_create_by(sprint_id: @sprint.id, user_story_id: @user_story.id)
     points_planned = @sprint.user_stories.sum('story_points')
     @project.hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>planned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
     json = { performed_by: current_person.name, refresh: true }.to_json
