@@ -31,8 +31,9 @@ function updateTaskCard(container, task_card, hours, devs, who, me) {
   task_card.find('.assignees').html(devs.join(', '));
 
   if(Number(hours) > 0) {
-    if(jQuery.inArray('Nobody', devs) > -1) {
+    if(devs.length === 0) {
       task_card.insertBefore(container.siblings('.incomplete').find('.new-task-card'));
+      task_card.find('.assignees').html('Nobody');
     } else {
       container.siblings('.inprogress').append(task_card);
     }
