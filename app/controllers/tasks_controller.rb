@@ -15,7 +15,6 @@ class TasksController < AbstractSecurityController
   end
 
   def renounce
-    REDIS.del("task:#{@task.id}:assignees")
     @task.team_members.delete(current_person)
     @task.touch
     devs = @task.assignees.split(',')
@@ -29,7 +28,6 @@ class TasksController < AbstractSecurityController
   end
 
   def claim
-    REDIS.del("task:#{@task.id}:assignees")
     @task.team_members << current_person
     @task.update_attribute(:done, false)
     devs = @task.assignees.split(',')

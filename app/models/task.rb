@@ -26,6 +26,8 @@ class Task < ActiveRecord::Base
 
   after_save :calculate_burndown
   after_destroy :calculate_burndown
+  after_save :expire_assignees
+  after_touch :expire_assignees
 
   def assignees
     devs = REDIS.get("task:#{self.id}:assignees")
@@ -55,5 +57,11 @@ class Task < ActiveRecord::Base
 
   def hours
     self.done? ? 0 : 1
+  end
+
+  private
+
+  def expire_assignees
+    REDIS.del("task:#{self.id}:assignees")
   end
 end
