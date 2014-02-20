@@ -46,7 +46,8 @@ namespace :deploy do
     run "mkdir -p #{release_path}/public/assets"
 
     # Put new manifest onto all the app servers
-    top.upload("public/assets/manifest.yml", "#{release_path}/public/assets/manifest.yml", :via => :scp)
+    manifest_file = `ls public/assets/manifest*json`
+    top.upload(manifest_file.chomp, "#{release_path}/public/assets/", :via => :scp)
     run_locally "rm -rf public/assets"
   end
 
