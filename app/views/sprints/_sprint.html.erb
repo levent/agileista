@@ -6,18 +6,20 @@
   <td><%= show_date(sprint.start_at) %></td>
   <td><%= show_date(sprint.end_at) %></td>
   <td>
-    <%= link_to 'Show', project_sprint_path(@project, sprint), :class => 'button tiny' %>
+    <%= link_to 'Show', project_sprint_path(@project, sprint) %>
     <% if !sprint.finished? %>
-      <%= link_to 'Edit', edit_project_sprint_url(@project, sprint), :class => 'button tiny' %>
-      <%= link_to 'Plan', plan_project_sprint_url(@project, sprint), :class => 'button tiny' %>
+      | <%= link_to 'Edit', edit_project_sprint_url(@project, sprint) %>
+      | <%= link_to 'Plan', plan_project_sprint_url(@project, sprint) %>
     <% end %>
+  </td>
+  <td>
     <% if scrum_master? && sprint.finished? %>
-      <%= link_to 'Calc stats from here', set_stats_project_sprint_path(@project, sprint), :method => 'post', :class => (@stats_since_sprint.to_i == sprint.id ? 'alert button tiny' : 'button secondary tiny') if current_user.scrum_master_for?(@project) %>
+      <%= link_to 'Calculate velocity', set_stats_project_sprint_path(@project, sprint), :method => 'post', :class => (@stats_since_sprint.to_i == sprint.id ? 'alert button tiny' : 'button secondary tiny') if current_user.scrum_master_for?(@project) %>
     <% end%>
   </td>
 </tr>
 <% if @stats_since_sprint.to_i == sprint.id %>
   <tr>
-    <td colspan="7" class="text-center highlight"><strong>Velocity calculations are based on the sprints above.</strong></td>
+    <td colspan="8" class="text-center highlight"><strong>Velocity calculations are based on the sprints above.</strong></td>
   </tr>
 <% end %>
