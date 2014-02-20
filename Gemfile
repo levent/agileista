@@ -29,6 +29,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 gem 'uglifier', '>= 1.3.0'
+gem 'therubyracer'
 gem 'asset_sync'
 
 gem 'protected_attributes'
