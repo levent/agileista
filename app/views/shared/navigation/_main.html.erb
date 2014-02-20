@@ -39,7 +39,7 @@
 
     <!-- Right Nav Section -->
     <ul class="right">
-      <li class="has-form">
+      <li class="has-form hide-for-small">
         <div class="row collapse">
           <%= form_for :tag, :url => project_search_path(project), html: {method: "get", id: "search_form"} do |t| %>
             <div class="large-14 small-18 columns">
@@ -51,7 +51,7 @@
           <% end %>
         </div>
       </li>
-      <li><a href="#" data-reveal-id="js-search-modal">?</a></li>
+      <li class="hide-for-small"><a href="#" data-reveal-id="js-search-modal">?</a></li>
       <li class="divider hide-for-small"></li>
       <li class="has-dropdown">
         <%= link_to project.name.humanize, project_backlog_index_path(project) %>

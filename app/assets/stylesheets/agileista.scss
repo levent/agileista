@@ -1,6 +1,9 @@
 $white: #fffffe;
 $highlight-color: #FFF84F;
 
+.hide-override {
+  display: none !important;
+}
 .fullWidth {
   max-width: 98%;
 }
@@ -195,9 +198,9 @@ text.velocity-text {
   stroke: $primary-color;
 }
 textarea.vert { resize:vertical; }
-textarea#user_story_description {
+textarea#user_story_description, textarea#sprint_goal {
   height: 10em;
-  }
+}
 
 ul.none {
   list-style: none;
