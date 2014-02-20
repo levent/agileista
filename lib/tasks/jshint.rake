@@ -4,7 +4,6 @@ if ENV['JSHINT'] == 'true'
     t.js_files = `find app/assets/javascripts -name *.js`.split("\n")
     t.globals = ['d3', 'Foundation', 'Agileista']
     t.exclude_js_files = [
-      'app/assets/javascripts/socket.io.js',
       'app/assets/javascripts/d3.v3/d3.v3.js',
       'app/assets/javascripts/jquery.timeago.js',
     ]
