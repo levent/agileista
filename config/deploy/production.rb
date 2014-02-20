@@ -28,9 +28,9 @@ set :default_environment, {
 default_run_options[:pty] = true
 
 set :rails_env, "production"
-role :app, "akra"
-role :web, "akra"
-role :db,  "akra", :primary => true
+role :app, "oman"
+role :web, "oman"
+role :db,  "oman", :primary => true
 
 namespace :deploy do
 
