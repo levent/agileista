@@ -1,5 +1,5 @@
 # config/unicorn.rb
-worker_processes 16
+worker_processes 12
 timeout 15
 preload_app true
 pid "/u/apps/agileista.com/shared/pids/unicorn.pid"
