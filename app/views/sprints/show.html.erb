@@ -5,7 +5,7 @@
 <div class="panel burn-panel hide-for-small">
   <div class="row">
     <div class="large-18 small-18 medium-18 columns">
-      <h2>Review: <%= sprint_header(@sprint) %></h2>
+      <h2><%= sprint_header(@sprint) %></h2>
       <h4>Sprint goal: <%= @sprint.goal %></h4>
       <%= render "shared/burn_charts", :chart_burnremaining => @chart_burnremaining, :chart_burncomplete => @chart_burncomplete, :chart_burndown => @chart_burndown, :sprint => @sprint %>
     </div>
