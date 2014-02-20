@@ -27,10 +27,9 @@ gem 'sass-rails',   '~> 4.0.0'
 gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-group :deployment do
-  gem 'uglifier', '>= 1.3.0'
-  gem 'asset_sync'
-end
+
+gem 'uglifier', '>= 1.3.0'
+gem 'asset_sync'
 
 gem 'protected_attributes'
 
