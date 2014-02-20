@@ -30,6 +30,8 @@ gem 'jquery-ui-rails'
 
 gem 'protected_attributes'
 
+gem 'asset_sync'
+
 group :development do
   gem 'rails_best_practices'
   gem 'byebug'
@@ -44,8 +46,6 @@ group :development do
 
   gem 'uglifier', '>= 1.3.0'
   gem 'therubyracer'
-  gem 'asset_sync'
-
 end
 
 group :test do
