@@ -40,12 +40,12 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <li class="has-form">
-        <div class="row-collapse">
-          <%= form_for :tag, :url => project_search_path(project), :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
-            <div class="large-12 small-9 columns">
+        <div class="row collapse">
+          <%= form_for :tag, :url => project_search_path(project), html: {method: "get", id: "search_form"} do |t| %>
+            <div class="large-14 small-18 columns">
               <%= text_field_tag 'q', params[:q] %>
             </div>
-            <div class="large-12 small-9 columns">
+            <div class="large-10 small-6 columns">
               <%= button_tag 'Search', :class => "expand secondary button", :name => nil %>
             </div>
           <% end %>

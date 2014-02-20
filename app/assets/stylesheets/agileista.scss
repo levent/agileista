@@ -195,6 +195,9 @@ text.velocity-text {
   stroke: $primary-color;
 }
 textarea.vert { resize:vertical; }
+textarea#user_story_description {
+  height: 10em;
+  }
 
 ul.none {
   list-style: none;
@@ -228,6 +231,11 @@ span.underline {
 input.ctrl-show-stories {
   margin: 4px;
   }
+
+.burn-panel {
+  margin-bottom: 10px;
+  background-color: $white;
+}
 
 @media print {
   .user-story, .tb-backlog-item, .rw-backlog-item {

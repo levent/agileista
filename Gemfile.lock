@@ -118,7 +118,7 @@ GEM
       nokogiri (>= 1.4.4)
       ruby-hmac
     formatador (0.2.4)
-    foundation-rails (5.0.3.1)
+    foundation-rails (5.1.1.0)
       railties (>= 3.1.0)
       sass (>= 3.2.0)
     gravtastic (3.2.6)
@@ -250,7 +250,7 @@ GEM
       sexp_processor (~> 4.0)
     ruby_parser (3.2.2)
       sexp_processor (~> 4.1)
-    sass (3.2.13)
+    sass (3.2.14)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)

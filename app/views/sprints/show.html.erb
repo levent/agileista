@@ -2,25 +2,27 @@
 
 <%= render :partial => 'sprint_alerts', locals: {sprint: @sprint} %>
 
-<div class="row hide-for-small panel">
-  <div class="large-18 small-18 medium-18 columns">
-    <h2>Review: <%= sprint_header(@sprint) %></h2>
-    <h4>Sprint goal: <%= @sprint.goal %></h4>
-    <%= render "shared/burn_charts", :chart_burnremaining => @chart_burnremaining, :chart_burncomplete => @chart_burncomplete, :chart_burndown => @chart_burndown, :sprint => @sprint %>
-  </div>
-
-  <div class="large-6 small-6 medium-6 columns hide-on-print">
-    <div class="row">
-      <div class="large-24 small-24 medium-24 columns">
-        <%= render 'filters' %>
-      </div>
+<div class="panel burn-panel">
+  <div class="row hide-for-small">
+    <div class="large-18 small-18 medium-18 columns">
+      <h2>Review: <%= sprint_header(@sprint) %></h2>
+      <h4>Sprint goal: <%= @sprint.goal %></h4>
+      <%= render "shared/burn_charts", :chart_burnremaining => @chart_burnremaining, :chart_burncomplete => @chart_burncomplete, :chart_burndown => @chart_burndown, :sprint => @sprint %>
     </div>
 
-    <div class="row">
-      <div class="large-24 small-24 medium-24 columns">
-        <div class="progress large-24 small-24 medium-24" id="progress-bar">
-          <span class="meter"></span>
-          <p><span id="current_complete"></span>/<span id="current_total"><%= @sprint.total_story_points %></span> story points completed (<span id="current_percentage"></span>)</p>
+    <div class="large-6 small-6 medium-6 columns hide-on-print">
+      <div class="row">
+        <div class="large-24 small-24 medium-24 columns">
+          <%= render 'filters' %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="large-24 small-24 medium-24 columns">
+          <div class="progress large-24 small-24 medium-24" id="progress-bar">
+            <span class="meter"></span>
+            <p><span id="current_complete"></span>/<span id="current_total"><%= @sprint.total_story_points %></span> story points completed (<span id="current_percentage"></span>)</p>
+          </div>
         </div>
       </div>
     </div>

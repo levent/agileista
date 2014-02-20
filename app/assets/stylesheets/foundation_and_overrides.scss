@@ -16,7 +16,8 @@
 // Since the typical default browser font-size is 16px, that makes the calculation for grid size.
 // If you want your base font-size to be different and not have it affect the grid breakpoints,
 // set $rem-base to $base-font-size and make sure $base-font-size is a px value.
-// $base-font-size: 100%;
+$base-font-size: 13px;
+$rem-base: $base-font-size;
 
 // The $base-line-height is 100% while $base-font-size is 150%
 // $base-line-height: 150%;
@@ -1049,7 +1050,7 @@ $topbar-dropdown-bg: #082F42;
 $topbar-dropdown-label-color: #1990ca;
 // $topbar-dropdown-label-text-transform: uppercase;
 // $topbar-dropdown-label-font-weight: bold;
-// $topbar-dropdown-label-font-size: rem-calc(10);
+$topbar-dropdown-label-font-size: rem-calc(14);
 $topbar-dropdown-label-bg: #082F42;
 
 // Top menu icon styles
