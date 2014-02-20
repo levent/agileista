@@ -23,7 +23,6 @@ gem 'hipchat'
 gem "sentry-raven"
 
 gem 'sass-rails',   '~> 4.0.0'
-gem 'coffee-rails', '~> 4.0.0'
 
 gem 'foundation-rails'
 gem 'jquery-rails'

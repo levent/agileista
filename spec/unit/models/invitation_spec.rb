@@ -29,7 +29,7 @@ describe InvitationManager do
       @person.should_receive(:id).and_return(187)
       @project.should_receive(:id).and_return(78)
       @person_class.should_receive(:where).with({:email=>"lebreeze@example.com"}).and_return([@person])
-      @team_member_class.should_receive(:find_or_create_by_project_id_and_person_id).with(78, 187)
+      @team_member_class.should_receive(:find_or_create_by).with(project_id: 78, person_id: 187)
 
       InvitationManager.new(:email => "lebreeze@example.com").add_person_to_project(@project).should be_true
     end
