@@ -28,10 +28,6 @@ gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem 'uglifier', '>= 1.3.0'
-gem 'therubyracer'
-gem 'asset_sync'
-
 gem 'protected_attributes'
 
 group :development do
@@ -45,6 +41,11 @@ group :development do
   gem 'dotenv-rails'
   gem 'rack-mini-profiler'
   gem 'flamegraph'
+
+  gem 'uglifier', '>= 1.3.0'
+  gem 'therubyracer'
+  gem 'asset_sync'
+
 end
 
 group :test do
