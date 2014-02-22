@@ -19,11 +19,6 @@ class Task < ActiveRecord::Base
 
   delegate :sprint, :to => :user_story, :allow_nil => true
 
-  scope :complete, -> {where(done: true)}
-
-  # Similar to above, but we're using these in the user_story/show context
-  scope :not_done, -> {where(done: false)}
-
   after_save :calculate_burndown
   after_destroy :calculate_burndown
   after_save :expire_assignees
@@ -39,12 +34,16 @@ class Task < ActiveRecord::Base
     devs
   end
 
-  def self.incomplete
-    where("done = false").select {|x| x.assignees.blank?}
+  def self.filter_for_incomplete(tasks)
+    tasks.delete_if {|t| t.done == true}.select {|x| x.assignees.blank?}
   end
 
-  def self.inprogress
-    where("done = false").select {|x| x.assignees.present?}
+  def self.filter_for_inprogress(tasks)
+    tasks.delete_if {|t| t.done == true}.select {|x| x.assignees.present?}
+  end
+
+  def self.filter_for_complete(tasks)
+    tasks.delete_if {|t| t.done == false}
   end
 
   def calculate_burndown

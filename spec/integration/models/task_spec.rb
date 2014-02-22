@@ -13,35 +13,32 @@ describe Task do
       @task3 = Task.make!
       @task3.team_members = [Person.make!]
       @task4 = Task.make!(done: true)
+      @all_tasks = [@task1, @task2, @task3, @task4]
     end
 
-    describe "incomplete" do
+    describe ".filter_for_incomplete" do
       it "should get all incomplete tasks" do
-        Task.incomplete.should include(@task1)
-        Task.incomplete.should include(@task2)
-        Task.incomplete.should_not include(@task3)
-        Task.incomplete.should_not include(@task4)
+        tasks = Task.filter_for_incomplete(@all_tasks)
+        tasks.should include(@task1)
+        tasks.should include(@task2)
+        tasks.should_not include(@task3)
+        tasks.should_not include(@task4)
       end
     end
 
-    describe "inprogress" do
+    describe ".filter_for_inprogress" do
       it "should get all inprogress tasks" do
-        Task.inprogress.should include(@task3)
-        Task.inprogress.should_not include(@task1)
-        Task.inprogress.should_not include(@task2)
-        Task.inprogress.should_not include(@task4)
+        tasks = Task.filter_for_inprogress(@all_tasks)
+        tasks.should include(@task3)
+        tasks.should_not include(@task1)
+        tasks.should_not include(@task2)
+        tasks.should_not include(@task4)
       end
     end
 
-    describe "complete" do
+    describe ".filter_for_complete" do
       it "should get all complete tasks" do
-        Task.complete.should include(@task4)
-      end
-    end
-
-    describe "not_done" do
-      it "should get all not done tasks" do
-        Task.not_done.should include(@task1, @task2, @task3)
+        Task.filter_for_complete(@all_tasks).should include(@task4)
       end
     end
   end
