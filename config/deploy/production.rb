@@ -39,9 +39,8 @@ namespace :deploy do
   end
 
   task :restart do
-    run_locally "rm -rf public/assets"
-    run_locally "bundle exec rake assets:precompile RAILS_ENV=#{rails_env}"
-
+    run_locally("rm -rf public/assets")
+    run_locally("bundle exec rake assets:precompile RAILS_ENV=#{rails_env}")
     run_locally('touch assets.tgz && rm assets.tgz')
     run_locally('tar zcvf assets.tgz public/assets/')
     run_locally('mv assets.tgz public/assets/')
