@@ -4,6 +4,7 @@ $highlight-color: #FFF84F;
 .hide-override {
   display: none !important;
 }
+
 .fullWidth {
   max-width: 98%;
 }
@@ -216,10 +217,6 @@ span.underline {
 
 #average-estimate, .secret-estimate {
   display: none;
-}
-
-.top-bar ul > li.search {
-  padding-right: 0;
 }
 
 .js-temporary-alert a {
