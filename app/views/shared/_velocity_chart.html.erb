@@ -1,9 +1,10 @@
 <div id="chart" class="hide-for-small"></div>
 
 <% content_for :custom_js do %>
-  <% if sprints.finished.statistically_significant(project).any? %>
-    var data = <%= sprints.finished.statistically_significant(project).map{|s| {:end_at => s.end_at.iso8601, :velocity => s.calculated_velocity}}.to_json.html_safe %>;
-    var average = [{"end_at": "<%= sprints.finished.statistically_significant(project).first.end_at.iso8601 %>", "velocity": <%= velocity %>}, {"end_at": "<%= sprints.finished.statistically_significant(project).last.end_at.iso8601 %>", "velocity": <%= velocity %>}];
+  <% relevant_sprints = sprints.finished.statistically_significant(project) %>
+  <% if relevant_sprints.any? %>
+    var data = <%= relevant_sprints.map{|s| {:end_at => s.end_at.iso8601, :velocity => s.calculated_velocity}}.to_json.html_safe %>;
+    var average = [{"end_at": "<%= relevant_sprints.first.end_at.iso8601 %>", "velocity": <%= velocity %>}, {"end_at": "<%= relevant_sprints.last.end_at.iso8601 %>", "velocity": <%= velocity %>}];
     Agileista.drawVelocity(data, average);
   <% end %>
 <% end %>

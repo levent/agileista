@@ -16,8 +16,9 @@ class Project < ActiveRecord::Base
   attr_accessible :name, :iteration_length
 
   def average_velocity
-    return if sprints.finished.statistically_significant(self).empty?
-    sprints.finished.statistically_significant(self).map {|s| s.calculated_velocity}.sum / sprints.finished.statistically_significant(self).count
+    relevant_sprints = sprints.finished.statistically_significant(self)
+    return if relevant_sprints.empty?
+    relevant_sprints.map {|s| s.calculated_velocity}.sum / relevant_sprints.count
   end
 
   def scrum_master
