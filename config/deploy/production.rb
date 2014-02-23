@@ -40,15 +40,14 @@ namespace :deploy do
 
   task :restart do
     run_locally "rm -rf public/assets"
-    run_locally "bundle exec rake assets:precompile RAILS_ENV=#{rails_env} AWS_ACCESS_KEY_ID=\"#{ENV['AWS_ACCESS_KEY_ID']}\" AWS_SECRET_ACCESS_KEY=\"#{ENV['AWS_SECRET_ACCESS_KEY']}\" FOG_DIRECTORY=\"agileista-#{rails_env}\""
+    run_locally "bundle exec rake assets:precompile RAILS_ENV=#{rails_env}"
 
-    # Ensure assets folder exists on app servers
-    run "mkdir -p #{release_path}/public/assets"
-
-    # Put new manifest onto all the app servers
-    manifest_file = `ls public/assets/manifest*json`
-    top.upload(manifest_file.chomp, "#{release_path}/public/assets/", :via => :scp)
-    run_locally "rm -rf public/assets"
+    run_locally('touch assets.tgz && rm assets.tgz')
+    run_locally('tar zcvf assets.tgz public/assets/')
+    run_locally('mv assets.tgz public/assets/')
+    top.upload("public/assets/assets.tgz", "#{release_path}/assets.tgz", via: :scp)
+    run("cd #{release_path}; tar zxvf assets.tgz; rm assets.tgz")
+    run_locally("rm -rf public/assets")
   end
 
   desc "Start the sidekiq worker"

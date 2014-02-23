@@ -30,8 +30,6 @@ gem 'jquery-ui-rails'
 
 gem 'protected_attributes'
 
-gem 'asset_sync'
-
 gem 'turbolinks'
 
 group :development do
