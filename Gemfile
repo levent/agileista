@@ -32,6 +32,8 @@ gem 'protected_attributes'
 
 gem 'asset_sync'
 
+gem 'turbolinks'
+
 group :development do
   gem 'rails_best_practices'
   gem 'byebug'
