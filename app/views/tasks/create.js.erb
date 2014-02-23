@@ -7,9 +7,10 @@ setupTaskBoardStats();
 $('input[name="task[definition]"]').val("");
 $('.js-new-task-button').attr('disabled', true);
 
-var spRemaining = <%= @chart_burnremaining.to_json.html_safe %>;
-var spComplete = <%= @chart_burncomplete.to_json.html_safe %>;
-var spHours = <%= @chart_burndown.to_json.html_safe %>;
+var chartData = <%= @chart_data.to_json.html_safe %>;
+var spRemaining = $.map(chartData, function(e){return {date: String(e.date), story_points: e.story_points_remaining}});
+var spComplete = $.map(chartData, function(e){return {date: String(e.date), story_points: e.story_points_complete}});
+var spHours = $.map(chartData, function(e){return {date: String(e.date), hours_left: e.hours_left}});
 var startDate = "<%= @sprint.start_at.to_date.iso8601.html_safe %>";
 var endDate = "<%= 1.day.from_now(@sprint.end_at.to_date).iso8601.html_safe %>";
 Agileista.drawBurndown(startDate, endDate, spRemaining, spComplete, spHours);

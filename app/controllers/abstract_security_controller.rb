@@ -58,9 +58,7 @@ class AbstractSecurityController < ApplicationController
   def calculate_burndown_points
     return nil unless @sprint
     burndowns = @sprint.burndowns
-    @chart_burndown = burndowns.where("hours_left IS NOT NULL").collect {|burn| {:date => burn.created_on.iso8601, :hours_left => burn.hours_left } }
-    @chart_burncomplete = burndowns.where("story_points_complete IS NOT NULL").collect {|burn| {:date => burn.created_on.iso8601, :story_points => burn.story_points_complete } }
-    @chart_burnremaining = burndowns.where("story_points_remaining IS NOT NULL").collect {|burn| {:date => burn.created_on.iso8601, :story_points => burn.story_points_remaining } }
+    @chart_data = burndowns.collect {|burn| {:date => burn.created_on.iso8601, :hours_left => burn.hours_left, :hours_left => burn.hours_left, :story_points_complete => burn.story_points_complete, :story_points_remaining => burn.story_points_remaining}}
     @chart_xscale = [@sprint.start_at.iso8601.to_s, @sprint.end_at.iso8601.to_s]
   end
 end
