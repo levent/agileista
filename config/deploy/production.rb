@@ -47,6 +47,8 @@ namespace :deploy do
     top.upload("public/assets/assets.tgz", "#{release_path}/assets.tgz", via: :scp)
     run("cd #{release_path}; tar zxvf assets.tgz; rm assets.tgz")
     run_locally("rm -rf public/assets")
+    app_css = capture("ls #{release_path}/public/assets/application*css").chomp
+    run("cp #{app_css} #{release_path}/public/assets/application.css")
   end
 
   desc "Start the sidekiq worker"
