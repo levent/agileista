@@ -1,8 +1,8 @@
 class SprintsController < AbstractSecurityController
 
-  before_filter :must_be_account_holder, :only => [:set_stats]
+  before_filter :must_be_account_holder, only: [:set_stats]
   before_filter :iteration_length_must_be_specified
-  before_filter :sprint_must_exist, :only => [:show, :edit, :plan, :update, :destroy, :set_stats]
+  before_filter :sprint_must_exist, only: [:edit, :plan, :update, :destroy, :set_stats]
 
   def index
     store_location
