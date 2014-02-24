@@ -241,6 +241,10 @@ input.ctrl-show-stories {
   background-color: $highlight-color;
 }
 
+.progress {
+  margin-top: rem-calc(10);
+}
+
 @media print {
   .user-story, .tb-backlog-item, .rw-backlog-item {
     border: 1px solid $white;

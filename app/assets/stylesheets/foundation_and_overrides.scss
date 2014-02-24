@@ -731,7 +731,7 @@ $button-lrg: rem-calc(16);
 
 // We use this to se the prog bar height
 // $progress-bar-height: rem-calc(25);
-// $progress-bar-color: #f6f6f6  ;
+$progress-bar-color: $secondary-color;
 
 // We use these to control the border styles
 // $progress-bar-border-color: scale-color(#fff, $lightness: -20%);
@@ -740,7 +740,7 @@ $button-lrg: rem-calc(16);
 // $progress-bar-border-radius: $global-radius;
 
 // We use these to control the margin & padding
-// $progress-bar-pad: rem-calc(2);
+$progress-bar-pad: 0;
 // $progress-bar-margin-bottom: rem-calc(10);
 
 // We use these to set the meter colors
