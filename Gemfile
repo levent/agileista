@@ -38,7 +38,6 @@ group :development do
   gem 'ruby-prof'
   gem 'capistrano'
   gem 'capistrano-ext'
-  gem 'sextant'
   gem 'brakeman', :require => false
   gem 'dotenv-rails'
   gem 'rack-mini-profiler'

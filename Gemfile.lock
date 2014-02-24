@@ -246,8 +246,6 @@ GEM
       hashie (>= 1.1.0)
       uuidtools
     sexp_processor (4.4.1)
-    sextant (0.2.4)
-      rails (>= 3.2)
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
@@ -360,7 +358,6 @@ DEPENDENCIES
   ruby-prof
   sass-rails (~> 4.0.0)
   sentry-raven
-  sextant
   shoulda-matchers
   sidekiq
   simple_form
