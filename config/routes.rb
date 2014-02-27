@@ -42,7 +42,7 @@ Agileista::Application.routes.draw do
 
     resources :user_stories, except: [:index] do
       member do
-        put 'estimate'
+        post 'estimate'
         post 'copy'
       end
 
