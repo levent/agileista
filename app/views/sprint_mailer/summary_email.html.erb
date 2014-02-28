@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Project: <%= @project.name %></h1>
+    <h2>Sprint: <%= link_to @sprint.name, @sprint_url %></h1>
+
+    <h3>Complete stories:</h3>
+    <ul>
+      <% @complete.each do |us| %>
+        <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %></li>
+      <% end %>
+    </ul>
+
+    <h3>In progress:</h3>
+    <ul>
+      <% @inprogress.each do |us| %>
+        <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %></li>
+      <% end %>
+    </ul>
+
+    <h3>Available:</h3>
+    <ul>
+      <% @incomplete.each do |us| %>
+        <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %></li>
+      <% end %>
+    </ul>
+  </body>
+</html>
