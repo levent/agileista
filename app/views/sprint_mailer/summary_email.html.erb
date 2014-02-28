@@ -10,21 +10,21 @@
     <h3>Complete stories:</h3>
     <ul>
       <% @complete.each do |us| %>
-        <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %></li>
+        <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %></li>
       <% end %>
     </ul>
 
     <h3>In progress:</h3>
     <ul>
       <% @inprogress.each do |us| %>
-        <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %></li>
+        <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %></li>
       <% end %>
     </ul>
 
     <h3>Available:</h3>
     <ul>
       <% @incomplete.each do |us| %>
-        <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %></li>
+        <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %></li>
       <% end %>
     </ul>
   </body>

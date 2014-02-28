@@ -6,15 +6,15 @@ Sprint: <%= @sprint.name %>
 
 Complete stories:
 <% @complete.each do |us| %>
-  - #<%= us.id %> <%= us.definition %>
+  * #<%= us.id %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %>
 <% end %>
 
 In progress:
 <% @inprogress.each do |us| %>
-  - #<%= us.id %> <%= us.definition %>
+  * #<%= us.id %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %>
 <% end %>
 
 Available:
 <% @incomplete.each do |us| %>
-  - #<%= us.id %> <%= us.definition %>
+  * #<%= us.id %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %>
 <% end %>
