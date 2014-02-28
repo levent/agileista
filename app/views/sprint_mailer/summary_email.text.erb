@@ -1,18 +1,20 @@
+Project: <%= @project.name %>
+
 Sprint: <%= @sprint.name %>
 <%= @sprint_url %>
 
 
 Complete stories:
 <% @complete.each do |us| %>
-  - <%= us.id %> <%= us.definition %>
+  - #<%= us.id %> <%= us.definition %>
 <% end %>
 
 In progress:
 <% @inprogress.each do |us| %>
-  - <%= us.id %> <%= us.definition %>
+  - #<%= us.id %> <%= us.definition %>
 <% end %>
 
 Available:
 <% @incomplete.each do |us| %>
-  - <%= us.id %> <%= us.definition %>
+  - #<%= us.id %> <%= us.definition %>
 <% end %>
