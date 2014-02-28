@@ -5,7 +5,7 @@ class SprintMailer < ActionMailer::Base
     @person = person
     @sprint = sprint
     @project = sprint.project
-    @sprint_url = project_sprint_url(project, @project)
+    @sprint_url = project_sprint_url(@project, sprint)
     @complete = sprint.user_stories.select {|us| us.status == "complete" }
     @inprogress = sprint.user_stories.select {|us| us.status == "inprogress" }
     @incomplete = sprint.user_stories.select {|us| us.status == "incomplete" }
