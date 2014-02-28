@@ -1,9 +1,14 @@
 Complete stories:
-<%= render @complete %>
-
+<% @complete.each do |us| %>
+  - <%= us.definition %>
+<% end %>
 
 In progress:
-<%= render @inprogress %>
+<% @inprogress.each do |us| %>
+  - <%= us.definition %>
+<% end %>
 
 Available:
-<%= render @incomplete %>
+<% @incomplete.each do |us| %>
+  - <%= us.definition %>
+<% end %>
