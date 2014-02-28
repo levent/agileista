@@ -23,9 +23,9 @@ describe Velocity do
   describe ".stats_significant_since" do
     before do
       Timecop.freeze
-      @project = fire_double("Project")
+      @project = instance_double("Project")
       @project.stub(:id).and_return(13)
-      sprint = fire_double("Sprint")
+      sprint = instance_double("Sprint")
       sprint.stub(:try).with(:start_at).and_return(Time.now)
       @sprints = [sprint]
     end

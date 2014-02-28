@@ -16,6 +16,6 @@ RSpec.configure do |config|
   config.include(RSpec::Fire)
   config.before(:all) do
     Object.send(:remove_const, :REDIS) if defined?(REDIS)
-    REDIS = fire_double("Redis")
+    REDIS = instance_double("Redis")
   end
 end

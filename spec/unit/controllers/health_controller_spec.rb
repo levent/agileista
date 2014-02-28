@@ -5,7 +5,7 @@ require 'health_controller'
 describe HealthController do
   describe "#index" do
     before do
-      @rails = fire_replaced_class_double("Rails")
+      @rails = class_double("Rails").as_stubbed_const
       @rails.stub(:root).and_return('/tmp')
     end
 

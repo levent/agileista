@@ -50,20 +50,20 @@ describe Sprint do
       us7 = UserStory.new(:story_points => 20)
       us8 = UserStory.new(:story_points => 40)
 
-      us1.stub!(:complete?).and_return(true)
-      us2.stub!(:complete?).and_return(true)
-      us3.stub!(:complete?).and_return(false)
-      us4.stub!(:complete?).and_return(true)
-      us5.stub!(:complete?).and_return(true)
-      us6.stub!(:complete?).and_return(false)
-      us7.stub!(:complete?).and_return(true)
-      us8.stub!(:complete?).and_return(false)
+      us1.stub(:complete?).and_return(true)
+      us2.stub(:complete?).and_return(true)
+      us3.stub(:complete?).and_return(false)
+      us4.stub(:complete?).and_return(true)
+      us5.stub(:complete?).and_return(true)
+      us6.stub(:complete?).and_return(false)
+      us7.stub(:complete?).and_return(true)
+      us8.stub(:complete?).and_return(false)
 
       @sprint = Sprint.new(:name => "sprint a")
-      @sprint.stub!(:user_stories).and_return([us1, us2, us3, us4, us5, us6, us7, us8])
+      @sprint.stub(:user_stories).and_return([us1, us2, us3, us4, us5, us6, us7, us8])
       @sprint.start_at = 3.months.ago
       @sprint.end_at = 2.months.ago
-      @sprint.stub!(:project_id).and_return(19)
+      @sprint.stub(:project_id).and_return(19)
     end
 
     it "should return the total story points for all the complete user stories" do

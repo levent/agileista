@@ -12,14 +12,14 @@ describe UserStory do
 
   describe "in general" do
     it "should default to being estimateable" do
-      @us.stub!(:valid?).and_return(true)
+      @us.stub(:valid?).and_return(true)
       @us.save.should be_true
       @us.reload
       @us.cannot_be_estimated?.should be_false
     end
 
     it "should be flaggable as cannot be estimated" do
-      @us.stub!(:valid?).and_return(true)
+      @us.stub(:valid?).and_return(true)
       @us.cannot_be_estimated = 1
       @us.save.should be_true
       @us.reload
@@ -32,7 +32,7 @@ describe UserStory do
       end
 
       it "should accept a string" do
-        @us.stub!(:valid?).and_return(true)
+        @us.stub(:valid?).and_return(true)
         @us.stakeholder = "Mr Leroy Burns the Third of Edinbra"
         @us.save
         @us.reload
@@ -43,41 +43,41 @@ describe UserStory do
 
   describe "#complete?" do
     it "should return false if no tasks" do
-      @us.stub!(:tasks).and_return([])
+      @us.stub(:tasks).and_return([])
       @us.complete?.should be_false
     end
 
     it "should return true if all tasks are complete" do
-      @task_a.stub!(:done?).and_return(true)
-      @task_b.stub!(:done?).and_return(true)
-      @us.stub!(:tasks).and_return([@task_a, @task_b])
+      @task_a.stub(:done?).and_return(true)
+      @task_b.stub(:done?).and_return(true)
+      @us.stub(:tasks).and_return([@task_a, @task_b])
       @us.complete?.should be_true
     end
 
     it "should return false if any tasks are incomplete" do
-      @task_a.stub!(:done?).and_return(true)
-      @task_b.stub!(:done?).and_return(false)
-      @us.stub!(:tasks).and_return([@task_a, @task_b])
+      @task_a.stub(:done?).and_return(true)
+      @task_b.stub(:done?).and_return(false)
+      @us.stub(:tasks).and_return([@task_a, @task_b])
       @us.complete?.should be_false
     end
 
     it "should return false if all tasks are incomplete" do
-      @task_a.stub!(:complete?).and_return(false)
-      @task_b.stub!(:complete?).and_return(false)
-      @us.stub!(:tasks).and_return([@task_a, @task_b])
+      @task_a.stub(:complete?).and_return(false)
+      @task_b.stub(:complete?).and_return(false)
+      @us.stub(:tasks).and_return([@task_a, @task_b])
       @us.complete?.should be_false
     end
   end
 
   describe "#state?" do
     it "should return css class if user_story has no story point assigned" do
-      @us.acceptance_criteria.stub!(:blank?).and_return(false)
+      @us.acceptance_criteria.stub(:blank?).and_return(false)
       @us.state.should == "estimate"
     end
 
     it "should return css class if user_story has story points assigned" do
       @us.story_points = 8
-      @us.acceptance_criteria.stub!(:blank?).and_return(false)
+      @us.acceptance_criteria.stub(:blank?).and_return(false)
       @us.state.should == "plan"
     end
 
@@ -98,16 +98,16 @@ describe UserStory do
     end
 
     it "should return true if any tasks are inprogress still" do
-      @task_a.stub!(:inprogress?).and_return(true)
-      @task_b.stub!(:inprogress?).and_return(false)
-      @us.stub!(:tasks).and_return([@task_a, @task_b])
+      @task_a.stub(:inprogress?).and_return(true)
+      @task_b.stub(:inprogress?).and_return(false)
+      @us.stub(:tasks).and_return([@task_a, @task_b])
       @us.inprogress?.should be_true
     end
 
     it "should return false if all tasks are complete" do
-      @task_a.stub!(:inprogress?).and_return(false)
-      @task_b.stub!(:inprogress?).and_return(false)
-      @us.stub!(:tasks).and_return([@task_a, @task_b])
+      @task_a.stub(:inprogress?).and_return(false)
+      @task_b.stub(:inprogress?).and_return(false)
+      @us.stub(:tasks).and_return([@task_a, @task_b])
       @us.inprogress?.should be_false
     end
   end

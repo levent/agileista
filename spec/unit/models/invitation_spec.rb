@@ -14,14 +14,14 @@ end
 
 describe InvitationManager do
   before do
-    @project = fire_double("Project")
-    @team_member_class = fire_replaced_class_double("TeamMember")
-    @person_class = fire_replaced_class_double("Person")
-    @invitation_class = fire_replaced_class_double("Invitation")
-    @notification_class = fire_replaced_class_double("NotificationMailer")
-    @person = fire_double("Person")
-    @invitation = fire_double("Invitation")
-    @notification = fire_double("NotificationMailer")
+    @project = instance_double("Project")
+    @team_member_class = class_double("TeamMember").as_stubbed_const
+    @person_class = class_double("Person").as_stubbed_const
+    @invitation_class = class_double("Invitation").as_stubbed_const
+    @notification_class = class_double("NotificationMailer").as_stubbed_const
+    @person = instance_double("Person")
+    @invitation = instance_double("Invitation")
+    @notification = instance_double("NotificationMailer")
   end
 
   describe "#add_person_to_project" do

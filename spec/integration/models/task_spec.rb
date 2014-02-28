@@ -61,7 +61,7 @@ describe Task do
   describe "inprogress?" do
     it "should be true if any team_members and not done" do
       @task = Task.new(:done => false)
-      @task.stub!(:team_members).and_return(["a developer"])
+      @task.stub(:team_members).and_return(["a developer"])
       @task.should be_inprogress
     end
 

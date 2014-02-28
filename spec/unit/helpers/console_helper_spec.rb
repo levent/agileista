@@ -9,7 +9,7 @@ describe ConsoleHelper do
 
   describe "#show_account_holder" do
     before do
-      @project = fire_double("Project")
+      @project = instance_double("Project")
       @project.stub(:scrum_master)
     end
 
@@ -18,7 +18,7 @@ describe ConsoleHelper do
     end
 
     it "should give info on scrum_master" do
-      scrum_master = fire_double("Person")
+      scrum_master = instance_double("Person")
       scrum_master.stub(:name).and_return("Fred")
       scrum_master.stub(:email).and_return("fred@example.com")
       @project.should_receive(:scrum_master).and_return(scrum_master)
