@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140215125547) do
+ActiveRecord::Schema.define(version: 20140228101407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,10 +170,11 @@ ActiveRecord::Schema.define(version: 20140215125547) do
   create_table "team_members", force: true do |t|
     t.integer  "person_id"
     t.integer  "project_id"
-    t.boolean  "scrum_master", default: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.boolean  "scrum_master",    default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.datetime "deleted_at"
+    t.boolean  "notify_by_email", default: false
   end
 
   add_index "team_members", ["project_id", "person_id"], name: "index_team_members_on_project_id_and_person_id", using: :btree

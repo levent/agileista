@@ -9,11 +9,13 @@ class SummaryEmailWorker
   end
 
   def perform
-    person = Person.find_by(email: 'lebreeze@gmail.com')
-    project = Project.find(132)
-    sprint = project.sprints.current.first
-    if sprint
-      SprintMailer.summary_email(person, sprint).deliver
+    TeamMember.where(deleted_at: nil, notify_by_email: true).each do |tm|
+      person = tm.person
+      project = tm.project
+      sprint = project.sprints.current.first
+      if sprint
+        SprintMailer.summary_email(person, sprint).deliver
+      end
     end
   end
 end
