@@ -3,9 +3,9 @@ class SummaryEmailWorker
   include Sidetiq::Schedulable
 
   recurrence do
-    weekly.day(:monday, :tuesday, :wednesday, :thursday, :friday).hour_of_day(18)
+    daily.hour_of_day(18)
 
-    weekly.day(:monday, :tuesday, :wednesday, :thursday, :friday).hour_of_day(10)
+    daily.hour_of_day(11)
   end
 
   def perform
