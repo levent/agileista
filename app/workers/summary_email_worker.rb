@@ -4,8 +4,6 @@ class SummaryEmailWorker
 
   recurrence do
     daily.hour_of_day(18)
-
-    daily.hour_of_day(11)
   end
 
   def perform
