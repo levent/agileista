@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Project: <%= @project.name %></h1>
+    <h1>Project: <%= link_to @project.name, project_backlog_index_url(@project) %></h1>
     <h2>Sprint: <%= link_to @sprint.name, @sprint_url %></h1>
 
     <h3>Complete stories:</h3>
