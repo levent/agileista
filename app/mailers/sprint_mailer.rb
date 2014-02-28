@@ -7,6 +7,6 @@ class SprintMailer < ActionMailer::Base
     @complete = sprint.user_stories.collect {|us| us.status == "complete" }
     @inprogress = sprint.user_stories.collect {|us| us.status == "inprogress" }
     @incomplete = sprint.user_stories.collect {|us| us.status == "incomplete" }
-    mail(:to => invitation.email, :subject => "[Agileista] Sprint Summary")
+    mail(:to => person.email, :subject => "[Agileista] Sprint Summary")
   end
 end
