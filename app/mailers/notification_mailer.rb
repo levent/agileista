@@ -1,5 +1,5 @@
 class NotificationMailer < ActionMailer::Base
-  default from: EMAIL_FROM
+  default from: "\"Agileista\" <#{EMAIL_FROM}>"
 
   def invite_to_project(project, invitation)
     @project = project

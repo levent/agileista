@@ -1,5 +1,5 @@
 class SprintMailer < ActionMailer::Base
-  default from: EMAIL_FROM
+  default from: "\"Agileista\" <#{EMAIL_FROM}>"
 
   def summary_email(person, sprint)
     @person = person
