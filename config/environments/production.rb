@@ -80,7 +80,7 @@ Agileista::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   COOKIE_DOMAIN = 'agileista.com'
-  EMAIL_FROM = "donotreply@agileista.com"
+  EMAIL_FROM = "notifications@agileista.com"
   MAIN_HOST = 'agileista.com'
 
   config.action_mailer.delivery_method = :smtp

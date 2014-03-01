@@ -15,7 +15,7 @@ describe NotificationMailer do
       NotificationMailer.invite_to_project(@invitation.project, @invitation).deliver
       email = ActionMailer::Base.deliveries.first
       email.to.should == [@invitation.email]
-      email.from.should == ['donotreply@agileista.local']
+      email.from.should == ['notifications@agileista.local']
       email.subject.should == '[Agileista] You have been invited to join a project'
       email.body.should =~ /You have been invited to join the project '#{@invitation.project.name.humanize}' on Agileista./
     end
