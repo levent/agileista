@@ -85,12 +85,12 @@ Agileista::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
+    :address              => "smtp.mandrillapp.com",
     :port                 => 587,
     :domain               => 'agileista.com',
-    :user_name            => 'donotreply@agileista.com',
-    :password             => 'outgoing',
-    :authentication       => 'plain',
+    :user_name            => 'lebreeze@gmail.com',
+    :password             => 'r15MQkkCRAsbO1Vu9VRb0w',
+    :authentication       => 'login',
     :enable_starttls_auto => true  }
 
   config.action_mailer.default_url_options = { :host => 'app.agileista.com' }
