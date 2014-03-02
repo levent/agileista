@@ -27,5 +27,7 @@
         <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %></li>
       <% end %>
     </ul>
+
+    <small><a href="*|UNSUB:https://app.agileista.com/p/<%= @project.id %>/stop/<%= @unsubscribe_token %>|*">Click here to unsubscribe from all notifications.</a></small>
   </body>
 </html>

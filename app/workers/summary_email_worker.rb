@@ -9,6 +9,7 @@ class SummaryEmailWorker
   def perform
     TeamMember.where(deleted_at: nil, notify_by_email: true).each do |tm|
       person = tm.person
+      person.update_attribute(:unsubscribe_token, SecureRandom.urlsafe_base64(25)) if person.unsubscribe_token.nil?
       project = tm.project
       sprint = project.sprints.current.first
       if sprint

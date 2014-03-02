@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140228101407) do
+ActiveRecord::Schema.define(version: 20140302082744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20140228101407) do
     t.string   "unconfirmed_email"
     t.string   "authentication_token"
     t.datetime "deleted_at"
+    t.string   "unsubscribe_token"
   end
 
   add_index "people", ["account_id", "api_key", "authenticated", "activation_code"], name: "by_api_key", using: :btree
@@ -105,6 +106,7 @@ ActiveRecord::Schema.define(version: 20140228101407) do
   add_index "people", ["confirmation_token"], name: "index_people_on_confirmation_token", unique: true, using: :btree
   add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
   add_index "people", ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
+  add_index "people", ["unsubscribe_token"], name: "index_people_on_unsubscribe_token", using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "name"

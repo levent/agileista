@@ -61,6 +61,8 @@ Agileista::Application.routes.draw do
     end
   end
 
+  get "/p/:project_id/stop/:id" => "unsubscribe#stop"
+
   get "/about" => "about#index"
   root :to => "about#index"
 end
