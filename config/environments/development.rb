@@ -28,8 +28,19 @@ Agileista::Application.configure do
   config.assets.debug = true
 
   COOKIE_DOMAIN = 'agileista.local'
-  EMAIL_FROM = "notifications@agileista.local"
+  EMAIL_FROM = "notifications@agileista.com"
   MAIN_HOST = 'agileista.local'
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.mandrillapp.com",
+    :port                 => 587,
+    :domain               => 'agileista.com',
+    :user_name            => 'lebreeze@gmail.com',
+    :password             => 'xivw9PIQRGp6AXy2oASvEQ',
+    :authentication       => 'login',
+    :enable_starttls_auto => true  }
+
   config.action_mailer.default_url_options = { :host => 'app.agileista.local:3000' }
 
   EVENT_SOURCE = 'http://0.0.0.0:9292'
