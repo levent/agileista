@@ -1,4 +1,4 @@
-set :bundle_flags, "--deployment --quiet --binstubs --shebang ruby-local-exec"
+set :bundle_flags, "--deployment --quiet"
 set :application, "agileista.com"
 set :repository, "git@github.com:levent/agileista.git"
 set :scm, :git
