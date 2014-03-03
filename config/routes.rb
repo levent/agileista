@@ -18,6 +18,12 @@ Agileista::Application.routes.draw do
     resources :team_members, only: [:destroy]
     resources :invitations, only: [:new, :create, :destroy]
     resource :search, only: 'show'
+    resources :subscriptions, only: [] do
+      collection do
+        post 'on'
+        post 'off'
+      end
+    end
     resources :backlog, only: 'index' do
       collection do
         post 'sort'
@@ -61,7 +67,7 @@ Agileista::Application.routes.draw do
     end
   end
 
-  get "/p/:project_id/stop/:id" => "unsubscribe#stop"
+  get "/p/:project_id/stop/:id" => "subscriptions#stop"
 
   get "/about" => "about#index"
   root :to => "about#index"

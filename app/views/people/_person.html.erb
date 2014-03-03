@@ -3,7 +3,11 @@
   <td><%= person.name %></td>
   <td><%= link_to person.email, "mailto:#{person.email}" %></td>
   <td><%= 'Yes' if person.scrum_master_for?(@project) %></td>
-  <td><%= 'Yes' if @email_notifications.include?(person.id) %></td>
+  <% if @email_notifications.include?(person.id) %>
+    <td><%= person == current_person ? link_to('Turn off', off_project_subscriptions_path(@project), method: 'post') : 'Yes'  %></td>
+  <% else %>
+    <td><%= link_to("Enable", on_project_subscriptions_path(@project), method: 'post') if person == current_person %></td>
+  <% end %>
   <td><%= show_date(person.created_at) %></td>
   <% if AccountStuff::TEAM_AGILEISTA.include?(current_person.email) %><td><%= show_date(person.last_sign_in_at) if person.last_sign_in_at %></td><% end %>
   <td>
