@@ -3,7 +3,7 @@ class BossWorker
   include Sidetiq::Schedulable
 
   recurrence backfill: true do
-    hourly
+    hourly(6)
   end
 
   def perform(last_occurrence, current_occurrence)
