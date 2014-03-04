@@ -24,10 +24,20 @@ describe "changing a project" do
 
   it "creates hipchat settings" do
     visit "/projects/#{@project.id}/edit"
-    fill_in 'Token', :with => 'abcd'
+    fill_in 'hip_chat_integration_token', :with => 'abcd'
     fill_in 'Room', :with => 'Room1'
     check 'Notify'
     click_button 'Save HipChat Settings'
     page.should have_content "HipChat settings saved"
+  end
+
+  it "creates slack settings" do
+    visit "/projects/#{@project.id}/edit"
+    fill_in 'slack_integration_token', :with => 'abcd'
+    fill_in 'Team', :with => 'Agileista'
+    fill_in 'Channel', :with => 'agileista'
+    check 'Notify'
+    click_button 'Save Slack Settings'
+    page.should have_content "Slack settings saved"
   end
 end
