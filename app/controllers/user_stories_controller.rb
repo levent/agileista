@@ -11,7 +11,7 @@ class UserStoriesController < AbstractSecurityController
   def copy
     if @user_story.copy!
       flash[:notice] = "User story copied and added to backlog"
-      @project.hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>copied</strong> to backlog by #{current_person.name}: \"#{@user_story.definition}\"")
+      @project.integrations_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>copied</strong> to backlog by #{current_person.name}: \"#{@user_story.definition}\"")
     else
       flash[:error] = "The user story could not be copied"
     end
@@ -41,7 +41,7 @@ class UserStoriesController < AbstractSecurityController
 
     if @user_story.save
       flash[:notice] = "User story created"
-      @project.hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>created</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
+      @project.integrations_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>created</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
 
       if params[:commit] == 'Save'
         redirect_to edit_project_user_story_path(@project, @user_story)
@@ -65,7 +65,7 @@ class UserStoriesController < AbstractSecurityController
   def update
     if @user_story.update_attributes(params[:user_story])
       flash[:notice] = "User story updated successfully"
-      @project.hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>updated</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
+      @project.integrations_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>updated</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
       redirect_to edit_project_user_story_path(@project, @user_story) and return false if params[:commit] == 'Save'
     else
       flash.now[:error] = "User story couldn't be updated"
@@ -82,7 +82,7 @@ class UserStoriesController < AbstractSecurityController
     @sprint.expire_total_story_points
     SprintElement.find_or_create_by(sprint_id: @sprint.id, user_story_id: @user_story.id)
     points_planned = @sprint.user_stories.sum('story_points')
-    @project.hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>planned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
+    @project.integrations_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>planned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
     json = { performed_by: current_person.name, refresh: true }.to_json
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
     REDIS.publish "pubsub.#{uid}", json
@@ -95,7 +95,7 @@ class UserStoriesController < AbstractSecurityController
     @user_story.save!
     @sprint.expire_total_story_points
     SprintElement.destroy_all("sprint_id = #{@sprint.id} AND user_story_id = #{@user_story.id}")
-    @project.hipchat_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>unplanned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
+    @project.integrations_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>unplanned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
     json = { performed_by: current_person.name, refresh: true }.to_json
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
     REDIS.publish "pubsub.#{uid}", json
@@ -119,7 +119,7 @@ class UserStoriesController < AbstractSecurityController
 
   def destroy
     if @user_story.destroy
-      @project.hipchat_notify("##{@user_story.id} <strong>deleted</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
+      @project.integrations_notify("##{@user_story.id} <strong>deleted</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
       session[:return_to] = nil if session[:return_to].split("/").last == @user_story.id.to_s
       UserStory.index.refresh
       flash[:notice] = "User story deleted"

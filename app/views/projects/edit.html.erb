@@ -6,6 +6,7 @@
       <p><%= f.input :iteration_length, as: :select, collection: [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]] %></p>
       <%= f.button :submit %>
     <% end %>
+    <%= link_to "Delete project", project_path(@project), method: :delete, data: {confirm: 'Are you sure? This cannot be undone.'}, class: 'button small alert' %> <abbr>This cannot be undone</abbr>
   </div>
 
   <div class="columns large-10 large-offset-4">
@@ -17,11 +18,14 @@
       <br>
       <%= f.button :submit, "Save HipChat Settings" %>
     <% end %>
-  </div>
-</div>
 
-<div class="row">
-  <div class="columns large-10 large-offset-14">
-    <%= link_to "Delete project", project_path(@project), method: :delete, data: {confirm: 'Are you sure? This cannot be undone.'}, class: 'button small alert' %> <abbr>This cannot be undone</abbr>
+    <h2>Slack Integration</h2>
+    <%= simple_form_for [@project, @slack_integration] do |f| %>
+      <%= f.input :team %>
+      <%= f.input :token %>
+      <%= f.input :channel %>
+      <br>
+      <%= f.button :submit, "Save Slack Settings" %>
+    <% end %>
   </div>
 </div>

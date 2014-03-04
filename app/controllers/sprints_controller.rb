@@ -49,7 +49,7 @@ class SprintsController < AbstractSecurityController
     set_start_at
     if @sprint.save
       flash[:notice] = "Sprint created"
-      @project.hipchat_notify("Sprint <a href=\"#{project_sprint_url(@project, @sprint)}\">##{@sprint.id}</a> <strong>created</strong> by #{current_person.name}: \"#{@sprint.name}\"")
+      @project.integrations_notify("Sprint <a href=\"#{project_sprint_url(@project, @sprint)}\">##{@sprint.id}</a> <strong>created</strong> by #{current_person.name}: \"#{@sprint.name}\"")
       redirect_to project_sprints_path(@project)
     else
       flash.now[:error] = "Sprint could not be created"
@@ -63,7 +63,7 @@ class SprintsController < AbstractSecurityController
   def update
     if @sprint && @sprint.update_attributes(params[:sprint])
       flash[:notice] = "Sprint saved"
-      @project.hipchat_notify("Sprint <a href=\"#{project_sprint_url(@project, @sprint)}\">##{@sprint.id}</a> <strong>updated</strong> by #{current_person.name}: \"#{@sprint.name}\"")
+      @project.integrations_notify("Sprint <a href=\"#{project_sprint_url(@project, @sprint)}\">##{@sprint.id}</a> <strong>updated</strong> by #{current_person.name}: \"#{@sprint.name}\"")
       redirect_back_or(project_sprints_path(@project))
     else
       flash.now[:error] = "Sprint couldn't be saved"

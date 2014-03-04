@@ -25,6 +25,7 @@ class ProjectsController < AbstractSecurityController
 
   def edit
     @hip_chat_integration = @project.hip_chat_integration || HipChatIntegration.new
+    @slack_integration = @project.slack_integration || SlackIntegration.new
   end
 
   def update
@@ -33,6 +34,7 @@ class ProjectsController < AbstractSecurityController
       redirect_to :back
     else
       @hip_chat_integration = @project.hip_chat_integration || HipChatIntegration.new
+      @slack_integration = @project.slack_integration || SlackIntegration.new
       flash.now[:error] = "Project settings couldn't be saved"
       render 'edit'
     end

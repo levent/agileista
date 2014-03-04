@@ -15,6 +15,7 @@ Agileista::Application.routes.draw do
 
   resources :projects, only: [:index, :edit, :update, :new, :create, :destroy] do
     resources :hip_chat_integrations, only: [:create, :update]
+    resources :slack_integrations, only: [:create, :update]
     resources :team_members, only: [:destroy]
     resources :invitations, only: [:new, :create, :destroy]
     resource :search, only: 'show'
