@@ -1,6 +1,10 @@
 <div class="row">
   <div class="columns large-24 small-24 medium-24">
-    <h2><%= params[:global] == 'true' ? 'Global' : 'Backlog' %> search: <small><%= pagination_info(@user_stories, "user story").html_safe %> </small><%= "<small>found for</small> <kbd>#{params[:q]}</kbd>".html_safe %></h2>
+    <% if params[:global] == 'true' %>
+      <h2>Global search: <small><%= pagination_info(@user_stories, "user story").html_safe %></small><%= "<small>found for</small> <kbd>#{params[:q]}</kbd>".html_safe %> <%= link_to "search backlog only", project_search_path(@project, :q => "#{params[:q]}"), class: 'button tiny radius' %></h2>
+    <% else %>
+      <h2>Backlog search: <small><%= pagination_info(@user_stories, "user story").html_safe %></small><%= "<small>found for</small> <kbd>#{params[:q]}</kbd>".html_safe %> <%= link_to "search globally", project_search_path(@project, :q => "#{params[:q]}", :global => 'true'), class: 'button tiny radius' %></h2>
+    <% end %>
   </div>
 </div>
 
