@@ -50,6 +50,10 @@ function updateTaskCard(container, task_card, hours, devs, who, me) {
   }
 }
 
+function setupTaskBoards(project_id, user_story_ids) {
+  user_story_ids.forEach(function(usId){setupTaskBoard(project_id, usId) });
+}
+
 function setupTaskBoard(project_id, user_story_id) {
 
   var us_container = '#user_story_container_' + user_story_id;

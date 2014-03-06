@@ -21,9 +21,3 @@
     </div>
   </div>
 </div>
-
-<% unless sprint.finished? %>
-  <% content_for :custom_js do %>
-    setupTaskBoard(<%= @project.id %>, <%= user_story.id %>);
-  <% end %>
-<% end %>

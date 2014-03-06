@@ -44,6 +44,11 @@
 <%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
 
 <% content_for :custom_js do %>
+
+  <% unless @sprint.finished? %>
+    setupTaskBoards(<%= @project.id %>, <%= @sprint.user_stories.map(&:id) %>);
+  <% end %>
+
   setupTaskBoardStats();
   $(document).ready(function(){
     $('.ctrl-show-stories').each(function() {
@@ -52,5 +57,6 @@
       Agileista.toggleStoriesByStatus(whichCheckBox, whatState);
     });
   });
+
   <%= render 'sse', :uid => @uid unless @sprint.finished? %>
 <% end %>
