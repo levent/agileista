@@ -3,7 +3,7 @@ module Invitations
     def add_person_to_project(project)
       person = Person.where(:email => self.email).first
       if person
-        TeamMember.find_or_create_by(project_id: project.id, person_id: person.id)
+        project.team_members.find_or_create_by(person_id: person.id)
         return true
       end
     end
