@@ -245,6 +245,10 @@ input.ctrl-show-stories {
   margin-top: rem-calc(10);
 }
 
+ul#secret-estimates {
+  margin-left: 0;
+}
+
 @media print {
   .user-story, .tb-backlog-item, .rw-backlog-item {
     border: 1px solid $white;
