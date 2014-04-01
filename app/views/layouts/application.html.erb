@@ -50,11 +50,9 @@
       <% end %>
 
       <%= yield %>
-
+      <%= render :partial => 'shared/search_tips' if person_signed_in_and_project? %>
     </div>
   </div>
-
-  <%= render :partial => 'shared/search_tips' if person_signed_in_and_project? %>
 
   <%= render(:partial => "shared/footer") %>
   <%= javascript_include_tag "application" %>
