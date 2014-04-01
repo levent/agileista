@@ -8,8 +8,6 @@ describe "creating an invitation" do
   end
 
   it "should allow me to navigate to invite people" do
-    @project.scrum_master = nil
-    @project.save!
     visit "/projects/#{@project.id}/people"
     click_link "Invite person"
     page.should have_content 'Invite someone to join'

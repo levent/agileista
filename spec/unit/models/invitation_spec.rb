@@ -27,9 +27,9 @@ describe InvitationManager do
   describe "#add_person_to_project" do
     it "should create a team member and return true if existing person found" do
       @person.should_receive(:id).and_return(187)
-      @project.should_receive(:id).and_return(78)
+      @project.should_receive(:team_members).and_return(@team_member_class)
       @person_class.should_receive(:where).with({:email=>"lebreeze@example.com"}).and_return([@person])
-      @team_member_class.should_receive(:find_or_create_by).with(project_id: 78, person_id: 187)
+      @team_member_class.should_receive(:find_or_create_by).with(person_id: 187)
 
       InvitationManager.new(:email => "lebreeze@example.com").add_person_to_project(@project).should be_true
     end
