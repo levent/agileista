@@ -89,7 +89,7 @@ Agileista::Application.configure do
     :port                 => 587,
     :domain               => 'agileista.com',
     :user_name            => 'lebreeze@gmail.com',
-    :password             => 'r15MQkkCRAsbO1Vu9VRb0w',
+    :password             => 'XmvqZxUI1MWaLy3aQm3sHw',
     :authentication       => 'login',
     :enable_starttls_auto => true  }
 
