@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.5'
+gem 'rails', '4.1.1'
 
 gem 'pg'
 gem 'yajl-ruby'
@@ -24,7 +24,7 @@ gem 'hipchat'
 gem 'slack-notifier'
 gem "sentry-raven"
 
-gem 'sass-rails',   '~> 4.0.2'
+gem 'sass-rails',   '~> 4.0.3'
 
 gem 'foundation-rails'
 gem 'jquery-rails'
