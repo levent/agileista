@@ -1,7 +1,7 @@
 class Sprint < ActiveRecord::Base
 
   has_many :sprint_elements, -> {order('sprint_elements.position')}, dependent: :delete_all
-  has_many :user_stories, -> {order('sprint_elements.position')}, through: :sprint_elements
+  has_many :user_stories, -> { includes(:sprint_elements).order('sprint_elements.position')}, through: :sprint_elements
   has_many :burndowns
 
   belongs_to :project

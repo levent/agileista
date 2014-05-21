@@ -35,15 +35,15 @@ class Task < ActiveRecord::Base
   end
 
   def self.filter_for_incomplete(tasks)
-    tasks.delete_if {|t| t.done == true}.select {|x| x.assignees.blank?}
+    tasks.to_a.delete_if {|t| t.done == true}.select {|x| x.assignees.blank?}
   end
 
   def self.filter_for_inprogress(tasks)
-    tasks.delete_if {|t| t.done == true}.select {|x| x.assignees.present?}
+    tasks.to_a.delete_if {|t| t.done == true}.select {|x| x.assignees.present?}
   end
 
   def self.filter_for_complete(tasks)
-    tasks.delete_if {|t| t.done == false}
+    tasks.to_a.delete_if {|t| t.done == false}
   end
 
   def calculate_burndown
