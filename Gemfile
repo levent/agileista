@@ -34,6 +34,8 @@ gem 'protected_attributes'
 
 gem 'turbolinks'
 
+gem 'skylight'
+
 group :development do
   gem 'rails_best_practices'
   gem 'byebug'
