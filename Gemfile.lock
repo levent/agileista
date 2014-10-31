@@ -110,7 +110,7 @@ GEM
     hashr (0.0.22)
     highline (1.6.21)
     hike (1.2.3)
-    hipchat (1.1.0)
+    hipchat (1.3.0)
       httparty
     hirb (0.7.1)
     hiredis (0.4.5)
