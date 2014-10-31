@@ -107,7 +107,6 @@ GEM
     gravtastic (3.2.6)
     haml (4.0.5)
       tilt
-    hashie (2.1.1)
     hashr (0.0.22)
     highline (1.6.21)
     hike (1.2.3)
@@ -150,7 +149,7 @@ GEM
     newrelic-redis (1.4.0)
       newrelic_rpm (~> 3.0)
       redis (< 4.0)
-    newrelic_rpm (3.8.1.221)
+    newrelic_rpm (3.9.6.257)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
@@ -238,9 +237,8 @@ GEM
       sass (~> 3.2.0)
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
-    sentry-raven (0.9.1)
+    sentry-raven (0.10.1)
       faraday (>= 0.7.6)
-      hashie (>= 1.1.0)
       uuidtools
     sexp_processor (4.4.3)
     shoulda-matchers (2.6.1)
@@ -309,7 +307,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    uuidtools (2.1.4)
+    uuidtools (2.1.5)
     warden (1.2.3)
       rack (>= 1.0)
     websocket-driver (0.3.3)
