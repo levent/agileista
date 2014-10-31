@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.2'
 
-gem 'rails', '4.1.4'
+gem 'rails', '4.1.7'
 
 gem 'pg'
 gem 'yajl-ruby'
@@ -35,6 +35,7 @@ gem 'protected_attributes'
 
 gem 'turbolinks'
 
+
 group :development do
   gem 'rails_best_practices'
   gem 'byebug'
@@ -47,7 +48,6 @@ group :development do
   gem 'flamegraph'
 
   gem 'uglifier', '>= 1.3.0'
-  gem 'therubyracer'
 end
 
 group :test do
