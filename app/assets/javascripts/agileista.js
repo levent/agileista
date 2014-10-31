@@ -13,14 +13,6 @@ var Agileista = (function(){
         );
     },
 
-    // public methods
-    switchAccount = function(){
-      var selected = $("#accountswitcher option:selected");
-      if(selected.val() !== 0){
-        window.location = selected.val();
-      }
-    },
-
     toggleStoriesByStatus = function(status, toggle) {
       var userStories = $('div.user-story[data-status="' + status + '"]');
       if(toggle === true) {
@@ -251,10 +243,6 @@ var Agileista = (function(){
 
     init = function() {
 
-      $("#accountswitcher").change(function() {
-        switchAccount();
-      });
-
       $(".close-bar").click(function() {
         $($(this).attr('data-target')).hide();
       });
@@ -298,7 +286,6 @@ var Agileista = (function(){
     init();
 
     return {
-            switchAccount : switchAccount,
     toggleStoriesByStatus : toggleStoriesByStatus,
      setupVelocityMarkers : setupVelocityMarkers,
              drawBurndown : drawBurndown,
