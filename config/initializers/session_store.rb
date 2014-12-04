@@ -1,6 +1,6 @@
 # Be sure to restart your server when you modify this file.
 
-Agileista::Application.config.session_store :cookie_store,
+Rails.application.config.session_store :cookie_store,
   :key => '_agileista_session',
   :domain => COOKIE_DOMAIN
 
