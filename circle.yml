@@ -1,3 +1,6 @@
+machine:
+  services:
+    - elasticsearch
 test:
   override:
     - bundle exec rspec spec/unit
