@@ -49,6 +49,7 @@ group :development do
 
   gem 'uglifier', '>= 1.3.0'
   gem 'spring'
+  gem 'spring-commands-rspec'
 end
 
 group :test do

@@ -273,6 +273,8 @@ GEM
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
     spring (1.2.0)
+    spring-commands-rspec (1.0.2)
+      spring (>= 0.9.1)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -362,6 +364,7 @@ DEPENDENCIES
   sinatra (>= 1.3.0)
   slack-notifier
   spring
+  spring-commands-rspec
   timecop
   tire
   turbolinks
