@@ -48,6 +48,7 @@ group :development do
   gem 'flamegraph'
 
   gem 'uglifier', '>= 1.3.0'
+  gem 'spring'
 end
 
 group :test do
