@@ -5,7 +5,7 @@
         #<%= user_story.id %>
       <% end %>
       <%= link_to edit_project_user_story_path(@project, user_story) do %>
-        <%= show_story_points(user_story.story_points, :badge => true) %>
+        <%= show_story_points(user_story.story_points, badge: true) %>
       <% end %>&nbsp;<%= parse_definition(user_story.definition).html_safe %>
     </div>
 

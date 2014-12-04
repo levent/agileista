@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="columns large-24 small-24 medium-24">
-    <h2>Backlog: <small><span class="hide-for-small"><%= pluralize(@user_stories.length, "user story") %> worth <%= show_story_points(@story_points ||= nil) %> <span class="hide-for-medium-down">(Velocity: <%= average_velocity(@project) %>)</span></span></small> <%= image_tag "ajax-loader.gif", :style => "display:none", :id => "loading" %></h2>
+    <h2>Backlog: <small><span class="hide-for-small"><%= pluralize(@user_stories.length, "user story") %> worth <%= show_story_points(@story_points ||= nil) %> <span class="hide-for-medium-down">(Velocity: <%= average_velocity(@project) %>)</span></span></small> <%= image_tag "ajax-loader.gif", style: "display:none", id: "loading" %></h2>
   </div>
 </div>
 
@@ -44,5 +44,5 @@
 
 <% content_for :custom_js do %>
   Agileista.setupVelocityMarkers('<%= @velocity %>');
-  <%= render :partial => 'sse', :locals => {:uid => @uid} %>
+  <%= render partial: 'sse', locals: {uid: @uid} %>
 <% end %>

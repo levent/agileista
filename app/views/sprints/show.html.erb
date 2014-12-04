@@ -1,13 +1,13 @@
 <% content_for :title, "Task Board - #{@sprint.name} - #{@project.name.humanize} - Agileista" %>
 
-<%= render :partial => 'sprint_alerts', locals: {sprint: @sprint} %>
+<%= render partial: 'sprint_alerts', locals: {sprint: @sprint} %>
 
 <div class="panel burn-panel hide-for-small">
   <div class="row">
     <div class="large-18 small-18 medium-18 columns">
       <h2><%= sprint_header(@sprint) %></h2>
       <h4>Sprint goal: <%= @sprint.goal %></h4>
-      <%= render "shared/burn_charts", :chart_data => @chart_data, :sprint => @sprint %>
+      <%= render "shared/burn_charts", chart_data: @chart_data, sprint: @sprint %>
     </div>
 
     <div class="large-6 small-6 medium-6 columns hide-on-print">
@@ -41,7 +41,7 @@
   </div>
 </div>
 
-<%= render :partial => 'user_story', :collection => @sprint.user_stories, :locals => {:sprint => @sprint, :from => 'task_board'} %>
+<%= render partial: 'user_story', collection: @sprint.user_stories, locals: {sprint: @sprint, from: 'task_board'} %>
 
 <% content_for :custom_js do %>
 
@@ -58,5 +58,5 @@
     });
   });
 
-  <%= render 'sse', :uid => @uid unless @sprint.finished? %>
+  <%= render 'sse', uid: @uid unless @sprint.finished? %>
 <% end %>

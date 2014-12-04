@@ -1,5 +1,5 @@
 <tr>
-  <td><%= image_tag person.gravatar_url(:rating => 'G', :size => 40, :default => asset_path('default_avatar.png')) %></td>
+  <td><%= image_tag person.gravatar_url(rating: 'G', size: 40, default: asset_path('default_avatar.png')) %></td>
   <td><%= person.name %></td>
   <td><%= link_to person.email, "mailto:#{person.email}" %></td>
   <td><%= 'Yes' if person.scrum_master_for?(@project) %></td>

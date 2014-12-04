@@ -1,6 +1,6 @@
 <% content_for :title, "Sprints - #{@project.name.humanize} - Agileista" %>
 
-<%= render "shared/velocity_chart", :sprints => @sprints, :project => @project, :velocity => @velocity %>
+<%= render "shared/velocity_chart", sprints: @sprints, project: @project, velocity: @velocity %>
 <% unless @sprints.blank? %>
   <div class="row">
     <div class="columns large-24 small-24 medium-24">
@@ -35,7 +35,7 @@
   <div class="row">
     <div class="columns centered large-12 small-12 medium-12">
       <h2>There are no sprints for this project</h2>
-      <p><%= link_to "Add your first sprint", new_project_sprint_path(@project), :class => "button" %></p>
+      <p><%= link_to "Add your first sprint", new_project_sprint_path(@project), class: "button" %></p>
     </div>
   </div>
 <% end %>

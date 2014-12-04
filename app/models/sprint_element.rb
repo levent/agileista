@@ -2,8 +2,8 @@ class SprintElement < ActiveRecord::Base
 
   include RankedModel
   ranks :sprint,
-    :with_same => :sprint_id,
-    :column => :position
+    with_same: :sprint_id,
+    column: :position
 
   belongs_to :sprint
   belongs_to :user_story

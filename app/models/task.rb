@@ -1,23 +1,23 @@
 class Task < ActiveRecord::Base
-  # acts_as_list :scope => :user_story
+  # acts_as_list scope: :user_story
   include RankedModel
   ranks :order,
-    :with_same => :user_story_id,
-    :column => :position
+    with_same: :user_story_id,
+    column: :position
 
   validates_presence_of :definition
-  validates_length_of :definition, :maximum => 255
+  validates_length_of :definition, maximum: 255
   # Screws up in accepts_nested_attributes_for
-  # validates_uniqueness_of :definition, :scope => :user_story_id
+  # validates_uniqueness_of :definition, scope: :user_story_id
 
-  belongs_to :user_story, :touch => true
+  belongs_to :user_story, touch: true
 
-  has_many :task_developers, :dependent => :delete_all
-  has_many :team_members, -> {uniq}, :through => :task_developers, :foreign_key => 'developer_id', :class_name => "Person"
+  has_many :task_developers, dependent: :delete_all
+  has_many :team_members, -> {uniq}, through: :task_developers, foreign_key: 'developer_id', class_name: "Person"
 
   attr_accessible :definition, :description
 
-  delegate :sprint, :to => :user_story, :allow_nil => true
+  delegate :sprint, to: :user_story, allow_nil: true
 
   after_save :calculate_burndown
   after_destroy :calculate_burndown

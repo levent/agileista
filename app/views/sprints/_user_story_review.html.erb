@@ -3,7 +3,7 @@
     <div class="rw-backlog-item user-story" data-status="<%= user_story_review.status %>" data-story="<%= user_story_review.id %>" data-points="<%= user_story_review.story_points %>">
       <div class="row">
         <div class="large-3 small-3 medium-3 columns">
-          <p>#<%= user_story_review.id %> <%= show_story_points(user_story_review.story_points, :badge => true) %></p>
+          <p>#<%= user_story_review.id %> <%= show_story_points(user_story_review.story_points, badge: true) %></p>
         </div>
         <div class="large-16 small-16 medium-16 columns">
           <h4 class="hide-on-print"><%= parse_definition(user_story_review.definition).html_safe %></h4>

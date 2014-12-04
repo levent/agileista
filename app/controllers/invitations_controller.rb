@@ -4,7 +4,7 @@ class InvitationsController < AbstractSecurityController
   end
 
   def create
-    @invitation = Invitation.new(:email => params[:invitation][:email])
+    @invitation = Invitation.new(email: params[:invitation][:email])
     if @invitation.add_person_to_project(@project)
       flash[:notice] = "Person added to project"
       redirect_to project_people_path(@project)

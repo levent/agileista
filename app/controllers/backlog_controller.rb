@@ -18,12 +18,12 @@ class BacklogController < AbstractSecurityController
   def sort
     @user_stories.find(params[:user_story_id]).update_attribute(:backlog_order_position, params[:move_to])
     json = {
-      :notification => "Backlog reordered by #{current_person.name}",
-      :performed_by => current_person.name
+      notification: "Backlog reordered by #{current_person.name}",
+      performed_by: current_person.name
     }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}backlog#{@project.id}")
     REDIS.publish "pubsub.#{uid}", json.to_json
-    render :json => {:ok => true, :velocity => @project.average_velocity}.to_json
+    render json: {ok: true, velocity: @project.average_velocity}.to_json
   end
 
   def destroy_multiple

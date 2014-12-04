@@ -11,6 +11,6 @@ class SprintMailer < ActionMailer::Base
     @complete = sprint.user_stories.select {|us| us.status == "complete" }
     @inprogress = sprint.user_stories.select {|us| us.status == "inprogress" }
     @incomplete = sprint.user_stories.select {|us| us.status == "incomplete" }
-    mail(:to => person.email, :subject => "[#{@project.name}] Daily Sprint Summary")
+    mail(to: person.email, subject: "[#{@project.name}] Daily Sprint Summary")
   end
 end

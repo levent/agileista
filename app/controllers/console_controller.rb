@@ -2,7 +2,7 @@ class ConsoleController < AbstractSecurityController
   before_filter :team_agileista_only
 
   def index
-    @projects = Project.paginate(:page => params[:page], :per_page => 100).order('created_at DESC')
+    @projects = Project.paginate(page: params[:page], per_page: 100).order('created_at DESC')
   end
 
   def search
@@ -14,7 +14,7 @@ class ConsoleController < AbstractSecurityController
           boolean.must { |must| must.string q, default_operator: "AND" }
         end
       end
-      search.filter(:missing, :field => 'sprint_id' )
+      search.filter(:missing, field: 'sprint_id' )
     end
   end
 

@@ -1,18 +1,18 @@
 class Project < ActiveRecord::Base
-  has_many :team_members, :dependent => :destroy
-  has_many :people, :through => :team_members
+  has_many :team_members, dependent: :destroy
+  has_many :people, through: :team_members
 
-  has_many :user_stories, -> {order('position')}, :dependent => :destroy
-  has_many :sprints, -> {order('start_at DESC')}, :dependent => :destroy
+  has_many :user_stories, -> {order('position')}, dependent: :destroy
+  has_many :sprints, -> {order('start_at DESC')}, dependent: :destroy
 
-  has_many :invitations, :dependent => :destroy
+  has_many :invitations, dependent: :destroy
 
-  has_one :hip_chat_integration, :dependent => :destroy
-  has_one :slack_integration, :dependent => :destroy
+  has_one :hip_chat_integration, dependent: :destroy
+  has_one :slack_integration, dependent: :destroy
 
   validates_presence_of :name
   validates_presence_of :iteration_length
-  validates_uniqueness_of :name, :case_sensitive => false
+  validates_uniqueness_of :name, case_sensitive: false
 
   attr_accessible :name, :iteration_length
 
@@ -27,7 +27,7 @@ class Project < ActiveRecord::Base
   end
 
   def scrum_master=(person)
-    team_members.create!(:person => person, :scrum_master => true)
+    team_members.create!(person: person, scrum_master: true)
   end
 
   def integrations_notify(message)

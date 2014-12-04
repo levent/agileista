@@ -27,7 +27,7 @@ module ApplicationHelper
   end
 
   def show_story_points(points, opts = {})
-    options = {:unit => "story point"}.merge(opts)
+    options = {unit: "story point"}.merge(opts)
     css_class = ['label', 'round', 'points']
     if points.nil?
       points = '?'
@@ -36,7 +36,7 @@ module ApplicationHelper
     output = pluralize(points, options[:unit])
 
     if options[:badge]
-      content_tag :span, :class => css_class.join(' ') do
+      content_tag :span, class: css_class.join(' ') do
         output
       end
     else
@@ -50,10 +50,10 @@ module ApplicationHelper
 
   def user_story_state(state)
     mapping = {
-      :clarify => '',
-      :criteria => 'alert',
-      :estimate => 'secondary',
-      :plan => 'success'
+      clarify: '',
+      criteria: 'alert',
+      estimate: 'secondary',
+      plan: 'success'
     }
     %[<span class="label #{mapping[state.to_sym]} fixed-width-label">#{state.titleize}</span>].html_safe
   end
