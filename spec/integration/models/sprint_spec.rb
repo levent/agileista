@@ -122,4 +122,26 @@ describe Sprint do
       end
     end
   end
+
+  describe "#calculate_day_zero" do
+    before do
+      @project = Project.make!
+      @sprint = Sprint.make!(project: @project)
+    end
+
+    it "should do nothing if sprint start elapsed" do
+      @sprint.calculate_day_zero.should be_false
+    end
+
+    it "should create first burndown entry if upcoming sprint" do
+      @sprint.start_at = 1.week.from_now
+      @sprint.end_at = 3.weeks.from_now
+      @sprint.save!
+      @sprint.stub(:hours_left).and_return(123)
+
+      @sprint.calculate_day_zero
+      burndown = @sprint.burndowns.first
+      burndown.hours_left == 123
+    end
+  end
 end

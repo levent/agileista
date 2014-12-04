@@ -8,7 +8,7 @@ SimpleCov.start 'rails' do
   add_filter "/vendor/"
   add_filter '.gem/'
   add_filter '/lib/tasks/'
-  minimum_coverage 75
+  minimum_coverage 74
   command_name 'test:integration'
 end
 
