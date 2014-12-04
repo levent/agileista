@@ -1,12 +1,12 @@
 <h2><%= pagination_info(@user_stories, "user story").html_safe %> <%= "found for '<strong>#{params[:q]}</strong>'".html_safe if params[:q] %></h2>
 
-<%= form_for :tag, :url => console_search_path, :html => {:method => "get", :id=> "search_form", :class => ""} do |t| %>
+<%= form_for :tag, url: console_search_path, html: {method: "get", id: "search_form", class: ""} do |t| %>
   <div class="row">
     <div class="columns large-20 small-20 medium-20">
       <%= text_field_tag 'q' %>
     </div>
     <div class="large-4 small-4 medium-4 columns">
-      <%= button_tag 'Search', :class => "submit secondary button" %>
+      <%= button_tag 'Search', class: "submit secondary button" %>
     </div>
   </div>
 <% end %>
@@ -27,7 +27,7 @@
             <%= user_story.definition %> (<%= show_stakeholder(user_story) %>)
           </div>
           <div class="large-1 small-1 medium-1 columns">
-            <%= show_story_points(user_story.story_points, :badge => true, :unit => "") %>
+            <%= show_story_points(user_story.story_points, badge: true, unit: "") %>
           </div>
           <div class="large-3 small-3 medium-3 columns">
             <%= user_story.project.try(:name) %>

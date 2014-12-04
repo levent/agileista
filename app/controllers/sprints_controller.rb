@@ -13,7 +13,7 @@ class SprintsController < AbstractSecurityController
   end
 
   def show
-    @sprint = @project.sprints.where(:id => params[:id]).includes(:user_stories => [{:tasks => :team_members}]).first
+    @sprint = @project.sprints.where(id: params[:id]).includes(user_stories: [{tasks: :team_members}]).first
     store_location
     calculate_burndown_points
     @uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@sprint.id}")
@@ -22,13 +22,13 @@ class SprintsController < AbstractSecurityController
         calculate_burndown_if_needed(@sprint)
       }
       format.json do
-        render :json => @sprint
+        render json: @sprint
       end
     end
   end
 
   def review
-    @sprint = @project.sprints.where(:id => params[:id]).includes(:user_stories => :acceptance_criteria).limit(1).first
+    @sprint = @project.sprints.where(id: params[:id]).includes(user_stories: :acceptance_criteria).limit(1).first
     store_location
     calculate_burndown_if_needed(@sprint)
     calculate_burndown_points

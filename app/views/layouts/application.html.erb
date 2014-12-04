@@ -27,7 +27,7 @@
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body>
-  <%= render 'shared/navigation/main', :project => @project -%>
+  <%= render 'shared/navigation/main', project: @project -%>
   <div class="row fullWidth">
     <div class="large-24 columns" id="main-wrapper-div">
 
@@ -50,15 +50,15 @@
       <% end %>
 
       <%= yield %>
-      <%= render :partial => 'shared/search_tips' if person_signed_in_and_project? %>
+      <%= render partial: 'shared/search_tips' if person_signed_in_and_project? %>
     </div>
   </div>
 
-  <%= render(:partial => "shared/footer") %>
+  <%= render(partial: "shared/footer") %>
   <%= javascript_include_tag "application" %>
   <script type="text/javascript" charset="utf-8">
     <%= yield :custom_js %>
   </script>
-  <%= render(:partial => "shared/google_analytics") %>
+  <%= render(partial: "shared/google_analytics") %>
 </body>
 </html>

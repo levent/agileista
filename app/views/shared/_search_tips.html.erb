@@ -9,7 +9,7 @@
       Story points less than or equal to 8
     </div>
     <div class="large-4 small-4 medium-4 columns">
-      <%= link_to "Search", project_search_path(@project, :q => "story_points:<=8"), :class => 'button tiny' %>
+      <%= link_to "Search", project_search_path(@project, q: "story_points:<=8"), class: 'button tiny' %>
     </div>
   </div>
   <div class="row">
@@ -20,7 +20,7 @@
       Stakeholder <%= current_person.name %>
     </div>
     <div class="large-4 small-4 medium-4 columns">
-      <%= link_to "Search", project_search_path(@project, :q => "stakeholder:\"#{current_person.name}\""), :class => 'button tiny' %>
+      <%= link_to "Search", project_search_path(@project, q: "stakeholder:\"#{current_person.name}\""), class: 'button tiny' %>
     </div>
   </div>
   <div class="row">
@@ -31,7 +31,7 @@
       Tagged 'design'
     </div>
     <div class="large-4 small-4 medium-4 columns">
-      <%= link_to "Search", project_search_path(@project, :q => "tag:design"), :class => 'button tiny' %>
+      <%= link_to "Search", project_search_path(@project, q: "tag:design"), class: 'button tiny' %>
     </div>
   </div>
   <div class="row">
@@ -42,7 +42,7 @@
       State 'plan'
     </div>
     <div class="large-4 small-4 medium-4 columns">
-      <%= link_to "Search", project_search_path(@project, :q => "state:plan"), :class => 'button tiny' %>
+      <%= link_to "Search", project_search_path(@project, q: "state:plan"), class: 'button tiny' %>
     </div>
   </div>
   <div class="row">
@@ -53,7 +53,7 @@
       Created this month
     </div>
     <div class="large-4 small-4 medium-4 columns">
-      <%= link_to "Search", project_search_path(@project, :q => "created_at:[#{Date.today.beginning_of_month} TO #{Date.today.end_of_month}]"), :class => 'button tiny' %>
+      <%= link_to "Search", project_search_path(@project, q: "created_at:[#{Date.today.beginning_of_month} TO #{Date.today.end_of_month}]"), class: 'button tiny' %>
     </div>
   </div>
   <div class="row">
@@ -64,7 +64,7 @@
       Older than 3 months
     </div>
     <div class="large-4 small-4 medium-4 columns">
-      <%= link_to "Search", project_search_path(@project, :q => "created_at:<#{Date.today.months_ago(3)}"), :class => 'button tiny' %>
+      <%= link_to "Search", project_search_path(@project, q: "created_at:<#{Date.today.months_ago(3)}"), class: 'button tiny' %>
     </div>
   </div>
   <p>

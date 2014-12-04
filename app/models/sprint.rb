@@ -18,11 +18,11 @@ class Sprint < ActiveRecord::Base
   attr_accessible :name, :start_at, :end_at, :goal
 
   def as_json(options = {})
-    super(options.merge(:only => [:name, :goal, :start_at, :end_at, :created_at, :updated_at, :velocity], :methods => [:user_stories]))
+    super(options.merge(only: [:name, :goal, :start_at, :end_at, :created_at, :updated_at, :velocity], methods: [:user_stories]))
   end
 
   def to_json(options = {})
-    super(options.merge(:only => [:name, :goal, :start_at, :end_at, :created_at, :updated_at, :velocity], :methods => [:user_stories]))
+    super(options.merge(only: [:name, :goal, :start_at, :end_at, :created_at, :updated_at, :velocity], methods: [:user_stories]))
   end
 
   def validate

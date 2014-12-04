@@ -13,11 +13,11 @@
     <div class="large-16 small-24 medium-24 columns large-centered hide-for-small">
 
       <ul id="featured" data-orbit>
-        <li><%= image_tag 'about/backlog.png', :class => 'orbit-slide' %></li>
-        <li><%= image_tag 'about/new_user_story.png', :class => 'orbit-slide' %></li>
-        <li><%= image_tag 'about/search_results.png', :class => 'orbit-slide' %></li>
-        <li><%= image_tag 'about/sprints.png', :class => 'orbit-slide' %></li>
-        <li><%= image_tag 'about/task_board.png', :class => 'orbit-slide' %></li>
+        <li><%= image_tag 'about/backlog.png', class: 'orbit-slide' %></li>
+        <li><%= image_tag 'about/new_user_story.png', class: 'orbit-slide' %></li>
+        <li><%= image_tag 'about/search_results.png', class: 'orbit-slide' %></li>
+        <li><%= image_tag 'about/sprints.png', class: 'orbit-slide' %></li>
+        <li><%= image_tag 'about/task_board.png', class: 'orbit-slide' %></li>
       </ul>
 
     </div>
@@ -52,7 +52,7 @@
         <li><%= link_to "HipChat", "https://www.hipchat.com/" %> integration</li>
         <li>Planning poker</li>
       </ul>
-      <%= link_to 'Try it out free!', new_person_registration_path, :class => "large radius button" %>
+      <%= link_to 'Try it out free!', new_person_registration_path, class: "large radius button" %>
     </div>
   </div>
 <% end %>

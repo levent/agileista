@@ -45,6 +45,7 @@ describe UserStory do
     it "should return false if no tasks" do
       @us.stub(:tasks).and_return([])
       @us.complete?.should be_false
+      @us.status.should == "incomplete"
     end
 
     it "should return true if all tasks are complete" do
@@ -52,6 +53,7 @@ describe UserStory do
       @task_b.stub(:done?).and_return(true)
       @us.stub(:tasks).and_return([@task_a, @task_b])
       @us.complete?.should be_true
+      @us.status.should == "complete"
     end
 
     it "should return false if any tasks are incomplete" do
@@ -59,6 +61,7 @@ describe UserStory do
       @task_b.stub(:done?).and_return(false)
       @us.stub(:tasks).and_return([@task_a, @task_b])
       @us.complete?.should be_false
+      @us.status.should == "incomplete"
     end
 
     it "should return false if all tasks are incomplete" do
@@ -66,6 +69,7 @@ describe UserStory do
       @task_b.stub(:complete?).and_return(false)
       @us.stub(:tasks).and_return([@task_a, @task_b])
       @us.complete?.should be_false
+      @us.status.should == "incomplete"
     end
   end
 
@@ -95,6 +99,7 @@ describe UserStory do
   describe "#inprogress?" do
     it "should return false if no tasks" do
       @us.inprogress?.should be_false
+      @us.status.should == "incomplete"
     end
 
     it "should return true if any tasks are inprogress still" do
@@ -102,6 +107,7 @@ describe UserStory do
       @task_b.stub(:inprogress?).and_return(false)
       @us.stub(:tasks).and_return([@task_a, @task_b])
       @us.inprogress?.should be_true
+      @us.status.should == "inprogress"
     end
 
     it "should return false if all tasks are complete" do
@@ -109,6 +115,7 @@ describe UserStory do
       @task_b.stub(:inprogress?).and_return(false)
       @us.stub(:tasks).and_return([@task_a, @task_b])
       @us.inprogress?.should be_false
+      @us.status.should == "incomplete"
     end
   end
 

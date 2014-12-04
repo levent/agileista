@@ -1,4 +1,4 @@
-<% content_for :title, "#{truncate(@user_story.definition, :length => 200)} - Agileista" %>
+<% content_for :title, "#{truncate(@user_story.definition, length: 200)} - Agileista" %>
 <div class="row">
   <div class="large-12 small-12 medium-12 columns">
     <h2>Edit User Story<% unless @user_story.story_points %> <small>(<a href="#" data-reveal-id="modal-planning-poker">planning poker</a>)</small><% end %></h2>
@@ -8,6 +8,6 @@
   </div>
 </div>
 
-<%= render :partial => 'form' %>
+<%= render partial: 'form' %>
 
-<%= render :partial => 'planning_poker', locals: {user_story: @user_story, project: @project} %>
+<%= render partial: 'planning_poker', locals: {user_story: @user_story, project: @project} %>

@@ -8,6 +8,6 @@ class AcceptanceCriterium < ActiveRecord::Base
   attr_accessible :detail
 
   ranks :story_order,
-    :column => :position,
-    :with_same => :user_story_id
+    column: :position,
+    with_same: :user_story_id
 end

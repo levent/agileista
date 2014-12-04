@@ -71,4 +71,16 @@ describe Task do
       @task.should_not be_inprogress
     end
   end
+
+  describe "#hours" do
+    it "should return 0 if done" do
+      task = Task.new
+      task.done = true
+      task.hours.should == 0
+    end
+
+    it "should return 1 if not done" do
+      Task.new.hours.should == 1
+    end
+  end
 end
