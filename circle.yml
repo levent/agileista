@@ -7,4 +7,4 @@ test:
     - bundle exec rspec spec/integration spec/features
   post:
     - bundle exec rails_best_practices
-    - bundle exec rake jshint JSHINT=true
+    # - bundle exec rake jshint JSHINT=true
