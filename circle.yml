@@ -1,0 +1,7 @@
+test:
+  override:
+    - bundle exec rspec spec/unit
+    - bundle exec rspec spec/integration spec/features
+  post:
+    - bundle exec rails_best_practices > log/rbp.log
+    - bundle exec rake jshint JSHINT=true
