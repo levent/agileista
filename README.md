@@ -1,3 +1,5 @@
+[![Circle CI](https://circleci.com/gh/levent/agileista.svg?style=svg)](https://circleci.com/gh/levent/agileista)
+
 [![Build Status](https://magnum.travis-ci.com/levent/agileista.png?token=oLucmZFzPxy8fyrknDiS)](http://magnum.travis-ci.com/levent/agileista)
 
 ## AGILEISTA
