@@ -34,7 +34,7 @@ gem 'jquery-ui-rails'
 gem 'protected_attributes'
 
 gem 'turbolinks'
-
+gem 'figaro'
 
 group :development do
   gem 'rails_best_practices'
@@ -43,7 +43,6 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-ext'
   gem 'brakeman', :require => false
-  gem 'dotenv-rails'
   gem 'rack-mini-profiler'
   gem 'flamegraph'
 

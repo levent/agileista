@@ -63,6 +63,7 @@ namespace :deploy do
 end
 
 task :setup_symlinks, :roles => :web do
+  run "ln -nfs #{shared_path}/application.yml #{release_path}/config/application.yml"
   run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
   run "ln -nfs #{shared_path}/mailer.yml #{release_path}/config/mailer.yml"
 end
