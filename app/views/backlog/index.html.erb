@@ -1,45 +1,48 @@
 <% content_for :title, "Backlog - #{@project.name.humanize} - Agileista" %>
 
-<div class="row">
-  <div class="columns large-24 small-24 medium-24">
-    <h2>Backlog: <small><span class="hide-for-small"><%= pluralize(@user_stories.length, "user story") %> worth <%= show_story_points(@story_points ||= nil) %> <span class="hide-for-medium-down">(Velocity: <%= average_velocity(@project) %>)</span></span></small> <%= image_tag "ajax-loader.gif", style: "display:none", id: "loading" %></h2>
-  </div>
-</div>
+<% if @user_stories.any? %>
 
-<div class="row hide-for-small">
-  <div class="columns large-24 small-24 medium-24">
-    <dl class="sub-nav">
-      <dd class="active"><a href="#" class="js-backlog-filter" data-filter="all">All</a></dd>
-      <dd><a class="js-backlog-filter filter-clarify" data-filter="clarify" href="">Clarify</a></dd>
-      <dd><a class="js-backlog-filter filter-criteria" data-filter="criteria" href="">Criteria</a></dd>
-      <dd><a class="js-backlog-filter filter-estimate" data-filter="estimate" href="">Estimate</a></dd>
-      <dd><a class="js-backlog-filter filter-plan" data-filter="plan" href="">Plan</a></dd>
-    </dl>
-  </div>
-</div>
-
-<div class="row">
-  <div class="columns large-24 small-24 medium-24">
-    <div id="backlog-items" data-project="<%= @project.id %>" data-velocity="<%= @velocity %>">
-      <%= form_tag destroy_multiple_project_backlog_index_path(@project), method: :delete do %>
-        <%= render @user_stories %>
-        <%= submit_tag "Delete selected", data: {confirm: "Are you sure you want to delete multiple user stories?"}, class: "button small alert" %>
-      <% end %>
+  <div class="row">
+    <div class="columns large-24 small-24 medium-24">
+      <h2>Backlog: <small><span class="hide-for-small"><%= pluralize(@user_stories.length, "user story") %> worth <%= show_story_points(@story_points ||= nil) %> <span class="hide-for-medium-down">(Velocity: <%= average_velocity(@project) %>)</span></span></small> <%= image_tag "ajax-loader.gif", style: "display:none", id: "loading" %></h2>
     </div>
   </div>
-</div>
-<hr>
-<div class="row">
-  <div class="columns large-24 small-24 medium-24 backlog-key">
-    <p><span class="label">Clarify</span> Cannot be estimated</p>
-    <p><span class="label alert">Criteria</span> Acceptance criteria required</p>
-    <p><span class="label secondary">Estimate</span> Needs estimation</p>
-    <p><span class="label success">Plan</span> Ready to plan</p>
-  </div>
-</div>
 
-<% if @user_stories.empty? %>
-  <p><%= link_to 'Create your first user story', new_project_user_story_path(@project) %></p>
+  <div class="row hide-for-small">
+    <div class="columns large-24 small-24 medium-24">
+      <dl class="sub-nav">
+        <dd class="active"><a href="#" class="js-backlog-filter" data-filter="all">All</a></dd>
+        <dd><a class="js-backlog-filter filter-clarify" data-filter="clarify" href="">Clarify</a></dd>
+        <dd><a class="js-backlog-filter filter-criteria" data-filter="criteria" href="">Criteria</a></dd>
+        <dd><a class="js-backlog-filter filter-estimate" data-filter="estimate" href="">Estimate</a></dd>
+        <dd><a class="js-backlog-filter filter-plan" data-filter="plan" href="">Plan</a></dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="columns large-24 small-24 medium-24">
+      <div id="backlog-items" data-project="<%= @project.id %>" data-velocity="<%= @velocity %>">
+        <%= form_tag destroy_multiple_project_backlog_index_path(@project), method: :delete do %>
+          <%= render @user_stories %>
+          <%= submit_tag "Delete selected", data: {confirm: "Are you sure you want to delete multiple user stories?"}, class: "button small alert" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="columns large-24 small-24 medium-24 backlog-key">
+      <p><span class="label">Clarify</span> Cannot be estimated</p>
+      <p><span class="label alert">Criteria</span> Acceptance criteria required</p>
+      <p><span class="label secondary">Estimate</span> Needs estimation</p>
+      <p><span class="label success">Plan</span> Ready to plan</p>
+    </div>
+  </div>
+
+<% else %>
+  <h2>Backlog:</h2>
+  <h3><%= link_to 'Create your first user story', new_project_user_story_path(@project) %></h3>
 <% end %>
 
 <% content_for :custom_js do %>
