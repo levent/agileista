@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="large-24 small-24 medium-24 columns">
-    <p><%= link_to("Invite person", new_project_invitation_path, class: 'button') %></p>
+    <p><%= link_to("Invite someone to the project", new_project_invitation_path, class: 'button') %></p>
     <% if @people.blank? %>
       <p>There are no people on this project. <%= link_to "Create the first person", new_user_url %>.</p>
     <% else %>
@@ -16,7 +16,6 @@
             <th>Scrum Master</th>
             <th>Notify by Email</th>
             <th>Joined</th>
-            <% if AccountStuff::TEAM_AGILEISTA.include?(current_person.email) %><th>Last logged in</th><% end %>
             <th></th>
           </tr>
         </thead>
