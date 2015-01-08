@@ -1,6 +1,8 @@
 machine:
   services:
     - elasticsearch
+  environment:
+    raven_dsn: https://user:pass@app.getsentry.com/17262
 test:
   override:
     - bundle exec rspec spec/unit
