@@ -2,25 +2,27 @@
 
 <h2>Projects</h2>
 
-<div class="row">
-  <div class="columns large-20">
-    <table class="large-24">
-      <thead>
-        <tr>
-          <th colspan="2">Project</th>
-          <th>People</th>
-          <th>User Stories</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @projects.each do |project| %>
-          <%= render project %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
+<% if @projects.any? %>
 
-<% if @projects.empty? %>
-  <%= link_to 'Create your first project', new_project_path %>
+  <div class="row">
+    <div class="columns large-20">
+      <table class="large-24">
+        <thead>
+          <tr>
+            <th colspan="2">Project</th>
+            <th>People</th>
+            <th>User Stories</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @projects.each do |project| %>
+            <%= render project %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<% else %>
+  <h3><%= link_to 'Create your first project', new_project_path %></h3>
 <% end %>
