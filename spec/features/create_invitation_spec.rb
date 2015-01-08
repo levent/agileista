@@ -9,7 +9,7 @@ describe "creating an invitation" do
 
   it "should allow me to navigate to invite people" do
     visit "/projects/#{@project.id}/people"
-    click_link "Invite person"
+    click_link "Invite someone to the project"
     page.should have_content 'Invite someone to join'
   end
 
