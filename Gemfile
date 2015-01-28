@@ -25,7 +25,7 @@ gem 'hipchat'
 gem 'slack-notifier'
 gem "sentry-raven"
 
-gem 'sass-rails',   '~> 4.0.3'
+gem 'sass-rails',   '~> 4.0.5'
 
 gem 'foundation-rails'
 gem 'jquery-rails'
