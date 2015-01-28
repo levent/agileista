@@ -13,7 +13,7 @@ gem 'gravtastic'
 gem 'ranked-model'
 gem 'hiredis', '0.4.5'
 gem 'redis', require: ['redis/connection/hiredis', 'redis']
-gem 'simple_form'
+gem 'simple_form', '~> 3.0.3'
 gem 'devise'
 gem 'unicorn'
 gem 'rack-timeout'
