@@ -11,7 +11,7 @@ gem 'newrelic-redis'
 gem 'tire'
 gem 'gravtastic'
 gem 'ranked-model'
-gem 'hiredis', '0.4.5'
+gem 'hiredis', '~> 0.5.0'
 gem 'redis', require: ['redis/connection/hiredis', 'redis']
 gem 'simple_form', '~> 3.0.3'
 gem 'devise'
