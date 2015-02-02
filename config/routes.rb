@@ -2,6 +2,7 @@ require 'sidekiq/web'
 require 'sidetiq/web'
 
 Agileista::Application.routes.draw do
+  use_doorkeeper
   constraint = lambda { |request| request.env["warden"].authenticate? and AccountStuff::TEAM_AGILEISTA.include?(request.env['warden'].user.email) }
   constraints constraint do
     mount Sidekiq::Web => '/sidekiq'

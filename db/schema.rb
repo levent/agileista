@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140304144200) do
+ActiveRecord::Schema.define(version: 20150202172923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,46 @@ ActiveRecord::Schema.define(version: 20140304144200) do
 
   add_index "invitations", ["email", "project_id"], name: "index_invitations_on_email_and_project_id", unique: true, using: :btree
 
+  create_table "oauth_access_grants", force: true do |t|
+    t.integer  "resource_owner_id", null: false
+    t.integer  "application_id",    null: false
+    t.string   "token",             null: false
+    t.integer  "expires_in",        null: false
+    t.text     "redirect_uri",      null: false
+    t.datetime "created_at",        null: false
+    t.datetime "revoked_at"
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_grants", ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
+
+  create_table "oauth_access_tokens", force: true do |t|
+    t.integer  "resource_owner_id"
+    t.integer  "application_id"
+    t.string   "token",             null: false
+    t.string   "refresh_token"
+    t.integer  "expires_in"
+    t.datetime "revoked_at"
+    t.datetime "created_at",        null: false
+    t.string   "scopes"
+  end
+
+  add_index "oauth_access_tokens", ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
+  add_index "oauth_access_tokens", ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
+  add_index "oauth_access_tokens", ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
+
+  create_table "oauth_applications", force: true do |t|
+    t.string   "name",                      null: false
+    t.string   "uid",                       null: false
+    t.string   "secret",                    null: false
+    t.text     "redirect_uri",              null: false
+    t.string   "scopes",       default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+
   create_table "people", force: true do |t|
     t.string   "name"
     t.string   "email"
@@ -99,6 +139,8 @@ ActiveRecord::Schema.define(version: 20140304144200) do
     t.string   "authentication_token"
     t.datetime "deleted_at"
     t.string   "unsubscribe_token"
+    t.string   "customer_id"
+    t.string   "last_4_digits"
   end
 
   add_index "people", ["account_id", "api_key", "authenticated", "activation_code"], name: "by_api_key", using: :btree

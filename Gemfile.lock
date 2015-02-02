@@ -85,6 +85,8 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    doorkeeper (2.1.0)
+      railties (>= 3.1)
     erubis (2.7.0)
     execjs (2.2.2)
     faker (1.1.2)
@@ -326,6 +328,7 @@ DEPENDENCIES
   capistrano
   capistrano-ext
   devise
+  doorkeeper
   faker
   figaro
   flamegraph
