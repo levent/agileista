@@ -1,7 +1,11 @@
 module SpecHelpers
   module ModelsHelper
     def create_person
-      Person.create!(name: Faker::Name.name, email: Faker::Internet.email, password: "password", password_confirmation: "password")
+      person = Person.create!(name: Faker::Name.name, email: Faker::Internet.email, password: "password", password_confirmation: "password")
+      person.confirmed_at = Time.now
+      person.save!
+      person.reload
+      person
     end
 
     def create_project
