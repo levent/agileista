@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Velocity, type: :model do
 
+  before do
+    REDIS.flushdb
+  end
+
   describe ".confidence_interval" do
     it "should require at least five values" do
       expect(Velocity.confidence_interval([1,2,3,4])).to be_nil
