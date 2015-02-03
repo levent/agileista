@@ -10,4 +10,17 @@ RSpec.describe Person, type: :model do
   it { should validate_presence_of :email }
   it { should have_many :projects }
   it { should have_many :user_stories }
+
+  describe 'admin?' do
+    let(:user) { Person.new }
+
+    it "should be true if it's levent" do
+      user.email = 'lebreeze@gmail.com'
+      expect(user.admin?).to be_truthy
+    end
+
+    it "should be false otherwise" do
+      expect(user.admin?).to be_falsey
+    end
+  end
 end
