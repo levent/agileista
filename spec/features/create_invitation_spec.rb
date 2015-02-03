@@ -22,12 +22,12 @@ RSpec.feature 'Create invitations', type: :feature do
     visit "/projects/#{@project.id}/invitations/new"
     fill_in 'Email', :with => 'lebreeze@example.com'
     click_button 'Send invite'
-    page.should have_content 'Invite sent to lebreeze@example.com'
+    expect(page).to have_content 'Invite sent to lebreeze@example.com'
   end
 
   it "fails to create an invitation" do
     visit "/projects/#{@project.id}/invitations/new"
     click_button 'Send invite'
-    page.should have_content 'Invalid email address'
+    expect(page).to have_content 'Invalid email address'
   end
 end
