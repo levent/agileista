@@ -12,7 +12,7 @@ class SummaryEmailWorker
       project = tm.project
       sprint = project.sprints.current.first
       if sprint && sprint.sprint_elements.any?
-        SprintMailer.summary_email(person, sprint).deliver
+        SprintMailer.summary_email(person, sprint).deliver_now
       end
     end
   end
