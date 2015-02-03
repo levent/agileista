@@ -9,7 +9,6 @@ general:
     - "coverage"
 test:
   override:
-    - bundle exec rspec spec/models
     - bundle exec rspec spec
   post:
     # - bundle exec rails_best_practices
