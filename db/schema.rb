@@ -139,8 +139,6 @@ ActiveRecord::Schema.define(version: 20150202172923) do
     t.string   "authentication_token"
     t.datetime "deleted_at"
     t.string   "unsubscribe_token"
-    t.string   "customer_id"
-    t.string   "last_4_digits"
   end
 
   add_index "people", ["account_id", "api_key", "authenticated", "activation_code"], name: "by_api_key", using: :btree

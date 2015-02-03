@@ -48,4 +48,8 @@ class Person < ActiveRecord::Base
     end
     scrum_master_email == self.email
   end
+
+  def admin?
+    AccountStuff::TEAM_AGILEISTA.include?(email)
+  end
 end

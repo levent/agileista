@@ -6,18 +6,22 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
-    fail "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
     # Put your resource owner authentication logic here.
     # Example implementation:
     #   User.find_by_id(session[:user_id]) || redirect_to(new_user_session_url)
+    current_person || warden.authenticate!(:scope => :person)
   end
 
   # If you want to restrict access to the web interface for adding oauth authorized applications, you need to declare the block below.
-  # admin_authenticator do
-  #   # Put your admin authentication logic here.
-  #   # Example implementation:
-  #   Admin.find_by_id(session[:admin_id]) || redirect_to(new_admin_session_url)
-  # end
+  admin_authenticator do
+    # Put your admin authentication logic here.
+    # Example implementation:
+    if current_person && current_person.admin?
+      current_person
+    else
+      redirect_to(root_url)
+    end
+  end
 
   # Authorization Code expiration time (default 10 minutes).
   # authorization_code_expires_in 10.minutes
@@ -31,7 +35,7 @@ Doorkeeper.configure do
   # reuse_access_token
 
   # Issue access tokens with refresh token (disabled by default)
-  # use_refresh_token
+  use_refresh_token
 
   # Provide support for an owner to be assigned to each registered application (disabled by default)
   # Optional parameter :confirmation => true (default false) if you want to enforce ownership of
@@ -42,6 +46,7 @@ Doorkeeper.configure do
   # Define access token scopes for your provider
   # For more information go to
   # https://github.com/doorkeeper-gem/doorkeeper/wiki/Using-Scopes
+  default_scopes  :write
   # default_scopes  :public
   # optional_scopes :write, :update
 
