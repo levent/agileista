@@ -5,16 +5,13 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  TheDomain = 'app.agileista.com'
-
   def after_sign_in_path_for(resource)
     projects_path
   end
 
   def ensure_domain
-    if request.env['HTTP_HOST'] != TheDomain && Rails.env == "production"
-      redirect_to "https://#{TheDomain}"
-    end
+    main_domain = 'app.agileista.com'
+    redirect_to "https://#{main_domain}" if request.env['HTTP_HOST'] != main_domain && Rails.env.production?
   end
 
   def configure_permitted_parameters
