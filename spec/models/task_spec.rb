@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Task do
+RSpec.describe Task, type: :model do
 
   before(:each) do
     @task = Task.new

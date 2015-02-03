@@ -1,10 +1,10 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe UserStory do
+RSpec.describe UserStory, type: :model do
+  it {should validate_presence_of(:project_id)}
 
-  before(:each) do
-    @project = Project.make!
-    @us = UserStory.make!(:project => @project)
+  before do
+    @us = create_user_story
     @task_a = Task.new
     @task_b = Task.new
     @task_c = Task.new
@@ -12,40 +12,35 @@ describe UserStory do
 
   describe "in general" do
     it "should default to being estimateable" do
-      @us.stub(:valid?).and_return(true)
-      @us.save.should be_true
-      @us.reload
-      @us.cannot_be_estimated?.should be_false
+      expect(@us.cannot_be_estimated?).to be_falsey
     end
 
     it "should be flaggable as cannot be estimated" do
-      @us.stub(:valid?).and_return(true)
       @us.cannot_be_estimated = 1
-      @us.save.should be_true
+      @us.save!
       @us.reload
-      @us.cannot_be_estimated?.should be_true
+      expect(@us.cannot_be_estimated?).to be_truthy
     end
 
     describe "stakeholder field" do
       it "should default to blank" do
-        @us.stakeholder.should be_blank
+        expect(@us.stakeholder).to be_blank
       end
 
       it "should accept a string" do
-        @us.stub(:valid?).and_return(true)
         @us.stakeholder = "Mr Leroy Burns the Third of Edinbra"
-        @us.save
-        @us.reload
-        @us.stakeholder.should == "Mr Leroy Burns the Third of Edinbra"
+        @us.save!
+        expect(@us.stakeholder).to eq "Mr Leroy Burns the Third of Edinbra"
       end
     end
   end
 
   describe "#complete?" do
     it "should return false if no tasks" do
-      @us.stub(:tasks).and_return([])
-      @us.complete?.should be_false
-      @us.status.should == "incomplete"
+      @us.tasks = []
+      @us.save!
+      expect(@us.complete?).to be_falsey
+      expect(@us.status).to eq "incomplete"
     end
 
     it "should return true if all tasks are complete" do

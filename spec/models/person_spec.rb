@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Person do
+RSpec.describe Person, type: :model do
   before(:each) do
     @it = Person.new
   end

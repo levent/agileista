@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Sprint do
+RSpec.describe Sprint, type: :model do
 
   before do
     @it = Sprint.new

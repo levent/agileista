@@ -39,7 +39,6 @@ gem 'figaro'
 
 group :development do
   gem 'rails_best_practices'
-  gem 'byebug'
   gem 'ruby-prof'
   gem 'capistrano'
   gem 'capistrano-ext'
@@ -56,11 +55,14 @@ group :test do
   gem 'simplecov', '0.7.1', require: false
   gem 'simplecov-console', require: false
   gem 'jshintrb'
-  gem 'poltergeist'
   gem 'shoulda-matchers'
-  gem 'rspec-rails'
   gem 'machinist'
-  gem 'faker'
   gem 'timecop'
-  gem 'rspec-fire'
+end
+
+group :development, :test do
+  gem 'byebug'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'capybara'
+  gem 'faker'
 end

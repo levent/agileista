@@ -1,12 +1,12 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Invitation do
+RSpec.describe Invitation, type: :model do
   it "should downcase email address on create" do
-    project = Project.make!
+    project = create_project
     invite = project.invitations.new(:email => 'LEbREEZE@GMAIL.COM')
     invite.save!
     invite.reload
-    invite.email.should == 'lebreeze@gmail.com'
+    expect(invite.email).to eq 'lebreeze@gmail.com'
   end
 end
 
