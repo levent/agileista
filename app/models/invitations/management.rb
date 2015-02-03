@@ -3,8 +3,10 @@ module Invitations
     def add_person_to_project(project)
       person = Person.where(email: self.email).first
       if person
-        project.team_members.find_or_create_by(person_id: person.id)
+        project.team_members.find_or_create_by!(person_id: person.id)
         return true
+      else
+        return false
       end
     end
 
