@@ -5,9 +5,9 @@ RSpec.describe UserStory, type: :model do
 
   before do
     @us = create_user_story
-    @task_a = Task.new
-    @task_b = Task.new
-    @task_c = Task.new
+    @task_a = create_task
+    @task_b = create_task
+    @task_c = create_task
   end
 
   describe "in general" do
@@ -44,79 +44,81 @@ RSpec.describe UserStory, type: :model do
     end
 
     it "should return true if all tasks are complete" do
-      @task_a.stub(:done?).and_return(true)
-      @task_b.stub(:done?).and_return(true)
-      @us.stub(:tasks).and_return([@task_a, @task_b])
-      @us.complete?.should be_true
-      @us.status.should == "complete"
+      @task_a.done = true
+      @task_b.done = true
+      @us.tasks = [@task_a, @task_b]
+      expect(@us.complete?).to be_truthy
+      expect(@us.status).to eq "complete"
     end
 
     it "should return false if any tasks are incomplete" do
-      @task_a.stub(:done?).and_return(true)
-      @task_b.stub(:done?).and_return(false)
-      @us.stub(:tasks).and_return([@task_a, @task_b])
-      @us.complete?.should be_false
-      @us.status.should == "incomplete"
+      @task_a.done = true
+      @task_b.done = false
+      @us.tasks = [@task_a, @task_b]
+      expect(@us.complete?).to be_falsey
+      expect(@us.status).to eq "incomplete"
     end
 
     it "should return false if all tasks are incomplete" do
-      @task_a.stub(:complete?).and_return(false)
-      @task_b.stub(:complete?).and_return(false)
-      @us.stub(:tasks).and_return([@task_a, @task_b])
-      @us.complete?.should be_false
-      @us.status.should == "incomplete"
+      @task_a.done = false
+      @task_b.done = false
+      @us.tasks = [@task_a, @task_b]
+      expect(@us.complete?).to be_falsey
+      expect(@us.status).to eq "incomplete"
     end
   end
 
   describe "#state?" do
     it "should return css class if user_story has no story point assigned" do
-      @us.acceptance_criteria.stub(:blank?).and_return(false)
-      @us.state.should == "estimate"
+      create_acceptance_criterion(@us)
+      @us.reload
+      expect(@us.state).to eq "estimate"
     end
 
     it "should return css class if user_story has story points assigned" do
+      create_acceptance_criterion(@us)
       @us.story_points = 8
-      @us.acceptance_criteria.stub(:blank?).and_return(false)
-      @us.state.should == "plan"
+      @us.save!
+      @us.reload
+      expect(@us.state).to eq "plan"
     end
 
     it "should return css class if user_story cannot be estimated" do
       @us.cannot_be_estimated = 1
-      @us.state.should == "clarify"
+      expect(@us.state).to eq "clarify"
     end
 
     it "should return criteria state if user_story has no acceptance criteria and has not been estimated" do
-      @us.acceptance_criteria.should be_blank
-      @us.state.should == "criteria"
+      expect(@us.state).to eq "criteria"
     end
   end
 
   describe "#inprogress?" do
     it "should return false if no tasks" do
-      @us.inprogress?.should be_false
-      @us.status.should == "incomplete"
+      expect(@us.inprogress?).to be_falsey
+      expect(@us.status).to eq "incomplete"
     end
 
     it "should return true if any tasks are inprogress still" do
-      @task_a.stub(:inprogress?).and_return(true)
-      @task_b.stub(:inprogress?).and_return(false)
-      @us.stub(:tasks).and_return([@task_a, @task_b])
-      @us.inprogress?.should be_true
-      @us.status.should == "inprogress"
+      allow(@task_a).to receive(:inprogress?) { true }
+      allow(@task_b).to receive(:inprogress?) { false }
+      @us.tasks = [@task_a, @task_b]
+      expect(@us.inprogress?).to be_truthy
+      expect(@us.status).to eq "inprogress"
     end
 
     it "should return false if all tasks are complete" do
-      @task_a.stub(:inprogress?).and_return(false)
-      @task_b.stub(:inprogress?).and_return(false)
-      @us.stub(:tasks).and_return([@task_a, @task_b])
-      @us.inprogress?.should be_false
-      @us.status.should == "incomplete"
+      allow(@task_a).to receive(:inprogress?) { false }
+      allow(@task_b).to receive(:inprogress?) { false }
+      @us.tasks = [@task_a, @task_b]
+      expect(@us.inprogress?).to be_falsey
+      expect(@us.status).to eq "incomplete"
     end
   end
 
   describe "#copy!" do
-    before(:each) do
-      @us.project = Project.make!
+    before do
+      @us.project = create_project
       @us.definition = "definition"
       @us.save!
     end
@@ -124,18 +126,18 @@ RSpec.describe UserStory, type: :model do
     it "should create a new user story" do
       count = UserStory.count
       @us.copy!
-      UserStory.count.should == count + 1
+      expect(UserStory.count).to eq count + 1
     end
 
     it "should copy acceptance criteria and tasks" do
-      task1 = @us.tasks.make!(:done => false)
-      task2 = @us.tasks.make!(:done => true)
+      task1 = @us.tasks.create!(definition: Faker::Lorem.sentence, done: false)
+      task2 = @us.tasks.create!(definition: Faker::Lorem.sentence, done: true)
       2.times { @us.acceptance_criteria.create(:detail => "It should work") }
       @us.reload
       @us.copy!
       us = UserStory.last
-      us.should have(2).tasks
-      us.should have(2).acceptance_criteria
+      expect(us.tasks.count).to eq 2
+      expect(us.acceptance_criteria.count).to eq 2
     end
   end
 end

@@ -1,7 +1,7 @@
 module SpecHelpers
   module ModelsHelper
     def create_person
-      Person.create!
+      Person.create!(name: Faker::Name.name, email: Faker::Internet.email, password: "password", password_confirmation: "password")
     end
 
     def create_project
@@ -30,6 +30,10 @@ module SpecHelpers
       ac.user_story = us
       ac.save!
       ac
+    end
+
+    def create_task
+      Task.create!(definition: Faker::Lorem.sentence)
     end
 #    def create_user
 #      User.create(email: 'user@brapp.com', name: 'Niki', password: 'testtest', password_confirmation: 'testtest')
