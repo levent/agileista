@@ -8,22 +8,27 @@ module SpecHelpers
       person
     end
 
-    def create_project
-      Project.create!(name: Faker::Name.name, iteration_length: 2)
+    def create_project(user = nil)
+      project = Project.create!(name: Faker::Name.name, iteration_length: 2)
+      if user
+        project.scrum_master = user
+        project.save!
+      end
+      project
     end
 
-    def create_sprint
-      pr = create_project
+    def create_sprint(project = nil)
+      pr = project || create_project
       sprint = Sprint.new(name: Faker::Name.name, start_at: Time.now)
       sprint.project = pr
       sprint.save!
       sprint
     end
 
-    def create_user_story
-      project = create_project
+    def create_user_story(project = nil)
+      prj = project || create_project
       us = UserStory.new(definition: Faker::Lorem.sentence)
-      us.project = project
+      us.project = prj
       us.save!
       us
     end

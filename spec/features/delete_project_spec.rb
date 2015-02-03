@@ -1,15 +1,16 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "deleting a project" do
+RSpec.feature 'Deleting a project', type: :feature do
 
   before do
-    user = login_a_user
-    @project = create_project_for(user)
+    user = create_person
+    @project = create_project(user)
+    login_as(user)
   end
 
   it "deletes a project" do
     visit "/projects/#{@project.id}/edit"
     click_link 'Delete project'
-    page.should have_content 'Project removed'
+    expect(page).to have_content 'Project removed'
   end
 end

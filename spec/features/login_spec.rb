@@ -1,9 +1,9 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "the login process" do
+RSpec.feature 'Login process', type: :feature do
+
   before do
-    @person = Person.make!
-    @person.confirm!
+    @person = create_person
   end
 
   it "logs me in" do
@@ -11,6 +11,6 @@ describe "the login process" do
     fill_in 'Email', :with => @person.email
     fill_in 'Password', :with => 'password'
     click_button 'Sign in'
-    page.should have_content 'Signed in successfully.'
+    expect(page).to have_content 'Signed in successfully.'
   end
 end

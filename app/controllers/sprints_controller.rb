@@ -45,7 +45,7 @@ class SprintsController < AbstractSecurityController
   end
 
   def create
-    @sprint = @project.sprints.new(params[:sprint])
+    @sprint = @project.sprints.new(sprint_params)
     set_start_at
     if @sprint.save
       flash[:notice] = "Sprint created"
@@ -61,7 +61,7 @@ class SprintsController < AbstractSecurityController
   end
 
   def update
-    if @sprint && @sprint.update_attributes(params[:sprint])
+    if @sprint && @sprint.update_attributes(sprint_params)
       flash[:notice] = "Sprint saved"
       @project.integrations_notify("Sprint <a href=\"#{project_sprint_url(@project, @sprint)}\">##{@sprint.id}</a> <strong>updated</strong> by #{current_person.name}: \"#{@sprint.name}\"")
       redirect_back_or(project_sprints_path(@project))
@@ -121,5 +121,9 @@ class SprintsController < AbstractSecurityController
       flash[:error] = "No such sprint"
       redirect_to project_sprints_path(@project) and return false
     end
+  end
+
+  def sprint_params
+    params[:sprint].permit(:name, :start_at, :end_at, :goal)
   end
 end

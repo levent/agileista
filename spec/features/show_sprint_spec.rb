@@ -1,15 +1,16 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "viewing a sprint" do
+RSpec.feature 'Viewing a sprint', type: :feature do
 
   before do
-    user = login_a_user
-    @project = create_project_for(user)
-    @sprint = create_sprint_for(@project)
+    user = create_person
+    @project = create_project(user)
+    @sprint = create_sprint(@project)
+    login_as(user)
   end
 
   it "viewing a sprint" do
     visit "/projects/#{@project.id}/sprints/#{@sprint.id}"
-    page.should have_content @sprint.name
+    expect(page).to have_content @sprint.name
   end
 end

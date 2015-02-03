@@ -1,36 +1,37 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "editing a user story" do
+RSpec.feature 'Editing a user story', type: :feature do
 
   before do
-    @user = login_a_user
-    @project = create_project_for(@user)
-    @user_story = create_user_story_for(@project)
+    @user = create_person
+    @project = create_project(@user)
+    @user_story = create_user_story(@project)
+    login_as(@user)
   end
 
   it "edits a user story" do
     visit "/projects/#{@project.id}/user_stories/#{@user_story.id}/edit"
     fill_in 'user_story_definition', :with => 'As a user I want beef to eat'
     click_button 'Save and Close'
-    page.should have_content 'User story updated successfully'
-    page.should have_content 'As a user I want beef to eat'
+    expect(page).to have_content 'User story updated successfully'
+    expect(page).to have_content 'As a user I want beef to eat'
   end
 
   it "should prefill stakeholder" do
     visit "/projects/#{@project.id}/user_stories/#{@user_story.id}/edit"
-    page.should have_css("#user_story_stakeholder[value=\"#{@user.name}\"]")
+    expect(page).to have_css("#user_story_stakeholder[value=\"#{@user.name}\"]")
   end
 
   context "planning poker" do
     it "should show when unestimated" do
       visit "/projects/#{@project.id}/user_stories/#{@user_story.id}/edit"
-      page.should have_content "Planning Poker"
+      expect(page).to have_content "Planning Poker"
     end
 
     it "should hide when estimated" do
       @user_story.update_attribute(:story_points, 13)
       visit "/projects/#{@project.id}/user_stories/#{@user_story.id}/edit"
-      page.should have_no_content "Planning Poker"
+      expect(page).to have_no_content "Planning Poker"
     end
   end
 end

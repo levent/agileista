@@ -15,7 +15,7 @@ class Sprint < ActiveRecord::Base
   scope :finished, -> {where(["end_at < ?", Time.zone.now.beginning_of_day])}
   scope :statistically_significant, ->(account) { where(["end_at > ?", Velocity.stats_significant_since(account)] ) }
 
-  attr_accessible :name, :start_at, :end_at, :goal
+# attr_accessible :name, :start_at, :end_at, :goal
 
   def as_json(options = {})
     super(options.merge(only: [:name, :goal, :start_at, :end_at, :created_at, :updated_at, :velocity], methods: [:user_stories]))

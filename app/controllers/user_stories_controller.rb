@@ -34,7 +34,7 @@ class UserStoriesController < AbstractSecurityController
   end
 
   def create
-    @user_story = @project.user_stories.new(params[:user_story])
+    @user_story = @project.user_stories.new(user_story_params)
     @user_story.person = current_person
 
     @user_story.backlog_order_position = :first
@@ -63,7 +63,7 @@ class UserStoriesController < AbstractSecurityController
   end
 
   def update
-    if @user_story.update_attributes(params[:user_story])
+    if @user_story.update_attributes(user_story_params)
       flash[:notice] = "User story updated successfully"
       @project.integrations_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>updated</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
       redirect_to edit_project_user_story_path(@project, @user_story) and return false if params[:commit] == 'Save'
@@ -135,5 +135,9 @@ class UserStoriesController < AbstractSecurityController
 
   def user_story_must_exist
     @user_story = @project.user_stories.find(params[:id])
+  end
+
+  def user_story_params
+    params[:user_story].permit(:definition, :story_points, :stakeholder, :cannot_be_estimated, :description, :acceptance_criteria_attributes, :tasks_attributes)
   end
 end

@@ -8,7 +8,7 @@ class Person < ActiveRecord::Base
          :validatable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+# attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   include Gravtastic
   gravtastic
 

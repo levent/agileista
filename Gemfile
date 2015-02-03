@@ -32,8 +32,6 @@ gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem 'protected_attributes'
-
 gem 'turbolinks'
 gem 'figaro'
 
