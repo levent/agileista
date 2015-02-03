@@ -1,3 +1,3 @@
 SimpleCov.start 'rails' do
-  minimum_coverage 77
+  minimum_coverage 80
 end
