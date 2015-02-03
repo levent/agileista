@@ -2,7 +2,7 @@
 
 clear
 rm -rf coverage
-time bundle exec rspec spec/unit
-time bundle exec rspec spec/integration spec/features
+time bundle exec rspec spec/models
+time bundle exec rspec spec
 time bundle exec rails_best_practices
 time bundle exec rake jshint JSHINT=true

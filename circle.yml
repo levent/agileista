@@ -9,8 +9,8 @@ general:
     - "coverage"
 test:
   override:
-    - bundle exec rspec spec/unit
-    - bundle exec rspec spec/integration spec/features
+    - bundle exec rspec spec/models
+    - bundle exec rspec spec
   post:
     # - bundle exec rails_best_practices
     # - bundle exec rake jshint JSHINT=true
