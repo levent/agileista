@@ -18,13 +18,13 @@ RSpec.describe Sprint, type: :model do
 
   context "auto setting end time" do
     before do
-      @project = Project.make!(:iteration_length => 1)
+      @project = create_project
     end
 
     it "should set it on save based on project's iteration length" do
       start = 1.day.from_now
       sprint = @project.sprints.create!(:name => "Disco dance prep", :start_at => start)
-      @project.iteration_length.weeks.from_now(1.day.ago(start)).end_of_day.should == sprint.end_at
+      expect(@project.iteration_length.weeks.from_now(1.day.ago(start)).end_of_day).to eq sprint.end_at
     end
 
     it "should set it to end of day on subsequent saves" do
@@ -35,12 +35,12 @@ RSpec.describe Sprint, type: :model do
       sprint.end_at = finish
       sprint.save!
       sprint.reload
-      sprint.end_at.should.to_s == initial_finish.to_s
+      expect(sprint.end_at.to_s).to eq initial_finish.to_s
     end
   end
 
   describe "#velocity" do
-    before(:each) do
+    before do
       us1 = UserStory.new(:story_points => 3)
       us2 = UserStory.new(:story_points => 12)
       us3 = UserStory.new(:story_points => 5)
@@ -50,25 +50,24 @@ RSpec.describe Sprint, type: :model do
       us7 = UserStory.new(:story_points => 20)
       us8 = UserStory.new(:story_points => 40)
 
-      us1.stub(:complete?).and_return(true)
-      us2.stub(:complete?).and_return(true)
-      us3.stub(:complete?).and_return(false)
-      us4.stub(:complete?).and_return(true)
-      us5.stub(:complete?).and_return(true)
-      us6.stub(:complete?).and_return(false)
-      us7.stub(:complete?).and_return(true)
-      us8.stub(:complete?).and_return(false)
+      allow(us1).to receive(:complete?) { true }
+      allow(us2).to receive(:complete?) { true }
+      allow(us3).to receive(:complete?) { false }
+      allow(us4).to receive(:complete?) { true }
+      allow(us5).to receive(:complete?) { true }
+      allow(us6).to receive(:complete?) { false }
+      allow(us7).to receive(:complete?) { true }
+      allow(us8).to receive(:complete?) { false }
 
-      @sprint = Sprint.new(:name => "sprint a")
-      @sprint.stub(:user_stories).and_return([us1, us2, us3, us4, us5, us6, us7, us8])
+      @sprint = create_sprint
+      allow(@sprint).to receive(:user_stories) { [us1, us2, us3, us4, us5, us6, us7, us8] }
       @sprint.start_at = 3.months.ago
       @sprint.end_at = 2.months.ago
-      @sprint.stub(:project_id).and_return(19)
     end
 
     it "should return the total story points for all the complete user stories" do
-      @sprint.calculated_velocity.should == 56
-      @sprint.velocity.should == 56
+      expect(@sprint.calculated_velocity).to eq 56
+      expect(@sprint.velocity).to eq 56
     end
   end
 
@@ -77,7 +76,7 @@ RSpec.describe Sprint, type: :model do
       @it.start_at = 1.day.from_now
       @it.end_at = 1.day.ago
       @it.validate
-      @it.errors[:start_at].should include("and end at must be different")
+      expect(@it.errors[:start_at]).to include("and end at must be different")
     end
   end
 
@@ -85,63 +84,64 @@ RSpec.describe Sprint, type: :model do
     it "should return true if active sprint" do
       @it.start_at = 1.weeks.ago
       @it.end_at = 2.weeks.from_now
-      @it.current?.should be_true
+      expect(@it.current?).to be_truthy
     end
 
     it "should return false if complete" do
       @it.start_at = 2.weeks.ago
       @it.end_at = 1.weeks.ago
-      @it.current?.should be_false
+      expect(@it.current?).to be_falsey
     end
 
     it "should return false if upcoming" do
       @it.start_at = 1.weeks.from_now
       @it.end_at = 2.weeks.from_now
-      @it.current?.should be_false
+      expect(@it.current?).to be_falsey
     end
   end
 
   describe "#destroy" do
     describe "with user stories" do
       before(:each) do
-        @project = Project.make!
-        @sprint = Sprint.make!(:project => @project)
-        @user_story = UserStory.make!(:project => @project, :sprint => @sprint)
-        @sprint_element = SprintElement.make!(:sprint => @sprint, :user_story => @user_story)
+        @sprint = create_sprint
+        @user_story = create_user_story
+        @user_story.sprint = @sprint
+        @user_story.save!
+        @user_story.reload
+        @sprint_element = SprintElement.find_or_create_by(sprint_id: @sprint.id, user_story_id: @user_story.id)
       end
 
       it "should remove sprint_id reference" do
-        UserStory.where(sprint_id: @sprint.id).should_not be_blank
-        @sprint_element.sprint.destroy
-        UserStory.where(sprint_id: @sprint.id).should be_blank
+        expect(UserStory.where(sprint_id: @user_story.sprint.id)).not_to be_blank
+        @sprint.destroy
+        expect(UserStory.where(sprint_id: @sprint.id)).to be_blank
       end
 
       it "should remove sprint_elements" do
         @sprint_element.sprint.destroy
-        SprintElement.count.should == 0
+        expect(SprintElement.count).to eq 0
       end
     end
   end
 
   describe "#calculate_day_zero" do
     before do
-      @project = Project.make!
-      @sprint = Sprint.make!(project: @project)
+      @sprint = create_sprint
     end
 
     it "should do nothing if sprint start elapsed" do
-      @sprint.calculate_day_zero.should be_false
+      expect(@sprint.calculate_day_zero).to be_falsey
     end
 
     it "should create first burndown entry if upcoming sprint" do
       @sprint.start_at = 1.week.from_now
       @sprint.end_at = 3.weeks.from_now
       @sprint.save!
-      @sprint.stub(:hours_left).and_return(123)
+      allow(@sprint).to receive(:hours_left) { 123 }
 
       @sprint.calculate_day_zero
       burndown = @sprint.burndowns.first
-      burndown.hours_left == 123
+      expect(burndown.hours_left).to eq 123
     end
   end
 end
