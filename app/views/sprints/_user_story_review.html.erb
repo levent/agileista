@@ -6,7 +6,7 @@
           <p>#<%= user_story_review.id %> <%= show_story_points(user_story_review.story_points, badge: true) %></p>
         </div>
         <div class="large-16 small-16 medium-16 columns">
-          <h4 class="hide-on-print"><%= parse_definition(user_story_review.definition).html_safe %></h4>
+          <h4 class="hide-on-print"><%= parse_definition(user_story_review.definition, @project).html_safe %></h4>
           <h4 class="print-only"><%= user_story_review.definition %></h4>
         </div>
         <div class="text-right large-5 small-5 medium-5 columns hide-for-small">

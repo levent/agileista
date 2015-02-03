@@ -6,7 +6,7 @@
       <% end %>
       <%= link_to edit_project_user_story_path(@project, user_story) do %>
         <%= show_story_points(user_story.story_points, badge: true) %>
-      <% end %>&nbsp;<%= parse_definition(user_story.definition).html_safe %>
+      <% end %>&nbsp;<%= parse_definition(user_story.definition, @project).html_safe %>
     </div>
 
     <div class="text-right large-8 small-8 medium-8 columns hide-for-small">
