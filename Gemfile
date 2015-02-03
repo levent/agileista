@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.1.2'
+ruby '2.2.0'
 
-gem 'rails', '4.1.9'
+gem 'rails', '4.2.0'
 
 gem 'pg'
 gem 'yajl-ruby'
@@ -38,6 +38,7 @@ gem 'turbolinks'
 gem 'figaro'
 
 group :development do
+  gem 'web-console', '~> 2.0'
   gem 'rails_best_practices'
   gem 'ruby-prof'
   gem 'capistrano'
