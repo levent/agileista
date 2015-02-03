@@ -54,7 +54,7 @@ group :test do
   gem 'simplecov', '0.7.1', require: false
   gem 'simplecov-console', require: false
   gem 'jshintrb'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', require: false
   gem 'machinist'
   gem 'timecop'
 end

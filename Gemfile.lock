@@ -257,7 +257,7 @@ GEM
     sentry-raven (0.12.3)
       faraday (>= 0.7.6)
     sexp_processor (4.4.3)
-    shoulda-matchers (2.6.1)
+    shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
     sidekiq (2.17.7)
       celluloid (>= 0.15.2)
