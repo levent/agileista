@@ -13,7 +13,7 @@ RSpec.describe NotificationMailer, type: :model do
     end
 
     it "should invite a user to a project" do
-      NotificationMailer.invite_to_project(@invitation.project, @invitation).deliver
+      NotificationMailer.invite_to_project(@invitation.project, @invitation).deliver_now
       email = ActionMailer::Base.deliveries.first
       expect(email.to).to eq [@invitation.email]
       expect(email.from).to eq ['notifications@agileista.local']

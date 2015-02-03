@@ -17,11 +17,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def ssl_required?
-    return false if (local_request? || ['development', 'test'].include?(Rails.env))
-    super
-  end
-
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :name
   end
