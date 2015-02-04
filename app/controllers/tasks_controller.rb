@@ -6,7 +6,7 @@ class TasksController < AbstractSecurityController
   def create
     @task = @user_story.tasks.create!(task_params)
     update_burndowns(@task.sprint)
-    @project.integrations_notify("Task <strong>created</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    @project.integrations_notify chat_message('created')
     json = { performed_by: current_person.name, refresh: true }.to_json
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
     REDIS.publish "pubsub.#{uid}", json
@@ -19,7 +19,7 @@ class TasksController < AbstractSecurityController
     json = { notification: "#{current_person.name} renounced task of ##{@user_story.id}", performed_by: current_person.name, action: 'renounce', task_id: @task.id, task_hours: @task.hours, task_devs: devs, user_story_status: @user_story.status, user_story_id: @user_story.id }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
     update_burndowns(@task.sprint)
-    @project.integrations_notify("Task <strong>renounced</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    @project.integrations_notify chat_message('renounced')
     REDIS.publish "pubsub.#{uid}", json.to_json
   end
 
@@ -30,7 +30,7 @@ class TasksController < AbstractSecurityController
     json = { notification: "#{current_person.name} claimed task of ##{@user_story.id}", performed_by: current_person.name, action: 'claim', task_id: @task.id, task_hours: @task.hours, task_devs: devs, user_story_status: @user_story.status, user_story_id: @user_story.id }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
     update_burndowns(@task.sprint)
-    @project.integrations_notify("Task <strong>claimed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    @project.integrations_notify chat_message('claimed')
     REDIS.publish "pubsub.#{uid}", json.to_json
   end
 
@@ -40,7 +40,7 @@ class TasksController < AbstractSecurityController
     json = { notification: "#{current_person.name} completed task of ##{@user_story.id}", performed_by: current_person.name, action: 'complete', task_id: @task.id, task_hours: @task.hours, task_devs: devs, user_story_status: @user_story.status, user_story_id: @user_story.id }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
     update_burndowns(@task.sprint)
-    @project.integrations_notify("Task <strong>completed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
+    @project.integrations_notify chat_message('completed')
     REDIS.publish "pubsub.#{uid}", json.to_json
   end
 
@@ -61,6 +61,10 @@ class TasksController < AbstractSecurityController
 
   def task_params
     params[:task].permit(:definition, :description)
+  end
+
+  def chat_message(event)
+    "Task <strong>#{event.to_s}</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\""
   end
 
   def update_burndowns(sprint)
