@@ -11,6 +11,7 @@ script:
  - "bundle exec rspec spec"
 services:
  - redis-server
+ - elasticsearch
 notifications:
   email:
     - lebreeze@gmail.com
