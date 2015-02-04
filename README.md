@@ -10,7 +10,7 @@
 
 ### Installation
 
-{% highlight bash %}
+```
 git clone https://github.com/agileista/agileista
 cp config/database.yml.example config/database.yml
 cp config/application.yml.example config/application.yml
@@ -18,7 +18,7 @@ cp config/application.yml.example config/application.yml
 ./bin/rake db:create RAILS_ENV=test
 ./bin/rake db:migrate
 ./bin/rspec # All tests should pass
-{% endhighlight %}
+```
 
 Currently the app is expecting to run on app.agileista.local in dev mode
 Edit /etc/hosts and add
