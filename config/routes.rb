@@ -10,10 +10,6 @@ Agileista::Application.routes.draw do
 
   devise_for :people
 
-  get "/console" => "console#index"
-  get "/console/search" => "console#search"
-  get "/health" => "health#index"
-
   resources :projects, only: [:index, :edit, :update, :new, :create, :destroy] do
     resources :hip_chat_integrations, only: [:create, :update]
     resources :slack_integrations, only: [:create, :update]
