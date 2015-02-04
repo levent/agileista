@@ -3,9 +3,8 @@ class UserStoriesController < AbstractSecurityController
   before_filter :set_sprint, only: [:plan, :unplan, :reorder]
 
   def estimate
-    json = { estimator: current_person.name, estimator_id: current_person.id, story_points: params[:user_story][:story_points] }
-    uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}poker#{@project.id}#{@user_story.id}")
-    REDIS.publish "pubsub.#{uid}", json.to_json
+    json = { estimator: current_person.name, estimator_id: current_person.id, story_points: params[:user_story][:story_points] }.to_json
+    REDIS.publish redis_key, json
   end
 
   def copy
@@ -84,8 +83,7 @@ class UserStoriesController < AbstractSecurityController
     points_planned = @sprint.user_stories.sum('story_points')
     @project.integrations_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>planned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
     json = { performed_by: current_person.name, refresh: true }.to_json
-    uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
-    REDIS.publish "pubsub.#{uid}", json
+    REDIS.publish redis_key, json
     render json: {ok: true, points_planned: points_planned}.to_json
   end
 
@@ -97,8 +95,7 @@ class UserStoriesController < AbstractSecurityController
     SprintElement.destroy_all("sprint_id = #{@sprint.id} AND user_story_id = #{@user_story.id}")
     @project.integrations_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>unplanned</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
     json = { performed_by: current_person.name, refresh: true }.to_json
-    uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
-    REDIS.publish "pubsub.#{uid}", json
+    REDIS.publish redis_key, json
     respond_to do |format|
       format.html {
         flash[:notice] = "User story removed from sprint"

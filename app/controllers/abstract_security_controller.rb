@@ -61,4 +61,8 @@ class AbstractSecurityController < ApplicationController
     @chart_data = burndowns.collect {|burn| {date: burn.created_on.iso8601, hours_left: burn.hours_left, story_points_complete: burn.story_points_complete, story_points_remaining: burn.story_points_remaining}}
     @chart_xscale = [@sprint.start_at.iso8601.to_s, @sprint.end_at.iso8601.to_s]
   end
+
+  def redis_key
+    "pubsub." + Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
+  end
 end

@@ -68,8 +68,4 @@ class TasksController < AbstractSecurityController
     calculate_tomorrows_burndown(sprint)
     calculate_burndown_points
   end
-
-  def redis_key
-    "pubsub." + Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
-  end
 end
