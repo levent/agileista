@@ -138,6 +138,6 @@ class UserStoriesController < AbstractSecurityController
   end
 
   def user_story_params
-    params[:user_story].permit(:definition, :story_points, :stakeholder, :cannot_be_estimated, :description, :acceptance_criteria_attributes, :tasks_attributes)
+    params[:user_story].permit(:definition, :story_points, :stakeholder, :cannot_be_estimated, :description, { acceptance_criteria_attributes: [:id, :detail, :_destroy]}, {tasks_attributes: [:id, :definition, :description, :_destroy]})
   end
 end
