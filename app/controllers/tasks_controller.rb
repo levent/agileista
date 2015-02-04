@@ -5,9 +5,7 @@ class TasksController < AbstractSecurityController
 
   def create
     @task = @user_story.tasks.create!(task_params)
-    calculate_todays_burndown(@task.sprint)
-    calculate_tomorrows_burndown(@task.sprint)
-    calculate_burndown_points
+    update_burndowns(@task.sprint)
     @project.integrations_notify("Task <strong>created</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     json = { performed_by: current_person.name, refresh: true }.to_json
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
@@ -20,9 +18,7 @@ class TasksController < AbstractSecurityController
     devs = @task.assignees.split(',')
     json = { notification: "#{current_person.name} renounced task of ##{@user_story.id}", performed_by: current_person.name, action: 'renounce', task_id: @task.id, task_hours: @task.hours, task_devs: devs, user_story_status: @user_story.status, user_story_id: @user_story.id }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
-    calculate_todays_burndown(@task.sprint)
-    calculate_tomorrows_burndown(@task.sprint)
-    calculate_burndown_points
+    update_burndowns(@task.sprint)
     @project.integrations_notify("Task <strong>renounced</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     REDIS.publish "pubsub.#{uid}", json.to_json
   end
@@ -33,9 +29,7 @@ class TasksController < AbstractSecurityController
     devs = @task.assignees.split(',')
     json = { notification: "#{current_person.name} claimed task of ##{@user_story.id}", performed_by: current_person.name, action: 'claim', task_id: @task.id, task_hours: @task.hours, task_devs: devs, user_story_status: @user_story.status, user_story_id: @user_story.id }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
-    calculate_todays_burndown(@task.sprint)
-    calculate_tomorrows_burndown(@task.sprint)
-    calculate_burndown_points
+    update_burndowns(@task.sprint)
     @project.integrations_notify("Task <strong>claimed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     REDIS.publish "pubsub.#{uid}", json.to_json
   end
@@ -45,9 +39,7 @@ class TasksController < AbstractSecurityController
     devs = @task.assignees.split(',')
     json = { notification: "#{current_person.name} completed task of ##{@user_story.id}", performed_by: current_person.name, action: 'complete', task_id: @task.id, task_hours: @task.hours, task_devs: devs, user_story_status: @user_story.status, user_story_id: @user_story.id }
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
-    calculate_todays_burndown(@task.sprint)
-    calculate_tomorrows_burndown(@task.sprint)
-    calculate_burndown_points
+    update_burndowns(@task.sprint)
     @project.integrations_notify("Task <strong>completed</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\"")
     REDIS.publish "pubsub.#{uid}", json.to_json
   end
@@ -69,5 +61,11 @@ class TasksController < AbstractSecurityController
 
   def task_params
     params[:task].permit(:definition, :description)
+  end
+
+  def update_burndowns(sprint)
+    calculate_todays_burndown(sprint)
+    calculate_tomorrows_burndown(sprint)
+    calculate_burndown_points
   end
 end
