@@ -28,6 +28,10 @@ Edit /etc/hosts and add
 127.0.0.1 app.agileista.local
 ```
 
+### Hosted version
+
+Sign up at https://app.agileista.com
+
 ### Contact
 
 Email: [levent@purebreeze.com](mailto:levent@purebreeze.com)
