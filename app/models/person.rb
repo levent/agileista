@@ -51,6 +51,6 @@ class Person < ActiveRecord::Base
   end
 
   def admin?
-    SiteAdministrators::EMAILS.include?(email)
+    ENV['admin_email'].present? && ENV['admin_email'] == email
   end
 end

@@ -15,7 +15,7 @@ RSpec.describe Person, type: :model do
     let(:user) { Person.new }
 
     it "should be true if it's levent" do
-      user.email = 'lebreeze@gmail.com'
+      user.email = ENV['admin_email']
       expect(user.admin?).to be_truthy
     end
 
