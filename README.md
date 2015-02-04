@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/levent/agileista.svg?style=svg)](https://circleci.com/gh/levent/agileista)
+[![Circle CI](https://circleci.com/gh/agileista/agileista.svg?style=svg)](https://circleci.com/gh/agileista/agileista)
 
 ## AGILEISTA
 
@@ -37,6 +37,12 @@ Edit /etc/hosts and add
 ### Hosted version
 
 Sign up at https://app.agileista.com
+
+This may include more *pro* features in the future.
+
+### License
+
+Please see [LICENSE](https://github.com/agileista/agileista/blob/master/LICENSE) for licensing details.
 
 ### Contact
 
