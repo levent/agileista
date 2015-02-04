@@ -15,6 +15,7 @@ gems/*
 coverage
 config/mailer.yml
 vendor/bundle
+vendor/cache
 tmp/
 *.rbc
 *.sassc
