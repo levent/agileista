@@ -5,7 +5,7 @@ class AcceptanceCriterium < ActiveRecord::Base
   validates_presence_of :detail
   validates_length_of :detail, maximum: 255
 
-  attr_accessible :detail
+#  attr_accessible :detail
 
   ranks :story_order,
     column: :position,

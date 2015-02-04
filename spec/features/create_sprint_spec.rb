@@ -1,22 +1,23 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "creating a sprint" do
+RSpec.feature 'Creating a sprint', type: :feature do
 
   before do
-    user = login_a_user
-    @project = create_project_for(user)
+    user = create_person
+    @project = create_project(user)
+    login_as(user)
   end
 
   it "creates a sprint" do
     visit "/projects/#{@project.id}/sprints/new"
     fill_in 'Name', :with => 'My First Sprint'
     click_button 'Create Sprint'
-    page.should have_content 'Sprint created'
+    expect(page).to have_content 'Sprint created'
   end
 
   it "fails to create a sprint" do
     visit "/projects/#{@project.id}/sprints/new"
     click_button 'Create Sprint'
-    page.should have_content 'Sprint could not be created'
+    expect(page).to have_content 'Sprint could not be created'
   end
 end

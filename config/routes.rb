@@ -2,16 +2,13 @@ require 'sidekiq/web'
 require 'sidetiq/web'
 
 Agileista::Application.routes.draw do
-  constraint = lambda { |request| request.env["warden"].authenticate? and AccountStuff::TEAM_AGILEISTA.include?(request.env['warden'].user.email) }
+  use_doorkeeper
+  constraint = lambda { |request| request.env["warden"].authenticate? && request.env['warden'].user.admin? }
   constraints constraint do
     mount Sidekiq::Web => '/sidekiq'
   end
 
   devise_for :people
-
-  get "/console" => "console#index"
-  get "/console/search" => "console#search"
-  get "/health" => "health#index"
 
   resources :projects, only: [:index, :edit, :update, :new, :create, :destroy] do
     resources :hip_chat_integrations, only: [:create, :update]

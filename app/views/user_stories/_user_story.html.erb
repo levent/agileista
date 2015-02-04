@@ -6,7 +6,7 @@
     <% end %>
   </div>
   <div class="large-16 small-16 medium-16 columns">
-    <%= show_story_points(user_story.story_points, badge: true, unit: "pts") %> <%= parse_definition(user_story.definition).html_safe %>
+    <%= show_story_points(user_story.story_points, badge: true, unit: "pts") %> <%= parse_definition(user_story.definition, @project).html_safe %>
   </div>
   <div class="large-2 small-2 medium-2 columns show-for-large-up">
     <% if params[:global] == 'true' && user_story.sprint_id %>

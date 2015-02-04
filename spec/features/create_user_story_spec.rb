@@ -1,22 +1,23 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "creating a user story" do
+RSpec.feature 'Creating a user story', type: :feature do
 
   before do
-    @user = login_a_user
-    @project = create_project_for(@user)
+    @user = create_person
+    @project = create_project(@user)
+    login_as(@user)
   end
 
   it "creates a user story" do
     visit "/projects/#{@project.id}/user_stories/new"
     fill_in 'user_story_definition', :with => 'As a user I want beef to eat'
     click_button 'Save and Close'
-    page.should have_content 'User story created'
-    page.should have_content 'As a user I want beef to eat'
+    expect(page).to have_content 'User story created'
+    expect(page).to have_content 'As a user I want beef to eat'
   end
 
   it "should prefill stakeholder" do
     visit "/projects/#{@project.id}/user_stories/new"
-    page.should have_css("#user_story_stakeholder[value=\"#{@user.name}\"]")
+    expect(page).to have_css("#user_story_stakeholder[value=\"#{@user.name}\"]")
   end
 end

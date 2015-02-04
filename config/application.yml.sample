@@ -9,6 +9,7 @@
 # production:
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
+admin_email: lebreeze@gmail.com
 devise_secret_key: e7606827fa0b824ed1b4e93751a52bdefe73fb31ed5d7c2922be578e8b0dd5ded2720c90122e011fc0edce8687eb4974a8d696bf9bc72e91c8aeacd69f59067d00a7
 raven_dsn: https://user:pass@app.getsentry.com/17262
 sse_token: 5dc56ac44daab5732ad07b117f781998ab6d891244a1190324e7502efe426b9f49e8644b685e10493b6e2c5cb5845e690c44

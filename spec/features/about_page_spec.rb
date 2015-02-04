@@ -1,22 +1,29 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "about Agileista" do
+RSpec.feature 'About Agileista', type: :feature do
 
-  it "should be home for non logged in users" do
+  scenario "should be home for non logged in users" do
     visit "/"
-    page.should have_content 'Online collaboration for distributed Scrum teams'
+    expect(page).to have_content 'Online collaboration for distributed Scrum teams'
   end
 
-  it "should redirect from home to projects for logged in users" do
-    user = login_a_user
-    visit "/"
-    page.should have_link 'Create your first project'
-    current_path.should == '/projects'
-  end
+  context "with a logged in user" do
+    before do
+      @person = create_person
+    end
 
-  it "should allow viewing for logged in users" do
-    user = login_a_user
-    visit "/about"
-    page.should have_content 'Online collaboration for distributed Scrum teams'
+    scenario "should redirect from home to projects for logged in users" do
+      visit '/people/sign_in'
+      fill_in 'person_email', with: @person.email
+      fill_in 'Password', with: 'password'
+      click_button 'Sign in'
+      expect(current_path).to eq '/projects'
+      expect(page).to have_link 'Create your first project'
+    end
+
+    scenario "should allow viewing for logged in users" do
+      visit "/about"
+      expect(page).to have_content 'Online collaboration for distributed Scrum teams'
+    end
   end
 end

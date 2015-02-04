@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.1.2'
+ruby '2.2.0'
 
-gem 'rails', '4.1.9'
+gem 'rails', '4.2.0'
 
 gem 'pg'
 gem 'yajl-ruby'
@@ -13,8 +13,9 @@ gem 'gravtastic'
 gem 'ranked-model'
 gem 'hiredis', '~> 0.5.0'
 gem 'redis', require: ['redis/connection/hiredis', 'redis']
-gem 'simple_form', '~> 3.0.3'
+gem 'simple_form'
 gem 'devise'
+gem 'doorkeeper'
 gem 'unicorn'
 gem 'rack-timeout'
 gem 'sidekiq'
@@ -31,14 +32,12 @@ gem 'foundation-rails'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
-gem 'protected_attributes'
-
 gem 'turbolinks'
 gem 'figaro'
 
 group :development do
+  gem 'web-console', '~> 2.0'
   gem 'rails_best_practices'
-  gem 'byebug'
   gem 'ruby-prof'
   gem 'capistrano'
   gem 'capistrano-ext'
@@ -49,17 +48,21 @@ group :development do
   gem 'uglifier', '>= 1.3.0'
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem "letter_opener"
 end
 
 group :test do
   gem 'simplecov', '0.7.1', require: false
   gem 'simplecov-console', require: false
   gem 'jshintrb'
-  gem 'poltergeist'
-  gem 'shoulda-matchers'
-  gem 'rspec-rails'
+  gem 'shoulda-matchers', require: false
   gem 'machinist'
-  gem 'faker'
   gem 'timecop'
-  gem 'rspec-fire'
+end
+
+group :development, :test do
+  gem 'byebug'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'capybara'
+  gem 'faker'
 end

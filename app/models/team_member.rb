@@ -4,5 +4,5 @@ class TeamMember < ActiveRecord::Base
   validates_presence_of :person_id
   validates_presence_of :project_id
 
-  attr_accessible :person, :scrum_master, :person_id
+# attr_accessible :person, :scrum_master, :person_id
 end

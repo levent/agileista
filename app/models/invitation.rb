@@ -1,7 +1,7 @@
 require 'invitations/management'
 
 class Invitation < ActiveRecord::Base
-  attr_accessible :email
+#  attr_accessible :email
 
   include Invitations::Management
   belongs_to :project

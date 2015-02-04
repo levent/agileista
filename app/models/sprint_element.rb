@@ -11,7 +11,7 @@ class SprintElement < ActiveRecord::Base
   after_save :calculate_burndown
   after_destroy :calculate_burndown
 
-  attr_accessible :sprint_id, :user_story_id
+#  attr_accessible :sprint_id, :user_story_id
 
   def calculate_burndown
     if self.sprint

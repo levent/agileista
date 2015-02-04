@@ -12,7 +12,7 @@ class ProjectsController < AbstractSecurityController
   end
 
   def create
-    @project = current_person.projects.new(params[:project])
+    @project = current_person.projects.new(project_params)
     if @project.save
       @project.scrum_master = current_person
       flash[:notice] = "Project created"
@@ -29,7 +29,7 @@ class ProjectsController < AbstractSecurityController
   end
 
   def update
-    if @project.update_attributes(params[:project])
+    if @project.update_attributes(project_params)
       flash[:notice] = "Project settings saved"
       redirect_to :back
     else
@@ -62,5 +62,9 @@ class ProjectsController < AbstractSecurityController
       team_member = TeamMember.where(project_id: invite.project_id, person_id: current_person.id).first_or_create!
       invite.destroy if team_member
     end
+  end
+
+  def project_params
+    params[:project].permit(:name, :iteration_length)
   end
 end

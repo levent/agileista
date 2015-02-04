@@ -1,15 +1,16 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "listing my projects" do
+RSpec.feature 'Listing projects', type: :feature do
 
   before do
-    user = login_a_user
-    @project = create_project_for(user)
+    user = create_person
+    @project = create_project(user)
+    login_as(user)
   end
 
   it "listing when only one project" do
     visit '/projects'
-    page.should have_content @project.name.humanize
-    current_path.should == '/projects'
+    expect(page).to have_content @project.name.humanize
+    expect(current_path).to eq '/projects'
   end
 end

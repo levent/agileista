@@ -4,7 +4,7 @@ class TasksController < AbstractSecurityController
   before_filter :set_sprint, only: [:complete, :create, :renounce, :claim]
 
   def create
-    @task = @user_story.tasks.create!(params[:task])
+    @task = @user_story.tasks.create!(task_params)
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
     calculate_burndown_points
@@ -65,5 +65,9 @@ class TasksController < AbstractSecurityController
 
   def set_sprint
     @sprint = @user_story.sprint
+  end
+
+  def task_params
+    params[:task].permit(:definition, :description)
   end
 end

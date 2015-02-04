@@ -8,7 +8,7 @@ class Person < ActiveRecord::Base
          :validatable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me
+# attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   include Gravtastic
   gravtastic
 
@@ -19,6 +19,7 @@ class Person < ActiveRecord::Base
   has_many :team_members, dependent: :destroy
   has_many :projects, -> {order('LOWER(projects.name)')}, through: :team_members
 
+  # Used to migrate pre-devise users
   def valid_password?(password)
     if self.hashed_password.present?
       if self.hashed_password == self.encrypt(password)
@@ -47,5 +48,9 @@ class Person < ActiveRecord::Base
       REDIS.expire("project:#{project.id}:scrum_master", REDIS_EXPIRY)
     end
     scrum_master_email == self.email
+  end
+
+  def admin?
+    ENV['admin_email'].present? && ENV['admin_email'] == email
   end
 end
