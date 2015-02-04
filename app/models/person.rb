@@ -19,6 +19,7 @@ class Person < ActiveRecord::Base
   has_many :team_members, dependent: :destroy
   has_many :projects, -> {order('LOWER(projects.name)')}, through: :team_members
 
+  # Used to migrate pre-devise users
   def valid_password?(password)
     if self.hashed_password.present?
       if self.hashed_password == self.encrypt(password)
