@@ -39,8 +39,6 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'rails_best_practices'
   gem 'ruby-prof'
-  gem 'capistrano'
-  gem 'capistrano-ext'
   gem 'brakeman', :require => false
   gem 'rack-mini-profiler'
   gem 'flamegraph'
