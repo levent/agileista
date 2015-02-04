@@ -1,7 +1,7 @@
 language: ruby
 bundler_args: --without development assets
 rvm:
- - 2.1.2
+ - 2.2.0
 before_script:
  - cp config/database.yml.example config/database.yml
  - psql -c 'create database agileista_test;' -U postgres
