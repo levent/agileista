@@ -81,15 +81,14 @@ Agileista::Application.configure do
 
   COOKIE_DOMAIN = 'agileista.com'
   EMAIL_FROM = "notifications@agileista.com"
-  MAIN_HOST = 'agileista.com'
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.mandrillapp.com",
+    :address              => ENV['smtp_address'],
     :port                 => 587,
-    :domain               => 'agileista.com',
-    :user_name            => 'lebreeze@gmail.com',
-    :password             => 'XmvqZxUI1MWaLy3aQm3sHw',
+    :domain               => ENV['smtp_domain'],
+    :user_name            => ENV['smtp_user_name'],
+    :password             => ENV['smtp_password'],
     :authentication       => 'login',
     :enable_starttls_auto => true  }
 
