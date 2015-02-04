@@ -1,0 +1,3 @@
+{
+  "globals" : {'d3':false, 'Foundation':false, 'Agileista':false}
+}
