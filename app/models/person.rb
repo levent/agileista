@@ -51,6 +51,6 @@ class Person < ActiveRecord::Base
   end
 
   def admin?
-    AccountStuff::TEAM_AGILEISTA.include?(email)
+    SiteAdministrators::EMAILS.include?(email)
   end
 end

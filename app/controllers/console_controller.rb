@@ -21,6 +21,6 @@ class ConsoleController < AbstractSecurityController
   private
 
   def team_agileista_only
-    raise(ActionController::RoutingError, "No route matches 'console'") unless AccountStuff::TEAM_AGILEISTA.include?(current_person.email)
+    raise(ActionController::RoutingError, "No route matches 'console'") unless SiteAdministrators::EMAILS.include?(current_person.email)
   end
 end
