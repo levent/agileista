@@ -8,7 +8,7 @@
 2. Elastic Search (0.9.x)
 3. [Streaming server](https://github.com/agileista/pubsub-server)
 
-### Installation
+### Dev mode installation
 
 ```
 git clone https://github.com/agileista/agileista
@@ -18,6 +18,7 @@ cp config/application.yml.example config/application.yml
 ./bin/rake db:create RAILS_ENV=test
 ./bin/rake db:migrate
 ./bin/rspec # All tests should pass
+./bin/rails server
 ```
 
 Currently the app is expecting to run on app.agileista.local in dev mode
