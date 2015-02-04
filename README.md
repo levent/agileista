@@ -1,4 +1,5 @@
 [![Circle CI](https://circleci.com/gh/agileista/agileista.svg?style=svg)](https://circleci.com/gh/agileista/agileista)
+[![Code Climate](https://codeclimate.com/github/agileista/agileista/badges/gpa.svg)](https://codeclimate.com/github/agileista/agileista)
 
 ## AGILEISTA
 
