@@ -15,7 +15,6 @@ gem 'hiredis', '~> 0.5.0'
 gem 'redis', require: ['redis/connection/hiredis', 'redis']
 gem 'simple_form'
 gem 'devise'
-gem 'doorkeeper'
 gem 'unicorn'
 gem 'rack-timeout'
 gem 'sidekiq'
