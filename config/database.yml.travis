@@ -1,0 +1,4 @@
+test: &test
+  adapter: postgresql
+  database: agileista_test
+  username: postgres
