@@ -3,35 +3,31 @@ class TasksController < AbstractSecurityController
   before_action :set_task, except: [:create]
   before_action :set_sprint, only: [:complete, :create, :renounce, :claim]
   after_action :update_burndowns, except: [:destroy]
-  after_action :publish_changes, except: [:destroy]
 
   def create
     @task = @user_story.tasks.create!(task_params)
-    @json = { performed_by: current_person.name, refresh: true }.to_json
     @project.integrations_notify chat_message('created')
+    TaskBoardNotification.new(@task, current_person).create.publish
   end
 
   def renounce
     @task.team_members.delete(current_person)
     @task.touch
-    devs = @task.assignees.split(',')
-    @json = { notification: "#{current_person.name} renounced task of ##{@user_story.id}", performed_by: current_person.name, action: 'renounce', task_id: @task.id, task_hours: @task.hours, task_devs: devs, user_story_status: @user_story.status, user_story_id: @user_story.id }.to_json
     @project.integrations_notify chat_message('renounced')
+    TaskBoardNotification.new(@task, current_person).renounce.publish
   end
 
   def claim
     @task.team_members << current_person
     @task.update_attribute(:done, false)
-    devs = @task.assignees.split(',')
-    @json = { notification: "#{current_person.name} claimed task of ##{@user_story.id}", performed_by: current_person.name, action: 'claim', task_id: @task.id, task_hours: @task.hours, task_devs: devs, user_story_status: @user_story.status, user_story_id: @user_story.id }.to_json
     @project.integrations_notify chat_message('claimed')
+    TaskBoardNotification.new(@task, current_person).claim.publish
   end
 
   def complete
     @task.update_attribute(:done, true)
-    devs = @task.assignees.split(',')
-    @json = { notification: "#{current_person.name} completed task of ##{@user_story.id}", performed_by: current_person.name, action: 'complete', task_id: @task.id, task_hours: @task.hours, task_devs: devs, user_story_status: @user_story.status, user_story_id: @user_story.id }.to_json
     @project.integrations_notify chat_message('completed')
+    TaskBoardNotification.new(@task, current_person).complete.publish
   end
 
   def destroy
@@ -61,9 +57,5 @@ class TasksController < AbstractSecurityController
     calculate_todays_burndown(@task.sprint)
     calculate_tomorrows_burndown(@task.sprint)
     calculate_burndown_points
-  end
-
-  def publish_changes
-    REDIS.publish redis_key, @json
   end
 end
