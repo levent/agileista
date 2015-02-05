@@ -1,4 +1,5 @@
 language: ruby
+cache: bundler
 bundler_args: --without development assets
 rvm:
  - 2.2.0
