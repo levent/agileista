@@ -42,22 +42,7 @@ module SpecHelpers
     end
 
     def create_task
-      Task.create!(definition: Faker::Lorem.sentence)
+      Task.create!(definition: Faker::Lorem.sentence, user_story: create_user_story)
     end
-#    def create_user
-#      User.create(email: 'user@brapp.com', name: 'Niki', password: 'testtest', password_confirmation: 'testtest')
-#    end
-#
-#    def create_task_for(user)
-#      user.tasks.create!(description: 'Finish writing this test')
-#    end
-#
-#    def create_application
-#      Doorkeeper::Application.create!(name: 'Test App', redirect_uri: 'https://oauth-callback')
-#    end
-#
-#    def create_token(application, user)
-#      Doorkeeper::AccessToken.create!(application: application, resource_owner_id: user.id)
-#    end
   end
 end
