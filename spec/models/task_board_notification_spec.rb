@@ -18,23 +18,32 @@ RSpec.describe TaskBoardNotification, :type => :model do
     end
   end
 
-  describe '#created' do
+  context 'with a notification object initialized' do
     let(:notification) { TaskBoardNotification.new(task, person) }
 
-    it 'should prepare message for publishing' do
-      notification.created
-      expect(JSON.parse(notification.payload)).to eq({'performed_by' => person.name, 'refresh' => true})
+    describe '#created' do
+      it 'should prepare message for publishing' do
+        notification.created
+        expect(JSON.parse(notification.payload)).to eq({'performed_by' => person.name, 'refresh' => true})
+      end
     end
-  end
 
-  describe '#publish' do
-    let(:notification) { TaskBoardNotification.new(task, person) }
+    describe '#renounce' do
+      it 'should prepare message for publishing' do
+        notification.renounce
+        devs = notification.task.assignees.split(',')
+        json = { notification: "#{person.name} renounced task of ##{notification.task.user_story.id}", performed_by: person.name, action: 'renounce', task_id: notification.task.id, task_hours: notification.task.hours, task_devs: devs, user_story_status: notification.task.user_story.status, user_story_id: notification.task.user_story_id }.stringify_keys
+        expect(JSON.parse(notification.payload)).to eq(json)
+      end
+    end
 
-    it 'should publish the message' do
-      redis_key = "pubsub." + Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{notification.task.user_story.sprint_id}")
-      json = {'performed_by' => person.name, 'refresh' => true}.to_json
-      expect(REDIS).to receive(:publish).with(redis_key, json)
-      notification.created.publish
+    describe '#publish' do
+      it 'should publish the message' do
+        redis_key = "pubsub." + Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{notification.task.user_story.sprint_id}")
+        json = {'performed_by' => person.name, 'refresh' => true}.to_json
+        expect(REDIS).to receive(:publish).with(redis_key, json)
+        notification.created.publish
+      end
     end
   end
 end

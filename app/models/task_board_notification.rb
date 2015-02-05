@@ -27,5 +27,10 @@ class TaskBoardNotification
   def created
     Payload.new(self, { performed_by: person.name, refresh: true })
   end
+
+  def renounce
+    devs = task.assignees.split(',')
+    Payload.new(self, { notification: "#{person.name} renounced task of ##{task.user_story.id}", performed_by: person.name, action: 'renounce', task_id: task.id, task_hours: task.hours, task_devs: devs, user_story_status: task.user_story.status, user_story_id: task.user_story_id })
+  end
 end
 
