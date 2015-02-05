@@ -29,21 +29,30 @@ class TaskBoardNotification
   end
 
   def renounce
-    Payload.new(self, { notification: "#{person.name} renounced task of ##{task.user_story.id}", performed_by: person.name, action: 'renounce', task_id: task.id, task_hours: task.hours, task_devs: devs, user_story_status: task.user_story.status, user_story_id: task.user_story_id })
+    setup_payload(:renounce)
   end
 
   def claim
-    Payload.new(self, { notification: "#{person.name} claimed task of ##{task.user_story_id}", performed_by: person.name, action: 'claim', task_id: task.id, task_hours: task.hours, task_devs: devs, user_story_status: task.user_story.status, user_story_id: task.user_story_id })
+    setup_payload(:claim)
   end
 
   def complete
-    Payload.new(self, { notification: "#{person.name} completed task of ##{task.user_story_id}", performed_by: person.name, action: 'complete', task_id: task.id, task_hours: task.hours, task_devs: devs, user_story_status: task.user_story.status, user_story_id: task.user_story_id })
+    setup_payload(:complete)
   end
 
   private
 
     def devs
       task.assignees.split(',')
+    end
+
+    def setup_payload(message_type)
+      word_mapping = {
+        complete: 'completed',
+        claim: 'claimed',
+        renounce: 'renounced'
+      }
+      Payload.new(self, { notification: "#{person.name} #{word_mapping[message_type]} task of ##{task.user_story_id}", performed_by: person.name, action: message_type.to_s, task_id: task.id, task_hours: task.hours, task_devs: devs, user_story_status: task.user_story.status, user_story_id: task.user_story_id })
     end
 end
 
