@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/agileista/agileista.svg)](https://travis-ci.org/agileista/agileista)
-[![Circle CI](https://circleci.com/gh/agileista/agileista.svg?style=svg)](https://circleci.com/gh/agileista/agileista)
 [![Code Climate](https://codeclimate.com/github/agileista/agileista/badges/gpa.svg)](https://codeclimate.com/github/agileista/agileista)
+[![Coverage Status](https://coveralls.io/repos/agileista/agileista/badge.svg)](https://coveralls.io/r/agileista/agileista)
 
 ## AGILEISTA
 
