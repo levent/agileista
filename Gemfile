@@ -24,7 +24,6 @@ gem 'sidetiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 gem 'hipchat'
 gem 'slack-notifier'
-gem "sentry-raven"
 
 gem 'sass-rails',   '~> 4.0.5'
 
