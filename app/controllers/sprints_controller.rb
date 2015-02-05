@@ -17,14 +17,7 @@ class SprintsController < AbstractSecurityController
     store_location
     calculate_burndown_points
     @uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@sprint.id}")
-    respond_to do |format|
-      format.html {
-        calculate_burndown_if_needed(@sprint)
-      }
-      format.json do
-        render json: @sprint
-      end
-    end
+    calculate_burndown_if_needed(@sprint)
   end
 
   def review
