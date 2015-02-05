@@ -5,7 +5,7 @@ class UserStoriesController < AbstractSecurityController
   def estimate
     json = { estimator: current_person.name, estimator_id: current_person.id, story_points: params[:user_story][:story_points] }.to_json
     uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}poker#{@project.id}#{@user_story.id}")
-    REDIS.publish "pubsub.#{uid}", json.to_json
+    REDIS.publish "pubsub.#{uid}", json
   end
 
   def copy
@@ -25,12 +25,7 @@ class UserStoriesController < AbstractSecurityController
   end
 
   def show
-    respond_to do |format|
-      format.json {
-        render json: @user_story
-      }
-      format.html { redirect_to edit_project_user_story_path(@project, @user_story) }
-    end
+    redirect_to edit_project_user_story_path(@project, @user_story)
   end
 
   def create
