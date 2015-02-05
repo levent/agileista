@@ -4,11 +4,12 @@
 
 ## AGILEISTA
 
-I've been working on this for years. I have used it in [production](https://app.agileista.com) at most of my jobs since Eben and I first came up with the idea in 2007.
-The repo is full of a lot of terrible legacy code that needs to be cleaned up.
-There is a lot of [repetition](http://en.wikipedia.org/wiki/Don't_repeat_yourself).
-I have included the full git history but may need to rewrite the history to remove large objects.
-The history contains application secrets and capistrano recipes but none of the credentials are valid anymore.
+I've been working on this for years. I have used it in [production](https://app.agileista.com) and in every job since Eben and I first came up with the concept in 2007.
+The repo is full of legacy code that needs to be cleaned up.
+There is a lot of [repetition](http://en.wikipedia.org/wiki/Don't_repeat_yourself) and the javascript is a bit all over the place.
+I have included the full git history which contains application secrets and capistrano recipes but none of the credentials are valid anymore.
+
+Enjoy using it! It's better than JIRA and more suited to Scrum than Trello.
 
 ### Prerequisites
 
