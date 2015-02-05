@@ -5,6 +5,7 @@ class Task < ActiveRecord::Base
     with_same: :user_story_id,
     column: :position
 
+  validates_presence_of :user_story_id
   validates_presence_of :definition
   validates_length_of :definition, maximum: 255
   # Screws up in accepts_nested_attributes_for
