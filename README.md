@@ -26,7 +26,7 @@ cp config/application.yml.example config/application.yml
 ./bin/rake db:create
 ./bin/rake db:create RAILS_ENV=test
 ./bin/rake db:migrate
-./bin/rspec # All tests should pass
+./bin/test # All tests should pass
 ./bin/rails server
 ```
 
