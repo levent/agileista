@@ -24,7 +24,7 @@ class TaskBoardNotification
     @person = person
   end
 
-  def create
+  def refresh
     Payload.new(self, { performed_by: person.name, refresh: true })
   end
 
