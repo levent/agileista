@@ -21,9 +21,9 @@ RSpec.describe TaskBoardNotification, :type => :model do
   context 'with a notification object initialized' do
     let(:notification) { TaskBoardNotification.new(task, person) }
 
-    describe '#create' do
+    describe '#refresh' do
       it 'should prepare message for publishing' do
-        notification.create
+        notification.refresh
         expect(JSON.parse(notification.payload)).to eq({'performed_by' => person.name, 'refresh' => true})
       end
     end
@@ -60,7 +60,7 @@ RSpec.describe TaskBoardNotification, :type => :model do
         redis_key = "pubsub." + Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{notification.task.user_story.sprint_id}")
         json = {'performed_by' => person.name, 'refresh' => true}.to_json
         expect(REDIS).to receive(:publish).with(redis_key, json)
-        notification.create.publish
+        notification.refresh.publish
       end
     end
 
