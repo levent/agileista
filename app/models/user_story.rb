@@ -147,12 +147,13 @@ class UserStory < ActiveRecord::Base
 
   def copy!
     new_us = self.project.user_stories.new(stakeholder: self.stakeholder, definition: self.definition, description: self.description, story_points: self.story_points)
+    new_us.save!
     new_us.person = self.person
     self.acceptance_criteria.each do |ac|
       new_us.acceptance_criteria << AcceptanceCriterium.new(detail: ac.detail)
     end
     self.tasks.each do |task|
-      new_task = Task.new(definition: task.definition, description: task.description)
+      new_task = Task.new(definition: task.definition, description: task.description, user_story_id: new_us.id)
       new_task.done = task.done
       new_us.tasks << new_task
     end
