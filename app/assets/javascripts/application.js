@@ -23,6 +23,7 @@
 //= require jquery.autosize
 //= require jquery.timeago
 //= require agileista
+//= require task_board
 //= require main
 
 $(document).ready(function(){

@@ -38,7 +38,7 @@
 </div>
 
 <% content_for :custom_js do %>
-  setupTaskBoardStats();
+  TaskBoard.calculateStats();
   $(document).ready(function(){
     $('.ctrl-show-stories').each(function() {
       var whichCheckBox = $(this).val();

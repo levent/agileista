@@ -49,7 +49,7 @@
     setupTaskBoards(<%= @project.id %>, <%= @sprint.user_stories.map(&:id) %>);
   <% end %>
 
-  setupTaskBoardStats();
+  TaskBoard.calculateStats();
   $(document).ready(function(){
     $('.ctrl-show-stories').each(function() {
       var whichCheckBox = $(this).val();
