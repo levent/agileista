@@ -44,5 +44,11 @@ module SpecHelpers
     def create_task
       Task.create!(definition: Faker::Lorem.sentence, user_story: create_user_story)
     end
+
+    def assign_user_story_to_sprint(user_story, sprint)
+      user_story.sprint = sprint
+      user_story.save!
+      SprintElement.create!(sprint_id: sprint.id, user_story_id: user_story.id)
+    end
   end
 end

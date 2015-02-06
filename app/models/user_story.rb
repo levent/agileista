@@ -4,6 +4,7 @@ class UserStory < ActiveRecord::Base
   include Tire::Model::Callbacks
   include ElasticSearchable
   include Formatters
+  include SprintPlannable
 
   mapping do
     indexes :id, index: :not_analyzed

@@ -7,27 +7,27 @@ class TasksController < AbstractSecurityController
   def create
     @task = @user_story.tasks.create!(task_params)
     @project.integrations_notify chat_message('created')
-    TaskBoardNotification.new(@task, current_person).create.publish
+    TaskBoardNotification.new(@user_story, @task, current_person).create.publish
   end
 
   def renounce
     @task.team_members.delete(current_person)
     @task.touch
     @project.integrations_notify chat_message('renounced')
-    TaskBoardNotification.new(@task, current_person).renounce.publish
+    TaskBoardNotification.new(@user_story, @task, current_person).renounce.publish
   end
 
   def claim
     @task.team_members << current_person
     @task.update_attribute(:done, false)
     @project.integrations_notify chat_message('claimed')
-    TaskBoardNotification.new(@task, current_person).claim.publish
+    TaskBoardNotification.new(@user_story, @task, current_person).claim.publish
   end
 
   def complete
     @task.update_attribute(:done, true)
     @project.integrations_notify chat_message('completed')
-    TaskBoardNotification.new(@task, current_person).complete.publish
+    TaskBoardNotification.new(@user_story, @task, current_person).complete.publish
   end
 
   def destroy
