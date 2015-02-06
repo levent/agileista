@@ -7,7 +7,7 @@ class TasksController < AbstractSecurityController
   def create
     @task = @user_story.tasks.create!(task_params)
     @project.integrations_notify chat_message('created')
-    TaskBoardNotification.new(@task, current_person).refresh.publish
+    TaskBoardNotification.new(@task, current_person).create.publish
   end
 
   def renounce
