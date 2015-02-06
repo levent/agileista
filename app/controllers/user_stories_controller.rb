@@ -31,19 +31,12 @@ class UserStoriesController < AbstractSecurityController
   def create
     @user_story = @project.user_stories.new(user_story_params)
     @user_story.person = current_person
-
     @user_story.backlog_order_position = :first
 
     if @user_story.save
-      flash[:notice] = "User story created"
       @project.integrations_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>created</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
-
-      if params[:commit] == 'Save'
-        redirect_to edit_project_user_story_path(@project, @user_story)
-      else
-        redirect_to project_backlog_index_path(@project)
-      end
-
+      flash[:notice] = "User story created"
+      redirect_to save_or_close_path(params[:commit])
     else
       @user_story.acceptance_criteria.build
       @user_story.tasks.build
@@ -125,5 +118,9 @@ class UserStoriesController < AbstractSecurityController
 
   def user_story_params
     params[:user_story].permit(:definition, :story_points, :stakeholder, :cannot_be_estimated, :description, { acceptance_criteria_attributes: [:id, :detail, :_destroy]}, {tasks_attributes: [:id, :definition, :description, :_destroy]})
+  end
+
+  def save_or_close_path(commit_param)
+    params[:commit] == 'Save' ? edit_project_user_story_path(@project, @user_story) : project_backlog_index_path(@project)
   end
 end
