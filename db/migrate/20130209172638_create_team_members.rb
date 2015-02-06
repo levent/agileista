@@ -5,7 +5,7 @@ class CreateTeamMembers < ActiveRecord::Migration
       t.integer :project_id
       t.boolean :scrum_master, :default => false
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
