@@ -32,7 +32,16 @@ RSpec.describe TaskBoardNotification, :type => :model do
       it 'should prepare message for publishing' do
         notification.renounce
         devs = notification.task.assignees.split(',')
-        json = { notification: "#{person.name} renounced task of ##{notification.task.user_story.id}", performed_by: person.name, action: 'renounce', task_id: notification.task.id, task_hours: notification.task.hours, task_devs: devs, user_story_status: notification.task.user_story.status, user_story_id: notification.task.user_story_id }.stringify_keys
+        json = { refresh: false, notification: "#{person.name} renounced task of ##{notification.task.user_story.id}", performed_by: person.name, action: 'renounce', task_id: notification.task.id, task_hours: notification.task.hours, task_devs: devs, user_story_status: notification.task.user_story.status, user_story_id: notification.task.user_story_id }.stringify_keys
+        expect(JSON.parse(notification.payload)).to eq(json)
+      end
+    end
+
+    describe '#create' do
+      it 'should prepare message for publishing' do
+        notification.create
+        devs = notification.task.assignees.split(',')
+        json = { refresh: true, notification: "#{person.name} created task of ##{notification.task.user_story_id}", performed_by: person.name, action: 'create', task_id: notification.task.id, task_hours: notification.task.hours, task_devs: devs, user_story_status: notification.task.user_story.status, user_story_id: notification.task.user_story_id }.stringify_keys
         expect(JSON.parse(notification.payload)).to eq(json)
       end
     end
@@ -41,7 +50,7 @@ RSpec.describe TaskBoardNotification, :type => :model do
       it 'should prepare message for publishing' do
         notification.claim
         devs = notification.task.assignees.split(',')
-        json = { notification: "#{person.name} claimed task of ##{notification.task.user_story_id}", performed_by: person.name, action: 'claim', task_id: notification.task.id, task_hours: notification.task.hours, task_devs: devs, user_story_status: notification.task.user_story.status, user_story_id: notification.task.user_story_id }.stringify_keys
+        json = { refresh: false, notification: "#{person.name} claimed task of ##{notification.task.user_story_id}", performed_by: person.name, action: 'claim', task_id: notification.task.id, task_hours: notification.task.hours, task_devs: devs, user_story_status: notification.task.user_story.status, user_story_id: notification.task.user_story_id }.stringify_keys
         expect(JSON.parse(notification.payload)).to eq(json)
       end
     end
@@ -50,7 +59,7 @@ RSpec.describe TaskBoardNotification, :type => :model do
       it 'should prepare message for publishing' do
         notification.complete
         devs = notification.task.assignees.split(',')
-        json = { notification: "#{person.name} completed task of ##{notification.task.user_story_id}", performed_by: person.name, action: 'complete', task_id: notification.task.id, task_hours: notification.task.hours, task_devs: devs, user_story_status: notification.task.user_story.status, user_story_id: notification.task.user_story_id }.stringify_keys
+        json = { refresh: false, notification: "#{person.name} completed task of ##{notification.task.user_story_id}", performed_by: person.name, action: 'complete', task_id: notification.task.id, task_hours: notification.task.hours, task_devs: devs, user_story_status: notification.task.user_story.status, user_story_id: notification.task.user_story_id }.stringify_keys
         expect(JSON.parse(notification.payload)).to eq(json)
       end
     end

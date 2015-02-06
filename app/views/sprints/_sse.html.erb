@@ -5,7 +5,7 @@ var update = function(data){
   notifyUser(data, "<%= current_user.name %>");
   var us_card = $('div.user-story[data-story="' + data.user_story_id + '"]');
   us_card.attr('data-status', data.user_story_status);
-  setupTaskBoardStats();
+  TaskBoard.calculateStats();
 };
 
 var source = new EventSource('<%= EVENT_SOURCE %>/subscribe/<%= uid %>');

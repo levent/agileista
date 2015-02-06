@@ -3,7 +3,7 @@ $(content).insertBefore($('#incomplete_<%= @user_story.id %> .new-task-card'));
 var us_card = $('div.user-story[data-story=<%= @user_story.id %>]');
 us_card.attr('data-status', '<%= @user_story.status %>');
 setupTaskBoard(<%= @project.id %>, <%= @user_story.id %>);
-setupTaskBoardStats();
+TaskBoard.calculateStats();
 $('input[name="task[definition]"]').val("");
 $('.js-new-task-button').attr('disabled', true);
 

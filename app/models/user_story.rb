@@ -36,28 +36,27 @@ class UserStory < ActiveRecord::Base
 
   after_touch() { tire.update_index }
 
-  has_many :sprint_elements, dependent: :delete_all
-  has_many :sprints, through: :sprint_elements
-  has_many :acceptance_criteria, -> {order('position')}, dependent: :delete_all
-  has_many :tasks, -> {order('position')}, dependent: :destroy
-  accepts_nested_attributes_for :acceptance_criteria, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? } }
-
   include RankedModel
   ranks :backlog_order,
     with_same: :project_id,
     column: :position,
     scope: :unassigned
 
-  validates_presence_of :definition
-  validates_presence_of :project_id
-
-  accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? } }
-  belongs_to :project
 
   # This is only used (sprint_id field) to indicate whether a user story is planned or not (that's all it seems)
   #  Please see action > estimated_account_user_stories
   belongs_to :sprint
   belongs_to :person
+  belongs_to :project
+
+  has_many :sprint_elements, dependent: :delete_all
+  has_many :sprints, through: :sprint_elements
+  has_many :acceptance_criteria, -> {order('position')}, dependent: :delete_all
+  has_many :tasks, -> {order('position')}, dependent: :destroy, inverse_of: :user_story
+  accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? } }
+  accepts_nested_attributes_for :acceptance_criteria, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? } }
+  validates_presence_of :definition
+  validates_presence_of :project_id
 
   after_save :expire_story_points
   after_save :expire_status, :expire_state

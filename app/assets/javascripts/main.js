@@ -96,53 +96,6 @@ function setupTaskBoards(project_id, user_story_ids) {
   user_story_ids.forEach(function(usId){ setupTaskBoard(project_id, usId); });
 }
 
-function setupTaskBoardStats() {
-  var current_total = $("#current_total").html();
-  var complete_stories = $('div.user-story[data-status="complete"]');
-  var incomplete_stories = $('div.user-story[data-status="incomplete"]');
-  var inprogress_stories = $('div.user-story[data-status="inprogress"]');
-
-  // Count complete
-  var complete_points = $.map(complete_stories, function(element) {
-    return(Number($(element).attr('data-points')));
-  });
-  var sum_complete = 0;
-  $.each(complete_points, function(){
-    sum_complete += parseFloat(this) || 0;
-  });
-
-  // Count available
-  var incomplete_points = $.map(incomplete_stories, function(element) {
-    return(Number($(element).attr('data-points')));
-  });
-  var sum_incomplete = 0;
-  $.each(incomplete_points, function(){
-    sum_incomplete += parseFloat(this) || 0;
-  });
-
-  // Count in progress
-  var inprogress_points = $.map(inprogress_stories, function(element) {
-    return(Number($(element).attr('data-points')));
-  });
-  var sum_inprogress = 0;
-  $.each(inprogress_points, function(){
-    sum_inprogress += parseFloat(this) || 0;
-  });
-
-
-  $("#current_complete").html(sum_complete);
-  var current_percentage = (Math.round((sum_complete / current_total) * 100));
-  $("#current_percentage").html(current_percentage + '%');
-  $("#progress-bar .meter").css('width', current_percentage + '%');
-
-  // Display how many complete
-  $('.js-complete-story-points').html('(' + sum_complete + '/' + current_total + ')');
-  $('.js-incomplete-story-points').html('(' + sum_incomplete + '/' + current_total + ')');
-  $('.js-inprogress-story-points').html('(' + sum_inprogress + '/' + current_total + ')');
-
-
-}
-
 function setupSprintPlanning(project_id, sprint_id) {
   $('#estimated').sortable({
     items: 'div.backlog-item',
