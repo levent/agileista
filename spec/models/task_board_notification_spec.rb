@@ -5,21 +5,29 @@ RSpec.describe TaskBoardNotification, :type => :model do
   let(:person) { create_person }
 
   describe '#initialize' do
-    it 'should require a parameter (task)' do
+    it 'should require a parameter (user_story)' do
       expect { TaskBoardNotification.new }.to raise_error(ArgumentError)
     end
 
+    it 'should require a parameter (task)' do
+      expect { TaskBoardNotification.new(task.user_story) }.to raise_error(ArgumentError)
+    end
+
+    it 'should take a user_story' do
+      expect(TaskBoardNotification.new(task.user_story, task, person).user_story).to eq(task.user_story)
+    end
+
     it 'should take a task' do
-      expect(TaskBoardNotification.new(task, person).task).to eq(task)
+      expect(TaskBoardNotification.new(task.user_story, task, person).task).to eq(task)
     end
 
     it 'should take a person' do
-      expect(TaskBoardNotification.new(task, person).person).to eq(person)
+      expect(TaskBoardNotification.new(task.user_story, task, person).person).to eq(person)
     end
   end
 
   context 'with a notification object initialized' do
-    let(:notification) { TaskBoardNotification.new(task, person) }
+    let(:notification) { TaskBoardNotification.new(task.user_story, task, person) }
 
     describe '#refresh' do
       it 'should prepare message for publishing' do

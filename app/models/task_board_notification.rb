@@ -1,4 +1,5 @@
 class TaskBoardNotification
+  attr_reader :user_story
   attr_reader :task
   attr_reader :person
   attr_accessor :payload
@@ -15,12 +16,14 @@ class TaskBoardNotification
     end
 
     def redis_key
-      "pubsub." + Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{notification.task.user_story.sprint_id}")
+      sprint_id = notification.user_story.sprint_id
+      "pubsub." + Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{sprint_id}")
     end
   end
 
-  def initialize(task, person)
+  def initialize(user_story, task, person)
     @task = task
+    @user_story = user_story || task.user_story
     @person = person
   end
 

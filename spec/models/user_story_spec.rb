@@ -140,4 +140,47 @@ RSpec.describe UserStory, type: :model do
       expect(us.acceptance_criteria.count).to eq 2
     end
   end
+
+  context 'regarding sprint planning' do
+    let(:person) { create_person }
+    let(:project) { create_project(person) }
+    let(:sprint) { create_sprint(project) }
+    let(:user_story) { create_user_story(project) }
+
+    before do
+      user_story.add_to_sprint(sprint)
+      user_story.reload
+    end
+
+    describe '#add_to_sprint' do
+      it 'should assign it to a sprint' do
+        expect(user_story.sprint).to eq(sprint)
+      end
+
+      it 'should create a sprint element' do
+        expect(SprintElement.where(sprint_id: sprint.id, user_story_id: user_story.id).count).to eq(1)
+      end
+    end
+
+    describe '#remove_from_sprint' do
+      it 'must require a sprint' do
+        expect { user_story.remove_from_sprint(nil) }.to raise_error(ArgumentError)
+      end
+
+      context 'when successful' do
+        before do
+          user_story.remove_from_sprint(sprint)
+          user_story.reload
+        end
+
+        it 'should unassign it from a sprint' do
+          expect(user_story.sprint).to be_nil
+        end
+
+        it 'should destroy the sprint element' do
+          expect(SprintElement.where(sprint_id: sprint.id, user_story_id: user_story.id).count).to eq(0)
+        end
+      end
+    end
+  end
 end
