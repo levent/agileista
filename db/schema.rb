@@ -62,11 +62,11 @@ ActiveRecord::Schema.define(version: 20140304144200) do
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.string   "email"
+    t.string   "email",                  null: false
     t.integer  "project_id"
     t.integer  "sent_count", default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "invitations", ["email", "project_id"], name: "index_invitations_on_email_and_project_id", unique: true, using: :btree
@@ -109,11 +109,11 @@ ActiveRecord::Schema.define(version: 20140304144200) do
   add_index "people", ["unsubscribe_token"], name: "index_people_on_unsubscribe_token", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",             null: false
     t.integer  "iteration_length"
     t.integer  "velocity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.datetime "deleted_at"
   end
 
@@ -169,8 +169,8 @@ ActiveRecord::Schema.define(version: 20140304144200) do
     t.integer  "developer_id"
     t.integer  "user_story_id"
     t.integer  "version"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   add_index "tasks", ["user_story_id", "done"], name: "index_tasks_on_user_story_id_and_done", using: :btree
@@ -180,8 +180,8 @@ ActiveRecord::Schema.define(version: 20140304144200) do
     t.integer  "person_id"
     t.integer  "project_id"
     t.boolean  "scrum_master",    default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.datetime "deleted_at"
     t.boolean  "notify_by_email", default: false
   end
