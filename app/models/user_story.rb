@@ -2,8 +2,8 @@ require 'csv'
 class UserStory < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::Callbacks
-
-  index_name 'user_stories-2013-11-29'
+  include ElasticSearchable
+  include Formatters
 
   mapping do
     indexes :id, index: :not_analyzed
@@ -22,18 +22,6 @@ class UserStory < ActiveRecord::Base
 
 # attr_accessible :definition, :story_points, :stakeholder, :cannot_be_estimated, :description, :acceptance_criteria_attributes, :tasks_attributes
 
-  def search_ac
-    self.acceptance_criteria.collect(&:detail)
-  end
-
-  def search_tasks
-    self.tasks.collect(&:definition)
-  end
-
-  def tags
-    self.definition.scan(/\[(\w+)\]/).uniq.flatten.map(&:downcase)
-  end
-
   after_touch() { tire.update_index }
 
   include RankedModel
@@ -41,7 +29,6 @@ class UserStory < ActiveRecord::Base
     with_same: :project_id,
     column: :position,
     scope: :unassigned
-
 
   # This is only used (sprint_id field) to indicate whether a user story is planned or not (that's all it seems)
   #  Please see action > estimated_account_user_stories
@@ -66,23 +53,6 @@ class UserStory < ActiveRecord::Base
 
   scope :estimated, -> {where(['sprint_id IS ? AND story_points IS NOT ?', nil, nil])}
   scope :unassigned, -> {where(sprint_id: nil)}
-
-  def as_json(options = {})
-    super(options.merge(only: [:definition, :description, :stakeholder, :story_points, :updated_at, :created_at]))
-  end
-
-  def to_json(options = {})
-    super(options.merge(only: [:definition, :description, :stakeholder, :story_points, :updated_at, :created_at]))
-  end
-
-  def self.to_csv
-    CSV.generate do |csv|
-      csv << columns = [:id, :definition, :description, :stakeholder, :story_points, :updated_at, :created_at].map(&:to_s)
-      all.each do |product|
-        csv << product.attributes.values_at(*columns)
-      end
-    end
-  end
 
   def stakeholder
     super.blank? ? person.try(:name) : super
@@ -156,24 +126,6 @@ class UserStory < ActiveRecord::Base
     end
     us.backlog_order_position = :first
     us.save!
-  end
-
-  def self.search_by_query(search_query, page, project_id, all_sprints = false)
-    raise ArgumentError unless project_id
-    UserStory.search(per_page: 100, page: page, load: true) do |search|
-      search.query do |query|
-        query.filtered do |f|
-          f.query do |q|
-            q.string search_query, default_operator: "AND"
-          end
-          f.filter :missing , field: :sprint_id unless all_sprints
-          f.filter :term, project_id: project_id
-        end
-      end
-      search.facet('tags') do
-        terms :tag
-      end
-    end
   end
 
   private
