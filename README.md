@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/agileista/agileista.svg)](https://travis-ci.org/agileista/agileista)
-[![Code Climate](https://codeclimate.com/github/agileista/agileista/badges/gpa.svg)](https://codeclimate.com/github/agileista/agileista)
-[![Coverage Status](https://coveralls.io/repos/agileista/agileista/badge.svg)](https://coveralls.io/r/agileista/agileista)
+[![Build Status](https://travis-ci.org/levent/agileista.svg)](https://travis-ci.org/levent/agileista)
+[![Code Climate](https://codeclimate.com/github/levent/agileista/badges/gpa.svg)](https://codeclimate.com/github/levent/agileista)
+[![Coverage Status](https://coveralls.io/repos/levent/agileista/badge.svg)](https://coveralls.io/r/levent/agileista)
 
 ## AGILEISTA
 
@@ -33,12 +33,12 @@ Enjoy using it! It's better than JIRA and far more suited to Scrum than Trello.
 
 1. PostgreSQL (9.1.x or 9.2.x)
 2. Elastic Search (0.9.x)
-3. [Streaming server](https://github.com/agileista/pubsub-server)
+3. [Streaming server](https://github.com/levent/pubsub-server)
 
 ### Dev mode installation
 
 ```
-git clone https://github.com/agileista/agileista
+git clone https://github.com/levent/agileista
 cp config/database.yml.example config/database.yml
 cp config/application.yml.example config/application.yml
 ./bin/rake db:create
@@ -63,7 +63,7 @@ This may include more *pro* features in the future.
 
 ### License
 
-Please see [LICENSE](https://github.com/agileista/agileista/blob/master/LICENSE) for licensing details.
+Please see [LICENSE](https://github.com/levent/agileista/blob/master/LICENSE) for licensing details.
 
 ### Contact
 
