@@ -4,12 +4,30 @@
 
 ## AGILEISTA
 
-I've been working on this for years. I have used it in [production](https://app.agileista.com) and in every job since Eben and I first came up with the concept in 2007.
+Online collaboration for distributed Scrum teams.
+
+* An ordered backlog
+* User stories with acceptance criteria
+* Story points
+* Sprint planning
+* Velocity calculations
+* Simple horizon planning
+* Pair programming support
+* Task board
+* Burn charts
+* No hour tracking on tasks
+* Slack integration
+* HipChat integration
+* Planning poker
+
+### Background
+
+I have been working on this on and off for several years. It has been running in [production](https://app.agileista.com) and I have used it in every job since Eben and I first came up with the concept in 2007.
 The repo is full of legacy code that needs to be cleaned up.
-There is a lot of [repetition](http://en.wikipedia.org/wiki/Don't_repeat_yourself) and the javascript is a bit all over the place.
+There is a lot of [repetition](http://en.wikipedia.org/wiki/Don't_repeat_yourself) and the javascript is all over the place.
 I have included the full git history which contains application secrets and capistrano recipes but none of the credentials are valid anymore.
 
-Enjoy using it! It's better than JIRA and more suited to Scrum than Trello.
+Enjoy using it! It's better than JIRA and far more suited to Scrum than Trello.
 
 ### Prerequisites
 
