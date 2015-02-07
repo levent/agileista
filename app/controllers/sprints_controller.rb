@@ -39,7 +39,6 @@ class SprintsController < AbstractSecurityController
 
   def create
     @sprint = @project.sprints.new(sprint_params)
-    set_start_at
     if @sprint.save
       flash[:notice] = "Sprint created"
       @project.integrations_notify("Sprint <a href=\"#{project_sprint_url(@project, @sprint)}\">##{@sprint.id}</a> <strong>created</strong> by #{current_person.name}: \"#{@sprint.name}\"")
@@ -87,14 +86,6 @@ class SprintsController < AbstractSecurityController
       flash[:notice] = "Please specify an iteration length first"
       redirect_to edit_project_path(@project)
       return false
-    end
-  end
-
-  def set_start_at
-    if !@sprint.start_at? && params[:from]
-      @sprint.start_at = Date.new(params[:from][:year].to_i, params[:from][:month].to_i, params[:from][:day].to_i).strftime("%Y-%m-%d %H:%M:%S")
-    elsif !@sprint.start_at
-      @sprint.start_at = Date.today
     end
   end
 
