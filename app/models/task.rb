@@ -35,12 +35,19 @@ class Task < ActiveRecord::Base
     devs
   end
 
+  # These methods were originally written for permormance reasons, to reduce db queries.
+  # TODO: Revisit
+
+  def self.without_complete_tasks(tasks)
+    tasks.to_a.delete_if {|t| t.done == true}
+  end
+
   def self.filter_for_incomplete(tasks)
-    tasks.to_a.delete_if {|t| t.done == true}.select {|x| x.assignees.blank?}
+    without_complete_tasks(tasks).select {|x| x.assignees.blank?}
   end
 
   def self.filter_for_inprogress(tasks)
-    tasks.to_a.delete_if {|t| t.done == true}.select {|x| x.assignees.present?}
+    without_complete_tasks(tasks).select {|x| x.assignees.present?}
   end
 
   def self.filter_for_complete(tasks)
