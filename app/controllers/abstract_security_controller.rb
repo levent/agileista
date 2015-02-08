@@ -62,10 +62,6 @@ class AbstractSecurityController < ApplicationController
     @chart_xscale = [@sprint.start_at.iso8601.to_s, @sprint.end_at.iso8601.to_s]
   end
 
-  def redis_key
-    "pubsub." + Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
-  end
-
   def notify_integrations(event)
     host = request.env['HTTP_HOST']
     message = ChatMessage.new(host, project: @project, sprint: @sprint, person: current_person, user_story: @user_story, task: @task).send(event)
