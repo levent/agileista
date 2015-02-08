@@ -54,8 +54,6 @@ Agileista::Application.routes.draw do
 
       resources :tasks, only: [:create, :destroy] do
         member do
-          post 'move_up'
-          post 'move_down'
           put 'claim'
           put 'renounce'
           put 'complete'

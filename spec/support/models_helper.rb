@@ -41,8 +41,8 @@ module SpecHelpers
       ac
     end
 
-    def create_task
-      Task.create!(definition: Faker::Lorem.sentence, user_story: create_user_story)
+    def create_task(project = nil)
+      Task.create!(definition: Faker::Lorem.sentence, user_story: create_user_story(project))
     end
 
     def assign_user_story_to_sprint(user_story, sprint)

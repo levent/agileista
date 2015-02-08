@@ -11,7 +11,7 @@ class UserStoriesController < AbstractSecurityController
   def copy
     if @user_story.copy!
       flash[:notice] = "User story copied and added to backlog"
-      notify_integrations(:copied)
+      notify_integrations(:user_story_copied)
     else
       flash[:error] = "The user story could not be copied"
     end
@@ -34,7 +34,7 @@ class UserStoriesController < AbstractSecurityController
     @user_story.backlog_order_position = :first
 
     if @user_story.save
-      notify_integrations(:created)
+      notify_integrations(:user_story_created)
       flash[:notice] = "User story created"
       redirect_to save_or_close_path(params[:commit])
     else
@@ -53,7 +53,7 @@ class UserStoriesController < AbstractSecurityController
   def update
     if @user_story.update_attributes(user_story_params)
       flash[:notice] = "User story updated successfully"
-      notify_integrations(:updated)
+      notify_integrations(:user_story_updated)
       redirect_to edit_project_user_story_path(@project, @user_story) and return false if params[:commit] == 'Save'
     else
       flash.now[:error] = "User story couldn't be updated"
@@ -68,7 +68,7 @@ class UserStoriesController < AbstractSecurityController
     @user_story.add_to_sprint(@sprint)
     @sprint.expire_total_story_points
     points_planned = @sprint.user_stories.sum('story_points')
-    notify_integrations(:planned)
+    notify_integrations(:user_story_planned)
     TaskBoardNotification.new(@user_story, nil, current_person).refresh.publish
     render json: {ok: true, points_planned: points_planned}.to_json
   end
@@ -76,7 +76,7 @@ class UserStoriesController < AbstractSecurityController
   def unplan
     @user_story.remove_from_sprint(@sprint)
     @sprint.expire_total_story_points
-    notify_integrations(:unplanned)
+    notify_integrations(:user_story_unplanned)
     TaskBoardNotification.new(@user_story, nil, current_person).refresh.publish
     respond_to do |format|
       format.html {
@@ -98,7 +98,7 @@ class UserStoriesController < AbstractSecurityController
 
   def destroy
     if @user_story.destroy
-      @project.integrations_notify("##{@user_story.id} <strong>deleted</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
+      notify_integrations(:user_story_deleted)
       session[:return_to] = nil if session[:return_to].split("/").last == @user_story.id.to_s
       UserStory.index.refresh
       flash[:notice] = "User story deleted"
@@ -122,9 +122,5 @@ class UserStoriesController < AbstractSecurityController
 
   def save_or_close_path(commit_param)
     params[:commit] == 'Save' ? edit_project_user_story_path(@project, @user_story) : project_backlog_index_path(@project)
-  end
-
-  def notify_integrations(event)
-    @project.integrations_notify("<a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> <strong>#{event.to_s}</strong> by #{current_person.name}: \"#{@user_story.definition}\"")
   end
 end
