@@ -29,7 +29,7 @@ RSpec.feature 'Changing a project', type: :feature do
     fill_in 'Room', :with => 'Room1'
     check 'Notify'
     click_button 'Save HipChat Settings'
-    expect(page).to have_content "HipChat settings saved"
+    expect(page).to have_content "Settings saved"
   end
 
   it "creates slack settings" do
@@ -39,6 +39,6 @@ RSpec.feature 'Changing a project', type: :feature do
     fill_in 'Channel', :with => 'agileista'
     check 'Notify'
     click_button 'Save Slack Settings'
-    expect(page).to have_content "Slack settings saved"
+    expect(page).to have_content "Settings saved"
   end
 end
