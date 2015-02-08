@@ -6,27 +6,27 @@ class TasksController < AbstractSecurityController
 
   def create
     @task = @user_story.tasks.create!(task_params)
-    @project.integrations_notify chat_message('created')
+    notify_integrations(:task_created)
     TaskBoardNotification.new(@user_story, @task, current_person).create.publish
   end
 
   def renounce
     @task.team_members.delete(current_person)
     @task.touch
-    @project.integrations_notify chat_message('renounced')
+    notify_integrations(:task_renounced)
     TaskBoardNotification.new(@user_story, @task, current_person).renounce.publish
   end
 
   def claim
     @task.team_members << current_person
     @task.update_attribute(:done, false)
-    @project.integrations_notify chat_message('claimed')
+    notify_integrations(:task_claimed)
     TaskBoardNotification.new(@user_story, @task, current_person).claim.publish
   end
 
   def complete
     @task.update_attribute(:done, true)
-    @project.integrations_notify chat_message('completed')
+    notify_integrations(:task_completed)
     TaskBoardNotification.new(@user_story, @task, current_person).complete.publish
   end
 
@@ -47,10 +47,6 @@ class TasksController < AbstractSecurityController
 
   def task_params
     params[:task].permit(:definition, :description)
-  end
-
-  def chat_message(event)
-    "Task <strong>#{event.to_s}</strong> on <a href=\"#{edit_project_user_story_url(@project, @user_story)}\">##{@user_story.id}</a> by #{current_person.name}: \"#{@task.definition}\""
   end
 
   def update_burndowns

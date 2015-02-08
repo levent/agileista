@@ -110,10 +110,4 @@ class SprintsController < AbstractSecurityController
   def sprint_params
     params[:sprint].permit(:name, :start_at, :end_at, :goal)
   end
-
-  def notify_integrations(event)
-    host = request.env['HTTP_HOST']
-    message = ChatMessage.new(host, project: @project, sprint: @sprint, person: current_person).send(event)
-    @project.integrations_notify(message)
-  end
 end

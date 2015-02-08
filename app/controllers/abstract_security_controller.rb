@@ -65,4 +65,10 @@ class AbstractSecurityController < ApplicationController
   def redis_key
     "pubsub." + Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@user_story.sprint_id}")
   end
+
+  def notify_integrations(event)
+    host = request.env['HTTP_HOST']
+    message = ChatMessage.new(host, project: @project, sprint: @sprint, person: current_person, user_story: @user_story, task: @task).send(event)
+    @project.integrations_notify(message)
+  end
 end
