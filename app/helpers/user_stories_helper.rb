@@ -1,5 +1,4 @@
 module UserStoriesHelper
-
   def parse_definition(definition, project)
     definition = html_escape(definition)
     definition.scan(/\[\w+\]/).uniq.each do |m|
