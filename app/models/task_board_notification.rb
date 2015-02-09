@@ -28,7 +28,7 @@ class TaskBoardNotification
   end
 
   def refresh
-    Payload.new(self, { performed_by: person.name, refresh: true })
+    Payload.new(self, performed_by: person.name, refresh: true)
   end
 
   def create
@@ -49,18 +49,12 @@ class TaskBoardNotification
 
   private
 
-    def devs
-      task.assignees.split(',')
-    end
+  def devs
+    task.assignees.split(',')
+  end
 
-    def setup_payload(message_type, refresh = false)
-      word_mapping = {
-        complete: 'completed',
-        claim: 'claimed',
-        renounce: 'renounced',
-        create: 'created'
-      }
-      Payload.new(self, { notification: "#{person.name} #{word_mapping[message_type]} task of ##{task.user_story_id}", performed_by: person.name, action: message_type.to_s, task_id: task.id, task_hours: task.hours, task_devs: devs, user_story_status: task.user_story.status, user_story_id: task.user_story_id, refresh: refresh })
-    end
+  def setup_payload(message_type, refresh = false)
+    word_mapping = { complete: 'completed', claim: 'claimed', renounce: 'renounced', create: 'created' }
+    Payload.new(self, notification: "#{person.name} #{word_mapping[message_type]} task of ##{task.user_story_id}", performed_by: person.name, action: message_type.to_s, task_id: task.id, task_hours: task.hours, task_devs: devs, user_story_status: task.user_story.status, user_story_id: task.user_story_id, refresh: refresh)
+  end
 end
-
