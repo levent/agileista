@@ -41,4 +41,30 @@ RSpec.feature 'Changing a project', type: :feature do
     click_button 'Save Slack Settings'
     expect(page).to have_content "Settings saved"
   end
+
+  context 'with existing integration settings' do
+    before do
+      HipChatIntegration.create!(project: @project)
+      SlackIntegration.create!(project: @project)
+    end
+
+    it "updates hipchat settings" do
+      visit "/projects/#{@project.id}/edit"
+      fill_in 'hip_chat_integration_token', :with => 'abcd'
+      fill_in 'Room', :with => 'Room1'
+      check 'Notify'
+      click_button 'Save HipChat Settings'
+      expect(page).to have_content "Settings updated"
+    end
+
+    it "updates slack settings" do
+      visit "/projects/#{@project.id}/edit"
+      fill_in 'slack_integration_token', :with => 'abcd'
+      fill_in 'Team', :with => 'Agileista'
+      fill_in 'Channel', :with => 'agileista'
+      check 'Notify'
+      click_button 'Save Slack Settings'
+      expect(page).to have_content "Settings updated"
+    end
+  end
 end
