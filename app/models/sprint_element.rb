@@ -1,9 +1,8 @@
 class SprintElement < ActiveRecord::Base
-
   include RankedModel
   ranks :sprint,
-    with_same: :sprint_id,
-    column: :position
+        with_same: :sprint_id,
+        column: :position
 
   belongs_to :sprint
   belongs_to :user_story
@@ -11,12 +10,10 @@ class SprintElement < ActiveRecord::Base
   after_save :calculate_burndown
   after_destroy :calculate_burndown
 
-#  attr_accessible :sprint_id, :user_story_id
-
   def calculate_burndown
-    if self.sprint
-      self.sprint.reload
-      self.sprint.calculate_day_zero
+    if sprint
+      sprint.reload
+      sprint.calculate_day_zero
     end
   end
 end
