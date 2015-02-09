@@ -2,5 +2,4 @@
 
 rm -rf coverage
 SIMPLECOV=true bundle exec rspec spec
-bundle exec rails_best_practices
 bundle exec rake jshint JSHINT=true

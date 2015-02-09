@@ -11,6 +11,3 @@ general:
 test:
   override:
     - bundle exec rspec spec
-  post:
-    # - bundle exec rails_best_practices
-    # - bundle exec rake jshint JSHINT=true
