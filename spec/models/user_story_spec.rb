@@ -183,4 +183,23 @@ RSpec.describe UserStory, type: :model do
       end
     end
   end
+
+  describe '.to_csv' do
+    let(:user_story) { create_user_story }
+    let(:project) { user_story.project }
+
+    before do
+      user_story.story_points = 13
+      user_story.description = Faker::Lorem.paragraph
+      user_story.stakeholder = "Elmo"
+      user_story.save!
+    end
+
+    it 'should render user stories in csv format' do
+      header = ['id', 'definition', 'description', 'stakeholder', 'story_points', 'updated_at', 'created_at']
+      body = [user_story.id.to_s, user_story.definition, user_story.description, user_story.stakeholder.to_s, user_story.story_points.to_s, user_story.updated_at.to_s, user_story.created_at.to_s]
+      csv = CSV.parse(project.user_stories.to_csv)
+      expect(csv).to eq([header, body])
+    end
+  end
 end
