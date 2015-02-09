@@ -1,13 +1,11 @@
 require 'invitations/management'
 
 class Invitation < ActiveRecord::Base
-#  attr_accessible :email
-
   include Invitations::Management
   belongs_to :project
 
-  validates_presence_of :email
-  validates_presence_of :project_id
+  validates :email, presence: true
+  validates :project_id, presence: true
   before_save :downcase_email
 
   private

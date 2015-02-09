@@ -1,22 +1,16 @@
 class Task < ActiveRecord::Base
-  # acts_as_list scope: :user_story
   include RankedModel
   ranks :order,
-    with_same: :user_story_id,
-    column: :position
+        with_same: :user_story_id,
+        column: :position
 
-  validates_presence_of :user_story
-  validates_presence_of :definition
-  validates_length_of :definition, maximum: 255
-  # Screws up in accepts_nested_attributes_for
-  # validates_uniqueness_of :definition, scope: :user_story_id
+  validates :user_story, presence: true
+  validates :definition, presence: true, length: { maximum: 255 }
 
   belongs_to :user_story, touch: true, inverse_of: :tasks
 
   has_many :task_developers, dependent: :delete_all
-  has_many :team_members, -> {uniq}, through: :task_developers, foreign_key: 'developer_id', class_name: "Person"
-
-#  attr_accessible :definition, :description
+  has_many :team_members, -> { uniq }, through: :task_developers, foreign_key: 'developer_id', class_name: "Person"
 
   delegate :sprint, to: :user_story, allow_nil: true
 
@@ -26,11 +20,11 @@ class Task < ActiveRecord::Base
   after_touch :expire_assignees
 
   def assignees
-    devs = REDIS.get("task:#{self.id}:assignees")
+    devs = REDIS.get("task:#{id}:assignees")
     unless devs
-      devs = self.team_members.map(&:name).join(',')
-      REDIS.set("task:#{self.id}:assignees", devs)
-      REDIS.expire("task:#{self.id}:assignees", REDIS_EXPIRY)
+      devs = team_members.map(&:name).join(',')
+      REDIS.set("task:#{id}:assignees", devs)
+      REDIS.expire("task:#{id}:assignees", REDIS_EXPIRY)
     end
     devs
   end
@@ -39,36 +33,36 @@ class Task < ActiveRecord::Base
   # TODO: Revisit
 
   def self.without_complete_tasks(tasks)
-    tasks.to_a.delete_if {|t| t.done == true}
+    tasks.to_a.delete_if { |t| t.done == true }
   end
 
   def self.filter_for_incomplete(tasks)
-    without_complete_tasks(tasks).select {|x| x.assignees.blank?}
+    without_complete_tasks(tasks).select { |x| x.assignees.blank? }
   end
 
   def self.filter_for_inprogress(tasks)
-    without_complete_tasks(tasks).select {|x| x.assignees.present?}
+    without_complete_tasks(tasks).select { |x| x.assignees.present? }
   end
 
   def self.filter_for_complete(tasks)
-    tasks.to_a.delete_if {|t| t.done == false}
+    tasks.to_a.delete_if { |t| t.done == false }
   end
 
   def calculate_burndown
-    self.user_story.sprint.calculate_day_zero if self.sprint
+    user_story.sprint.calculate_day_zero if sprint
   end
 
   def inprogress?
-    !self.done? && team_members.any?
+    !done? && team_members.any?
   end
 
   def hours
-    self.done? ? 0 : 1
+    done? ? 0 : 1
   end
 
   private
 
   def expire_assignees
-    REDIS.del("task:#{self.id}:assignees")
+    REDIS.del("task:#{id}:assignees")
   end
 end

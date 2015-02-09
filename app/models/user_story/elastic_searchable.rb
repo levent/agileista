@@ -1,5 +1,4 @@
 module UserStory::ElasticSearchable
-
   def self.included(base)
     base.extend(ClassMethods)
   end

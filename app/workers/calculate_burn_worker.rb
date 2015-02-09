@@ -9,4 +9,3 @@ class CalculateBurnWorker
     burndown.save!
   end
 end
-

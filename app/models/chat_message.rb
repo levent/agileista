@@ -67,20 +67,19 @@ class ChatMessage
 
   private
 
-    def rails_routes
-      Rails.application.routes.url_helpers
-    end
+  def rails_routes
+    Rails.application.routes.url_helpers
+  end
 
-    def user_story_event(event)
-      "<a href=\"#{rails_routes.edit_project_user_story_url(project, user_story, host: host)}\">##{user_story.id}</a> <strong>#{event.to_s}</strong> by #{person.name}: \"#{user_story.definition}\""
-    end
+  def user_story_event(event)
+    "<a href=\"#{rails_routes.edit_project_user_story_url(project, user_story, host: host)}\">##{user_story.id}</a> <strong>#{event}</strong> by #{person.name}: \"#{user_story.definition}\""
+  end
 
-    def sprint_event(event)
-      "Sprint <a href=\"#{Rails.application.routes.url_helpers.project_sprint_url(project, sprint, host: host)}\">##{sprint.id}</a> <strong>#{event.to_s}</strong> by #{person.name}: \"#{sprint.name}\""
-    end
+  def sprint_event(event)
+    "Sprint <a href=\"#{Rails.application.routes.url_helpers.project_sprint_url(project, sprint, host: host)}\">##{sprint.id}</a> <strong>#{event}</strong> by #{person.name}: \"#{sprint.name}\""
+  end
 
-    def task_event(event)
-      "Task <strong>#{event.to_s}</strong> on <a href=\"#{rails_routes.edit_project_user_story_url(project, user_story, host: host)}\">##{user_story.id}</a> by #{person.name}: \"#{task.definition}\""
-    end
-
+  def task_event(event)
+    "Task <strong>#{event}</strong> on <a href=\"#{rails_routes.edit_project_user_story_url(project, user_story, host: host)}\">##{user_story.id}</a> by #{person.name}: \"#{task.definition}\""
+  end
 end
