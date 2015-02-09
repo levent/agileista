@@ -35,7 +35,6 @@ gem 'figaro'
 
 group :development do
   gem 'web-console', '~> 2.0'
-  gem 'rails_best_practices'
   gem 'ruby-prof'
   gem 'brakeman', :require => false
   gem 'rack-mini-profiler'
@@ -50,7 +49,6 @@ end
 group :test do
   gem 'simplecov', '0.7.1', require: false
   gem 'simplecov-console', require: false
-  gem 'jshintrb'
   gem 'shoulda-matchers', require: false
   gem 'machinist'
   gem 'timecop'
