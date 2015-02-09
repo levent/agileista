@@ -22,17 +22,15 @@ class UserStory < ActiveRecord::Base
     indexes :state, analyzer: 'keyword', as: 'state'
   end
 
-# attr_accessible :definition, :story_points, :stakeholder, :cannot_be_estimated, :description, :acceptance_criteria_attributes, :tasks_attributes
-
-  after_touch() { tire.update_index }
+  after_touch { tire.update_index }
 
   include RankedModel
   ranks :backlog_order,
-    with_same: :project_id,
-    column: :position,
-    scope: :unassigned
+        with_same: :project_id,
+        column: :position,
+        scope: :unassigned
 
-  # This is only used (sprint_id field) to indicate whether a user story is planned or not (that's all it seems)
+  # sprint_id only used to indicate whether a user story is planned or not
   #  Please see action > estimated_account_user_stories
   belongs_to :sprint
   belongs_to :person
@@ -40,12 +38,12 @@ class UserStory < ActiveRecord::Base
 
   has_many :sprint_elements, dependent: :delete_all
   has_many :sprints, through: :sprint_elements
-  has_many :acceptance_criteria, -> {order('position')}, dependent: :delete_all
-  has_many :tasks, -> {order('position')}, dependent: :destroy, inverse_of: :user_story
-  accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? } }
-  accepts_nested_attributes_for :acceptance_criteria, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |k, v| v.blank? } }
-  validates_presence_of :definition
-  validates_presence_of :project_id
+  has_many :acceptance_criteria, -> { order('position') }, dependent: :delete_all
+  has_many :tasks, -> { order('position') }, dependent: :destroy, inverse_of: :user_story
+  accepts_nested_attributes_for :tasks, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |_, v| v.blank? } }
+  accepts_nested_attributes_for :acceptance_criteria, allow_destroy: true, reject_if: proc { |attrs| attrs.all? { |_, v| v.blank? } }
+  validates :definition, presence: true
+  validates :project_id, presence: true
 
   after_save :expire_story_points
   after_save :expire_status, :expire_state
@@ -53,8 +51,8 @@ class UserStory < ActiveRecord::Base
   after_touch :expire_status, :expire_state
   after_destroy :expire_story_points
 
-  scope :estimated, -> {where(['sprint_id IS ? AND story_points IS NOT ?', nil, nil])}
-  scope :unassigned, -> {where(sprint_id: nil)}
+  scope :estimated, -> { where(['sprint_id IS ? AND story_points IS NOT ?', nil, nil]) }
+  scope :unassigned, -> { where(sprint_id: nil) }
 
   def stakeholder
     super.blank? ? person.try(:name) : super
@@ -62,10 +60,10 @@ class UserStory < ActiveRecord::Base
 
   def copy!
     us = clone_story!
-    self.acceptance_criteria.each do |ac|
+    acceptance_criteria.each do |ac|
       us.acceptance_criteria << AcceptanceCriterium.new(detail: ac.detail)
     end
-    self.tasks.each do |task|
+    tasks.each do |task|
       new_task = Task.new(definition: task.definition, description: task.description, user_story_id: us.id)
       new_task.done = task.done
       us.tasks << new_task
@@ -77,8 +75,8 @@ class UserStory < ActiveRecord::Base
   private
 
   def clone_story!
-    new_us = self.project.user_stories.new(stakeholder: self.stakeholder, definition: self.definition, description: self.description, story_points: self.story_points)
-    new_us.person = self.person
+    new_us = project.user_stories.new(stakeholder: stakeholder, definition: definition, description: description, story_points: story_points)
+    new_us.person = person
     new_us.save!
     new_us
   end

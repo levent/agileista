@@ -5,5 +5,8 @@ Style/Documentation:
 StringLiterals:
   Enabled: false
 
+Metrics/LineLength:
+  Enabled: false
+
 AllCops:
   RunRailsCops: true
