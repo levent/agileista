@@ -1,0 +1,12 @@
+Style/Documentation:
+  Description: 'Document classes and non-namespace modules.'
+  Enabled: false
+
+StringLiterals:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+AllCops:
+  RunRailsCops: true

@@ -55,6 +55,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'rubocop', require: false
   gem 'coveralls', require: false
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
