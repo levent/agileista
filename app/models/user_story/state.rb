@@ -1,5 +1,4 @@
 module UserStory::State
-
   # State on task board
   # TODO: Redo for clarity
   def status
