@@ -1,6 +1,5 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-
   def person_signed_in_and_project?
     person_signed_in? && @project && !@project.new_record?
   end
@@ -27,8 +26,8 @@ module ApplicationHelper
   end
 
   def show_story_points(points, opts = {})
-    options = {unit: "story point"}.merge(opts)
-    css_class = ['label', 'round', 'points']
+    options = { unit: "story point" }.merge(opts)
+    css_class = %w(label round points)
     if points.nil?
       points = '?'
       css_class << 'secondary'
@@ -68,4 +67,3 @@ module ApplicationHelper
     @current_sprint ||= @project.sprints.current.first if @project
   end
 end
-
