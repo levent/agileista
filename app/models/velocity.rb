@@ -1,5 +1,4 @@
 class Velocity
-
   def self.stats_significant_since(project)
     REDIS.get("project:#{project.id}:stats_since") || project.sprints.finished.last.try(:start_at) || Time.now
   end
