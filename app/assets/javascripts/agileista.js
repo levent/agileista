@@ -43,40 +43,6 @@ var Agileista = (function(){
       }
     },
 
-    placeTaskCard = function(container, task_card, hours, devs) {
-      if(Number(hours) > 0) {
-        if(devs.length === 0) {
-          task_card.insertBefore(container.siblings('.incomplete').find('.new-task-card'));
-          task_card.find('.assignees').html('Nobody');
-        } else {
-          container.siblings('.inprogress').append(task_card);
-        }
-      } else {
-        container.siblings('.complete').append(task_card);
-      }
-    },
-
-    showHideTaskCardButtons = function(task_card, devs, me) {
-      var claim_btn = task_card.find('.claim_btn');
-      var renounce_btn = task_card.find('.renounce_btn');
-
-      if(jQuery.inArray(me, devs) > -1) {
-        claim_btn.addClass('hide-override');
-        renounce_btn.removeClass('hide-override');
-      } else {
-        claim_btn.removeClass('hide-override');
-        renounce_btn.addClass('hide-override');
-      }
-    },
-
-    updateTaskCard = function(container, task_card, hours, devs, me) {
-      task_card.attr('style', 'position:relative');
-      task_card.find('.assignees').html(devs.join(', '));
-
-      placeTaskCard(container, task_card, hours, devs);
-      showHideTaskCardButtons(task_card, devs, me);
-    },
-
     init = function() {
 
       $(".close-bar").click(function() {
@@ -123,8 +89,7 @@ var Agileista = (function(){
 
     return {
     toggleStoriesByStatus : toggleStoriesByStatus,
-     setupVelocityMarkers : setupVelocityMarkers,
-      updateTaskCard      : updateTaskCard
+     setupVelocityMarkers : setupVelocityMarkers
     };
 
 })();
