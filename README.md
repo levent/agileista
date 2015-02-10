@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/levent/agileista.svg)](https://travis-ci.org/levent/agileista)
 [![Code Climate](https://codeclimate.com/github/levent/agileista/badges/gpa.svg)](https://codeclimate.com/github/levent/agileista)
-[![Coverage Status](https://coveralls.io/repos/levent/agileista/badge.svg)](https://coveralls.io/r/levent/agileista)
+[![Coverage Status](https://coveralls.io/repos/levent/agileista/badge.svg?branch=master)](https://coveralls.io/r/levent/agileista?branch=master)
 
 ## AGILEISTA
 
