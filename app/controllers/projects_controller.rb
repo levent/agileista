@@ -58,6 +58,7 @@ class ProjectsController < AbstractSecurityController
 
   def setup_projects_from_invitations
     invitations = Invitation.where(email: current_person.email)
+    flash[:notice] = "You have been invited to participate in additional projects" if invitations.any?
     invitations.each do |invite|
       team_member = TeamMember.where(project_id: invite.project_id, person_id: current_person.id).first_or_create!
       invite.destroy if team_member
