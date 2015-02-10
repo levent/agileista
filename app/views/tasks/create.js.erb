@@ -13,4 +13,4 @@ var spComplete = $.map(chartData, function(e){return {date: String(e.date), stor
 var spHours = $.map(chartData, function(e){return {date: String(e.date), hours_left: e.hours_left}});
 var startDate = "<%= @sprint.start_at.to_date.iso8601.html_safe %>";
 var endDate = "<%= 1.day.from_now(@sprint.end_at.to_date).iso8601.html_safe %>";
-Agileista.drawBurndown(startDate, endDate, spRemaining, spComplete, spHours);
+AgileistaGraphs.drawBurndown(startDate, endDate, spRemaining, spComplete, spHours);
