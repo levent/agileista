@@ -22,11 +22,7 @@ class Sprint < ActiveRecord::Base
 
   def calculate_day_zero
     return false if start_at <= Time.zone.now
-    burndown = Burndown.find_or_create_by(sprint_id: id, created_on: start_at.to_date)
-    burndown.hours_left = hours_left
-    burndown.story_points_complete = story_points_burned
-    burndown.story_points_remaining = total_story_points
-    burndown.save
+    Burndown.generate!(self, start_at.to_date)
   end
 
   def calculated_velocity
