@@ -26,7 +26,7 @@ class Sprint < ActiveRecord::Base
   end
 
   def calculated_velocity
-    return '-' unless finished?
+    return 0 unless finished?
     velocity || calculate_velocity!
   end
 

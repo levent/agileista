@@ -5,6 +5,6 @@
   <% if relevant_sprints.any? %>
     var data = <%= relevant_sprints.map{|s| {end_at: s.end_at.iso8601, velocity: s.calculated_velocity}}.to_json.html_safe %>;
     var average = [{"end_at": "<%= relevant_sprints.first.end_at.iso8601 %>", "velocity": <%= velocity %>}, {"end_at": "<%= relevant_sprints.last.end_at.iso8601 %>", "velocity": <%= velocity %>}];
-    Agileista.drawVelocity(data, average);
+    AgileistaGraphs.drawVelocity(data, average);
   <% end %>
 <% end %>
