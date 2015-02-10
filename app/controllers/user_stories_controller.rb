@@ -66,7 +66,6 @@ class UserStoriesController < AbstractSecurityController
 
   def plan
     @user_story.add_to_sprint(@sprint)
-    @sprint.expire_total_story_points
     points_planned = @sprint.user_stories.sum('story_points')
     notify_integrations(:user_story_planned)
     TaskBoardNotification.new(@user_story, nil, current_person).refresh.publish
@@ -75,7 +74,6 @@ class UserStoriesController < AbstractSecurityController
 
   def unplan
     @user_story.remove_from_sprint(@sprint)
-    @sprint.expire_total_story_points
     notify_integrations(:user_story_unplanned)
     TaskBoardNotification.new(@user_story, nil, current_person).refresh.publish
     respond_to do |format|

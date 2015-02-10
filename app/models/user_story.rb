@@ -45,12 +45,6 @@ class UserStory < ActiveRecord::Base
   validates :definition, presence: true
   validates :project_id, presence: true
 
-  after_save :expire_story_points
-  after_save :expire_status, :expire_state
-  after_save :expire_sprint_story_points
-  after_touch :expire_status, :expire_state
-  after_destroy :expire_story_points
-
   scope :estimated, -> { where(['sprint_id IS ? AND story_points IS NOT ?', nil, nil]) }
   scope :unassigned, -> { where(sprint_id: nil) }
 
@@ -79,10 +73,5 @@ class UserStory < ActiveRecord::Base
     new_us.person = person
     new_us.save!
     new_us
-  end
-
-  def expire_sprint_story_points
-    sprint.try(:expire_total_story_points)
-    sprints.map(&:expire_total_story_points)
   end
 end
