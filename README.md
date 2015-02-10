@@ -27,7 +27,7 @@ The repo is full of legacy code that needs to be cleaned up.
 There is a lot of [repetition](http://en.wikipedia.org/wiki/Don't_repeat_yourself) and the javascript is all over the place.
 I have included the full git history which contains application secrets and capistrano recipes but none of the credentials are valid anymore.
 
-Enjoy using it! It's better than JIRA and far more suited to Scrum than Trello.
+Enjoy using it! It's less confusing than JIRA and more suited to Scrum than Trello.
 
 ### Prerequisites
 
