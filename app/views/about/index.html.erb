@@ -1,28 +1,26 @@
 <% content_for :title, "Agileista - Online collaboration for distributed Scrum teams" %>
 
-<% cache do %>
-  <div class="row">
-    <div class="large-16 small-24 medium-24 columns large-centered text-center">
-      <h1>Agileista</h1>
-      <h2>Online collaboration for distributed Scrum teams</h2>
-      <h3>Features:</h3>
-      <ul class="none">
-        <li><%= link_to "Completely open source", "https://github.com/levent/agileista" %></li>
-        <li>An ordered backlog</li>
-        <li>User stories with acceptance criteria</li>
-        <li>Story points</li>
-        <li>Sprint planning</li>
-        <li>Velocity calculations</li>
-        <li>Simple horizon planning</li>
-        <li>Pair programming support</li>
-        <li>Task board</li>
-        <li>Burn charts</li>
-        <li>No hour tracking on tasks</li>
-        <li><%= link_to "Slack", "https://slack.com/" %> integration</li>
-        <li><%= link_to "HipChat", "https://www.hipchat.com/" %> integration</li>
-        <li>Planning poker</li>
-      </ul>
-      <%= link_to 'Try it out free!', new_person_registration_path, class: "large radius button" %>
-    </div>
+<div class="row">
+  <div class="large-16 small-24 medium-24 columns large-centered text-center">
+    <h1>Agileista</h1>
+    <h2>Online collaboration for distributed Scrum teams</h2>
+    <h3>Features:</h3>
+    <ul class="none">
+      <li><%= link_to "Completely open source", "https://github.com/levent/agileista" %></li>
+      <li>An ordered backlog</li>
+      <li>User stories with acceptance criteria</li>
+      <li>Story points</li>
+      <li>Sprint planning</li>
+      <li>Velocity calculations</li>
+      <li>Simple horizon planning</li>
+      <li>Pair programming support</li>
+      <li>Task board</li>
+      <li>Burn charts</li>
+      <li>No hour tracking on tasks</li>
+      <li><%= link_to "Slack", "https://slack.com/" %> integration</li>
+      <li><%= link_to "HipChat", "https://www.hipchat.com/" %> integration</li>
+      <li>Planning poker</li>
+    </ul>
+    <%= link_to 'Try it out free!', new_person_registration_path, class: "large radius button" %>
   </div>
-<% end %>
+</div>
