@@ -15,27 +15,6 @@ class Person < ActiveRecord::Base
   has_many :team_members, dependent: :destroy
   has_many :projects, -> { order('LOWER(projects.name)') }, through: :team_members
 
-  # Used to migrate pre-devise users
-  def valid_password?(password)
-    if hashed_password.present?
-      if hashed_password == encrypt(password)
-        self.password = password
-        self.hashed_password = nil
-        self.confirm!
-        self.save!
-        return true
-      else
-        return false
-      end
-    else
-      super
-    end
-  end
-
-  def encrypt(password)
-    Digest::SHA1.hexdigest("#{salt}--#{password}")
-  end
-
   def scrum_master_for?(project)
     scrum_master_email = REDIS.get("project:#{project.id}:scrum_master")
     unless scrum_master_email
