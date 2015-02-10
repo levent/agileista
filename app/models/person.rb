@@ -16,12 +16,7 @@ class Person < ActiveRecord::Base
   has_many :projects, -> { order('LOWER(projects.name)') }, through: :team_members
 
   def scrum_master_for?(project)
-    scrum_master_email = REDIS.get("project:#{project.id}:scrum_master")
-    unless scrum_master_email
-      scrum_master_email = project.scrum_master.try(:email)
-      REDIS.set("project:#{project.id}:scrum_master", scrum_master_email)
-      REDIS.expire("project:#{project.id}:scrum_master", REDIS_EXPIRY)
-    end
+    scrum_master_email = project.scrum_master.try(:email)
     scrum_master_email == email
   end
 

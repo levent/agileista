@@ -39,13 +39,8 @@ class BacklogController < AbstractSecurityController
   private
 
   def load_story_points
-    @story_points = REDIS.get("project:#{@project.id}:story_points")
-    unless @story_points
-      @story_points = 0
-      @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
-      REDIS.set("project:#{@project.id}:story_points", @story_points)
-      REDIS.expire("project:#{@project.id}:story_points", REDIS_EXPIRY)
-    end
+    @story_points = 0
+    @user_stories.collect{|x| @story_points += x.story_points if x.story_points}
   end
 
   # excludes DONE

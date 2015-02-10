@@ -16,17 +16,9 @@ class Task < ActiveRecord::Base
 
   after_save :calculate_burndown
   after_destroy :calculate_burndown
-  after_save :expire_assignees
-  after_touch :expire_assignees
 
   def assignees
-    devs = REDIS.get("task:#{id}:assignees")
-    unless devs
-      devs = team_members.map(&:name).join(',')
-      REDIS.set("task:#{id}:assignees", devs)
-      REDIS.expire("task:#{id}:assignees", REDIS_EXPIRY)
-    end
-    devs
+    team_members.map(&:name).join(',')
   end
 
   # These methods were originally written for permormance reasons, to reduce db queries.
@@ -58,11 +50,5 @@ class Task < ActiveRecord::Base
 
   def hours
     done? ? 0 : 1
-  end
-
-  private
-
-  def expire_assignees
-    REDIS.del("task:#{id}:assignees")
   end
 end
