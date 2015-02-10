@@ -23,33 +23,6 @@ function notifyUser(json, user) {
   }
 }
 
-function updateTaskCard(container, task_card, hours, devs, who, me) {
-  var claim_btn = task_card.find('.claim_btn');
-  var renounce_btn = task_card.find('.renounce_btn');
-  task_card.attr('style', 'position:relative');
-
-  task_card.find('.assignees').html(devs.join(', '));
-
-  if(Number(hours) > 0) {
-    if(devs.length === 0) {
-      task_card.insertBefore(container.siblings('.incomplete').find('.new-task-card'));
-      task_card.find('.assignees').html('Nobody');
-    } else {
-      container.siblings('.inprogress').append(task_card);
-    }
-  } else {
-    container.siblings('.complete').append(task_card);
-  }
-
-  if(jQuery.inArray(me,devs) > -1) {
-    claim_btn.addClass('hide-override');
-    renounce_btn.removeClass('hide-override');
-  } else {
-    claim_btn.removeClass('hide-override');
-    renounce_btn.addClass('hide-override');
-  }
-}
-
 function setupTaskBoard(project_id, user_story_id) {
 
   var us_container = '#user_story_container_' + user_story_id;
