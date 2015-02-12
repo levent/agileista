@@ -3,7 +3,7 @@
     <%= simple_form_for @project do |f| %>
       <%= f.input :name %>
       <%= f.input :iteration_length, as: :select, collection: [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]] %>
-      <br>
+      <%= f.input :use_estimates %>
       <%= f.button :submit %>
     <% end %>
   </div>
