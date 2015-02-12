@@ -2,8 +2,9 @@
   <div class="columns large-10 small-10 medium-10">
     <h2>Project Settings</h2>
     <%= simple_form_for @project do |f| %>
-      <p><%= f.input :name %></p>
-      <p><%= f.input :iteration_length, as: :select, collection: [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]] %></p>
+      <%= f.input :name %>
+      <%= f.input :iteration_length, as: :select, collection: [["1 week", 1], ["2 weeks", 2], ["3 weeks", 3], ["4 weeks", 4]] %>
+      <%= f.input :use_estimates %>
       <%= f.button :submit %>
     <% end %>
     <%= link_to "Delete project", project_path(@project), method: :delete, data: {confirm: 'Are you sure? This cannot be undone.'}, class: 'button small alert' %> <abbr>This cannot be undone</abbr>

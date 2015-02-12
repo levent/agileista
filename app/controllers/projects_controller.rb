@@ -66,6 +66,6 @@ class ProjectsController < AbstractSecurityController
   end
 
   def project_params
-    params[:project].permit(:name, :iteration_length)
+    params[:project].permit(:name, :iteration_length, :use_estimates)
   end
 end

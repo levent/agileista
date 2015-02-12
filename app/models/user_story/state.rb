@@ -40,7 +40,7 @@ module UserStory::State
       return 'clarify'
     elsif acceptance_criteria.blank?
       return 'criteria'
-    elsif story_points.blank?
+    elsif project.use_estimates? && story_points.blank?
       return 'estimate'
     else
       return 'plan'

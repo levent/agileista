@@ -23,6 +23,13 @@ RSpec.feature 'Changing a project', type: :feature do
     expect(page).to have_content "Project settings couldn't be saved"
   end
 
+  it "allows changing use_estimates" do
+    visit "/projects/#{@project.id}/edit"
+    uncheck 'Use estimates'
+    click_button 'Update Project'
+    expect(page).to have_content 'Project settings saved'
+  end
+
   it "creates hipchat settings" do
     visit "/projects/#{@project.id}/edit"
     fill_in 'hip_chat_integration_token', :with => 'abcd'

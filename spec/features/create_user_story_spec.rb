@@ -20,4 +20,12 @@ RSpec.feature 'Creating a user story', type: :feature do
     visit "/projects/#{@project.id}/user_stories/new"
     expect(page).to have_css("#user_story_stakeholder[value=\"#{@user.name}\"]")
   end
+
+  context 'with use estimates turned off' do
+    before do
+      @project.update_attribute(:use_estimates, false)
+    end
+
+    it "creates a user story"
+  end
 end

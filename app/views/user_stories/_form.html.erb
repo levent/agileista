@@ -4,16 +4,22 @@
     <div class="large-15 small-24 medium-24 columns">
       <%= f.input :definition, input_html: {rows: 5, placeholder: 'As a user I want blink tags around key navigation items so I can find them quicker...'} %>
       <div class="row">
-        <div class="large-10 small-10 medium-10 columns">
-          <%= f.input :story_points, input_html: { placeholder: '0, 1, 3, 5, 8, 13, 20 ...' } %>
-        </div>
-        <div class="large-10 small-10 medium-10 columns">
-          <%= f.input :stakeholder, input_html: { value: show_stakeholder(@user_story, current_user) } %>
-        </div>
-        <div class="large-4 small-4 medium-4 columns">
-          <%= f.label :cannot_be_estimated %>
-          <%= f.input :cannot_be_estimated, as: :boolean, label: false %>
-        </div>
+        <% if @project.use_estimates? %>
+          <div class="large-10 small-10 medium-10 columns">
+            <%= f.input :story_points, input_html: { placeholder: '0, 1, 3, 5, 8, 13, 20 ...' } %>
+          </div>
+          <div class="large-10 small-10 medium-10 columns">
+            <%= f.input :stakeholder, input_html: { value: show_stakeholder(@user_story, current_user) } %>
+          </div>
+          <div class="large-4 small-4 medium-4 columns">
+            <%= f.label :cannot_be_estimated %>
+            <%= f.input :cannot_be_estimated, as: :boolean, label: false %>
+          </div>
+        <% else %>
+          <div class="large-24 small-24 medium-24 columns">
+            <%= f.input :stakeholder, input_html: { value: show_stakeholder(@user_story, current_user) } %>
+          </div>
+        <% end %>
       </div>
       <div class="row">
         <div class="large-24 small-24 medium-24 columns">
