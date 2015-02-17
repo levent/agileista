@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140304144200) do
+ActiveRecord::Schema.define(version: 20150217161258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,23 +25,6 @@ ActiveRecord::Schema.define(version: 20140304144200) do
   end
 
   add_index "acceptance_criteria", ["user_story_id", "position"], name: "index_acceptance_criteria_on_user_story_id_and_position", using: :btree
-
-  create_table "accounts", force: :cascade do |t|
-    t.string   "name"
-    t.string   "time_zone"
-    t.integer  "account_holder_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "iteration_length"
-    t.string   "subdomain"
-    t.integer  "velocity"
-  end
-
-  create_table "beta_emails", force: :cascade do |t|
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "burndowns", force: :cascade do |t|
     t.integer "sprint_id"
@@ -62,11 +45,11 @@ ActiveRecord::Schema.define(version: 20140304144200) do
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.string   "email",                  null: false
+    t.string   "email"
     t.integer  "project_id"
     t.integer  "sent_count", default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "invitations", ["email", "project_id"], name: "index_invitations_on_email_and_project_id", unique: true, using: :btree
@@ -74,7 +57,6 @@ ActiveRecord::Schema.define(version: 20140304144200) do
   create_table "people", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
-    t.integer  "account_id"
     t.integer  "authenticated",                     default: 0
     t.string   "activation_code"
     t.datetime "created_at"
@@ -101,7 +83,6 @@ ActiveRecord::Schema.define(version: 20140304144200) do
     t.string   "unsubscribe_token"
   end
 
-  add_index "people", ["account_id", "api_key", "authenticated", "activation_code"], name: "by_api_key", using: :btree
   add_index "people", ["authentication_token"], name: "index_people_on_authentication_token", unique: true, using: :btree
   add_index "people", ["confirmation_token"], name: "index_people_on_confirmation_token", unique: true, using: :btree
   add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
@@ -109,11 +90,11 @@ ActiveRecord::Schema.define(version: 20140304144200) do
   add_index "people", ["unsubscribe_token"], name: "index_people_on_unsubscribe_token", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string   "name",             null: false
+    t.string   "name"
     t.integer  "iteration_length"
     t.integer  "velocity"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "deleted_at"
   end
 
@@ -137,7 +118,6 @@ ActiveRecord::Schema.define(version: 20140304144200) do
   add_index "sprint_elements", ["user_story_id", "sprint_id"], name: "index_sprint_elements_on_user_story_id_and_sprint_id", using: :btree
 
   create_table "sprints", force: :cascade do |t|
-    t.integer  "account_id"
     t.datetime "start_at"
     t.datetime "end_at"
     t.datetime "created_at"
@@ -169,8 +149,8 @@ ActiveRecord::Schema.define(version: 20140304144200) do
     t.integer  "developer_id"
     t.integer  "user_story_id"
     t.integer  "version"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "tasks", ["user_story_id", "done"], name: "index_tasks_on_user_story_id_and_done", using: :btree
@@ -180,8 +160,8 @@ ActiveRecord::Schema.define(version: 20140304144200) do
     t.integer  "person_id"
     t.integer  "project_id"
     t.boolean  "scrum_master",    default: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "deleted_at"
     t.boolean  "notify_by_email", default: false
   end
@@ -197,7 +177,6 @@ ActiveRecord::Schema.define(version: 20140304144200) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sprint_id"
-    t.integer  "account_id"
     t.integer  "version"
     t.integer  "person_id"
     t.integer  "cannot_be_estimated", default: 0
