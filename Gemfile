@@ -8,7 +8,6 @@ gem 'yajl-ruby'
 gem 'will_paginate', '~> 3.0'
 gem 'newrelic_rpm'
 gem 'newrelic-redis'
-gem 'tire'
 gem 'gravtastic'
 gem 'ranked-model'
 gem 'hiredis', '~> 0.5.0'
@@ -32,6 +31,7 @@ gem 'jquery-ui-rails'
 
 gem 'turbolinks'
 gem 'figaro'
+gem 'elasticsearch-model'
 
 group :development do
   gem 'web-console', '~> 2.0'

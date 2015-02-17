@@ -1,3 +1,3 @@
 #!/bin/bash
 
-elasticsearch -f -D es.config=/usr/local/opt/elasticsearch090/config/elasticsearch.yml
+elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml
