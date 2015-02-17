@@ -13,12 +13,4 @@ module UserStory::Formatters
       end
     end
   end
-
-  def as_json(options = {})
-    super(options.merge(only: [:definition, :description, :stakeholder, :story_points, :updated_at, :created_at]))
-  end
-
-  def to_json(options = {})
-    super(options.merge(only: [:definition, :description, :stakeholder, :story_points, :updated_at, :created_at]))
-  end
 end

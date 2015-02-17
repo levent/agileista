@@ -6,7 +6,7 @@ module UserStory::ElasticSearchable
   module ClassMethods
     def search_by_query(search_query, page, project_id, all_sprints = false)
       raise ArgumentError unless project_id
-      search(per_page: 100, page: page, load: true) do |search|
+      search do |search|
         search.query do |query|
           query.filtered do |f|
             f.query do |q|

@@ -32,6 +32,7 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'figaro'
 gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 group :development do
   gem 'web-console', '~> 2.0'

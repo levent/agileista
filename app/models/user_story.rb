@@ -1,28 +1,14 @@
 require 'csv'
 class UserStory < ActiveRecord::Base
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
-  include ElasticSearchable
+  # include Tire::Model::Search
+  # include Tire::Model::Callbacks
+  # include ElasticSearchable
   include Formatters
   include SprintPlannable
   include State
+  include Searchable
 
-  mapping do
-    indexes :id, index: :not_analyzed
-    indexes :definition, analyzer: 'snowball', boost: 100
-    indexes :description, analyzer: 'snowball', boost: 50
-    indexes :stakeholder, analyzer: 'simple'
-    indexes :story_points, type: 'integer', index: :not_analyzed
-    indexes :project_id, type: 'integer', index: :not_analyzed
-    indexes :sprint_id, type: 'integer', index: :not_analyzed
-    indexes :created_at, type: 'date', include_in_all: false
-    indexes :tag, analyzer: 'keyword', as: 'tags'
-    indexes :search_ac, analyzer: 'snowball', as: 'search_ac'
-    indexes :search_task, analyzer: 'snowball', as: 'search_tasks'
-    indexes :state, analyzer: 'keyword', as: 'state'
-  end
-
-  after_touch { tire.update_index }
+  # after_touch { tire.update_index }
 
   include RankedModel
   ranks :backlog_order,

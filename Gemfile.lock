@@ -104,6 +104,7 @@ GEM
       activesupport (> 3)
       elasticsearch (> 0.4)
       hashie
+    elasticsearch-rails (0.1.6)
     elasticsearch-transport (1.0.6)
       faraday
       multi_json
@@ -349,6 +350,7 @@ DEPENDENCIES
   coveralls
   devise
   elasticsearch-model
+  elasticsearch-rails
   faker
   figaro
   flamegraph
