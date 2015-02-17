@@ -3,7 +3,7 @@ class SearchesController < AbstractSecurityController
     store_location
     params[:q] = '*' if params[:q].blank?
     @user_stories = UserStory.search(params[:q]).page(params[:page]).records#, params[:page], @project.id, params[:global] == 'true').results
-    @user_stories = UserStory.search_by_query(params[:q], params[:page], @project.id, params[:global] == 'true')
+    @user_stories = UserStory.search_by_query(params[:q], params[:page], @project.id, params[:global] == 'true').page(params[:page])
 #  rescue Tire::Search::SearchRequestFailed => e
 #    @user_stories = @project.user_stories.limit(0).paginate(per_page: 0, page: 1)
 #    flash[:error] = "Invalid search query"

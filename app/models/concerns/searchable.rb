@@ -14,7 +14,7 @@ module Searchable
       indexes :project_id, type: 'integer', index: :not_analyzed
       indexes :sprint_id, type: 'integer', index: :not_analyzed
       indexes :created_at, type: 'date', include_in_all: false
-      indexes :tag, analyzer: 'keyword', as: 'tags'
+      indexes :tags, analyzer: 'keyword', as: 'tags'
       indexes :search_ac, analyzer: 'snowball', as: 'search_ac'
       indexes :search_task, analyzer: 'snowball', as: 'search_tasks'
       indexes :state, analyzer: 'keyword', as: 'state'
@@ -39,28 +39,25 @@ module Searchable
     # end
     def self.search_by_query(search_query, page, project_id, all_sprints = false)
       raise ArgumentError unless project_id
+      self.search({"query"=>{"filtered"=>{"query"=>{"query_string"=>{"query"=>search_query, "default_operator"=>"AND"}}, "filter"=>{"and"=>[{"missing"=>{"field"=>"sprint_id"}}, {"term"=>{"project_id"=>project_id}}]}}}, "facets"=>{"tags"=>{"terms"=>{"field"=>"tags", "size"=>10, "all_terms"=>false}}}, "size"=>100})
+    end
+  def search_ac
+    acceptance_criteria.collect(&:detail)
+  end
 
-      self.search({ "query": {
-        "filtered": {
-          "query": {
-              "multi_match": {
-                "query": search_query,
-                "type": "cross_fields",
-                "fields": [
-                    "definition^3",
-                    "description"
-                ],
-                "operator": "or"
-              }
-          },
-          "filter": {
-              "term": {
-                "project_id": project_id
-              }
-            }
-          }
-        }
-      })
+  def search_tasks
+    tasks.collect(&:definition)
+  end
+
+  def tags
+    definition.scan(/\[(\w+)\]/).uniq.flatten.map(&:downcase)
+  end
+
+    def as_indexed_json(options = {})
+      byebug
+      puts 'byebug'
+      as_json(methods: :tags)
+
     end
   end
 end

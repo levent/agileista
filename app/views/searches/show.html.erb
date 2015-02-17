@@ -10,7 +10,7 @@
 
 <% unless @user_stories.blank? %>
 
-  <% if @user_stories.facets['tags']['terms'].any? %>
+  <% if @user_stories.response.facets['tags']['terms'].any? %>
     <div class="row">
       <div class="columns large-24 small-24 medium-24">
         <dl class="sub-nav">
@@ -25,7 +25,7 @@
 
   <div class="row">
     <div class="columns large-24 small-24 medium-24" id="search-results-container">
-      <%= render @user_stories %>
+      <%= render @user_stories.records %>
     </div>
   </div>
   <div class="row">
