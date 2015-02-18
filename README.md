@@ -55,6 +55,10 @@ Edit /etc/hosts and add
 127.0.0.1 app.agileista.local
 ```
 
+### Want to help?
+
+Go nuts! There are generally a list of things to look at under [Issues](https://github.com/levent/agileista/issues).
+
 ### Hosted version
 
 Sign up at https://app.agileista.com
