@@ -7,45 +7,6 @@ RSpec.describe Task, type: :model do
     @task = Task.new
   end
 
-  describe "named_scopes" do
-    before do
-      @task1 = create_task
-      @task2 = create_task
-      @task3 = create_task
-      @task3.team_members = [create_person]
-      @task4 = create_task
-      @task4.update_attribute(:done, true)
-
-      @all_tasks = [@task1, @task2, @task3, @task4]
-    end
-
-    describe ".filter_for_incomplete" do
-      it "should get all incomplete tasks" do
-        tasks = Task.filter_for_incomplete(@all_tasks)
-        expect(tasks).to include(@task1)
-        expect(tasks).to include(@task2)
-        expect(tasks).not_to include(@task3)
-        expect(tasks).not_to include(@task4)
-      end
-    end
-
-    describe ".filter_for_inprogress" do
-      it "should get all inprogress tasks" do
-        tasks = Task.filter_for_inprogress(@all_tasks)
-        expect(tasks).to include(@task3)
-        expect(tasks).not_to include(@task1)
-        expect(tasks).not_to include(@task2)
-        expect(tasks).not_to include(@task4)
-      end
-    end
-
-    describe ".filter_for_complete" do
-      it "should get all complete tasks" do
-        expect(Task.filter_for_complete(@all_tasks)).to include(@task4)
-      end
-    end
-  end
-
   context "#team_members" do
     before do
       @task = create_task
