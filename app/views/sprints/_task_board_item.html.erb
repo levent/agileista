@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="large-24 small-24 medium-24 columns">
+    <div class="user-story panel" id="user_story_container_<%= task_board_item.user_story.id %>" data-status="<%= task_board_item.user_story.status %>" data-story="<%= task_board_item.user_story.id %>" data-points="<%= task_board_item.user_story.story_points %>">
+      <div class="row">
+        <div class="large-24 small-24 medium-24 columns">
+          <%= render partial: 'sprints/user_story_card', locals: {sprint: sprint, user_story: task_board_item.user_story, tasks: true} %>
+        </div>
+      </div>
+      <div class="row hide-for-small">
+        <div class="large-8 small-8 medium-8 columns tasks incomplete" id="incomplete_<%= task_board_item.user_story.id %>">
+          <%= render partial: 'sprints/task_card', collection: task_board_item.available_tasks, locals: {sprint: sprint, user_story: task_board_item.user_story} %>
+          <%= render partial: 'sprints/new_task_card', locals: {sprint: sprint, user_story: task_board_item.user_story, tasks: true} %>
+        </div>
+        <div class="large-8 small-8 medium-8 columns tasks inprogress" id="inprogress_<%= task_board_item.user_story.id %>">
+          <%= render partial: 'sprints/task_card', collection: task_board_item.inprogress_tasks, locals: {sprint: sprint, user_story: task_board_item.user_story} %>
+        </div>
+        <div class="large-8 small-8 medium-8 columns tasks complete" id="complete_<%= task_board_item.user_story.id %>">
+          <%= render partial: 'sprints/task_card', collection: task_board_item.complete_tasks, locals: {sprint: sprint, user_story: task_board_item.user_story} %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

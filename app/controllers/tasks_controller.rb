@@ -2,6 +2,7 @@ class TasksController < AbstractSecurityController
   before_action :set_user_story
   before_action :set_task, except: [:create]
   before_action :set_sprint, only: [:complete, :create, :renounce, :claim]
+  before_action :load_charts, except: [:destroy]
   after_action :update_burndowns, except: [:destroy]
 
   def create
@@ -50,8 +51,7 @@ class TasksController < AbstractSecurityController
   end
 
   def update_burndowns
-    calculate_todays_burndown(@task.sprint)
-    calculate_tomorrows_burndown(@task.sprint)
-    calculate_burndown_points
+    Burndown.calculate_today(@task.sprint)
+    Burndown.calculate_tomorrow(@task.sprint)
   end
 end

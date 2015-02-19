@@ -47,4 +47,43 @@ RSpec.describe Burndown, type: :model do
       expect(burndown.story_points_remaining).to eq(3)
     end
   end
+
+  describe '.calculate_today' do
+    it 'should do nothing without a sprint' do
+      expect(Burndown.calculate_today(nil)).to be_nil
+    end
+
+    it 'should do nothing if sprint already underway' do
+      sprint = create_sprint
+      sprint.start_at = 2.days.ago
+      expect(Burndown.calculate_today(sprint)).to be_nil
+    end
+
+    it 'should schedule a burndowns creation if first day of sprint' do
+      expect(CalculateBurnWorker).to receive(:perform_async).with(Date.today, sprint.id)
+      Burndown.calculate_today(sprint)
+    end
+  end
+
+  describe '.calculate_tomorrow' do
+    it 'should do nothing without a sprint' do
+      expect(Burndown.calculate_tomorrow(nil)).to be_nil
+    end
+
+    it 'should schedule tomorrows datapoint' do
+      expect(CalculateBurnWorker).to receive(:perform_async).with(Date.tomorrow, sprint.id)
+      Burndown.calculate_tomorrow(sprint)
+    end
+  end
+
+  describe '.calculate_end' do
+    it 'should do nothing without a sprint' do
+      expect(Burndown.calculate_end(nil)).to be_nil
+    end
+
+    it 'should schedule last datapoint' do
+      expect(CalculateBurnWorker).to receive(:perform_async).with(1.day.from_now(sprint.end_at).to_date, sprint.id)
+      Burndown.calculate_end(sprint)
+    end
+  end
 end

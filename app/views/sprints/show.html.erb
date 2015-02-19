@@ -41,7 +41,7 @@
   </div>
 </div>
 
-<%= render partial: 'user_story', collection: @sprint.user_stories, locals: {sprint: @sprint, from: 'task_board'} %>
+<%= render partial: 'task_board_item', collection: @task_board.items, locals: {sprint: @sprint} %>
 
 <% content_for :custom_js do %>
 
