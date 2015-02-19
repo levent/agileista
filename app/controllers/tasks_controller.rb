@@ -50,8 +50,7 @@ class TasksController < AbstractSecurityController
   end
 
   def update_burndowns
-    calculate_todays_burndown(@task.sprint)
-    calculate_tomorrows_burndown(@task.sprint)
-    calculate_burndown_points
+    Burndown.calculate_today(@task.sprint)
+    Burndown.calculate_tomorrow(@task.sprint)
   end
 end

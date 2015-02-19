@@ -39,23 +39,7 @@ class AbstractSecurityController < ApplicationController
     current_person.scrum_master_for?(@project) ? true : (redirect_to project_backlog_index_path(@project) and return false)
   end
 
-  def calculate_todays_burndown(sprint)
-    return if sprint.nil?
-    return unless sprint.start_at.to_date == Date.today
-    CalculateBurnWorker.perform_async(Date.today, sprint.id)
-  end
-
-  def calculate_tomorrows_burndown(sprint)
-    return if sprint.nil?
-    CalculateBurnWorker.perform_async(Date.tomorrow, sprint.id)
-  end
-
-  def calculate_end_burndown(sprint)
-    return if sprint.nil?
-    CalculateBurnWorker.perform_async(1.day.from_now(sprint.end_at).to_date, sprint.id)
-  end
-
-  def calculate_burndown_points
+  def load_charts
     return nil unless @sprint
     burndowns = @sprint.burndowns
     @chart_data = burndowns.collect {|burn| {date: burn.created_on.iso8601, hours_left: burn.hours_left, story_points_complete: burn.story_points_complete, story_points_remaining: burn.story_points_remaining}}

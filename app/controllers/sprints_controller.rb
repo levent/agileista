@@ -3,6 +3,8 @@ class SprintsController < AbstractSecurityController
   before_action :must_be_account_holder, only: [:set_stats]
   before_action :iteration_length_must_be_specified
   before_action :sprint_must_exist, only: [:show, :review, :edit, :plan, :update, :destroy, :set_stats]
+  before_action :load_charts, only: [:show, :review]
+  after_action :calculate_burndowns, only: [:show, :review]
 
   def index
     store_location
@@ -15,15 +17,11 @@ class SprintsController < AbstractSecurityController
   def show
     @task_board = TaskBoard.new(@sprint)
     store_location
-    calculate_burndown_points
     @uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@sprint.id}")
-    calculate_burndown_if_needed(@sprint)
   end
 
   def review
     store_location
-    calculate_burndown_if_needed(@sprint)
-    calculate_burndown_points
   end
 
   def set_stats
@@ -88,12 +86,12 @@ class SprintsController < AbstractSecurityController
     end
   end
 
-  def calculate_burndown_if_needed(sprint)
-    if sprint && sprint.current?
-      calculate_todays_burndown(sprint)
-      calculate_tomorrows_burndown(sprint)
-    elsif sprint.finished?
-      calculate_end_burndown(sprint)
+  def calculate_burndowns
+    if @sprint && @sprint.current?
+      Burndown.calculate_today(@sprint)
+      Burndown.calculate_tomorrow(@sprint)
+    elsif @sprint.finished?
+      Burndown.calculate_end(@sprint)
     end
   end
 
