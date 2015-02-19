@@ -2,7 +2,7 @@ class SprintsController < AbstractSecurityController
 
   before_action :must_be_account_holder, only: [:set_stats]
   before_action :iteration_length_must_be_specified
-  before_action :sprint_must_exist, only: [:show, :edit, :plan, :update, :destroy, :set_stats]
+  before_action :sprint_must_exist, only: [:show, :review, :edit, :plan, :update, :destroy, :set_stats]
 
   def index
     store_location
@@ -20,9 +20,7 @@ class SprintsController < AbstractSecurityController
     calculate_burndown_if_needed(@sprint)
   end
 
-  # TODO: Refactor this into using TaskBoard object
   def review
-    @sprint = @project.sprints.where(id: params[:id]).includes(user_stories: :acceptance_criteria).limit(1).first
     store_location
     calculate_burndown_if_needed(@sprint)
     calculate_burndown_points

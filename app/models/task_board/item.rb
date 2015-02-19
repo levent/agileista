@@ -1,3 +1,4 @@
+# Represents a user story and its three types of tasks on a task board
 class TaskBoard::Item
   attr_accessor :user_story
 
