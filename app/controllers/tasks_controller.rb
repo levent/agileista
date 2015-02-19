@@ -2,6 +2,7 @@ class TasksController < AbstractSecurityController
   before_action :set_user_story
   before_action :set_task, except: [:create]
   before_action :set_sprint, only: [:complete, :create, :renounce, :claim]
+  before_action :load_charts, except: [:destroy]
   after_action :update_burndowns, except: [:destroy]
 
   def create
