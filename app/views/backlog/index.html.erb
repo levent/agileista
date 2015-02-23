@@ -22,12 +22,12 @@
 
   <div class="row">
     <div class="columns large-24 small-24 medium-24">
-      <div id="backlog-items" data-project="<%= @project.id %>" data-velocity="<%= @velocity %>">
         <%= form_tag destroy_multiple_project_backlog_index_path(@project), method: :delete do %>
-          <%= render @user_stories %>
+          <div id="backlog-items" data-project="<%= @project.id %>" data-velocity="<%= @velocity %>">
+            <%= render @user_stories %>
+          </div>
           <%= submit_tag "Delete selected", data: {confirm: "Are you sure you want to delete multiple user stories?"}, class: "button small alert" %>
         <% end %>
-      </div>
     </div>
   </div>
   <hr>
