@@ -28,40 +28,22 @@ function setupTaskBoard(project_id, user_story_id) {
   var us_container = '#user_story_container_' + user_story_id;
   $(us_container).find('div.task-card').draggable({delay: 100, zIndex: 100});
 
-  $("#incomplete_"+user_story_id).droppable({
-    accept: us_container + ' div.task-card',
-    drop: function(event, props) {
-      $.ajax({
-        url: '/projects/' + project_id + '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/renounce',
-        type: 'POST',
-        data: { _method: 'PUT' },
-        dataType: 'jsonp'
-      });
-    }
-  });
+  var items_with_paths = {"#incomplete_": "/renounce",
+		          "#inprogress_": "/claim",
+		          "#complete_":   "/complete"};
 
-  $("#inprogress_"+user_story_id).droppable({
-    accept: us_container + ' div.task-card',
-    drop: function(event, props) {
-      $.ajax({
-        url: '/projects/' + project_id + '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/claim',
-        type: 'POST',
-        data: { _method: 'PUT' },
-        dataType: 'jsonp'
-      });
-    }
-  });
-
-  $("#complete_"+user_story_id).droppable({
-    accept: us_container + ' div.task-card',
-    drop: function(event, props) {
-      $.ajax({
-        url: '/projects/' + project_id + '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + '/complete',
-        type: 'POST',
-        data: { _method: 'PUT' },
-        dataType: 'jsonp'
-      });
-    }
+  $.each(items_with_paths, function(item, path) {
+    $(item + user_story_id).droppable({
+      accept: us_container + ' div.task-card',
+      drop: function(event, props) {
+        $.ajax({
+          url: '/projects/' + project_id + '/user_stories/' + user_story_id + '/tasks/' + props.draggable.attr('data-task') + path,
+          type: 'POST',
+          data: { _method: 'PUT' },
+          dataType: 'jsonp'
+        });
+      }
+    });
   });
 }
 
