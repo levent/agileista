@@ -1,8 +1,8 @@
-<% if Rails.env == "production" && ENV['google_analytics_tracking_id'] %>
+<% if Rails.env.production? && ENV['google_analytics_tracking_id'] %>
   <script type="text/javascript">
 
     var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', ENV['google_analytics_tracking_id']]);
+    _gaq.push(['_setAccount', '<%= ENV['google_analytics_tracking_id'] %>']);
     _gaq.push(['_trackPageview']);
 
     (function() {
