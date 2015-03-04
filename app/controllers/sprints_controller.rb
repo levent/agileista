@@ -17,7 +17,7 @@ class SprintsController < AbstractSecurityController
   def show
     @task_board = TaskBoard.new(@sprint)
     store_location
-    @uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}sprint#{@sprint.id}")
+    @uid = generate_hexdigest('sprint', @sprint.id)
   end
 
   def review

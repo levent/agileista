@@ -4,7 +4,7 @@ class UserStoriesController < AbstractSecurityController
 
   def estimate
     json = { estimator: current_person.name, estimator_id: current_person.id, story_points: params[:user_story][:story_points] }.to_json
-    uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}poker#{@project.id}#{@user_story.id}")
+    uid = generate_hexdigest('poker', "#{@project.id}:#{@user_story.id}")
     REDIS.publish "pubsub.#{uid}", json
   end
 
@@ -45,7 +45,7 @@ class UserStoriesController < AbstractSecurityController
   end
 
   def edit
-    @uid = Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}poker#{@project.id}#{@user_story.id}")
+    @uid = generate_hexdigest('poker', "#{@project.id}:#{@user_story.id}")
     @user_story.acceptance_criteria.build
     @user_story.tasks.build
   end
