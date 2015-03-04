@@ -21,6 +21,7 @@ tmp/
 *.sassc
 .sass-cache
 public/assets
+.ruby-version
 
 .env
 
