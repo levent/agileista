@@ -35,7 +35,7 @@ gem 'figaro'
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'ruby-prof'
-  gem 'brakeman', :require => false
+  gem 'brakeman', require: false
   gem 'rack-mini-profiler'
   gem 'flamegraph'
 
