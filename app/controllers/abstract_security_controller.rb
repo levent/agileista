@@ -51,4 +51,8 @@ class AbstractSecurityController < ApplicationController
     message = ChatMessage.new(host, project: @project, sprint: @sprint, person: current_person, user_story: @user_story, task: @task).send(event)
     @project.integrations_notify(message)
   end
+
+  def generate_hexdigest(object_type, object_id)
+    Digest::SHA256.hexdigest("#{Agileista::Application.config.sse_token}#{object_type}#{object_id}")
+  end
 end
