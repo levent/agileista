@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe NotificationMailer, type: :model do
+RSpec.describe NotificationMailer, type: :mailer do
   before do
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.deliveries = []
