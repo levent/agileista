@@ -33,14 +33,14 @@ RSpec.describe SprintMailer, type: :mailer do
         html_source = email.parts[1].body.raw_source
         expect(html_source).to include "There are no complete stories."
         expect(html_source).to include "There are no incomplete stories."
-        expect(html_source).to include "There are no stories in progress."
+        expect(html_source).to include "There are no in progress stories."
       end
 
       it "should send a relevant sprint summary (plain text)" do
         plain_source = email.parts[0].body.raw_source
         expect(plain_source).to include "There are no complete stories."
         expect(plain_source).to include "There are no incomplete stories."
-        expect(plain_source).to include "There are no stories in progress."
+        expect(plain_source).to include "There are no in progress stories."
       end
     end
 
