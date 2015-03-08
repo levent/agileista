@@ -7,37 +7,37 @@
     <h1>Project: <%= link_to @project.name, project_backlog_index_url(@project) %></h1>
     <h2>Sprint: <%= link_to @sprint.name, @sprint_url %></h1>
 
-    <h3>Complete stories:</h3>
     <% if @complete.any? %>
+      <h3>Complete stories:</h3>
       <ul>
         <% @complete.each do |us| %>
           <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %></li>
         <% end %>
       </ul>
     <% else %>
-      <p>There are no complete stories</p>
+      <p>There are no complete stories.</p>
     <% end %>
 
-    <h3>In progress:</h3>
     <% if @inprogress.any? %>
+      <h3>In progress:</h3>
       <ul>
         <% @inprogress.each do |us| %>
           <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %></li>
         <% end %>
       </ul>
     <% else %>
-      <p>There are no in progress stories</p>
+      <p>There are no stories in progress.</p>
     <% end %>
 
-    <h3>Available:</h3>
     <% if @incomplete.any? %>
+      <h3>Available:</h3>
       <ul>
         <% @incomplete.each do |us| %>
           <li><%= link_to "##{us.id}", project_user_story_url(@project, us) %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %></li>
         <% end %>
       </ul>
     <% else %>
-      <p>There are no incomplete stories</p>
+      <p>There are no incomplete stories.</p>
     <% end %>
 
     <small><a href="https://app.agileista.com/p/<%= @project.id %>/stop/<%= @unsubscribe_token %>">Click here to stop receiving these notifications.</a></small>

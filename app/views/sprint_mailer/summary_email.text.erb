@@ -4,19 +4,31 @@ Sprint: <%= @sprint.name %>
 <%= @sprint_url %>
 
 
+<% if @complete.any? %>
 Complete stories:
 <% @complete.each do |us| %>
   * #<%= us.id %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %>
 <% end %>
+<% else %>
+There are no complete stories.
+<% end %>
 
+<% if @inprogress.any? %>
 In progress:
 <% @inprogress.each do |us| %>
   * #<%= us.id %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %>
 <% end %>
+<% else %>
+There are no stories in progress.
+<% end %>
 
+<% if @incomplete.any? %>
 Available:
 <% @incomplete.each do |us| %>
   * #<%= us.id %> <%= us.definition %> - <%= pluralize(us.story_points, 'point') %>
+<% end %>
+<% else %>
+There are no incomplete stories.
 <% end %>
 
 
