@@ -15,7 +15,7 @@
         <% end %>
       </ul>
     <% else %>
-      <p>There are no complete stories.</p>
+      <h3>There are no complete stories.</h3>
     <% end %>
 
     <% if @inprogress.any? %>
@@ -26,7 +26,7 @@
         <% end %>
       </ul>
     <% else %>
-      <p>There are no stories in progress.</p>
+      <h3>There are no in progress stories.</h3>
     <% end %>
 
     <% if @incomplete.any? %>
@@ -37,7 +37,7 @@
         <% end %>
       </ul>
     <% else %>
-      <p>There are no incomplete stories.</p>
+      <h3>There are no incomplete stories.</h3>
     <% end %>
 
     <small><a href="https://app.agileista.com/p/<%= @project.id %>/stop/<%= @unsubscribe_token %>">Click here to stop receiving these notifications.</a></small>
