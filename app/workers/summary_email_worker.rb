@@ -1,10 +1,5 @@
 class SummaryEmailWorker
   include Sidekiq::Worker
-  include Sidetiq::Schedulable
-
-  recurrence do
-    daily.hour_of_day(18)
-  end
 
   def perform
     TeamMember.where(deleted_at: nil, notify_by_email: true).each do |tm|
