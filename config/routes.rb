@@ -1,5 +1,4 @@
 require 'sidekiq/web'
-require 'sidetiq/web'
 
 Agileista::Application.routes.draw do
   constraint = lambda { |request| request.env["warden"].authenticate? && request.env['warden'].user.admin? }
