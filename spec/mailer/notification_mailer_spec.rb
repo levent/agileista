@@ -18,7 +18,7 @@ RSpec.describe NotificationMailer, type: :mailer do
       expect(email.to).to eq [@invitation.email]
       expect(email.from).to eq ['notifications@agileista.local']
       expect(email.subject).to eq "[#{@invitation.project.name}] You have been invited to join this project"
-      expect(email.body).to include "You have been invited to join the project '#{@invitation.project.name.humanize}' on Agileista."
+      expect(email.body).to include "You have been invited to join the project '#{@invitation.project.name}' on Agileista."
     end
   end
 end
