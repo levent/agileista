@@ -10,7 +10,7 @@ RSpec.feature 'Listing projects', type: :feature do
 
   it "listing when only one project" do
     visit '/projects'
-    expect(page).to have_content @project.name.humanize
+    expect(page).to have_content @project.name
     expect(current_path).to eq '/projects'
   end
 

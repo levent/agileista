@@ -7,7 +7,7 @@ class TeamMembersController < AbstractSecurityController
       redirect_to project_backlog_index_path(@project) and return false
     end
     if @team_member.destroy
-      flash[:notice] = "#{@team_member.person.name} removed from #{@project.name.humanize}"
+      flash[:notice] = "#{@team_member.person.name} removed from #{@project.name}"
       redirect_to project_people_path(@project)
     end
   end
