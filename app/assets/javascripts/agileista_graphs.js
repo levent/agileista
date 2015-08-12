@@ -32,6 +32,7 @@ var AgileistaGraphs = (function(){
       var xAxis = d3.svg.axis()
                     .scale(x)
                     .ticks(d3.time.days, numTickDays)
+                    .tickFormat(d3.time.format('%a %e'))
                     .orient("bottom");
 
       var yAxis = d3.svg.axis()
