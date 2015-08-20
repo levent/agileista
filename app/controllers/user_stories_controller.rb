@@ -62,6 +62,9 @@ class UserStoriesController < AbstractSecurityController
       render 'edit' and return false
     end
     redirect_back_or(project_backlog_index_path(@project))
+  rescue ActiveRecord::StaleObjectError
+    flash.now[:error] = "Another person has just updated that record"
+    render 'edit'
   end
 
   def plan
@@ -115,7 +118,15 @@ class UserStoriesController < AbstractSecurityController
   end
 
   def user_story_params
-    params[:user_story].permit(:definition, :story_points, :stakeholder, :cannot_be_estimated, :description, { acceptance_criteria_attributes: [:id, :detail, :_destroy]}, {tasks_attributes: [:id, :definition, :description, :_destroy]})
+    params[:user_story].permit(
+      :lock_version,
+      :definition,
+      :story_points,
+      :stakeholder,
+      :cannot_be_estimated,
+      :description,
+      acceptance_criteria_attributes: [:id, :detail, :_destroy],
+      tasks_attributes: [:id, :definition, :description, :_destroy])
   end
 
   def save_or_close_path(commit_param)
