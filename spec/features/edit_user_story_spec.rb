@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.feature 'Editing a user story', type: :feature do
+RSpec.feature "Editing a user story", type: :feature do
 
   before do
     @user = create_person
@@ -11,10 +11,20 @@ RSpec.feature 'Editing a user story', type: :feature do
 
   it "edits a user story" do
     visit "/projects/#{@project.id}/user_stories/#{@user_story.id}/edit"
-    fill_in 'user_story_definition', :with => 'As a user I want beef to eat'
-    click_button 'Save and Close'
-    expect(page).to have_content 'User story updated successfully'
-    expect(page).to have_content 'As a user I want beef to eat'
+    fill_in "user_story_definition", with: "As a user I want beef to eat"
+    click_button "Save and Close"
+    expect(page).to have_content "User story updated successfully"
+    expect(page).to have_content "As a user I want beef to eat"
+  end
+
+  it "fails if someone else edits in the meantime" do
+    error = ActiveRecord::StaleObjectError.new(@user_story, :update)
+    allow_any_instance_of(UserStory).
+      to receive(:update_attributes).and_raise(error)
+    visit "/projects/#{@project.id}/user_stories/#{@user_story.id}/edit"
+    fill_in "user_story_definition", with: "As a user I want beef to eat"
+    click_button "Save and Close"
+    expect(page).to have_content "Another person has just updated that record"
   end
 
   it "should prefill stakeholder" do
