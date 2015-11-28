@@ -5,6 +5,7 @@ env: COVERALLS=true
 rvm:
  - 2.2.1
  - 2.2.2
+ - 2.2.3
 before_script:
  - cp config/database.yml.travis config/database.yml
  - cp config/application.yml.example config/application.yml
