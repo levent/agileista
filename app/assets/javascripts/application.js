@@ -12,9 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.sortable
-//= require jquery.ui.draggable
-//= require jquery.ui.droppable
+//= require jquery-ui/sortable
+//= require jquery-ui/draggable
+//= require jquery-ui/droppable
 //= require foundation/foundation
 //= require foundation/foundation.topbar
 //= require foundation/foundation.reveal

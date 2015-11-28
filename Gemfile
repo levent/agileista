@@ -25,7 +25,7 @@ gem 'slack-notifier'
 
 gem 'sass-rails',   '~> 4.0.5'
 
-gem 'foundation-rails'
+gem 'foundation-rails', '5.2.3.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
