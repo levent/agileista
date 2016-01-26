@@ -16,6 +16,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'unicorn'
 gem 'rack-timeout'
+gem 'redis-namespace'
 gem 'sidekiq'
 gem 'whenever', require: false
 # if you require 'sinatra' you get the DSL extended to Object
