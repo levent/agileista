@@ -38,6 +38,7 @@ group :development do
   gem 'brakeman', require: false
   gem 'rack-mini-profiler'
   gem 'flamegraph'
+  gem 'stackprof'
 
   gem 'uglifier', '>= 1.3.0'
   gem 'spring'
