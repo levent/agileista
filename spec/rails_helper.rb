@@ -57,7 +57,7 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   Capybara.default_host = "http://app.agileista.local"
   config.infer_spec_type_from_file_location!
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include SpecHelpers::ModelsHelper
   config.include Warden::Test::Helpers
   Warden.test_mode!
