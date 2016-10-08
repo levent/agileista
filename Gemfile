@@ -18,8 +18,6 @@ gem 'unicorn'
 gem 'rack-timeout'
 gem 'sidekiq'
 gem 'whenever', require: false
-# if you require 'sinatra' you get the DSL extended to Object
-gem 'sinatra', '>= 1.3.0', require: nil
 gem 'hipchat'
 gem 'slack-notifier'
 
