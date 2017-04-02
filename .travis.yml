@@ -4,7 +4,11 @@ cache: bundler
 env: COVERALLS=true
 rvm:
  - 2.2.3
- - 2.3.1
+ - 2.3.3
+ - 2.4.1
+matrix:
+  allow_failures:
+    - rvm: 2.4.1
 before_script:
  - cp config/database.yml.travis config/database.yml
  - cp config/application.yml.example config/application.yml
