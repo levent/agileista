@@ -16,7 +16,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'unicorn'
 gem 'rack-timeout'
-gem 'sidekiq'
+gem 'sidekiq', '~> 4'
 gem 'whenever', require: false
 gem 'hipchat'
 gem 'slack-notifier'
