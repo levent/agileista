@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.7.1'
+gem 'rails', '4.2.8'
 
 gem 'pg'
 gem 'yajl-ruby'
@@ -16,7 +16,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'unicorn'
 gem 'rack-timeout'
-gem 'sidekiq'
+gem 'sidekiq', '~> 4'
 gem 'whenever', require: false
 gem 'hipchat'
 gem 'slack-notifier'
